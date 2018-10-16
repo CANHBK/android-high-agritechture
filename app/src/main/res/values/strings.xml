@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">GlassHouse</string>
+    <string name="tong_quan">Tổng quan</string>
+    <string name="bieu_do">Biểu đồ</string>
+    <string name="thong_bao">Thông báo</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="setting">Setting</string>
+    <string name="log_out">Log out</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="more">More</string>
+
+    <string name="sign_up">Sign Up</string>
+    <string name="full_name">Full Name</string>
+    <string name="password">Password</string>
+    <string name="switch_to_signin">Already Register? Sign in here</string>
+    <string name="sign_in">Sign In</string>
+    <string name="switch_sign_up">New User? Create Account</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="noti">notification</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="glass_house">Glass House</string>
+    <string name="email">Email</string>
+</resources>
