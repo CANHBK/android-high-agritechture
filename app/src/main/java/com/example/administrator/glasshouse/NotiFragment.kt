@@ -8,17 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 
 
-
 /**
  * A simple [Fragment] subclass.
  *
  */
-class OverviewFragment : Fragment() {
+class NotiFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.overview_fragment_layout, container, false)
-        return view
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_noti, container, false)
     }
 
 

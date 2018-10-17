@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_explode"
+        android:id="@+id/navi_overview"
         android:icon="@drawable/ic_content_paste_black_24dp"
         android:title="@string/tong_quan" />
 
     <item
-        android:id="@+id/navigation_favorite"
+        android:id="@+id/navi_chart"
         android:icon="@drawable/ic_assessment_black_24dp"
         android:title="@string/bieu_do" />
 
     <item
-        android:id="@+id/navigation_history"
+        android:id="@+id/navi_noti"
         android:icon="@drawable/ic_notifications_active_black_24dp"
         android:title="@string/thong_bao" />
 </menu>

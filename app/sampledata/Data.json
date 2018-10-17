@@ -1,0 +1,11 @@
+{
+  "Temperature": [
+    {"thu":"Hai","temp": 27},
+    {"thu":"Ba","temp": 30},
+    {"thu":"Tu","temp": 33},
+    {"thu":"Năm","temp": 27},
+    {"thu":"Sáu","temp": 20},
+    {"thu":"Bảy","temp": 19},
+    {"thu":"Chủ nhật","temp": 26}
+  ]
+}

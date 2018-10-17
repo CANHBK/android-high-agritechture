@@ -10,7 +10,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="more">More</string>
-
     <string name="sign_up">Sign Up</string>
     <string name="full_name">Full Name</string>
     <string name="password">Password</string>
@@ -24,4 +23,20 @@
     <string name="last_name">Last Name</string>
     <string name="glass_house">Glass House</string>
     <string name="email">Email</string>
+
+    <string-array name="Time">
+        <item >Ngày</item>
+        <item >Tuần</item>
+        <item >Tháng</item>
+        <item >Năm</item>
+    </string-array>
+
+    <string-array name="Parameter">
+        <item>Nhiệt độ</item>
+        <item>Độ ẩm</item>
+        <item>Ánh sáng</item>
+        <item>Độ pH</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
