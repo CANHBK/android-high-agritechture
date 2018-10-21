@@ -1,8 +1,11 @@
-package com.example.administrator.glasshouse
+package com.example.administrator.glasshouse.Adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.example.administrator.glasshouse.ChartFragment
+import com.example.administrator.glasshouse.NotiFragment
+import com.example.administrator.glasshouse.OverviewFragment
 
 class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {

@@ -12,7 +12,7 @@ import org.angmarch.views.NiceSpinner
 class ChartFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.chart_fragment_layout, container, false)
+        val view = inflater.inflate(R.layout.fragment_chart, container, false)
         val spinPara = view.findViewById(R.id.spinThongSo) as NiceSpinner
         val spintime = view.findViewById(R.id.spinTime) as NiceSpinner
         val chart = view.findViewById(R.id.chart) as LineChart

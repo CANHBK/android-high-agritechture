@@ -1,0 +1,9 @@
+{
+  "OverView_Check_1": [
+    {"temp":"20","hummi":"30%","light":"109 lx","pin":"15%"},
+    {"temp":"21","hummi":"40%","light":"209 lx","pin":"25%"},
+    {"temp":"22","hummi":"50%","light":"309 lx","pin":"35%"},
+    {"temp":"23","hummi":"60%","light":"409 lx","pin":"45%"},
+    {"temp":"24","hummi":"70%","light":"509 lx","pin":"100%"}
+  ]
+}

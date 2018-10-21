@@ -1,18 +1,20 @@
 package com.example.administrator.glasshouse
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
+import com.example.administrator.glasshouse.Adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.chart_fragment_layout.*
 import kotlinx.android.synthetic.main.main_screen.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         // tạo hàm onClick cho bottom navigation
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        //tạo hàm onClick cho navigation
+        nav_view.setNavigationItemSelectedListener(this)
 
         // tạo adapter cho viewpager
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
@@ -54,10 +59,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.itProfile -> {
+                val intent = Intent(this@MainActivity,ProfileActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return true
+    }
+
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
