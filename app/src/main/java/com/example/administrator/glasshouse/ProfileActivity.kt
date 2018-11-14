@@ -14,5 +14,9 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar!!.title = ""
         // Cài đặt nút back
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        txtFullName.setOnClickListener {
+            switcherName.showNext()
+        }
     }
 }

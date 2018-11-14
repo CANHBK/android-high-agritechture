@@ -8,9 +8,9 @@ import android.widget.TextView
 import com.example.administrator.glasshouse.ModelTest.Datacheck_2
 import com.example.administrator.glasshouse.R
 
-class RecyclerMultiAdapter(val dataList: ArrayList<Datacheck_2>) : RecyclerView.Adapter<RecyclerMultiAdapter.ViewHolder>() {
+class MultiAdapter(val dataList: ArrayList<Datacheck_2>) : RecyclerView.Adapter<MultiAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerMultiAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultiAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemView = layoutInflater.inflate(R.layout.item_row_multi, parent, false)
         return ViewHolder(itemView)

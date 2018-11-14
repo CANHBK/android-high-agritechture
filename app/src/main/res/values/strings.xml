@@ -31,6 +31,14 @@
         <item>Năm</item>
     </string-array>
 
+    <string-array name="Response">
+        <item>15 mins</item>
+        <item>30 mins</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>24 hours</item>
+    </string-array>
+
     <string-array name="Parameter">
         <item>Nhiệt độ</item>
         <item>Độ ẩm</item>

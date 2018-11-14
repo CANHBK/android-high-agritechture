@@ -86,47 +86,55 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
+                    android:gravity="center"
                     android:text="Full Name:"
                     android:textColor="@color/gray"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
-                    android:id="@+id/txtFullName"
+                <TextSwitcher
+                    android:id="@+id/switcherName"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="Bùi Quang Duy" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/txtFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Bùi Quang Duy"
+                        android:clickable="true"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:focusable="true" />
+                    <EditText
+                        android:id="@+id/edtFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:textSize="15sp"
+                        android:inputType="text" />
+                </TextSwitcher>
 
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:text="Age:"
@@ -134,64 +142,81 @@
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
+                <TextSwitcher
+                    android:id="@+id/switcherAge"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="20" />
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/txtAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="20"
+                        android:clickable="true"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:focusable="true" />
+                    <EditText
+                        android:id="@+id/edtAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:textSize="15sp"
+                        android:inputType="text" />
+                </TextSwitcher>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
+                    android:gravity="center"
                     android:text="Phone Number:"
                     android:textColor="@color/gray"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
+                <TextSwitcher
+                    android:id="@+id/switcherPhone"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="039 425 9898" />
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/txtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="039 425 9898"
+                        android:clickable="true"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:focusable="true" />
+                    <EditText
+                        android:id="@+id/edtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:textSize="15sp"
+                        android:inputType="phone" />
+                </TextSwitcher>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:text="Native country:"
@@ -199,32 +224,40 @@
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
+                <TextSwitcher
+                    android:id="@+id/switcherCountry"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="Chí Linh, Hải Dương" />
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/txtCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Chí Linh, Hải Dương"
+                        android:clickable="true"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:focusable="true" />
+                    <EditText
+                        android:id="@+id/edtCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:textSize="15sp"
+                        android:inputType="text" />
+                </TextSwitcher>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:text="Address:"
@@ -232,65 +265,67 @@
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
-                <TextView
+                <TextSwitcher
+                    android:id="@+id/switcherAddress"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="Hai Bà Trưng, Hà Nội" />
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/txtAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Hai Bà Trưng, Hà Nội"
+                        android:clickable="true"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:focusable="true" />
+                    <EditText
+                        android:id="@+id/edtAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:textSize="15sp"
+                        android:inputType="text" />
+                </TextSwitcher>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:gravity="center"
-                    android:text="Numbers of Node:"
+                    android:text="Numbers of Gate:"
                     android:textColor="@color/gray"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
+                    android:id="@+id/txtGateNumber"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:text="3"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="3" />
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:text="Farm Size:"
@@ -300,30 +335,24 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:text="200ha"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="200ha" />
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
+                    android:textSize="20sp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:gravity="center"
                     android:text="Created at:"
@@ -333,20 +362,25 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:text="01/01/2018"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:text="01/01/2018" />
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_build_black_24dp"/>
+                    android:textSize="20sp" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnProfileChange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Submit"
+                android:textSize="20sp"
+                android:background="@drawable/button_bg"/>
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

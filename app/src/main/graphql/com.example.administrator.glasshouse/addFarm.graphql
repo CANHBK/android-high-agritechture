@@ -1,0 +1,9 @@
+mutation AddFarm(
+  $data : FarmInput)
+{
+  addFarm(data:$data)
+  {
+    idHost
+    name
+  }
+}

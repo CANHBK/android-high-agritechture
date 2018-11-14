@@ -1,0 +1,5 @@
+mutation AddTemp($value:Int!){
+  addTemperature(value:$value){
+    value
+  }
+}

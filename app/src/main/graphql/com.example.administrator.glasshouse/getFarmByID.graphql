@@ -1,0 +1,6 @@
+query GetFarmById($idHost : String){
+  farms(idHost:$idHost){
+    idHost
+    name
+  }
+}

@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.administrator.glasshouse.ModelTest.Datacheck_1
 import com.example.administrator.glasshouse.R
+import org.angmarch.views.NiceSpinner
 
 
-class RecyclerOverviewAdapter(val dataList: ArrayList<Datacheck_1>, val context: Context) : RecyclerView.Adapter<RecyclerOverviewAdapter.ViewHolder>() {
+class OverviewAdapter(val dataList: ArrayList<Datacheck_1>, val context: Context) : RecyclerView.Adapter<OverviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,15 +28,15 @@ class RecyclerOverviewAdapter(val dataList: ArrayList<Datacheck_1>, val context:
         holder.txtDoAm.text = dataList[position].hummi
         holder.txtTemp.text = dataList[position].temp
         holder.txtLight.text = dataList[position].light
-        holder.txtPin.text = dataList[position].pin.toString()
+        holder.txtPin.text = dataList[position].pin.toString()+"%"
         holder.progessbar.progress = dataList[position].pin
         holder.txtNodeName.text = dataList[position].nodeName
         holder.setNode.setOnClickListener {
             showSetNodeDialog(context, holder)
         }
-        holder.itemView.setOnClickListener {
-            setRelayDialog(context)
-        }
+//        holder.itemView.setOnClickListener {
+//            setRelayDialog(context)
+//        }
     }
 
     private fun setRelayDialog(context: Context) {
@@ -63,10 +64,18 @@ class RecyclerOverviewAdapter(val dataList: ArrayList<Datacheck_1>, val context:
         val btnCancel = dialog.findViewById<Button>(R.id.btnCancel)
         val btnOk = dialog.findViewById<Button>(R.id.btnOk)
         val edtSetNode = dialog.findViewById<EditText>(R.id.edtSetNode)
+        val spinReponse = dialog.findViewById<View>(R.id.spinResponse) as NiceSpinner
+
+        val responseAdapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(context, R.array.Response, android.R.layout.simple_spinner_item)
+        responseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinReponse.setAdapter(responseAdapter)
+
+        edtSetNode.setText(holder.txtNodeName.text.toString())
+
         btnOk.setOnClickListener {
             val nodeName = edtSetNode.text.toString()
             holder.txtNodeName.text = nodeName
-            Toast.makeText(context, "Đổi tên Node thành công", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Setting Node successfully", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
         btnCancel.setOnClickListener {
@@ -82,8 +91,8 @@ class RecyclerOverviewAdapter(val dataList: ArrayList<Datacheck_1>, val context:
         val txtTemp = item.findViewById<View>(R.id.txtTemp) as TextView
         val txtDoAm = item.findViewById<View>(R.id.txtDoAm) as TextView
         val txtLight = item.findViewById<View>(R.id.txtLight) as TextView
-        val txtPin = item.findViewById<View>(R.id.txtProgress) as TextView
-        val progessbar = item.findViewById<View>(R.id.progressBar) as ProgressBar
+        val txtPin = item.findViewById<View>(R.id.txtPin) as TextView
+        val progessbar = item.findViewById<View>(R.id.battery) as ProgressBar
         val setNode: Button = item.findViewById<View>(R.id.btnSetDevice) as Button
 
     }
