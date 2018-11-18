@@ -1,0 +1,8 @@
+mutation AddGateMutation($userID : String,$idGate: String){
+  addGateWay(userId:$userID,serviceTag:$idGate){
+    users{
+      id
+    }
+    serviceTag
+  }
+}

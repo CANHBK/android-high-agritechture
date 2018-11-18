@@ -1,0 +1,12 @@
+mutation AddNodeSensorMutation($nodeSensorTag: Int,$serviceTag:String){
+  addNodeSensor(nodeSensorTag: $nodeSensorTag , serviceTag :$serviceTag){
+    serviceTag
+  }
+}
+
+
+mutation AddNodeRelayMutation($nodeRelayTag: Int,$serviceTag:String){
+  addNodeRelay(nodeRelayTag: $nodeRelayTag , serviceTag :$serviceTag){
+    serviceTag
+  }
+}

@@ -6,7 +6,7 @@
         android:id="@+id/navi_overview"
         android:icon="@drawable/ic_content_paste_black_24dp"
         app:showAsAction="ifRoom"
-        android:title="Overview" />
+        android:title="Sensor" />
 
     <item
         android:id="@+id/navi_relay"

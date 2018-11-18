@@ -1,0 +1,11 @@
+query GetSensorQuery($serviceTag:String){
+  gateWay(serviceTag: $serviceTag){
+    nodeSensor{
+      nodeSensorTag
+      temperature
+      humidity
+      battery
+      light
+    }
+  }
+}

@@ -1,5 +1,4 @@
-mutation AddFarm(
-  $data : FarmInput)
+mutation AddFarmMutation($data : FarmInput)
 {
   addFarm(data:$data)
   {

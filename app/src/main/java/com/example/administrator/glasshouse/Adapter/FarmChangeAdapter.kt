@@ -2,16 +2,14 @@ package com.example.administrator.glasshouse.Adapter
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.administrator.glasshouse.Config
+import com.example.administrator.glasshouse.Utils.Config
 import com.example.administrator.glasshouse.MainActivity
-import com.example.administrator.glasshouse.OverviewFragment
 import com.example.administrator.glasshouse.R
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -37,10 +35,9 @@ class FarmChangeAdapter(val areaList:ArrayList<String>, val context:Context) : R
             // Lưu ID Farm được chọn trong Shared
             val mSharedPreferences = context.getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
             val editor = mSharedPreferences.edit()
-            editor.putInt(Config.FarmId,position)
+            editor.putString(Config.GateId,areaList[position])
+            editor.putString(Config.FarmName,areaList[position])
             editor.apply()
-
-            intent.putExtra(Config.FarmName,areaList[position])
             context.startActivity(intent)
         }
     }

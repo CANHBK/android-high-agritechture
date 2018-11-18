@@ -11,9 +11,9 @@ import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
+import com.example.administrator.glasshouse.SupportClass.MyApolloClient
+import com.example.administrator.glasshouse.Utils.Config
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import okhttp3.internal.Util
-import org.w3c.dom.Text
 
 class SignInActivity : AppCompatActivity() {
 
@@ -39,20 +39,6 @@ class SignInActivity : AppCompatActivity() {
         }
 
         //getUsers()
-    }
-
-    private fun getUsers() {
-        MyApolloClient.getApolloClient().query(
-                GetAllUsersQuery.builder().build()
-        ).enqueue(object : ApolloCall.Callback<GetAllUsersQuery.Data>() {
-            override fun onFailure(e: ApolloException) {
-                Log.d("!user", e.message)
-            }
-
-            override fun onResponse(response: Response<GetAllUsersQuery.Data>) {
-                Log.d("!user", response.data()!!.users()!![0].id())
-            }
-        })
     }
 
     private fun sendToSignUp() {

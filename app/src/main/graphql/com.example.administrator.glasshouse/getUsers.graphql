@@ -1,6 +1,12 @@
-query GetAllUsers{
-  users{
+query getAllUserQuery{
+  allUsers{
     id
     email
+    name
+    gatePermission{
+      gateId
+      serviceTag
+      permission
+    }
   }
 }

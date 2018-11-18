@@ -3,16 +3,16 @@ package com.example.administrator.glasshouse.Adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.administrator.glasshouse.ChartFragment
-import com.example.administrator.glasshouse.NotiFragment
-import com.example.administrator.glasshouse.OverviewFragment
-import com.example.administrator.glasshouse.RelayFragment
+import com.example.administrator.glasshouse.Fragment.ChartFragment
+import com.example.administrator.glasshouse.Fragment.NotiFragment
+import com.example.administrator.glasshouse.Fragment.SensorFragment
+import com.example.administrator.glasshouse.Fragment.RelayFragment
 
-class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class ViewPagerFarmAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {
         when (position) {
             0 -> {
-                val fragmentOverview = OverviewFragment()
+                val fragmentOverview = SensorFragment()
                 return fragmentOverview
             }
             1 -> {

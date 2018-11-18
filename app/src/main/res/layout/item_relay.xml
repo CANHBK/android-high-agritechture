@@ -1,44 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content"
-    >
+    android:layout_gravity="center"
+    android:layout_height="150dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtRelayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Node Relay 1"
+        android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="8dp"
-        android:textAllCaps="true"
-        />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageButton
-            android:id="@+id/btnRelay1"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="4dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/custom_image_button_off"/>
-
-        <ImageButton
-            android:id="@+id/btnRelay2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/custom_image_button_off"/>
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/btnRelay1"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/custom_image_button_off"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/btnRelay2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/custom_image_button_off"
+        app:layout_constraintStart_toEndOf="@+id/btnRelay1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBtn1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRelay1"
+        app:layout_constraintEnd_toEndOf="@+id/btnRelay1"
+        app:layout_constraintStart_toStartOf="@+id/btnRelay1"
+        app:layout_constraintTop_toTopOf="@+id/btnRelay1" />
+
+    <ProgressBar
+        android:id="@+id/progressBtn2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRelay2"
+        app:layout_constraintEnd_toEndOf="@+id/btnRelay2"
+        app:layout_constraintStart_toStartOf="@+id/btnRelay2"
+        app:layout_constraintTop_toTopOf="@+id/btnRelay2" />
+
+</android.support.constraint.ConstraintLayout>

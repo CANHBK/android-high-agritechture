@@ -5,14 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
+import com.example.administrator.glasshouse.SupportClass.MyApolloClient
+import com.example.administrator.glasshouse.Utils.Config
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -36,15 +38,19 @@ class SignUpActivity : AppCompatActivity() {
             val email = edtEmail.text.toString()
             val pass = edtPass.text.toString()
             //if (!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
+            val check = !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(middleName)
+                                !TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)
+            if(check){
                 register(lastName, middleName, firstName, email, pass)
-//            } else {
-//                Toast.makeText(this@SignUpActivity,"Invalidated Email",Toast.LENGTH_SHORT).show()
-//            }
+            }
+            else {
+                Toast.makeText(this@SignUpActivity,"Some information is missing",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
 
-    private fun register(lastName: String, middleName: String?, firstName: String, email: String, pass: String) {
+    private fun register(lastName: String, middleName: String, firstName: String, email: String, pass: String) {
         MyApolloClient.getApolloClient().mutate(
                 RegisterMutation.builder()
                         .firstName(firstName)

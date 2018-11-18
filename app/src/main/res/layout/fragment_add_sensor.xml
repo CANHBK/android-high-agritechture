@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.AddSensorFragment">
+
+    <EditText
+        android:id="@+id/edtSensorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:hint="Add node sensor's name"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edtSensorID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="4dp"
+        android:hint="Add node sensor's ID"
+        android:inputType="number"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Or scan QR code to get ID"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="70dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="italic"/>
+
+    <ImageView
+        android:id="@+id/imgScanSensor"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="@drawable/ic_camera_alt_black_24dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginStart="150dp"/>
+
+    <Button
+        android:id="@+id/btnSubSensor"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="ADD RElay"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:background="@drawable/button_bg" />
+
+</FrameLayout>

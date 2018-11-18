@@ -1,8 +1,8 @@
 package com.example.administrator.glasshouse
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.CoordinatorLayout
@@ -10,15 +10,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.example.administrator.glasshouse.Adapter.FarmChangeAdapter
-import com.example.administrator.glasshouse.type.FarmInput
+import com.example.administrator.glasshouse.SupportClass.MyApolloClient
+import com.example.administrator.glasshouse.Utils.Config
 import kotlinx.android.synthetic.main.activity_area_change.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 
@@ -26,36 +24,38 @@ import kotlinx.android.synthetic.main.bottom_sheet.*
 class FarmChangeActivity : AppCompatActivity() {
 
     val listFarm: ArrayList<String> = ArrayList()
+    lateinit var mShared : SharedPreferences
+    lateinit var id : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_area_change)
 
         // Nhận ID người dùng từ SignIn/Sign Up
-        val mShared = getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
-        val id = mShared.getString(Config.UserId, null)
-        Log.d("!id", id!!.toString())
+        mShared = getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
+        id = mShared.getString(Config.UserId, "")!!
+        Log.d("!id", id)
         settingBottomSheet()
 
 
-        getFarmData(id)
+        getGateData(id)
         //Nếu có Data thì đổ lên RecyclerView đồng thời ableNoFarmViewGroup(false)
 
 
         // Nếu như Data rỗng thì hiện thị NoFarmView và set sự kiện Click cho imgAddFarm để add Farm
         imgAddFarm.setOnClickListener { it ->
-            sendToAddFarm()
+            sendToAddGate()
         }
 
         // Có thể thêm Farm ngay cả khi đã có những Farm trước đấy r
         fabBottomSheet.setOnClickListener {
-            sendToAddFarm()
+            sendToAddGate()
         }
 
     }
 
-    private fun sendToAddFarm() {
-        val intent = Intent(this@FarmChangeActivity,AddFarmActivity::class.java)
+    private fun sendToAddGate() {
+        val intent = Intent(this@FarmChangeActivity,AddGateActivity::class.java)
         startActivity(intent)
     }
 
@@ -66,26 +66,26 @@ class FarmChangeActivity : AppCompatActivity() {
 
 
     // hàm Query lấy dữ liệu các Farm theo UserID
-    private fun getFarmData(id: String) {
+    private fun getGateData(id: String) {
         MyApolloClient.getApolloClient().query(
-                GetFarmByIdQuery.builder()
-                        .idHost(id)
+                GetUserByIDQuery.builder()
+                        .id(id)
                         .build()
-        ).enqueue(object : ApolloCall.Callback<GetFarmByIdQuery.Data>() {
+        ).enqueue(object : ApolloCall.Callback<GetUserByIDQuery.Data>() {
             override fun onFailure(e: ApolloException) {
                 Log.d("!get", e.message)
             }
 
-            override fun onResponse(response: Response<GetFarmByIdQuery.Data>) {
+            override fun onResponse(response: Response<GetUserByIDQuery.Data>) {
 //                Log.d("!get", response.data()!!.farms()!![0].name())
                 Log.d("!here", "Có vào đây")
 
-                if (!response.data()!!.farms()!!.isEmpty()) {
+                if (!response.data()!!.user()!!.gatePermission!!.isEmpty()) {
                     this@FarmChangeActivity.runOnUiThread {
                         // Lấy dữ liệu và đổ vào RecyclerView
-                        val list = response.data()!!.farms()!!
+                        val list = response.data()!!.user!!.gatePermission!!
                         for (i in 0..(list.size - 1)) {
-                            listFarm.add(list[i].name()!!)
+                            listFarm.add(list[i].serviceTag()!!)
                             //Toast.makeText(this@FarmChangeActivity,"NotHere",Toast.LENGTH_LONG).show()
                             val layoutManager = GridLayoutManager(this@FarmChangeActivity, 3)
                             recy_changeArea.layoutManager = layoutManager

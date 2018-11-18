@@ -1,7 +1,7 @@
 mutation registerMutation(
-  $firstName : String,
-  $middleName : String,
-  $lastName : String,
+  $firstName : String!,
+  $middleName : String!,
+  $lastName : String!,
   $email : String!,
   $password : String!
 )

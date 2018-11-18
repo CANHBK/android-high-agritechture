@@ -1,4 +1,4 @@
-subscription TempSubcription{
+subscription TempSubscription{
   tempAdded{
     value
     createdAt

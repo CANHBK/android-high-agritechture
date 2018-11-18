@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -45,4 +46,34 @@
             app:menu="@menu/navi_bottom_menu" />
     </LinearLayout>
 
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fabmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="35dp"
+        app:layout_anchor="@+id/linearLayout"
+        app:layout_anchorGravity="right|bottom"
+        app:menu_backgroundColor="@android:color/transparent"
+        app:menu_fab_label=""
+        app:menu_openDirection="up"
+        app:menu_showShadow="true"
+        app:menu_fab_size="mini">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddSensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label ="Add Sensor"
+            android:src="@drawable/ic_motion_sensor"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddRelay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_label ="Add Relay"
+            android:src="@drawable/ic_locker"
+            app:fab_size="mini" />
+    </com.github.clans.fab.FloatingActionMenu>
 </android.support.design.widget.CoordinatorLayout>
