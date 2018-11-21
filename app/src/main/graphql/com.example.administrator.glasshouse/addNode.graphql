@@ -1,12 +1,15 @@
-mutation AddNodeSensorMutation($nodeSensorTag: Int,$serviceTag:String){
-  addNodeSensor(nodeSensorTag: $nodeSensorTag , serviceTag :$serviceTag){
+mutation AddNodeSensor($params : NodeEnvInput!){
+  addNodeEnv(params : $params){
     serviceTag
+    nodeEnv
+    name
   }
 }
 
-
-mutation AddNodeRelayMutation($nodeRelayTag: Int,$serviceTag:String){
-  addNodeRelay(nodeRelayTag: $nodeRelayTag , serviceTag :$serviceTag){
+mutation AddNodeControl($params : NodeControlInput!){
+  addNodeControl(params : $params){
     serviceTag
+    nodeControl
+    name
   }
 }

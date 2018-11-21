@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
@@ -13,37 +14,18 @@ import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.Utils.Config
-import com.example.administrator.glasshouse.type.FarmInput
-import kotlinx.android.synthetic.main.activity_add_farm.*
+import com.example.administrator.glasshouse.type.ServiceInput
+import kotlinx.android.synthetic.main.activity_add_gate.*
 
 class AddGateActivity : AppCompatActivity() {
 
     lateinit var mShared : SharedPreferences
     lateinit var id : String
-    lateinit var IdGate : String
-    override fun onStart() {
-        super.onStart()
-        Log.d("!check","OnStart")
-    }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("!check","OnResume")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("!check","OnDestroy")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("!check","OnPause")
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("!check","OnCreate")
-        setContentView(R.layout.activity_add_farm)
+        setContentView(R.layout.activity_add_gate)
         mShared = getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
         id = mShared.getString(Config.UserId, "Nope")!!
 
@@ -57,7 +39,12 @@ class AddGateActivity : AppCompatActivity() {
         btnAddFarmOk.setOnClickListener {
             val name = edtFarmName.text.toString()
             val idGate = edtIDGate.text.toString()
-            addGate(id,idGate)
+            if(!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(idGate)){
+                // Làm việc với bên Server để thêm tên Gate
+                addGate(idGate,name)
+            } else {
+                Toast.makeText(this@AddGateActivity,"All information must be filled",Toast.LENGTH_LONG).show()
+            }
         }
         imgQRcode.setOnClickListener { qrScan() }
     }
@@ -76,11 +63,15 @@ class AddGateActivity : AppCompatActivity() {
     }
 
     // Hàm khai báo khởi tạo Farm lên Server
-    private fun addGate(id: String, idGate: String) {
+    private fun addGate(idGate: String,name:String) {
+        val input = ServiceInput.builder()
+                .serviceTag(idGate)
+                .name(name)
+                .userId(id).build()
+        Log.d("!info","$id $idGate $name")
         MyApolloClient.getApolloClient().mutate(
                 AddGateMutation.builder()
-                        .userID(id)
-                        .idGate(idGate)
+                        .params(input)
                         .build()
         ).enqueue(object : ApolloCall.Callback<AddGateMutation.Data>() {
             override fun onFailure(e: ApolloException) {
@@ -89,10 +80,18 @@ class AddGateActivity : AppCompatActivity() {
 
             override fun onResponse(response: Response<AddGateMutation.Data>) {
                 //Bắt lỗi các trường hợp
-                Log.d("!add", response.data()!!.addGateWay()!!.serviceTag)
-                this@AddGateActivity.runOnUiThread{
-                    Toast.makeText(this@AddGateActivity,"Add Gate Succesfully",Toast.LENGTH_SHORT).show()
-                }
+                val check = response.data()!!.addGate()
+                if (check != null){
+                    Log.d("!add", response.data()!!.addGate()!!.serviceTag)
+                    this@AddGateActivity.runOnUiThread{
+                        Toast.makeText(this@AddGateActivity,"Add Gate Succesfully",Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@AddGateActivity,FarmChangeActivity::class.java)
+                        startActivity(intent)
+                    }
+                } else {
+                    this@AddGateActivity.runOnUiThread{
+                    Toast.makeText(this@AddGateActivity,response.errors()[0].message(),Toast.LENGTH_SHORT).show()
+                }}
             }
         })
     }

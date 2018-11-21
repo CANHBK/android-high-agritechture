@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="8dp"
-        android:text="Create a new farm"
+        android:text="Create a new gate"
         android:textAllCaps="true"
         android:padding="4dp"
         android:layout_marginBottom="4dp"
@@ -28,9 +28,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageSetAva"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_home"
         android:layout_marginTop="10dp"/>
 
@@ -47,12 +48,13 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="4dp"
-            android:hint="Tên Nông Trại"
+            android:hint="Tên Gate"
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="15sp" />
     </android.support.design.widget.TextInputLayout>
+
 
 
 

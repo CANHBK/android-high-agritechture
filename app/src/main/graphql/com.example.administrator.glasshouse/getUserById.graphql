@@ -1,8 +1,10 @@
 query GetUserByIDQuery($id:ID){
-  user(id:$id){
-    gatePermission{
-      permission
-      serviceTag
-    }
+  user(id: $id){
+    firstName
+    middleName
+    lastName
+    name
+    email
+    avatar
   }
 }

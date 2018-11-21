@@ -59,8 +59,8 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:background="@drawable/layout_bg"
                 android:contentDescription="@string/glass_house"
@@ -122,6 +122,41 @@
                         tools:ignore="Autofill" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/left_corner"
+                    android:padding="8dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_baseline_account_circle_24px"
+                    tools:ignore="ContentDescription" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <EditText
+                        android:id="@+id/edtMiddleName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/right_corner"
+                        android:hint="@string/middle_name"
+                        android:inputType="textPersonName"
+                        android:padding="8dp"
+                        tools:ignore="Autofill" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

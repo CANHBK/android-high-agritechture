@@ -11,13 +11,14 @@ import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.example.administrator.glasshouse.Model.NodeControlData
 import com.example.administrator.glasshouse.Model.RelayData
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.SettingRelayActivity
 import com.example.administrator.glasshouse.Utils.Config
 
 
-class RelayAdapter(val relayStatusRelays: ArrayList<RelayData>, val context: Context) : RecyclerView.Adapter<RelayAdapter.RelayViewholder>() {
+class RelayAdapter(val statusRelays: ArrayList<RelayData>, val context: Context) : RecyclerView.Adapter<RelayAdapter.RelayViewholder>() {
 
     var mAdapterCallBack: AdapterCallback
     lateinit var mSharedPreferences: SharedPreferences
@@ -34,15 +35,15 @@ class RelayAdapter(val relayStatusRelays: ArrayList<RelayData>, val context: Con
     }
 
     override fun getItemCount(): Int {
-        return relayStatusRelays.size
+        return statusRelays.size
     }
 
     override fun onBindViewHolder(holder: RelayViewholder, position: Int) {
-        var b1status = relayStatusRelays[position].b1Status
-        var b2status = relayStatusRelays[position].b2Status
-        val name = relayStatusRelays[position].nodeName
-        val relayTag = relayStatusRelays[position].serviceTag
-        var type: Int
+        var b1status = statusRelays[position].b1Status
+        var b2status = statusRelays[position].b2Status
+        val name = statusRelays[position].nodeName
+        val relayTag = statusRelays[position].nodeId
+        var type: Long
         checkStatusB1(holder.imgBut1, b1status)
         checkStatusB2(holder.imgBut2, b2status)
 
@@ -103,22 +104,15 @@ class RelayAdapter(val relayStatusRelays: ArrayList<RelayData>, val context: Con
         context.startActivity(intent)
     }
 
-    private fun saveSharedPreStatus(name: String, type: Int, relayTag: Int, status: Boolean) {
+    private fun saveSharedPreStatus(name: String, type: Long, relayTag: String, status: Boolean) {
         val editor = mSharedPreferences.edit()
         editor.putString(Config.RelayName, name)
-        editor.putInt(Config.RELAY_TYPE, type)
-        editor.putInt(Config.RELAY_TAG, relayTag)
+        editor.putLong(Config.RELAY_TYPE, type)
+        editor.putString(Config.RELAY_TAG, relayTag)
         if (status) editor.putString(Config.RELAY_STATE, "O")
         else editor.putString(Config.RELAY_STATE, "F")
         editor.apply()
     }
-//    private fun saveSharedPre(name:String,type : Int, relayTag : Int){
-//        val editor = mSharedPreferences.edit()
-//        editor.putString(Config.RelayName,name)
-//        editor.putInt(Config.RELAY_TYPE,type)
-//        editor.putInt(Config.RELAY_TAG,relayTag)
-//        editor.apply()
-//    }
 
     //Tạo một interface để Main activity có thể xử lý sự kiện trong Adapter
     //Reduce code trong adapter
@@ -138,6 +132,7 @@ class RelayAdapter(val relayStatusRelays: ArrayList<RelayData>, val context: Con
     private fun checkStatusB1(button: ImageButton, status: Boolean) {
         // Quy ước ID Quạt:0 ; Đèn:1 ; Bơm:2
         if (status) {
+            //button.visibility = View.GONE
             button.setBackgroundResource(R.drawable.custom_image_button_on)
             button.setImageResource(R.drawable.ic_fan)
         } else {
@@ -149,6 +144,7 @@ class RelayAdapter(val relayStatusRelays: ArrayList<RelayData>, val context: Con
     private fun checkStatusB2(button: ImageButton, status: Boolean) {
         // Quy ước ID Quạt:0 ; Đèn:1 ; Bơm:2
         if (status) {
+            //button.visibility = View.GONE
             button.setBackgroundResource(R.drawable.custom_image_button_on)
             button.setImageResource(R.drawable.ic_light_bulb)
         } else {

@@ -77,16 +77,16 @@ class ShareGateActivity : AppCompatActivity() {
                 GetAllUserQuery.builder().build()
         ).enqueue(object : ApolloCall.Callback<GetAllUserQuery.Data>() {
             override fun onResponse(response: Response<GetAllUserQuery.Data>) {
-                val users = response.data()!!.allUsers!!
+                val users = response.data()!!.allUsers()!!
                 for (user in users) {
                     val name = user.name()
                     val id = user.id()
                     val email = user.email()
-                    val listPermission = user.gatePermission!!
-                    val listServiceTag : ArrayList<String> = ArrayList()
-                    for (item in listPermission){
-                        listServiceTag.add(item.serviceTag!!)
-                    }
+//                    val listPermission = user.
+//                    val listServiceTag : ArrayList<String> = ArrayList()
+//                    for (item in listPermission){
+//                        listServiceTag.add(item.serviceTag!!)
+//                    }
                     Log.d("!getUser", name)
                     if (name != null) {
                         allNameList.add(name)

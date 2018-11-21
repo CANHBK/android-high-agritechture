@@ -10,10 +10,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.administrator.glasshouse.Utils.Config
 import com.example.administrator.glasshouse.MainActivity
+import com.example.administrator.glasshouse.Model.GateData
 import com.example.administrator.glasshouse.R
 import de.hdodenhof.circleimageview.CircleImageView
 
-class FarmChangeAdapter(val areaList:ArrayList<String>, val context:Context) : RecyclerView.Adapter<FarmChangeAdapter.ViewHolder>() {
+class FarmChangeAdapter(val areaList:ArrayList<GateData>, val context:Context) : RecyclerView.Adapter<FarmChangeAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.item_row_area,parent,false)
@@ -25,7 +26,7 @@ class FarmChangeAdapter(val areaList:ArrayList<String>, val context:Context) : R
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtFarm.text = areaList[position]
+        holder.txtFarm.text = areaList[position].name
         holder.imgFarm.setOnClickListener {
 //            val bundle = Bundle()
 //            bundle.putInt("ID",position)
@@ -35,8 +36,8 @@ class FarmChangeAdapter(val areaList:ArrayList<String>, val context:Context) : R
             // Lưu ID Farm được chọn trong Shared
             val mSharedPreferences = context.getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
             val editor = mSharedPreferences.edit()
-            editor.putString(Config.GateId,areaList[position])
-            editor.putString(Config.FarmName,areaList[position])
+            editor.putString(Config.GateId,areaList[position].id)
+            editor.putString(Config.FarmName,areaList[position].name)
             editor.apply()
             context.startActivity(intent)
         }

@@ -1,0 +1,15 @@
+query GetAllGateOfUserQuery($userID:ID!){
+  allGatesOfUser(userId:$userID){
+    userId
+    serviceTag{
+      group
+      name
+      serviceTag
+    }
+    permission{
+      tag
+      name
+      description
+    }
+  }
+}

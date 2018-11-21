@@ -1,6 +1,0 @@
-query GetLastestTempQuery{
-  temps{
-    value
-    createdAt
-  }
-}

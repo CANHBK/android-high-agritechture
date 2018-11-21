@@ -1,11 +1,8 @@
-query GetSensorQuery($serviceTag:String){
-  gateWay(serviceTag: $serviceTag){
-    nodeSensor{
-      nodeSensorTag
-      temperature
-      humidity
-      battery
-      light
-    }
+query AllSensorsQuery($params:AllSensorsInput!){
+  allSensors(params:$params){
+    serviceTag
+    nodeEnv
+    index
+    name
   }
 }

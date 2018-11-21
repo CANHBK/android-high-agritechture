@@ -1,0 +1,22 @@
+query NewEnviromentParams($params: NewEnvironmentParamsInput!){
+  newEnvironmentParams(params: $params){
+    serviceTag
+    nodeEnv
+    temperature{
+      value
+      createdAt
+    }
+    light{
+      value
+      createdAt
+    }
+    airHumidity{
+      value
+      createdAt
+    }
+    groundHumidity{
+      value
+      createdAt
+    }
+  }
+}

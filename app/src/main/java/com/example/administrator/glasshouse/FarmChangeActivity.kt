@@ -15,6 +15,7 @@ import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.example.administrator.glasshouse.Adapter.FarmChangeAdapter
+import com.example.administrator.glasshouse.Model.GateData
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.Utils.Config
 import kotlinx.android.synthetic.main.activity_area_change.*
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.bottom_sheet.*
 
 class FarmChangeActivity : AppCompatActivity() {
 
-    val listFarm: ArrayList<String> = ArrayList()
+    val listFarm: ArrayList<GateData> = ArrayList()
     lateinit var mShared : SharedPreferences
     lateinit var id : String
 
@@ -68,30 +69,32 @@ class FarmChangeActivity : AppCompatActivity() {
     // hàm Query lấy dữ liệu các Farm theo UserID
     private fun getGateData(id: String) {
         MyApolloClient.getApolloClient().query(
-                GetUserByIDQuery.builder()
-                        .id(id)
+                GetAllGateOfUserQuery.builder()
+                        .userID(id)
                         .build()
-        ).enqueue(object : ApolloCall.Callback<GetUserByIDQuery.Data>() {
+        ).enqueue(object : ApolloCall.Callback<GetAllGateOfUserQuery.Data>() {
             override fun onFailure(e: ApolloException) {
                 Log.d("!get", e.message)
             }
 
-            override fun onResponse(response: Response<GetUserByIDQuery.Data>) {
+            override fun onResponse(response: Response<GetAllGateOfUserQuery.Data>) {
 //                Log.d("!get", response.data()!!.farms()!![0].name())
                 Log.d("!here", "Có vào đây")
-
-                if (!response.data()!!.user()!!.gatePermission!!.isEmpty()) {
+                val check = response.data()!!.allGatesOfUser()
+                if (check != null) {
                     this@FarmChangeActivity.runOnUiThread {
                         // Lấy dữ liệu và đổ vào RecyclerView
-                        val list = response.data()!!.user!!.gatePermission!!
+                        val list = response.data()!!.allGatesOfUser()!!
                         for (i in 0..(list.size - 1)) {
-                            listFarm.add(list[i].serviceTag()!!)
+                            val id = list[i]!!.serviceTag().serviceTag()
+                            val name = list[i]!!.serviceTag().name()
+                            listFarm.add(GateData(id,name))
                             //Toast.makeText(this@FarmChangeActivity,"NotHere",Toast.LENGTH_LONG).show()
-                            val layoutManager = GridLayoutManager(this@FarmChangeActivity, 3)
-                            recy_changeArea.layoutManager = layoutManager
-                            val adapter = FarmChangeAdapter(listFarm, this@FarmChangeActivity)
-                            recy_changeArea.adapter = adapter
                         }
+                        val layoutManager = GridLayoutManager(this@FarmChangeActivity, 3)
+                        recy_changeArea.layoutManager = layoutManager
+                        val adapter = FarmChangeAdapter(listFarm, this@FarmChangeActivity)
+                        recy_changeArea.adapter = adapter
                     }
                 } else { // không có dữ liệu sẽ nhảy vào đây
                     this@FarmChangeActivity.runOnUiThread {

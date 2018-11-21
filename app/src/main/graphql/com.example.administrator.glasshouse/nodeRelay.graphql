@@ -1,7 +1,0 @@
-mutation SetStateRelayMutation($nodeRelayTag: Int,$serviceTag:String
-					$typeRelay:Int,$state:String){
-  setStateRelay
-(nodeRelayTag: $nodeRelayTag , serviceTag :$serviceTag
-typeRelay : $typeRelay,state : $state )
-}
-

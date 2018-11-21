@@ -1,33 +1,20 @@
 package com.example.administrator.glasshouse.Fragment
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import com.apollographql.apollo.ApolloCall
-import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.exception.ApolloException
-import com.apollographql.apollo.rx2.Rx2Apollo
-import com.example.administrator.glasshouse.GetLastestTempQuery
 import com.example.administrator.glasshouse.R
-import com.example.administrator.glasshouse.SupportClass.MyApolloClient
-import com.example.administrator.glasshouse.TempSubscription
 import com.example.administrator.glasshouse.Utils.Config
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subscribers.DisposableSubscriber
 import org.angmarch.views.NiceSpinner
 
 class ChartFragment : Fragment() {
@@ -59,8 +46,8 @@ class ChartFragment : Fragment() {
 
         // Lấy những liệu gần nhất đổ lên chart
         compositeDisposable = CompositeDisposable()
-        getNewData()
-        getLastestTemp()
+        //getNewData()
+        //getLastestTemp()
 
 
 
@@ -98,84 +85,84 @@ class ChartFragment : Fragment() {
 //                    }
 //
 //                }))
-        MyApolloClient.getApolloClient().query(
-                GetLastestTempQuery.builder().build())
-                .enqueue(object : ApolloCall.Callback<GetLastestTempQuery.Data>() {
-                    override fun onFailure(e: ApolloException) {
-                        Log.d("!getTemp", e.message)
-                    }
+//        MyApolloClient.getApolloClient().query(
+//                GetLastestTempQuery.builder().build())
+//                .enqueue(object : ApolloCall.Callback<GetLastestTempQuery.Data>() {
+//                    override fun onFailure(e: ApolloException) {
+//                        Log.d("!getTemp", e.message)
+//                    }
+//
+//                    override fun onResponse(response: Response<GetLastestTempQuery.Data>) {
+//                        activity!!.runOnUiThread {
+//                            val list = response.data()!!.temps()!!
+//                            for (item in list) {
+//                                val value = item!!.value()!!
+//                                val createdAt = item.createdAt()
+//                                yValues.add(Entry(count.toFloat(), value.toFloat()))
+//                                count++
+//                            }
+//                            Log.d("!getTemp", yValues[0].y.toString())
+//                            setY = LineDataSet(yValues, "Temperature")
+//                            setY.fillAlpha = 60
+//                            setY.lineWidth = 2F
+//                            setY.color = Color.RED
+//                            setY.valueTextColor = Color.BLUE
+//                            dataSet.add(setY)
+//                            data = LineData(dataSet)
+//                            data.notifyDataChanged()
+//                            chart.data = data
+//                            chart.notifyDataSetChanged()
+//                            // Force Chart refresh to get new data
+//                            chart.invalidate()
+//                        }
+//                    }
+//                })
+//    }
 
-                    override fun onResponse(response: Response<GetLastestTempQuery.Data>) {
-                        activity!!.runOnUiThread {
-                            val list = response.data()!!.temps()!!
-                            for (item in list) {
-                                val value = item!!.value()!!
-                                val createdAt = item.createdAt()
-                                yValues.add(Entry(count.toFloat(), value.toFloat()))
-                                count++
-                            }
-                            Log.d("!getTemp", yValues[0].y.toString())
-                            setY = LineDataSet(yValues, "Temperature")
-                            setY.fillAlpha = 60
-                            setY.lineWidth = 2F
-                            setY.color = Color.RED
-                            setY.valueTextColor = Color.BLUE
-                            dataSet.add(setY)
-                            data = LineData(dataSet)
-                            data.notifyDataChanged()
-                            chart.data = data
-                            chart.notifyDataSetChanged()
-                            // Force Chart refresh to get new data
-                            chart.invalidate()
-                        }
-                    }
-                })
-    }
-
-    private fun getNewData() {
-        val tempSubcription = TempSubscription.builder().build()
-        val tempSubscriptionClient = MyApolloClient.getApolloClient().subscribe(tempSubcription)
-
-        // Sử dụng RxJava để tiện xử lý sự kiện
-        compositeDisposable!!.add(Rx2Apollo.from(tempSubscriptionClient)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSubscriber<Response<TempSubscription.Data>>() {
-                    override fun onComplete() {
-                        //super.onComplete()
-                        Log.d("!temp", "onComplete")
-                    }
-
-                    override fun onError(t: Throwable?) {
-                        //super.onError(t)
-                        Log.d("!temp", t!!.message)
-                    }
-
-                    override fun onNext(response: Response<TempSubscription.Data>) {
-                        //super.onNext(response)
-                        activity!!.runOnUiThread {
-                        Log.d("!temp","on Next")
-                        val value = response.data()!!.tempAdded()!!.value()
-                        val createdAt = response.data()!!.tempAdded()!!.createdAt()
-                        yValues.add(Entry(count++.toFloat(), value!!.toFloat()))
-                        setY = LineDataSet(yValues, "Temperature")
-                        //setY.fillAlpha = 60
-                        //setY.lineWidth = 2F
-                        //setY.color = Color.RED
-                        //setY.valueTextColor = Color.BLUE
-                        dataSet.add(setY)
-                        data = LineData(dataSet)
-                        data.notifyDataChanged()
-                        chart.data = data
-                        Toast.makeText(context!!, "New data arrived!", Toast.LENGTH_SHORT).show()
-                        chart.notifyDataSetChanged()
-                        // Force Chart refresh to get new data
-                        chart.invalidate()
-                        }
-                    }
-                })
-        )
-
+//    private fun getNewData() {
+//        val tempSubcription = TempSubscription.builder().build()
+//        val tempSubscriptionClient = MyApolloClient.getApolloClient().subscribe(tempSubcription)
+//
+//        // Sử dụng RxJava để tiện xử lý sự kiện
+//        compositeDisposable!!.add(Rx2Apollo.from(tempSubscriptionClient)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(object : DisposableSubscriber<Response<TempSubscription.Data>>() {
+//                    override fun onComplete() {
+//                        //super.onComplete()
+//                        Log.d("!temp", "onComplete")
+//                    }
+//
+//                    override fun onError(t: Throwable?) {
+//                        //super.onError(t)
+//                        Log.d("!temp", t!!.message)
+//                    }
+//
+//                    override fun onNext(response: Response<TempSubscription.Data>) {
+//                        //super.onNext(response)
+//                        activity!!.runOnUiThread {
+//                        Log.d("!temp","on Next")
+//                        val value = response.data()!!.tempAdded()!!.value()
+//                        val createdAt = response.data()!!.tempAdded()!!.createdAt()
+//                        yValues.add(Entry(count++.toFloat(), value!!.toFloat()))
+//                        setY = LineDataSet(yValues, "Temperature")
+//                        //setY.fillAlpha = 60
+//                        //setY.lineWidth = 2F
+//                        //setY.color = Color.RED
+//                        //setY.valueTextColor = Color.BLUE
+//                        dataSet.add(setY)
+//                        data = LineData(dataSet)
+//                        data.notifyDataChanged()
+//                        chart.data = data
+//                        Toast.makeText(context!!, "New data arrived!", Toast.LENGTH_SHORT).show()
+//                        chart.notifyDataSetChanged()
+//                        // Force Chart refresh to get new data
+//                        chart.invalidate()
+//                        }
+//                    }
+//                })
+//        )
+//
     }
 
 }

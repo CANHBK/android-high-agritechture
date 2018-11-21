@@ -28,7 +28,7 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="4dp"
         android:hint="Add node sensor's ID"
-        android:inputType="number"
+        android:inputType="text"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:textColor="@color/black"

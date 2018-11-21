@@ -1,0 +1,3 @@
+mutation SetStateRelayMutation($params: StateRelayInput!){
+  setStateRelay(params:$params)
+}

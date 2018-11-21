@@ -33,7 +33,7 @@ class SignUpActivity : AppCompatActivity() {
         btnSignUp.setOnClickListener {
             //sendToMain()
             val lastName = edtLastName.text.toString()
-            val middleName = ""
+            val middleName = edtMiddleName.text.toString()
             val firstName = edtFirstName.text.toString()
             val email = edtEmail.text.toString()
             val pass = edtPass.text.toString()

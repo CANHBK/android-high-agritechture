@@ -28,10 +28,10 @@ class SensorAdapter(val dataList: ArrayList<SensorData>, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtDoAm.text = dataList[position].airhummi?.toString()
-        holder.txtTemp.text = dataList[position].temp?.toString()
-        holder.txtGroundHimi.text = dataList[position].groundHumi?.toString()
-        holder.txtLight.text = dataList[position].light?.toString()
+        holder.txtDoAm.text = dataList[position].airhummi
+        holder.txtTemp.text = dataList[position].temp
+        holder.txtGroundHimi.text = dataList[position].groundHumi
+        holder.txtLight.text = dataList[position].light
         holder.txtPin.text = dataList[position].pin.toString() + "%"
         holder.progessbar.progress = dataList[position].pin!!
         holder.txtNodeName.text = dataList[position].nodeName
@@ -39,7 +39,7 @@ class SensorAdapter(val dataList: ArrayList<SensorData>, val context: Context) :
             val mSharedPreferences = context.getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
             val editor = mSharedPreferences.edit()
             editor.putString(Config.SSName, holder.txtNodeName.text.toString())
-            editor.putInt(Config.SENSOR_TAG, dataList[position].id)
+            editor.putString(Config.SENSOR_TAG, dataList[position].nodeSensorID)
             editor.apply()
             sendToSensorSetting()
         }
@@ -49,25 +49,6 @@ class SensorAdapter(val dataList: ArrayList<SensorData>, val context: Context) :
         val intent = Intent(context, SettingSensorActivity::class.java)
         context.startActivity(intent)
     }
-
-//    private fun setRelayDialog(context: Context) {
-//        val dialog = Dialog(context)
-//        dialog.setContentView(R.layout.custom_dialog_role)
-//        val btnRelayOk = dialog.findViewById<View>(R.id.btnRelayOk) as Button
-//        val btnRelayCancel = dialog.findViewById<View>(R.id.btnRelayCancel) as Button
-//        dialog.setCancelable(true)
-//        dialog.create()
-//        btnRelayOk.setOnClickListener {
-//            dialog.dismiss()
-//        }
-//        btnRelayCancel.setOnClickListener {
-//            dialog.dismiss()
-//        }
-//        dialog.show()
-//
-//        // Set các sự kiện sau
-//
-//    }
 
 
     inner class ViewHolder(val item: View) : RecyclerView.ViewHolder(item) {

@@ -1,6 +1,6 @@
-mutation AddFarmMutation($data : FarmInput)
+mutation AddFarmMutation($params : FarmInput)
 {
-  addFarm(data:$data)
+  addFarm(params:$params)
   {
     idHost
     name

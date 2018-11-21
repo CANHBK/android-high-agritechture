@@ -1,0 +1,6 @@
+query GetAllNodeControlQuery($params : ServiceInput!){
+  allNodeControl(params: $params){
+    nodeControl
+    name
+  }
+}

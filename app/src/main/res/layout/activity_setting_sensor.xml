@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Setting node"
+        android:text="Setting node Sensor"
         android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="30sp" />
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:hint="Tên Node"
+            android:hint="Set name"
             android:inputType="text"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
@@ -48,91 +48,116 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:text="Set Respone Time"
+        android:text="Select Parameter:"
         android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold|italic" />
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        android:layout_marginStart="12dp"/>
 
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/rgPara1"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-        <TextView
+        android:layout_marginStart="8dp">
+        <RadioButton
+            android:id="@+id/rbTemp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
-            android:gravity="center|top"
             android:layout_weight="1"
-            android:text="Temparature sensor"
-            android:textColor="@color/gray"
-            android:textSize="18sp" />
-
-        <org.angmarch.views.NiceSpinner
-            android:id="@+id/spinResTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Temperature"
+            android:layout_marginStart="12dp"/>
+        <RadioButton
+            android:id="@+id/rbLight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp" />
-    </LinearLayout>
+            android:text="Light"
+            android:textSize="15sp"/>
+    </RadioGroup>
 
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/rgPara2"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="4dp">
-
-        <TextView
+        android:layout_marginStart="8dp">
+        <RadioButton
+            android:id="@+id/rbAir"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Light sensor"
-            android:textColor="@color/gray"
-            android:textSize="18sp" />
-
-        <org.angmarch.views.NiceSpinner
-            android:id="@+id/spinResLight"
+            android:text="Air Humidity"
+            android:textSize="15sp"
+            android:layout_marginStart="12dp"/>
+        <RadioButton
+            android:id="@+id/rbGround"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp" />
-    </LinearLayout>
+            android:textSize="15sp"
+            android:text="Ground Humidity"/>
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="Time Configuration Mode:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"/>
 
-    <LinearLayout
+
+        <RadioGroup
+            android:id="@+id/rgType"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+            <RadioButton
+                android:id="@+id/rbPeriod"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Period"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+            <RadioButton
+                android:id="@+id/rbPemanent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Permanent"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtPickTime"
         android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="00:00"
+        android:textSize="50sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:drawableStart="@drawable/ic_alarm_clock"/>
+
+    <TextView
+        android:id="@+id/txtAlert"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="4dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="Humidity sensor"
-            android:textColor="@color/gray"
-            android:textSize="18sp" />
-
-        <org.angmarch.views.NiceSpinner
-            android:id="@+id/spinHumTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp" />
-    </LinearLayout>
+        android:textSize="15dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        tools:text="Temperature Sensor will response each 2 hours and 40 minutes"/>
 
     <Button
         android:id="@+id/btnOk"

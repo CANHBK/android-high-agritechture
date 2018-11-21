@@ -1,6 +1,0 @@
-mutation AddTempMutation($value:Int){
-  addTemperature(value:$value){
-    value
-    createdAt
-  }
-}

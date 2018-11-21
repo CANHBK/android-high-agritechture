@@ -1,8 +1,7 @@
-mutation AddGateMutation($userID : String,$idGate: String){
-  addGateWay(userId:$userID,serviceTag:$idGate){
-    users{
-      id
-    }
+mutation AddGateMutation($params : ServiceInput!){
+  addGate(params : $params){
+    group
+    name
     serviceTag
   }
 }

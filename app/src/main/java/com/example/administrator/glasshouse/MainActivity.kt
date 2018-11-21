@@ -22,6 +22,7 @@ import com.example.administrator.glasshouse.Adapter.RelayAdapter
 import com.example.administrator.glasshouse.Adapter.ViewPagerFarmAdapter
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.Utils.Config
+import com.example.administrator.glasshouse.type.StateRelayInput
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_screen.*
@@ -31,17 +32,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //Hàm kế thừa interface để xử lý logic trong adapter
     override fun onMethodCallback() {
         val relayName = mSharedPreferences.getString(Config.RelayName, "AaA")
-        val relayType = mSharedPreferences.getInt(Config.RELAY_TYPE, 0)
-        val relayTag = mSharedPreferences.getInt(Config.RELAY_TAG, 0)
-        val relayState = mSharedPreferences.getString(Config.RELAY_STATE, "")
+        val relayType = mSharedPreferences.getLong(Config.RELAY_TYPE, 0)
+        val relayTag = mSharedPreferences.getString(Config.RELAY_TAG, "")!!
+        val relayState = mSharedPreferences.getString(Config.RELAY_STATE, "")!!
+        val serviceTag = mSharedPreferences.getString(Config.GateId,"")!!
         //Toast.makeText(this@MainActivity, "$relayTag $relayName $relayType $relayState",Toast.LENGTH_SHORT).show()
         // Mutation SetState'
+        val input = StateRelayInput.builder().index(relayType)
+                .nodeControl(relayTag).serviceTag(serviceTag).state(relayState).build()
         MyApolloClient.getApolloClient().mutate(
-                SetStateRelayMutation.builder().nodeRelayTag(relayTag.toLong())
-                        .serviceTag(serviceTag)
-                        .typeRelay(relayType.toLong())
-                        .state(relayState)
-                        .build()
+                SetStateRelayMutation.builder().params(input).build()
         ).enqueue(object : ApolloCall.Callback<SetStateRelayMutation.Data>() {
             override fun onFailure(e: ApolloException) {
                 Log.d("!setState", e.message)
@@ -50,11 +50,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             override fun onResponse(response: Response<SetStateRelayMutation.Data>) {
                 Log.d("!setState", "onCompleted")
                 this@MainActivity.runOnUiThread {
-                    val check = response.data()!!.setStateRelay()!!
-                    if (check) {
+                    val check = response.data()!!.setStateRelay()
+                    if (check != null) {
                         if (relayState == "O") Toast.makeText(this@MainActivity, "Relay ON", Toast.LENGTH_SHORT).show()
                         if (relayState == "F") Toast.makeText(this@MainActivity, "Relay OFF", Toast.LENGTH_SHORT).show()
-                    } else Toast.makeText(this@MainActivity, "Something is wrong", Toast.LENGTH_LONG).show()
+                    } else Toast.makeText(this@MainActivity, response.errors()[0].message(), Toast.LENGTH_LONG).show()
                 }
             }
         })

@@ -1,0 +1,18 @@
+query GetAllNodeEnvQuery($params :ServiceInput!){
+  allNodesEnv(params: $params){
+    nodeEnv
+    name
+    lastTemperature{
+      value
+    }
+    lastLight{
+      value
+    }
+    lastAirHumidity{
+      value
+    }
+    lastGroundHumidity{
+      value
+    }
+  }
+}
