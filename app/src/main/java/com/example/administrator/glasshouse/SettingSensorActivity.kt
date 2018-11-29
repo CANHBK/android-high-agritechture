@@ -3,10 +3,10 @@ package com.example.administrator.glasshouse
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.RadioGroup
-import android.widget.Toast
+import android.view.View
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
@@ -65,12 +65,12 @@ class SettingSensorActivity : AppCompatActivity() {
             val enviNodeName = edtSSNode.text.toString()
 
 
-            configEnviNode(serviceTag, sensorID)
+            configEnviNode(it,serviceTag, sensorID)
 
         }
     }
 
-    private fun configEnviNode(serviceTag: String, sensorID: String) {
+    private fun configEnviNode(view: View, serviceTag: String, sensorID: String) {
         val input = ConfigTimeNodeEnv.builder().serviceTag(serviceTag).typeSetTime(type.toLong())
                 .nodeEnv(sensorID).index(index.toLong()).hour(hour.toLong()).minute(min.toLong()).build()
         MyApolloClient.getApolloClient().mutate(
@@ -83,9 +83,9 @@ class SettingSensorActivity : AppCompatActivity() {
             override fun onResponse(response: Response<ConfigTimeNodeEmvMutation.Data>) {
                 this@SettingSensorActivity.runOnUiThread {
                     if (response.data()!!.configTimeNodeEnv() !=null) {
-                        Toast.makeText(this@SettingSensorActivity, "Setting Completed", Toast.LENGTH_SHORT).show()
+                        Snackbar.make(view, "Setting Completed", Snackbar.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@SettingSensorActivity, response.errors()[0].message(), Toast.LENGTH_SHORT).show()
+                        Snackbar.make(view, response.errors()[0].message()!!, Snackbar.LENGTH_SHORT).show()
                     }
                 }
 

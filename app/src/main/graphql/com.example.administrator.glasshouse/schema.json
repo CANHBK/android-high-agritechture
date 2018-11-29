@@ -79,7 +79,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "UserGate",
+                  "name": "GateWay",
                   "ofType": null
                 }
               },
@@ -222,7 +222,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "GetEnvParamsInput",
+                      "name": "NodeEnvInput",
                       "ofType": null
                     }
                   },
@@ -257,9 +257,13 @@
                 }
               ],
               "type": {
-                "kind": "OBJECT",
-                "name": "NewEnvironmentParams",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "NewEnvironmentParams",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -312,6 +316,37 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "Farm",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "getStateRelay",
+              "description": "Lấy trạng thái Relay hiện tại",
+              "args": [
+                {
+                  "name": "params",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "RelayInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "NodeControl",
                   "ofType": null
                 }
               },
@@ -428,6 +463,54 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "admin",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "GateWay",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "controlable",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "GateWay",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "readable",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "GateWay",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -452,65 +535,6 @@
           "fields": null,
           "inputFields": null,
           "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "UserGate",
-          "description": "Chứa thông tin về quyền sử dụng `Gate Way`",
-          "fields": [
-            {
-              "name": "userId",
-              "description": "Mã định danh của `User`",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh của `Gate Way`.\nTham chiếu đến toàn bộ thông tin của `Gate Way`\nmà `User` có quyền sử dụng",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "GateWay",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "permission",
-              "description": "Quyền của người dùng đối với `Gate Way`. Gồm\n+ Admin\n+ Control `// Điều khiển\n+ Read  `// Đọc dữ liệu",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Permission",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -558,28 +582,17 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Permission",
-          "description": "Các quyền của `User` đối với `Gate Way`",
-          "fields": [
+            },
             {
-              "name": "tag",
-              "description": "Mã định danh của quyền.\n+ 1 - Admin\n+ 2 - Control\n+ 3 - Read",
+              "name": "allNodeControls",
+              "description": "",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
+                  "kind": "OBJECT",
+                  "name": "NodeControl",
                   "ofType": null
                 }
               },
@@ -587,461 +600,17 @@
               "deprecationReason": null
             },
             {
-              "name": "name",
-              "description": "Tên của quyền, hiển thị cho người dùng",
+              "name": "allNodeEnvs",
+              "description": "",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "OBJECT",
+                  "name": "NodeEnvironment",
                   "ofType": null
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "description",
-              "description": "Miêu tả chức năng của quyền",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "Int",
-          "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. ",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "AllSensorsInput",
-          "description": "",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Sensor",
-          "description": "`Sensor` nằm trên các `Node Environment`",
-          "fields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh của `Gate Way`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh của `Node Environment` chứa `Sensor`",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "index",
-              "description": "\"Địa chỉ\" của `Sensor` trên `Node Environment`. Đọc từ mã định danh `nodeEnv`.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "Tên của Sensor, có thể thay đổi bởi người dùng. Mặc định là tên của thông số `Sensor` thu thập.\nVD: Nhiệt độ, ánh sáng, ...",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "ServiceInput",
-          "description": "Thông số xác định `Gate Way`",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "userId",
-              "description": "Mã định danh `User`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh của `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "Tên người dùng đặt cho `Gate Way`",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "NodeEnvironment",
-          "description": "`Node` chứa các cảm biến để thu thập thông số môi trường",
-          "fields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh được dán trên `Gate Way` quản lý `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh được dán trên `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "Tên do người dùng đặt. Mặc định là giá trị của `nodeEnv`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lastTemperature",
-              "description": "Nhiệt độ mới nhất",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "RawTemperature",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lastAirHumidity",
-              "description": "Độ ẩm không khí mới nhất",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "RawAirHumidity",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lastGroundHumidity",
-              "description": "Độ ẩm đất mới nhất",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "RawGroundHumidity",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lastLight",
-              "description": "Cường độ sáng mới nhất",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "RawLight",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawTemperature",
-          "description": "Thông số nhiệt độ gốc, chưa qua xử lý",
-          "fields": [
-            {
-              "name": "value",
-              "description": "Giá trị nhiệt độ, đợn vị: `độ C`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian nhiệt độ được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawAirHumidity",
-          "description": "",
-          "fields": [
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "value",
-              "description": "Giá trị độ ẩm không khí, đơn vị: `%`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian độ ẩm không khí được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawGroundHumidity",
-          "description": "",
-          "fields": [
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "value",
-              "description": "Giá trị độ ẩm đất, đơn vị `%`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian độ ẩm đất được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawLight",
-          "description": "Thông cường độ sáng gốc thu thập được trên `Node Environment`, chưa qua xử lý",
-          "fields": [
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "value",
-              "description": "Giá trị cường độ sáng, đơn vị `lux`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian cường độ sáng được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1055,11 +624,11 @@
         {
           "kind": "OBJECT",
           "name": "NodeControl",
-          "description": "Chứa các **_Rơle_** điều khiển cơ cấu chấp hành",
+          "description": "Chứa các `Rơle` điều khiển cơ cấu chấp hành",
           "fields": [
             {
               "name": "serviceTag",
-              "description": "Mã **Tag** được dán trên GateWay. Thông số người dùng nhập vào",
+              "description": "Mã định danh được dán trên GateWay",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1075,7 +644,7 @@
             },
             {
               "name": "nodeControl",
-              "description": "Mã `Tag` của `Node Control`",
+              "description": "Mã định danh của `Node Control`",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1100,59 +669,30 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "relays",
+              "description": "Các `Relay` trên `Node Control`",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Relay",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
           "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "NodeControlInput",
-          "description": "Thông số xác định Node Control",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "nodeControl",
-              "description": "Mã định danh `Node Control`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "Tên người dùng đặt cho `Node Control`",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1163,7 +703,7 @@
           "fields": [
             {
               "name": "serviceTag",
-              "description": "Mã Tag được dán trên `Gate Way` quản lý `Node Control`",
+              "description": "Mã định danh được dán trên `Gate Way` quản lý `Node Control`",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -1244,9 +784,417 @@
           "possibleTypes": null
         },
         {
+          "kind": "SCALAR",
+          "name": "Int",
+          "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. ",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "NodeEnvironment",
+          "description": "`Node` chứa các cảm biến để thu thập thông số môi trường",
+          "fields": [
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh được dán trên `Gate Way` quản lý `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh được dán trên `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "Tên do người dùng đặt. Mặc định là giá trị của `nodeEnv`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "sensors",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Sensor",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "temperatures",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "param",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lights",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "param",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "airHumidities",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "param",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "groundHumidities",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "param",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Sensor",
+          "description": "`Sensor` nằm trên các `Node Environment`",
+          "fields": [
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh của `Gate Way`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh của `Node Environment` chứa `Sensor`",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "index",
+              "description": "\"Địa chỉ\" của `Sensor` trên `Node Environment`. Đọc từ mã định danh `nodeEnv`.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "Tên của Sensor, có thể thay đổi bởi người dùng. Mặc định là tên của thông số `Sensor` thu thập.\nVD: Nhiệt độ, ánh sáng, ...",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "data",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "param",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "sensorID",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "param",
+          "description": "",
+          "fields": [
+            {
+              "name": "value",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
-          "name": "GetEnvParamsInput",
-          "description": "Các trường unitTime, startTime và endTime để trống do chưa phát triển kịp",
+          "name": "AllSensorsInput",
+          "description": "",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "ServiceInput",
+          "description": "Thông số xác định `Gate Way`",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "userId",
+              "description": "Mã định danh `User`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh của `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "name",
+              "description": "Tên người dùng đặt cho `Gate Way`",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NodeControlInput",
+          "description": "Thông số xác định Node Control",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "nodeControl",
+              "description": "Mã định danh `Node Control`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "name",
+              "description": "Tên người dùng đặt cho `Node Control`",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NodeEnvInput",
+          "description": "Các thông số xác định `Node Environment`",
           "fields": null,
           "inputFields": [
             {
@@ -1278,46 +1226,8 @@
               "defaultValue": null
             },
             {
-              "name": "params",
-              "description": "Các thông số muốn lấy.(Truyền 1 hoặc nhiều `Địa chỉ` của `Sensor` muốn lấy thông số).\nMặc định lấy tất cả các thông số.\n**Lưu ý:** Do hiện tại phần cứng chưa hỗ trợ nên chỉ được truyền 1 tham số.\n+ 1 - Nhiệt độ\n+ 2 - Ánh sáng\n+ 3 - Độ ẩm không khí\n+ 4 - ĐỘ ẩm đất",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "unitTime",
-              "description": "Đơn vị thời gian thu thập: `phút`, `giờ`, `ngày`, `tuần`, `tháng`, `quý`, `năm`, `thập kỉ`, `thế kỉ`.\nMặc định đơn vị là giờ.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "startTime",
-              "description": "Thời điểm bắt đầu muốn lấy thông số, đơn vị `UNIX_TIME`.\nMặc định là thời điểm đầu tiên thu thập thông số của Sensor",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "endTime",
-              "description": "Thời điểm kết thúc lấy thông số, đơn vị `UNIX_TIME`.\nMặc định là thời điểm cuối cùng thu thập thông số của Sensor",
+              "name": "name",
+              "description": "Tên người dùng đặt cho `Node Environment`",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -1482,6 +1392,41 @@
         },
         {
           "kind": "OBJECT",
+          "name": "RawTemperature",
+          "description": "Thông số nhiệt độ gốc, chưa qua xử lý",
+          "fields": [
+            {
+              "name": "value",
+              "description": "Giá trị nhiệt độ, đợn vị: `độ C`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian nhiệt độ được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "Light",
           "description": "Thông cường độ sáng gốc thu thập được trên `Node Environment`, đã qua xử lý",
           "fields": [
@@ -1529,6 +1474,53 @@
                   "name": "String",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RawLight",
+          "description": "Thông cường độ sáng gốc thu thập được trên `Node Environment`, chưa qua xử lý",
+          "fields": [
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "Giá trị cường độ sáng, đơn vị `lux`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian cường độ sáng được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1600,6 +1592,53 @@
         },
         {
           "kind": "OBJECT",
+          "name": "RawAirHumidity",
+          "description": "",
+          "fields": [
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "Giá trị độ ẩm không khí, đơn vị: `%`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian độ ẩm không khí được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "GroundHumidity",
           "description": "",
           "fields": [
@@ -1647,6 +1686,53 @@
                   "name": "String",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RawGroundHumidity",
+          "description": "",
+          "fields": [
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "Giá trị độ ẩm đất, đơn vị `%`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian độ ẩm đất được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1752,49 +1838,33 @@
               "deprecationReason": null
             },
             {
-              "name": "temperature",
-              "description": "Thông số về nhiệt độ",
+              "name": "param",
+              "description": "\"\nThông số môi trường\n+ 1 - Nhiệt độ\n+ 2 - Ánh sáng\n+ 3 - Độ ẩm không khí\n+ 4 - Độ ẩm đất",
               "args": [],
               "type": {
-                "kind": "OBJECT",
-                "name": "RawTemperature",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "light",
-              "description": "Thông số về ánh sáng",
+              "name": "value",
+              "description": "Giá trị thông số",
               "args": [],
               "type": {
-                "kind": "OBJECT",
-                "name": "RawLight",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "airHumidity",
-              "description": "Thông số về độ ẩm không khí",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "RawAirHumidity",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "groundHumidity",
-              "description": "Thông số về độ ẩm đất",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "RawGroundHumidity",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1802,55 +1872,6 @@
           ],
           "inputFields": null,
           "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "NodeEnvInput",
-          "description": "Các thông số xác định `Node Environment`",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "Tên người dùng đặt cho `Node Environment`",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1896,6 +1917,63 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "RelayInput",
+          "description": "Thông số xác định Relay",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "nodeControl",
+              "description": "Mã định danh của `Node Control` chứa `Relay`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "index",
+              "description": "\"Địa chỉ\" của `Relay` trên `Node Control`.\nLà `chỉ số` nhận về khi truy vấn thông tin các `Relay` trên `Node Control`. (_allRelaysOfControl_)",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh của `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1950,70 +2028,14 @@
               "description": "",
               "args": [
                 {
-                  "name": "firstName",
+                  "name": "params",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
                     "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "middleName",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "lastName",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "email",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "password",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
+                      "kind": "INPUT_OBJECT",
+                      "name": "UserInput",
                       "ofType": null
                     }
                   },
@@ -2325,8 +2347,8 @@
                 }
               ],
               "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
+                "kind": "OBJECT",
+                "name": "NodeControl",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2481,53 +2503,6 @@
           "possibleTypes": null
         },
         {
-          "kind": "OBJECT",
-          "name": "Role",
-          "description": "",
-          "fields": [
-            {
-              "name": "id",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "description",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "INPUT_OBJECT",
           "name": "UserInput",
           "description": "",
@@ -2567,9 +2542,13 @@
               "name": "name",
               "description": "",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
@@ -2577,9 +2556,13 @@
               "name": "email",
               "description": "",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
@@ -2587,9 +2570,13 @@
               "name": "password",
               "description": "",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "defaultValue": null
             },
@@ -2635,6 +2622,53 @@
             }
           ],
           "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Role",
+          "description": "",
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "description",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -3115,6 +3149,61 @@
         },
         {
           "kind": "OBJECT",
+          "name": "Permission",
+          "description": "Các quyền của `User` đối với `Gate Way`",
+          "fields": [
+            {
+              "name": "tag",
+              "description": "Mã định danh của quyền.\n+ 1 - Admin\n+ 2 - Control\n+ 3 - Read",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "Tên của quyền, hiển thị cho người dùng",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "description",
+              "description": "Miêu tả chức năng của quyền",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "Subscription",
           "description": "Các câu lệnh theo dõi sự thay đổi của dự liệu",
           "fields": [
@@ -3161,6 +3250,87 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "newEnvironmentParams",
+              "description": "",
+              "args": [
+                {
+                  "name": "params",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "NodeEnvInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NewEnvironmentParams",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "autoUpdatedEnvironmentParams",
+              "description": "",
+              "args": [
+                {
+                  "name": "params",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "NodeEnvInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NodeEnvironment",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "trackStateRelay",
+              "description": "",
+              "args": [
+                {
+                  "name": "params",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "NodeControlInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NodeControl",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -4059,6 +4229,57 @@
         },
         {
           "kind": "OBJECT",
+          "name": "UpdateEnvironmentParams",
+          "description": "",
+          "fields": [
+            {
+              "name": "serviceTag",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodeEnv",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "envParams",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "param",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "mqttMessage",
           "description": "",
           "fields": [
@@ -4070,6 +4291,195 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RawEnvironmentParam",
+          "description": "Thông số môi trường",
+          "fields": [
+            {
+              "name": "param",
+              "description": "\"\nThông số môi trường\n+ 1 - Nhiệt độ\n+ 2 - Ánh sáng\n+ 3 - Độ ẩm không khí\n+ 4 - Độ ẩm đất",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "Giá trị thông số",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "GetEnvParamsInput",
+          "description": "Các trường unitTime, startTime và endTime để trống do chưa phát triển kịp",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "params",
+              "description": "Các thông số muốn lấy.(Truyền 1 hoặc nhiều `Địa chỉ` của `Sensor` muốn lấy thông số).\nMặc định lấy tất cả các thông số.\n**Lưu ý:** Do hiện tại phần cứng chưa hỗ trợ nên chỉ được truyền 1 tham số.\n+ 1 - Nhiệt độ\n+ 2 - Ánh sáng\n+ 3 - Độ ẩm không khí\n+ 4 - ĐỘ ẩm đất",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "unitTime",
+              "description": "Đơn vị thời gian thu thập: `phút`, `giờ`, `ngày`, `tuần`, `tháng`, `quý`, `năm`, `thập kỉ`, `thế kỉ`.\nMặc định đơn vị là giờ.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "startTime",
+              "description": "Thời điểm bắt đầu muốn lấy thông số, đơn vị `UNIX_TIME`.\nMặc định là thời điểm đầu tiên thu thập thông số của Sensor",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "endTime",
+              "description": "Thời điểm kết thúc lấy thông số, đơn vị `UNIX_TIME`.\nMặc định là thời điểm cuối cùng thu thập thông số của Sensor",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UserGate",
+          "description": "Chứa thông tin về quyền sử dụng `Gate Way`",
+          "fields": [
+            {
+              "name": "userId",
+              "description": "Mã định danh của `User`",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh của `Gate Way`.\nTham chiếu đến toàn bộ thông tin của `Gate Way`\nmà `User` có quyền sử dụng",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "GateWay",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "permission",
+              "description": "Quyền của người dùng đối với `Gate Way`. Gồm\n+ Admin\n+ Control `// Điều khiển\n+ Read  `// Đọc dữ liệu",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Permission",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null

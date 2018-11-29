@@ -1,0 +1,86 @@
+subscription TrackStateRelay($params:NodeControlInput!){
+trackStateRelay(params:$params){
+ nodeControl
+    serviceTag
+    relays {
+      state
+      index
+      name
+      serviceTag
+      nodeControl
+    }
+}
+}
+
+
+query GetCurrentStateRelay($params:RelayInput!){
+  getStateRelay(
+    params: $params
+  ) {
+    serviceTag
+      nodeControl
+      name
+      relays {
+        state
+        index
+        serviceTag
+        name
+        nodeControl
+      }
+  }
+}
+
+mutation AddNodeControl($params : NodeControlInput!){
+  addNodeControl(params : $params){
+    serviceTag
+    nodeControl
+    name
+  }
+}
+
+mutation SetStateRelayMutation($params: StateRelayInput!){
+  setStateRelay(params:$params){
+    serviceTag
+    name
+    nodeControl
+    relays {
+      index
+      state
+      name
+      serviceTag
+      nodeControl
+    }
+  }
+}
+
+mutation ConfigTimeNodeControlMutation($params:ConfigTimeNodeControlInput){
+  configTimeNodeControl(params:$params)
+}
+
+
+query AllRelayOfControlQuery($params:NodeControlInput!){
+  allRelaysOfControl(params:$params){
+    serviceTag
+    nodeControl
+    index
+    state
+    name
+  }
+}
+
+query GetAllNodeControlQuery($params : ServiceInput!){
+  allNodeControl(params: $params){
+   serviceTag
+   nodeControl
+   name
+   relays {
+     state
+     index
+     serviceTag
+     name
+     nodeControl
+   }
+
+  }
+}
+

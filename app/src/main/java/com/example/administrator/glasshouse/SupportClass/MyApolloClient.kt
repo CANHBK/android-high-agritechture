@@ -1,6 +1,8 @@
 package com.example.administrator.glasshouse.SupportClass
 
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.ApolloSubscriptionCall
+import com.apollographql.apollo.rx2.Rx2Apollo
 //import com.apollographql.apollo.ApolloSubscriptionCall
 import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport
 //import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport
@@ -13,7 +15,9 @@ class MyApolloClient {
     companion object {
         private var apolloClient: ApolloClient? = null
         private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
+//        private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
         private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
+//        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
         private val SQL_CACHE_NAME = "GlassHouse"
 //        private val subscriptionSubscriptionClient = GetTempSubcription.builder().build()
 //        val observer = Rx2Apollo.from(getSubscriptionSubscriptionCall())
@@ -34,8 +38,9 @@ class MyApolloClient {
             val okHttpClient = OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
                     .pingInterval(50, TimeUnit.SECONDS)
-                    .connectTimeout(10000,TimeUnit.MILLISECONDS)
-                    .retryOnConnectionFailure(false)
+                    .connectTimeout(30,TimeUnit.SECONDS)
+                    .readTimeout(30,TimeUnit.SECONDS)
+                    .retryOnConnectionFailure(true)
                     .build()
             apolloClient = ApolloClient.builder()
                     .okHttpClient(okHttpClient)

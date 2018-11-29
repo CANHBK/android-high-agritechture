@@ -1,7 +1,0 @@
-mutation AddGateMutation($params : ServiceInput!){
-  addGate(params : $params){
-    group
-    name
-    serviceTag
-  }
-}

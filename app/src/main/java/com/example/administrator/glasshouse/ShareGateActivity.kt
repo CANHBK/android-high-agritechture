@@ -1,9 +1,9 @@
 package com.example.administrator.glasshouse
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
@@ -56,7 +56,7 @@ class ShareGateActivity : AppCompatActivity() {
 
             override fun onSuggestionClicked(searchSuggestion: SearchSuggestion?) {
                 val suggestion : Suggestion = searchSuggestion as Suggestion
-                Toast.makeText(this@ShareGateActivity,"Đã chọn" + suggestion.mName,Toast.LENGTH_SHORT).show()
+//                Snackbar.make(vi,"Đã chọn" + suggestion.mName,Snackbar.LENGTH_SHORT).show()
             }
         })
 

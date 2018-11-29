@@ -5,18 +5,18 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.example.administrator.glasshouse.Fragment.ChartFragment
 import com.example.administrator.glasshouse.Fragment.NotiFragment
-import com.example.administrator.glasshouse.Fragment.SensorFragment
-import com.example.administrator.glasshouse.Fragment.RelayFragment
+import com.example.administrator.glasshouse.Fragment.MonitorFragment
+import com.example.administrator.glasshouse.Fragment.ControlFragment
 
 class ViewPagerFarmAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {
         when (position) {
             0 -> {
-                val fragmentOverview = SensorFragment()
+                val fragmentOverview = MonitorFragment()
                 return fragmentOverview
             }
             1 -> {
-                val fragmentRelay = RelayFragment()
+                val fragmentRelay = ControlFragment()
                 return fragmentRelay
             }
             2 -> {

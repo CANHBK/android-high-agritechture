@@ -1,7 +1,0 @@
-mutation AddPermissionMutation($params: PermissionInput!){
-  addPermission(params: $params){
-    tag
-    name
-    description
-  }
-}

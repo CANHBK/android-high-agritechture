@@ -4,10 +4,11 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
@@ -90,12 +91,12 @@ class SettingRelayActivity : AppCompatActivity() {
                 "O"
             } else "F"
             // thêm hàm configTimeRelay
-            Toast.makeText(this@SettingRelayActivity, "$nodeControl $type $startHour $startMin $endHour $endMin $state", Toast.LENGTH_LONG).show()
-            SubmitChange(serviceTag,nodeControl,type, startMin,startHour,state)
+            Snackbar.make(it, "$nodeControl $type $startHour $startMin $endHour $endMin $state", Snackbar.LENGTH_LONG).show()
+            SubmitChange(serviceTag,nodeControl,type, startMin,startHour,state,it)
         }
     }
 
-    private fun SubmitChange(serviceTag:String,nodeControl: String, type: Int, min: Int, hour: Int, state: String) {
+    private fun SubmitChange(serviceTag:String,nodeControl: String, type: Int, min: Int, hour: Int, state: String,view:View) {
         val input = ConfigTimeNodeControlInput.builder()
                 .serviceTag(serviceTag).nodeControl(nodeControl).typeSetTime(0).state(state).index(type.toLong())
                 .hour(hour.toLong()).minute(min.toLong()).build()
@@ -109,9 +110,9 @@ class SettingRelayActivity : AppCompatActivity() {
             override fun onResponse(response: Response<ConfigTimeNodeControlMutation.Data>) {
                 this@SettingRelayActivity.runOnUiThread{
                     if(response.data()!!.configTimeNodeControl() !=null){
-                        Toast.makeText(this@SettingRelayActivity,"Setting Completed",Toast.LENGTH_SHORT).show()
+                        Snackbar.make(view,"Setting Completed",Snackbar.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@SettingRelayActivity,response.errors()[0].message(),Toast.LENGTH_LONG).show()
+                        Snackbar.make(view,response.errors()[0].message()!!,Snackbar.LENGTH_LONG).show()
                     }
                 }
             }

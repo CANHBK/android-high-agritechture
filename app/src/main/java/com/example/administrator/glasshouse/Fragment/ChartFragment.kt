@@ -29,7 +29,7 @@ class ChartFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val view = inflater.inflate(R.layout.fragment_chart, container, false)
+        val view = inflater.inflate(R.layout.fragment_monitor_detail, container, false)
         // thiết lập cho 2 spinner
         val spinPara = view.findViewById(R.id.spinThongSo) as NiceSpinner
         val spintime = view.findViewById(R.id.spinTime) as NiceSpinner
@@ -154,7 +154,7 @@ class ChartFragment : Fragment() {
 //                        data = LineData(dataSet)
 //                        data.notifyDataChanged()
 //                        chart.data = data
-//                        Toast.makeText(context!!, "New data arrived!", Toast.LENGTH_SHORT).show()
+//                        Snackbar.make(context!!, "New data arrived!", Snackbar.LENGTH_SHORT).show()
 //                        chart.notifyDataSetChanged()
 //                        // Force Chart refresh to get new data
 //                        chart.invalidate()

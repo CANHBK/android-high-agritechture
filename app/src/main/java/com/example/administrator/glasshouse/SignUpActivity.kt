@@ -8,17 +8,17 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.Utils.Config
+import com.example.administrator.glasshouse.type.UserInput
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
 
-//     val EMAIL_ADDRESS_PATTERN = Pattern.compile(
+    //     val EMAIL_ADDRESS_PATTERN = Pattern.compile(
 //             "[a-zA-Z0-9+._%-+]{1,256}" +
 //             "@" +
 //             "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
@@ -39,25 +39,22 @@ class SignUpActivity : AppCompatActivity() {
             val pass = edtPass.text.toString()
             //if (!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
             val check = !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(middleName)
-                                !TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)
-            if(check){
+            !TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)
+            if (check) {
                 register(lastName, middleName, firstName, email, pass)
-            }
-            else {
-                Toast.makeText(this@SignUpActivity,"Some information is missing",Toast.LENGTH_SHORT).show()
+            } else {
+//                Snackbar.make(this@SignUpActivity,"Some information is missing",Snackbar.LENGTH_SHORT).show()
             }
         }
     }
 
 
     private fun register(lastName: String, middleName: String, firstName: String, email: String, pass: String) {
+        val input = UserInput.builder().name("")
+                .email(email)
+                .password(pass).build()
         MyApolloClient.getApolloClient().mutate(
-                RegisterMutation.builder()
-                        .firstName(firstName)
-                        .middleName(middleName)
-                        .lastName(lastName)
-                        .email(email)
-                        .password(pass)
+                RegisterMutation.builder().params(input)
                         .build())
                 .enqueue(object : ApolloCall.Callback<RegisterMutation.Data>() {
                     override fun onFailure(e: ApolloException) {
@@ -72,12 +69,12 @@ class SignUpActivity : AppCompatActivity() {
                                 val editor = mShared.edit()
                                 editor.putString(Config.UserId, id)
                                 editor.apply()
-                                Toast.makeText(this@SignUpActivity, "Đăng ký thành công", Toast.LENGTH_SHORT).show()
+//                                Snackbar.make(this@SignUpActivity, "Đăng ký thành công", Snackbar.LENGTH_SHORT).show()
                                 sendToFarmChange()
                             }
                         } else {
                             val error = response.errors().toString()
-                            this@SignUpActivity.runOnUiThread { Toast.makeText(this@SignUpActivity, error, Toast.LENGTH_LONG).show()}
+//                            this@SignUpActivity.runOnUiThread { Snackbar.make(this@SignUpActivity, error, Snackbar.LENGTH_LONG).show()}
                         }
 
                     }

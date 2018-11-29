@@ -1,0 +1,29 @@
+mutation AddGateMutation($params : ServiceInput!){
+  addGate(params : $params){
+    group
+    name
+    serviceTag
+
+  }
+}
+
+mutation ShareGateMutation($userIDShare:ID!,$serviceTag:String!,
+						$userIdWillBeShare:ID!,$permission:String!)
+	{
+      shareGateWay(userIdShare:$userIDShare,serviceTag:$serviceTag,
+      userIdWillBeShared:$userIdWillBeShare,permission:$permission)
+    }
+
+query GetAllGateOfUserQuery($userID:ID!){
+  allGatesOfUser(userId:$userID){
+    group
+    serviceTag
+    name
+      allNodeEnvs {
+      name nodeEnv
+    }
+    allNodeControls {
+      name
+    }
+  }
+}

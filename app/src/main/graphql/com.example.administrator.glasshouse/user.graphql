@@ -1,0 +1,42 @@
+mutation loginMutation(
+  $email : String!,
+  $password : String!
+)
+{
+  login(
+    email : $email
+    password : $password
+  ){
+    id
+  }
+}
+
+mutation registerMutation($params:UserInput!)
+{
+  register(params:$params){
+    id
+  }
+}
+
+query GetUserByIDQuery($id:ID){
+  user(id: $id){
+    firstName
+    middleName
+    lastName
+    name
+    email
+    avatar
+  }
+}
+query GetAllUserQuery{
+  allUsers{
+    id
+    name
+    email
+    firstName
+    middleName
+    lastName
+    avatar
+  }
+}
+

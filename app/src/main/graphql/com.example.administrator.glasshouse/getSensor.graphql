@@ -1,8 +1,0 @@
-query AllSensorsQuery($params:AllSensorsInput!){
-  allSensors(params:$params){
-    serviceTag
-    nodeEnv
-    index
-    name
-  }
-}

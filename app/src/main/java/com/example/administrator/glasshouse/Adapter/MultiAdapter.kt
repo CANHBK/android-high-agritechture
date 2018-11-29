@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.administrator.glasshouse.Model.MultiRelayData
+import com.example.administrator.glasshouse.model.MultiRelayData
 import com.example.administrator.glasshouse.R
 
 class MultiAdapter(val dataList: ArrayList<MultiRelayData>) : RecyclerView.Adapter<MultiAdapter.ViewHolder>() {

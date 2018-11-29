@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.administrator.glasshouse.Fragment.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"
+
+        >
+        <action
+            android:id="@+id/to_create_account"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/to_home"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.administrator.glasshouse.Fragment.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.administrator.glasshouse.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addGateWayFragment"
+            app:destination="@id/addGateWayFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_sensorFragment"
+            app:destination="@id/sensorFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_controlFragment"
+            app:destination="@id/controlFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addRelayFragment"
+            app:destination="@id/addRelayFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addSensorFragment"
+            app:destination="@id/addSensorFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addGateWayFragment"
+        android:name="com.example.administrator.glasshouse.AddGateWayFragment"
+        android:label="fragment_add_gate_way"
+        tools:layout="@layout/fragment_add_gate_way" >
+        <action
+            android:id="@+id/action_addGateWayFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sensorFragment"
+        android:name="com.example.administrator.glasshouse.Fragment.MonitorFragment"
+        android:label="fragment_overview"
+        tools:layout="@layout/fragment_monitor" >
+        <argument
+            android:name="serviceTag"
+            android:defaultValue='""'
+            app:argType="string" />
+        <action
+            android:id="@+id/action_sensorFragment_to_configTimeMonitorFragment"
+            app:destination="@id/configTimeMonitorFragment" />
+        <action
+            android:id="@+id/action_sensorFragment_to_fragment_monitor_detail"
+            app:destination="@id/fragment_monitor_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/controlFragment"
+        android:name="com.example.administrator.glasshouse.Fragment.ControlFragment"
+        android:label="fragment_relay"
+        tools:layout="@layout/fragment_control" >
+        <argument
+            android:name="serviceTag"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_controlFragment_to_configTimeControlFragment"
+            app:destination="@id/configTimeControlFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/configTimeControlFragment"
+        android:name="com.example.administrator.glasshouse.ConfigTimeControlFragment"
+        android:label="fragment_config_time_control"
+        tools:layout="@layout/fragment_config_time_control" >
+        <argument
+            android:name="nodeControlArg"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_configTimeControlFragment_to_chooseTimeControlFragment"
+            app:destination="@id/chooseTimeControlFragment" />
+        <argument
+            android:name="serviceTag"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/configTimeMonitorFragment"
+        android:name="com.example.administrator.glasshouse.ConfigTimeMonitorFragment"
+        android:label="fragment_config_time_monitor"
+        tools:layout="@layout/fragment_config_time_monitor" />
+    <fragment
+        android:id="@+id/chooseTimeControlFragment"
+        android:name="com.example.administrator.glasshouse.ChooseTimeControlFragment"
+        android:label="fragment_choose_time_control"
+        tools:layout="@layout/fragment_choose_time_control" >
+        <argument
+            android:name="serviceTag"
+            app:argType="string" />
+        <argument
+            android:name="nodeControlArg"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_monitor_detail"
+        android:name="com.example.administrator.glasshouse.Fragment.ChartFragment"
+        android:label="fragment_monitor_detail"
+        tools:layout="@layout/fragment_monitor_detail" />
+    <fragment
+        android:id="@+id/addRelayFragment"
+        android:name="com.example.administrator.glasshouse.Fragment.AddRelayFragment"
+        android:label="fragment_add_relay"
+        tools:layout="@layout/fragment_add_relay" >
+        <action
+            android:id="@+id/action_addRelayFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSensorFragment"
+        android:name="com.example.administrator.glasshouse.Fragment.AddSensorFragment"
+        android:label="fragment_add_sensor"
+        tools:layout="@layout/fragment_add_sensor" >
+        <action
+            android:id="@+id/action_addSensorFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

@@ -1,8 +1,0 @@
-mutation ConfigTimeNodeEmvMutation($params:ConfigTimeNodeEnv){
-  configTimeNodeEnv(params:$params)
-}
-
-mutation ConfigTimeNodeControlMutation($params:ConfigTimeNodeControlInput){
-  configTimeNodeControl(params:$params)
-}
-

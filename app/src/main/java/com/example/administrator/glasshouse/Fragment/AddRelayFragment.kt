@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.util.Log
@@ -14,7 +15,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
+import androidx.navigation.findNavController
+
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
@@ -24,42 +26,44 @@ import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.Utils.Config
 import com.example.administrator.glasshouse.type.NodeControlInput
+import kotlinx.android.synthetic.main.fragment_add_relay.*
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class AddRelayFragment : Fragment() {
 
-    lateinit var mShared : SharedPreferences
-    lateinit var idGate : String
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_relay, container, false)
-        val relayName = view.findViewById<EditText>(R.id.edtRelayName)
-        val relayID = view.findViewById<EditText>(R.id.edtRelayID)
-        val getQRRelay = view.findViewById<ImageView>(R.id.imgScanRelay)
-        val btnAdd = view.findViewById<View>(R.id.btnSubRelay) as Button
 
-        mShared = context!!.getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
-        idGate = mShared.getString(Config.GateId, "")!!
-
-
-        btnAdd.setOnClickListener {
-            val relay: String = relayName.text.toString()
-            val relayId = relayID.text.toString()
-
-            if (!TextUtils.isEmpty(relay) && !TextUtils.isEmpty(relayId)) {
-                addRelayNode(relayId, idGate,relay)
-            } else {
-                Toast.makeText(context!!,"Fill in all information",Toast.LENGTH_SHORT).show()
-            }
-        }
         return view
     }
 
-    private fun addRelayNode(relayID: String, idGate: String, relayName : String) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val relayName = view.findViewById<EditText>(R.id.edtRelayName)
+        val relayID = view.findViewById<EditText>(R.id.edtRelayID)
+        val btnAdd = view.findViewById<View>(R.id.btnSubRelay) as Button
+
+
+
+        btnAdd.setOnClickListener {
+            val idGate = edt_service_tag.text.toString()
+            val relay: String = relayName.text.toString()
+            val relayId = relayID.text.toString()
+
+            if (!TextUtils.isEmpty(relay) && !TextUtils.isEmpty(relayId) && !TextUtils.isEmpty(idGate)) {
+                addRelayNode(it, relayId, idGate, relay)
+            } else {
+                Snackbar.make(it, "Các trường không được trống", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        btn_cancel_add_control.setOnClickListener {
+            it.findNavController().navigate(R.id.action_addRelayFragment_to_homeFragment)
+        }
+    }
+
+    private fun addRelayNode(view: View, relayID: String, idGate: String, relayName: String) {
         val input = NodeControlInput.builder().nodeControl(relayID).serviceTag(idGate)
                 .name(relayName).build()
         MyApolloClient.getApolloClient().mutate(
@@ -74,11 +78,10 @@ class AddRelayFragment : Fragment() {
                 activity!!.runOnUiThread {
                     val successCheck = response.data()!!.addNodeControl()
                     if (successCheck != null) {
-                        Toast.makeText(context!!, "Add Node Successfully", Toast.LENGTH_LONG).show()
-                        val intent = Intent(context!!,MainActivity::class.java)
-                        startActivity(intent)
+                        Snackbar.make(view, "Thêm thành công", Snackbar.LENGTH_LONG).show()
+                        view.findNavController().navigate(R.id.action_addRelayFragment_to_homeFragment)
                     } else {
-                        Toast.makeText(context!!, response.errors()[0].message(), Toast.LENGTH_SHORT).show()
+                        Snackbar.make(view, response.errors()[0].message()!!, Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }

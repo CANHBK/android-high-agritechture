@@ -7,15 +7,13 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
-import com.example.administrator.glasshouse.Adapter.FarmChangeAdapter
-import com.example.administrator.glasshouse.Model.GateData
+import com.example.administrator.glasshouse.model.GateData
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.Utils.Config
 import kotlinx.android.synthetic.main.activity_area_change.*
@@ -68,6 +66,7 @@ class FarmChangeActivity : AppCompatActivity() {
 
     // hàm Query lấy dữ liệu các Farm theo UserID
     private fun getGateData(id: String) {
+
         MyApolloClient.getApolloClient().query(
                 GetAllGateOfUserQuery.builder()
                         .userID(id)
@@ -78,27 +77,25 @@ class FarmChangeActivity : AppCompatActivity() {
             }
 
             override fun onResponse(response: Response<GetAllGateOfUserQuery.Data>) {
-//                Log.d("!get", response.data()!!.farms()!![0].name())
-                Log.d("!here", "Có vào đây")
                 val check = response.data()!!.allGatesOfUser()
                 if (check != null) {
-                    this@FarmChangeActivity.runOnUiThread {
-                        // Lấy dữ liệu và đổ vào RecyclerView
-                        val list = response.data()!!.allGatesOfUser()!!
-                        for (i in 0..(list.size - 1)) {
-                            val id = list[i]!!.serviceTag().serviceTag()
-                            val name = list[i]!!.serviceTag().name()
-                            listFarm.add(GateData(id,name))
-                            //Toast.makeText(this@FarmChangeActivity,"NotHere",Toast.LENGTH_LONG).show()
-                        }
-                        val layoutManager = GridLayoutManager(this@FarmChangeActivity, 3)
-                        recy_changeArea.layoutManager = layoutManager
-                        val adapter = FarmChangeAdapter(listFarm, this@FarmChangeActivity)
-                        recy_changeArea.adapter = adapter
-                    }
+//                    this@FarmChangeActivity.runOnUiThread {
+//                        // Lấy dữ liệu và đổ vào RecyclerView
+//                        val list = response.data()!!.allGatesOfUser()!!
+//                        for (i in 0..(list.size - 1)) {
+//                            val id = list[i]!!.serviceTag()
+//                            val name = list[i]!!.name()
+//                            listFarm.add(GateData(id,name))
+//                            //Snackbar.make(this@FarmChangeActivity,"NotHere",Snackbar.LENGTH_LONG).show()
+//                        }
+//                        val layoutManager = GridLayoutManager(this@FarmChangeActivity, 3)
+////                        recy_changeArea.layoutManager = layoutManager
+//                        val adapter = GateWayAdapter(listFarm, this@FarmChangeActivity)
+//                        recy_changeArea.adapter = adapter
+//                    }
                 } else { // không có dữ liệu sẽ nhảy vào đây
                     this@FarmChangeActivity.runOnUiThread {
-                        //Toast.makeText(this@FarmChangeActivity,"Here",Toast.LENGTH_LONG).show()
+                        //Snackbar.make(this@FarmChangeActivity,"Here",Snackbar.LENGTH_LONG).show()
                         ableNoFarmViewGroup(true)
                     }
 

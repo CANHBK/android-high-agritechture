@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView android:layout_width="match_parent"
+    android:id="@+id/btn_material"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_rowWeight="1"
+    android:layout_columnWeight="1"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/circle_background_purple"
+                android:padding="10dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_circular_on_off"
+                android:layout_width="83dp"
+                android:layout_height="92dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:indeterminateDrawable="@drawable/progress" />
+
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/txt_name_relay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:hint="Relay 1"
+            android:textStyle="bold" />
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/btnRelay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Bật"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_power_settings_new_black_24dp" />
+
+
+    </LinearLayout>
+</android.support.design.card.MaterialCardView>

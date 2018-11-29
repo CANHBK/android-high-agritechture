@@ -1,9 +1,0 @@
-query AllRelayOfControlQuery($params:NodeControlInput!){
-  allRelaysOfControl(params:$params){
-    serviceTag
-    nodeControl
-    index
-    state
-    name
-  }
-}

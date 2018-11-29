@@ -3,11 +3,11 @@ package com.example.administrator.glasshouse
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
@@ -20,17 +20,18 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
         btnSignIn.setOnClickListener {
             //sendToSignUp()
             val email = edtEmailIn.text.toString()
             val password = edtPassIn.text.toString()
             probarIn.visibility = View.VISIBLE
 
-            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
+            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
                 login(email, password)
             } else {
                 probarIn.visibility = View.INVISIBLE
-                Toast.makeText(this@SignInActivity,"Xin hãy nhập đầy đủ Email và mật khẩu",Toast.LENGTH_LONG).show()
+                Snackbar.make(it, "Xin hãy nhập đầy đủ Email và mật khẩu", Snackbar.LENGTH_LONG).show()
             }
 
         }
@@ -62,19 +63,19 @@ class SignInActivity : AppCompatActivity() {
                         Log.d("!login", e.message)
                         this@SignInActivity.runOnUiThread {
                             probarIn.visibility = View.INVISIBLE
-                            Toast.makeText(this@SignInActivity, e.message, Toast.LENGTH_LONG).show()
+//                            Snackbar.make(this@SignInActivity, e.message, Snackbar.LENGTH_LONG).show()
                         }
                     }
 
                     override fun onResponse(response: Response<LoginMutation.Data>) {
-
+                        Log.d("AAA", response.toString());
                         // Check cách để có thể lấy được response.data()!!
                         val checkResponse = response.data()!!.login()
 //                        Log.d("!login", id.toString())
                         if (checkResponse != null) {
                             this@SignInActivity.runOnUiThread {
                                 val id = checkResponse.id()
-                                Toast.makeText(this@SignInActivity, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
+//                                Snackbar.make(this@SignInActivity, "Đăng nhập thành công", Snackbar.LENGTH_SHORT).show()
                                 // Thực hiện lưu ID người dùng bằng SharedPreference ngay sau khi đăng nhập
                                 val mShared = getSharedPreferences(Config.SharedCode, Context.MODE_PRIVATE)
                                 val editor = mShared.edit()
@@ -86,7 +87,7 @@ class SignInActivity : AppCompatActivity() {
                         } else {
                             val error = response.errors()[0].message()
                             this@SignInActivity.runOnUiThread {
-                                Toast.makeText(this@SignInActivity, error, Toast.LENGTH_LONG).show()
+//                                Snackbar.make(this@SignInActivity, error, Snackbar.LENGTH_LONG).show()
                                 probarIn.visibility = View.INVISIBLE
                             }
                         }
