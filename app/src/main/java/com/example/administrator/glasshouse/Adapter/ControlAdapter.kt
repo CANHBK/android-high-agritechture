@@ -22,6 +22,8 @@ import com.example.administrator.glasshouse.GetCurrentStateRelayQuery
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.config.config
+import com.example.administrator.glasshouse.model.ControlModel
+import com.example.administrator.glasshouse.model.RelayModel
 import com.example.administrator.glasshouse.type.NodeControlInput
 import com.example.administrator.glasshouse.type.RelayInput
 import com.example.administrator.glasshouse.type.ServiceInput
@@ -29,7 +31,6 @@ import io.paperdb.Paper
 
 
 class ControlAdapter(val allNodeControl: List<GetAllNodeControlQuery.AllNodeControl>, val context: Context, val activity: Activity) : RecyclerView.Adapter<ControlAdapter.RelayViewholder>() {
-
     lateinit var view: View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RelayViewholder {
         val inflater = LayoutInflater.from(parent.context)
@@ -56,10 +57,17 @@ class ControlAdapter(val allNodeControl: List<GetAllNodeControlQuery.AllNodeCont
             getCurrentStateRelay(it, nodeControl.serviceTag(), nodeControl.nodeControl(), holder, position);
         }
         holder.btnConfigTime.setOnClickListener {
-            val dataBundle = Bundle()
-            dataBundle.putString(config.SERVICE_TAG_BUNDLE, nodeControl.serviceTag())
-            dataBundle.putString(config.NODE_CONTROL_ARG, nodeControl.serviceTag())
-            it.findNavController().navigate(R.id.action_controlFragment_to_configTimeControlFragment, dataBundle)
+
+            val data = Bundle()
+            val control = ControlModel(nodeControl.serviceTag(), nodeControl.nodeControl())
+            val relays = ArrayList<RelayModel>()
+            for (item in nodeControl.relays()) {
+                val rl = RelayModel(item.index(), item.name())
+                relays.add(rl)
+            }
+            data.putSerializable("control", control)
+            data.putSerializable("relays", relays)
+            it.findNavController().navigate(R.id.action_controlFragment_to_configTimeControlFragment, data)
         }
 
     }
