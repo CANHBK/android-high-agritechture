@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet_home"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,6 +22,8 @@
         android:textColor="@color/primary_text"
         android:textSize="16sp" />
 
+    <View style="@style/Divider" />
+
     <LinearLayout
         android:id="@+id/addNewGateWay"
         android:layout_width="match_parent"
@@ -34,13 +37,14 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_widgets_black_24dp" />
+            android:src="@drawable/ic_shrink"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="@string/add_new_gateway"
+            android:text="@string/gate"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -58,13 +62,14 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_widgets_black_24dp" />
+            android:src="@drawable/ic_motion_sensor"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="Thêm node cảm biến"
+            android:text="@string/node_monitor"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -82,13 +87,14 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_widgets_black_24dp" />
+            android:src="@drawable/ic_settings"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="Thêm node Điều khiển"
+            android:text="@string/node_control"
             android:textSize="16sp" />
 
     </LinearLayout>

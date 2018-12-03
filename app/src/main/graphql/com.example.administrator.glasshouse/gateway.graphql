@@ -19,11 +19,7 @@ query GetAllGateOfUserQuery($userID:ID!){
     group
     serviceTag
     name
-      allNodeEnvs {
-      name nodeEnv
-    }
-    allNodeControls {
-      name
-    }
+   monitors
+   controls
   }
 }

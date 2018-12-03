@@ -21,7 +21,6 @@ import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.Utils.Config
 import com.example.administrator.glasshouse.config.config
 import io.paperdb.Paper
-import kotlinx.android.synthetic.main.activity_sign_in.*
 
 import kotlinx.android.synthetic.main.fragment_login.*
 

@@ -18,7 +18,8 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/icon"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="2dp"
-            android:text="Nhiệt độ"
+            tools:text="Nhiệt độ"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="14sp" />
@@ -59,9 +60,9 @@
             android:layout_gravity="center"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:text="20"
+            tools:text="20"
             android:textColor="@color/white"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:gravity="center"
-            android:text="°C"
+            tools:text="°C"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"

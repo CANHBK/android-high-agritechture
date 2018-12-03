@@ -1,9 +1,6 @@
 package com.example.administrator.glasshouse.Fragment
 
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -14,17 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.navigation.findNavController
 
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.example.administrator.glasshouse.AddNodeControlMutation
-import com.example.administrator.glasshouse.MainActivity
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
-import com.example.administrator.glasshouse.Utils.Config
 import com.example.administrator.glasshouse.type.NodeControlInput
 import kotlinx.android.synthetic.main.fragment_add_relay.*
 
@@ -32,6 +26,7 @@ class AddRelayFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_relay, container, false)
 
@@ -76,11 +71,11 @@ class AddRelayFragment : Fragment() {
 
             override fun onResponse(response: Response<AddNodeControlMutation.Data>) {
                 activity!!.runOnUiThread {
-                    val successCheck = response.data()!!.addNodeControl()
-                    if (successCheck != null) {
+                    val errros = response.errors()
+                    if (errros.isEmpty()){
                         Snackbar.make(view, "Thêm thành công", Snackbar.LENGTH_LONG).show()
                         view.findNavController().navigate(R.id.action_addRelayFragment_to_homeFragment)
-                    } else {
+                    }else{
                         Snackbar.make(view, response.errors()[0].message()!!, Snackbar.LENGTH_SHORT).show()
                     }
                 }

@@ -1,9 +1,6 @@
 package com.example.administrator.glasshouse.Fragment
 
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -17,14 +14,10 @@ import androidx.navigation.findNavController
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
-import com.apollographql.apollo.exception.ApolloHttpException
-import com.dd.processbutton.iml.ActionProcessButton
 import com.example.administrator.glasshouse.AddNodeEnvironmentMutation
-import com.example.administrator.glasshouse.MainActivity
 
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
-import com.example.administrator.glasshouse.Utils.Config
 import com.example.administrator.glasshouse.type.NodeEnvInput
 import kotlinx.android.synthetic.main.fragment_add_sensor.*
 

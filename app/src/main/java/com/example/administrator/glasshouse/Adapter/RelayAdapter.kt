@@ -30,17 +30,21 @@ import io.reactivex.subscribers.DisposableSubscriber
 
 class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, val context: Context, val recyclerViewBtn: RecyclerView, val activity: Activity) : RecyclerView.Adapter<RelayAdapter.ViewHolder>() {
     lateinit var view: View
+    lateinit var st:String
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RelayAdapter.ViewHolder {
+        Log.d("!calll", "onCreateViewHolder")
         val layoutInflater = LayoutInflater.from(parent.context)
         view = layoutInflater.inflate(R.layout.item_btn_of_off, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
+        Log.d("!calll", "getItemCount")
         return relays.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("!calll", "onBind")
         holder.progress.visibility = View.INVISIBLE
         val relay = relays[position]
         trackStateRelay(relay.serviceTag()!!, relay.nodeControl())
@@ -60,11 +64,13 @@ class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, 
             params.setMargins(16, 16, 8, 8)
         }
 
+        st = relay.state();
 
-        val state = if (relay.state() == "O") "F" else "O"
         holder.btnRelay.setOnClickListener {
+
             holder.progress.visibility = View.VISIBLE
-            setStateRelay(relay.serviceTag()!!, relay.nodeControl(), relay.index(), state, holder, context)
+            setStateRelay(relay.serviceTag()!!, relay.nodeControl(), relay.index(), st, holder, context)
+
 
         }
 
@@ -76,6 +82,7 @@ class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, 
     }
 
     inner class ViewHolder(val item: View) : RecyclerView.ViewHolder(item) {
+
         val txtNameRelay: TextView = item.findViewById<View>(R.id.txt_name_relay) as TextView
         val btnRelay: View = item.findViewById<View>(R.id.btnRelay) as Button
         val progress: View = item.findViewById<View>(R.id.progress_circular_on_off) as ProgressBar
@@ -93,19 +100,20 @@ class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, 
                 SetStateRelayMutation.builder().params(input).build()
         ).enqueue(object : ApolloCall.Callback<SetStateRelayMutation.Data>() {
             override fun onFailure(e: ApolloException) {
-                Log.d("!setState", e.message)
                 holder.progress.visibility = View.INVISIBLE
             }
 
             override fun onResponse(response: Response<SetStateRelayMutation.Data>) {
                 if (response.errors().size == 0) {
-                    Log.d("!test", response.data()!!.setStateRelay()!!.relays().toString())
-                    val stateCurrent = response.data()!!.setStateRelay()!!.relays()[0].state()
-                    if (stateCurrent == "O") {
+                    Log.d("!test", response.data()!!.setStateRelay()!!.toString())
+                    st = if (st == "O") "F" else "O"
+                    val success = response.data()!!.setStateRelay()!!
+                    if (success && st == "F") {
+
                         holder.btnRelay.backgroundTintList = (context.resources.getColorStateList(R.color.colorAccent))
                         holder.progress.visibility = View.INVISIBLE
                     }
-                    if (stateCurrent == "F") {
+                    if (success&& st == "O") {
                         holder.btnRelay.backgroundTintList = (context.resources.getColorStateList(R.color.secondary_text))
                         holder.progress.visibility = View.INVISIBLE
                     }

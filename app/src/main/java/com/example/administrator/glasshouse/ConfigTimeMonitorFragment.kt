@@ -20,7 +20,6 @@ import com.apollographql.apollo.exception.ApolloException
 import com.example.administrator.glasshouse.R.id.*
 import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.config.config
-import com.example.administrator.glasshouse.databinding.FragmentConfigTimeMonitorBinding
 import com.example.administrator.glasshouse.model.MonitorModel
 import com.example.administrator.glasshouse.model.SensorModel
 import com.example.administrator.glasshouse.type.ConfigTimeNodeEnv

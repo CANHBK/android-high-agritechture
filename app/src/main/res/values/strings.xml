@@ -1,4 +1,14 @@
 <resources>
+    <string name="app_name">Nông nghiệp 4.0</string>
+    <string name="retry">Retry</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="a11y_user_photo">user photo</string>
+    <string name="a11y_user_name">user name</string>
+    <string name="search_hint">search repositories</string>
+    <string name="repo_full_name"><b>%s</b>/%s</string>
+    <string name="empty_search_result">No results for <b>%s</b></string>
+    <string name="a11y_contributor_avatar">contributor avatar</string>
+
     <string name="login">Đăng nhập</string>
     <string name="action_settings">Settings</string>
     <string name="hint_name">Họ và tên</string>
@@ -9,7 +19,6 @@
     <string name="err_msg_email">Enter valid email address</string>
     <string name="err_msg_password">Enter the password</string>
 
-    <string name="app_name">GlassHouse</string>
     <string name="tong_quan">Tổng quan</string>
     <string name="bieu_do">Biểu đồ</string>
     <string name="thong_bao">Thông báo</string>
@@ -55,7 +64,7 @@
         <item>Ánh sáng</item>
         <item>Độ pH</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="middle_name">Middle Name</string>
     <string name="title_activity_login">Sign in</string>
@@ -79,4 +88,15 @@
     <string name="add_new_gateway">Thêm Gate Way mới</string>
     <string name="monitor">Giám sát</string>
     <string name="control">Điều khiển</string>
+    <string name="gateList">Danh sách Gate Way</string>
+    <string name="noGate">Chưa có Gate Way nào!!!</string>
+    <string name="node_monitor">Điểm quan sát</string>
+    <string name="node_control">Điểm điều khiển</string>
+    <string name="gate">GateWay</string>
+
+    <string name="post_subtitle">Submitted by %s</string>
+    <string name="default_subreddit">androiddev</string>
+    <string name="db_plus_network">db + network</string>
+    <string name="network_only_by_item">network only (by item)</string>
+    <string name="network_only_by_page">network only (by page)</string>
 </resources>

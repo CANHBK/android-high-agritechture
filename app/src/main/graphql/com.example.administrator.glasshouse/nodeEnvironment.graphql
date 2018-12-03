@@ -32,27 +32,17 @@ query GetAllNodeEnvQuery($params :ServiceInput!){
        serviceTag
           nodeEnv
           name
-          sensors {
-            serviceTag
-            nodeEnv
-            index
-            name
-            data {
-              createdAt
-              value
-            }
+          sensors{
+          lastData index serviceTag nodeEnv name
           }
+
      }
 }
 
 
 
 mutation AddNodeEnvironment($params : NodeEnvInput!){
-  addNodeEnv(params : $params){
-    serviceTag
-    nodeEnv
-    name
-  }
+  addNodeEnv(params : $params)
 }
 
 mutation ConfigTimeNodeEmvMutation($params:ConfigTimeNodeEnv){
@@ -106,10 +96,7 @@ query AllSensorsQuery($params:AllSensorsInput!){
        index
        serviceTag
        sensorID
-       data {
-         value
-         createdAt
-       }
+     lastData
   }
 }
 query NewEnviromentParams($params: NewEnvironmentParamsInput!){

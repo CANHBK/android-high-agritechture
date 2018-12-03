@@ -9,26 +9,19 @@ import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
+import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
+import java.io.File
 
 
 class MyApolloClient {
+
     companion object {
         private var apolloClient: ApolloClient? = null
-        private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
-//        private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
-        private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
-//        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
+//        private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
+        private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
+//        private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
+        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
         private val SQL_CACHE_NAME = "GlassHouse"
-//        private val subscriptionSubscriptionClient = GetTempSubcription.builder().build()
-//        val observer = Rx2Apollo.from(getSubscriptionSubscriptionCall())
-//        observer.subscribeWith(SubscriptionSubscriber ())
-//        fun getSubscriptionSubscriptionClient(): GetTempSubcription {
-//            return subscriptionSubscriptionClient
-//        }
-//
-//        private fun getSubscriptionSubscriptionCall(): ApolloSubscriptionCall<GetTempSubcription.Data> {
-//            return apolloClient!!.subscribe(subscriptionSubscriptionClient)
-//        }
 
 
         fun getApolloClient(): ApolloClient {

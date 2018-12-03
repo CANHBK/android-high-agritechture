@@ -15,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.apollographql.apollo.ApolloCall
+import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.example.administrator.glasshouse.*
@@ -23,9 +24,13 @@ import com.example.administrator.glasshouse.model.MonitorModel
 import com.example.administrator.glasshouse.model.SensorModel
 import com.example.administrator.glasshouse.type.AllSensorsInput
 import com.example.administrator.glasshouse.type.NewEnvironmentParamsInput
+import javax.inject.Inject
 
 
 class MonitorAdapter(val nodeEnvList: List<GetAllNodeEnvQuery.AllNodesEnv>, var realTimeParams: AutoUpdatedEnvironmentSubSubscription.AutoUpdatedEnvironmentParams, val context: Context, val activity: Activity) : RecyclerView.Adapter<MonitorAdapter.ViewHolder>() {
+
+    @Inject
+    lateinit var apolloClient: ApolloClient
     lateinit var view: View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -84,7 +89,7 @@ class MonitorAdapter(val nodeEnvList: List<GetAllNodeEnvQuery.AllNodesEnv>, var 
                         .build()
         ).enqueue(object : ApolloCall.Callback<NewEnviromentParamsQuery.Data>() {
             override fun onFailure(e: ApolloException) {
-                Log.d("!getSensor", e.message)
+                Log.d("MonitorAdapter", e.message)
                 holder.progress.visibility = View.INVISIBLE
                 holder.btnRefresh.visibility = View.VISIBLE
             }
@@ -114,7 +119,7 @@ class MonitorAdapter(val nodeEnvList: List<GetAllNodeEnvQuery.AllNodesEnv>, var 
                         .build()
         ).enqueue(object : ApolloCall.Callback<AllSensorsQuery.Data>() {
             override fun onFailure(e: ApolloException) {
-                Log.d("!getSensor", e.message)
+                Log.d("monitor", e.message)
                 holder.progress.visibility = View.INVISIBLE
                 holder.btnRefresh.visibility = View.VISIBLE
             }

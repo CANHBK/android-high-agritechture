@@ -18,7 +18,6 @@ import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.config.config
 import com.example.administrator.glasshouse.type.ServiceInput
 import io.paperdb.Paper
-import kotlinx.android.synthetic.main.activity_add_gate.*
 import kotlinx.android.synthetic.main.fragment_add_gate_way.*
 
 

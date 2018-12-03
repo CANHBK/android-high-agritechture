@@ -31,26 +31,11 @@ query GetCurrentStateRelay($params:RelayInput!){
 }
 
 mutation AddNodeControl($params : NodeControlInput!){
-  addNodeControl(params : $params){
-    serviceTag
-    nodeControl
-    name
-  }
+  addNodeControl(params : $params)
 }
 
 mutation SetStateRelayMutation($params: StateRelayInput!){
-  setStateRelay(params:$params){
-    serviceTag
-    name
-    nodeControl
-    relays {
-      index
-      state
-      name
-      serviceTag
-      nodeControl
-    }
-  }
+  setStateRelay(params:$params)
 }
 
 mutation ConfigTimeNodeControlMutation($params:ConfigTimeNodeControlInput){

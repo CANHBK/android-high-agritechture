@@ -1,5 +1,6 @@
 package com.example.administrator.glasshouse.Adapter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -39,18 +40,14 @@ lateinit var view:View;
         return sensors.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         trackNewEnvParam(view,sensors[0].serviceTag()!!,sensors[0].nodeEnv(),holder)
         val sensor = sensors[position];
-        val data = sensor.data()
-        holder.txtNameSensor.text = sensor.name()
-        if (data!!.isEmpty()) {
-            holder.txtValue.text = "--"
-        } else {
 
-            Log.d("!data", data[data.size - 1].value().toString())
-            holder.txtValue.text = data[data.size - 1].value().toString()
-        }
+        holder.txtNameSensor.text = sensor.name()
+
+        holder.txtValue.text = sensor.lastData().toString()
         when (sensor.index()!!.toInt()) {
             1 -> {
                 holder.icon.background = context.getDrawable(R.drawable.ic_thermometer_black)
@@ -84,20 +81,13 @@ lateinit var view:View;
         val txtUnit: TextView = item.findViewById<View>(R.id.txt_unit) as TextView
         val layout = item.findViewById<View>(R.id.layout_sensor) as ConstraintLayout
         val icon = item.findViewById<View>(R.id.icon) as ImageView
-//        val recyclerViewSensor = item.findViewById<View>(R.id.recyler_view_sensor) as RecyclerView
-//        val btnRelay: View = item.findViewById<View>(R.id.btnRelay) as Button
-//        val progress: View = item.findViewById<View>(R.id.progress_circular_on_off) as ProgressBar
-//        val materialLayout = item.findViewById<View>(R.id.btn_material) as MaterialCardView
-//        fun showError(errMessage: String) {
-//            Snackbar.make(item, errMessage, Snackbar.LENGTH_LONG).show()
-//        }
     }
 
     private fun trackNewEnvParam(view: View, serviceTag: String, nodeEnv: String,holder: ViewHolder) {
         var compositeDisposable: CompositeDisposable? = null
         compositeDisposable = CompositeDisposable()
-        val input = NodeEnvInput.builder().serviceTag("G001").nodeEnv("E-001-F:0").build()
-        Log.d("!input", input.toString())
+        val input = NodeEnvInput.builder().serviceTag(serviceTag).nodeEnv(nodeEnv).build()
+
         val newEnvSub = AutoUpdatedEnvironmentSubSubscription.builder().params(input).build()
         val envSubscriptionClient = MyApolloClient.getApolloClient().subscribe(newEnvSub)
         // Sử dụng RxJava để tiện xử lý sự kiện
@@ -129,7 +119,7 @@ lateinit var view:View;
                         .build()
         ).enqueue(object : ApolloCall.Callback<AllSensorsQuery.Data>() {
             override fun onFailure(e: ApolloException) {
-                Log.d("!getSensor", e.message)
+                Log.d("!SensorAdapter", e.message)
             }
 
             override fun onResponse(response: Response<AllSensorsQuery.Data>) {
