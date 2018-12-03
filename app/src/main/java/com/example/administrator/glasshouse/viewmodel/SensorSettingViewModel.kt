@@ -1,6 +1,6 @@
 package com.example.administrator.glasshouse.viewmodel
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 
 class SensorSettingViewModel:ViewModel() {
 

@@ -4,8 +4,8 @@ package com.example.administrator.glasshouse
 import android.os.Bundle
 
 import android.app.TimePickerDialog
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ConfigTimeControlFragment : Fragment() {
+class ConfigTimeControlFragment : androidx.fragment.app.Fragment() {
     lateinit var control: ControlModel
     lateinit var relays: ArrayList<RelayModel>
     var type: Int = 0

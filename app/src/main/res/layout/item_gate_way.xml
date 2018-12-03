@@ -7,7 +7,7 @@
     android:layout_marginTop="16dp"
     android:orientation="vertical">
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
         app:cardCornerRadius="8dp"
         android:elevation="15dp"
         android:layout_width="match_parent"
@@ -21,11 +21,11 @@
             android:layout_gravity="center_vertical"
             android:orientation="vertical"
             android:padding="0dp">
-            <android.support.design.card.MaterialCardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:elevation="8dp">
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="56dp">
 
@@ -56,10 +56,10 @@
                         app:layout_constraintEnd_toEndOf="@+id/txt_name_gate_way"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txt_name_gate_way" />
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </android.support.design.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
 
 
             <LinearLayout
@@ -132,7 +132,7 @@
         </LinearLayout>
 
 
-    </android.support.design.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <GridLayout
         android:layout_width="match_parent"
@@ -140,7 +140,7 @@
         android:columnCount="2"
         android:orientation="horizontal">
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_monitor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -149,7 +149,7 @@
             android:textAllCaps="false"
             app:cornerRadius="0dp" />
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_control"
             android:layout_width="0dp"
             android:layout_height="match_parent"

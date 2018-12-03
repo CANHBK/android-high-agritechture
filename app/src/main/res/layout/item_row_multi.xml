@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:src="@color/black"/>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
@@ -54,5 +54,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Quạt" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

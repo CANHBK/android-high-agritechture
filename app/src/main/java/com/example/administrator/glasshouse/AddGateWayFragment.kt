@@ -3,7 +3,7 @@ package com.example.administrator.glasshouse
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,7 +21,7 @@ import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_add_gate_way.*
 
 
-class AddGateWayFragment : android.support.v4.app.Fragment() {
+class AddGateWayFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -74,7 +74,7 @@ class AddGateWayFragment : android.support.v4.app.Fragment() {
                     }
                 } else {
                     activity!!.runOnUiThread{
-                        Snackbar.make(view,response.errors()[0].message()!!,Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(view,response.errors()[0].message()!!, Snackbar.LENGTH_SHORT).show()
                     }}
             }
         })

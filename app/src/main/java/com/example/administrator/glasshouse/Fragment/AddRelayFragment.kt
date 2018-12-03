@@ -2,8 +2,8 @@ package com.example.administrator.glasshouse.Fragment
 
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +22,7 @@ import com.example.administrator.glasshouse.SupportClass.MyApolloClient
 import com.example.administrator.glasshouse.type.NodeControlInput
 import kotlinx.android.synthetic.main.fragment_add_relay.*
 
-class AddRelayFragment : Fragment() {
+class AddRelayFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

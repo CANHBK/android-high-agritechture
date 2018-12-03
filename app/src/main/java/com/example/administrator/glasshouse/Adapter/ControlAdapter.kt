@@ -3,9 +3,9 @@ package com.example.administrator.glasshouse.Adapter
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +30,7 @@ import com.example.administrator.glasshouse.type.ServiceInput
 import io.paperdb.Paper
 
 
-class ControlAdapter(val allNodeControl: List<GetAllNodeControlQuery.AllNodeControl>, val context: Context, val activity: Activity) : RecyclerView.Adapter<ControlAdapter.RelayViewholder>() {
+class ControlAdapter(val allNodeControl: List<GetAllNodeControlQuery.AllNodeControl>, val context: Context, val activity: Activity) : androidx.recyclerview.widget.RecyclerView.Adapter<ControlAdapter.RelayViewholder>() {
     lateinit var view: View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RelayViewholder {
         val inflater = LayoutInflater.from(parent.context)
@@ -109,8 +109,8 @@ class ControlAdapter(val allNodeControl: List<GetAllNodeControlQuery.AllNodeCont
     }
 
 
-    inner class RelayViewholder(item: View) : RecyclerView.ViewHolder(item) {
-        val recyclerViewBtn = item.findViewById<View>(R.id.recycler_btn_on_off) as RecyclerView
+    inner class RelayViewholder(item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
+        val recyclerViewBtn = item.findViewById<View>(R.id.recycler_btn_on_off) as androidx.recyclerview.widget.RecyclerView
         val title = item.findViewById<View>(R.id.txt_name_node_control) as TextView
         val subTitle = item.findViewById<View>(R.id.txt_id_node_control) as TextView
         val btnRefresh = item.findViewById<View>(R.id.refresh_node_control)
@@ -138,7 +138,7 @@ class ControlAdapter(val allNodeControl: List<GetAllNodeControlQuery.AllNodeCont
                     val data = response.data()
                     val error = response.errors()
                     if (data != null) {
-                        val layoutManager = GridLayoutManager(context, 2)
+                        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 2)
                         holder.recyclerViewBtn.layoutManager = layoutManager
                         val adapter = RelayAdapter(data.allRelaysOfControl()!!, context, holder.recyclerViewBtn, activity)
                         holder.recyclerViewBtn.adapter = adapter

@@ -2,11 +2,9 @@ package com.example.administrator.glasshouse.ui.gate
 
 
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.Snackbar
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.*
 import androidx.navigation.findNavController
@@ -24,11 +22,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 
-class GateFragment : android.support.v4.app.Fragment(),Injectable {
+class GateFragment : androidx.fragment.app.Fragment(),Injectable {
 
     @Inject
     lateinit var apolloClient:ApolloClient
-    lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
     lateinit var gateAdapter: GateAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +49,7 @@ class GateFragment : android.support.v4.app.Fragment(),Injectable {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        refresh_layout_home.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+        refresh_layout_home.setOnRefreshListener(object : androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
                 Log.d("!call", "call")
                 getGateData()

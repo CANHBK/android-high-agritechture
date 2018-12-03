@@ -2,10 +2,10 @@ package com.example.administrator.glasshouse.Adapter
 
 import android.app.Activity
 import android.content.Context
-import android.support.design.card.MaterialCardView
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +28,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 
-class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, val context: Context, val recyclerViewBtn: RecyclerView, val activity: Activity) : RecyclerView.Adapter<RelayAdapter.ViewHolder>() {
+class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, val context: Context, val recyclerViewBtn: androidx.recyclerview.widget.RecyclerView, val activity: Activity) : androidx.recyclerview.widget.RecyclerView.Adapter<RelayAdapter.ViewHolder>() {
     lateinit var view: View
     lateinit var st:String
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RelayAdapter.ViewHolder {
@@ -57,10 +57,10 @@ class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, 
             holder.btnRelay.backgroundTintList = (context.resources.getColorStateList(R.color.secondary_text))
         }
         if (position % 2 == 0) {
-            val params = holder.materialLayout.layoutParams as GridLayoutManager.LayoutParams
+            val params = holder.materialLayout.layoutParams as androidx.recyclerview.widget.GridLayoutManager.LayoutParams
             params.setMargins(8, 16, 8, 16)
         } else {
-            val params = holder.materialLayout.layoutParams as GridLayoutManager.LayoutParams
+            val params = holder.materialLayout.layoutParams as androidx.recyclerview.widget.GridLayoutManager.LayoutParams
             params.setMargins(16, 16, 8, 8)
         }
 
@@ -81,7 +81,7 @@ class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, 
 
     }
 
-    inner class ViewHolder(val item: View) : RecyclerView.ViewHolder(item) {
+    inner class ViewHolder(val item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
 
         val txtNameRelay: TextView = item.findViewById<View>(R.id.txt_name_relay) as TextView
         val btnRelay: View = item.findViewById<View>(R.id.btnRelay) as Button
@@ -173,7 +173,7 @@ class RelayAdapter(val relays: List<AllRelayOfControlQuery.AllRelaysOfControl>, 
                     val data = response.data()
                     val error = response.errors()
                     if (data != null) {
-                        val layoutManager = GridLayoutManager(context, 2)
+                        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 2)
                         recyclerViewBtn.layoutManager = layoutManager
                         val adapter = RelayAdapter(data.allRelaysOfControl()!!, context, recyclerViewBtn, activity)
                         recyclerViewBtn.adapter = adapter

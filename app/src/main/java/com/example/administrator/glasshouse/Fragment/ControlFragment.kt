@@ -2,10 +2,10 @@ package com.example.administrator.glasshouse.Fragment
 
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +25,7 @@ import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_control.*
 
 
-class ControlFragment : Fragment() {
+class ControlFragment : androidx.fragment.app.Fragment() {
 
 
     lateinit var listRelay: ArrayList<RelayData>
@@ -69,8 +69,8 @@ class ControlFragment : Fragment() {
                     if (data != null) {
                         val allNodeControl = data.allNodeControl()!!
                         Log.d("!controlnode", data.toString())
-                        val relayAll = view.findViewById<View>(R.id.recyclerNodeRelay) as RecyclerView
-                        relayAll.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+                        val relayAll = view.findViewById<View>(R.id.recyclerNodeRelay) as androidx.recyclerview.widget.RecyclerView
+                        relayAll.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context!!, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
                         relayAll.adapter = ControlAdapter(allNodeControl, context!!,activity!!)
                     }
 

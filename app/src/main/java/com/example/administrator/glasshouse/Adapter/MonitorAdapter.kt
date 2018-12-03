@@ -3,9 +3,9 @@ package com.example.administrator.glasshouse.Adapter
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +27,7 @@ import com.example.administrator.glasshouse.type.NewEnvironmentParamsInput
 import javax.inject.Inject
 
 
-class MonitorAdapter(val nodeEnvList: List<GetAllNodeEnvQuery.AllNodesEnv>, var realTimeParams: AutoUpdatedEnvironmentSubSubscription.AutoUpdatedEnvironmentParams, val context: Context, val activity: Activity) : RecyclerView.Adapter<MonitorAdapter.ViewHolder>() {
+class MonitorAdapter(val nodeEnvList: List<GetAllNodeEnvQuery.AllNodesEnv>, var realTimeParams: AutoUpdatedEnvironmentSubSubscription.AutoUpdatedEnvironmentParams, val context: Context, val activity: Activity) : androidx.recyclerview.widget.RecyclerView.Adapter<MonitorAdapter.ViewHolder>() {
 
     @Inject
     lateinit var apolloClient: ApolloClient
@@ -69,8 +69,8 @@ class MonitorAdapter(val nodeEnvList: List<GetAllNodeEnvQuery.AllNodesEnv>, var 
     }
 
 
-    inner class ViewHolder(val item: View) : RecyclerView.ViewHolder(item) {
-        val recyclerViewSensor = item.findViewById<View>(R.id.recyler_view_sensor) as RecyclerView
+    inner class ViewHolder(val item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
+        val recyclerViewSensor = item.findViewById<View>(R.id.recyler_view_sensor) as androidx.recyclerview.widget.RecyclerView
         val name = item.findViewById<View>(R.id.txt_name_node_env) as TextView
         val nodEnv = item.findViewById<View>(R.id.txt_id_node_env) as TextView
         val btnRefresh = item.findViewById<View>(R.id.refresh_node_env) as ImageButton
@@ -128,7 +128,7 @@ class MonitorAdapter(val nodeEnvList: List<GetAllNodeEnvQuery.AllNodesEnv>, var 
                 activity.runOnUiThread {
                     val error = response.errors()
                     if (error.isEmpty()) {
-                        val layoutManager =GridLayoutManager(context, 4)
+                        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 4)
                         holder.recyclerViewSensor.layoutManager = layoutManager
                         val adapter = SensorAdapter(response.data()!!.allSensors()!!, context, activity, holder.recyclerViewSensor)
                         holder.recyclerViewSensor.adapter = adapter

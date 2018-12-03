@@ -2,9 +2,9 @@ package com.example.administrator.glasshouse.ui.gate
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.button.MaterialButton
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import com.example.administrator.glasshouse.GetAllGateOfUserQuery
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.config.config
 
-class GateAdapter(val gateWayList: List<GetAllGateOfUserQuery.AllGatesOfUser>, val context: Context) : RecyclerView.Adapter<GateAdapter.ViewHolder>() {
+class GateAdapter(val gateWayList: List<GetAllGateOfUserQuery.AllGatesOfUser>, val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<GateAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.item_gate_way, parent, false)
@@ -56,7 +56,7 @@ class GateAdapter(val gateWayList: List<GetAllGateOfUserQuery.AllGatesOfUser>, v
 
     }
 
-    inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+    inner class ViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
         val name: TextView = item.findViewById<View>(R.id.txt_name_gate_way) as TextView
         val subName: TextView = item.findViewById<View>(R.id.txt_sub_name_gate_way) as TextView
         val txtTotalNodeEnv = item.findViewById<View>(R.id.txt_total_node_env) as TextView

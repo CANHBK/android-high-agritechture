@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_submit_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
             app:cornerRadius="0dp"
             android:text="Đồng ý" />
 
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

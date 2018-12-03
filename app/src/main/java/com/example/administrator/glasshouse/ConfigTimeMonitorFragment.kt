@@ -2,11 +2,11 @@ package com.example.administrator.glasshouse
 
 
 import android.app.TimePickerDialog
-import android.arch.lifecycle.ViewModelProvider
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.util.Log
 
 import android.view.LayoutInflater
@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ConfigTimeMonitorFragment : Fragment() {
+class ConfigTimeMonitorFragment : androidx.fragment.app.Fragment() {
 
     var type = 0
     var index = 0

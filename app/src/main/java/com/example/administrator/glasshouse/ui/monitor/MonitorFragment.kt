@@ -3,10 +3,10 @@ package com.example.administrator.glasshouse.ui.monitor
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,9 +37,9 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 import javax.inject.Inject
 
-class MonitorFragment : Fragment(), Injectable {
+class MonitorFragment : androidx.fragment.app.Fragment(), Injectable {
     lateinit var overViewAdapter: MonitorAdapter
-    lateinit var recycle_overview: RecyclerView
+    lateinit var recycle_overview: androidx.recyclerview.widget.RecyclerView
 
     @Inject
     lateinit var apolloClient: ApolloClient
@@ -67,7 +67,7 @@ class MonitorFragment : Fragment(), Injectable {
         getNodeEnvData(view, userID, serviceTag)
 
 
-        recycle_overview = view.findViewById(R.id.recycler_Overview) as RecyclerView
+        recycle_overview = view.findViewById(R.id.recycler_Overview) as androidx.recyclerview.widget.RecyclerView
 
         compositeDisposable = CompositeDisposable()
 //        trackNewEnvParam()

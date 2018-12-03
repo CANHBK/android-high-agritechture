@@ -3,11 +3,11 @@ package com.example.administrator.glasshouse.Adapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.design.card.MaterialCardView
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +27,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 
-class SensorAdapter(val sensors: List<AllSensorsQuery.AllSensor>, val context: Context, val activity: Activity,val recyclerViewSensor:RecyclerView) : RecyclerView.Adapter<SensorAdapter.ViewHolder>() {
+class SensorAdapter(val sensors: List<AllSensorsQuery.AllSensor>, val context: Context, val activity: Activity,val recyclerViewSensor: androidx.recyclerview.widget.RecyclerView) : androidx.recyclerview.widget.RecyclerView.Adapter<SensorAdapter.ViewHolder>() {
 lateinit var view:View;
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SensorAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -56,7 +56,7 @@ lateinit var view:View;
             }
             2 -> {
                 holder.icon.background = context.getDrawable(R.drawable.ic_sun_black)
-                holder.txtUnit.text = "lx"
+                holder.txtUnit.text = " lx"
                 holder.layout.background = context.getDrawable(R.drawable.light_background)
             }
             3 -> {
@@ -75,7 +75,7 @@ lateinit var view:View;
 
     }
 
-    inner class ViewHolder(val item: View) : RecyclerView.ViewHolder(item) {
+    inner class ViewHolder(val item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
         val txtNameSensor: TextView = item.findViewById<View>(R.id.txt_name_sensor) as TextView
         val txtValue: TextView = item.findViewById<View>(R.id.txt_value) as TextView
         val txtUnit: TextView = item.findViewById<View>(R.id.txt_unit) as TextView
@@ -126,7 +126,7 @@ lateinit var view:View;
                 activity.runOnUiThread {
                     val error = response.errors()
                     if (error.isEmpty()) {
-                        val layoutManager = GridLayoutManager(context, 4)
+                        val layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 4)
                         recyclerViewSensor.layoutManager = layoutManager
                         val adapter = SensorAdapter(response.data()!!.allSensors()!!, context,activity,recyclerViewSensor)
                         recyclerViewSensor.adapter = adapter

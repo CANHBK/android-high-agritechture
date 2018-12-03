@@ -28,7 +28,7 @@
         android:layout_marginBottom="10dp"
         android:src="@drawable/ic_home" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -46,10 +46,10 @@
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="15sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -68,7 +68,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/gray"
             android:textSize="15sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class ChooseTimeControlFragment : android.support.v4.app.Fragment() {
+class ChooseTimeControlFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
