@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.administrator.glasshouse.Fragment.LoginFragment"
+        android:name="com.example.administrator.glasshouse.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"
 
@@ -18,10 +18,13 @@
         <action
             android:id="@+id/to_home"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.administrator.glasshouse.Fragment.RegisterFragment"
+        android:name="com.example.administrator.glasshouse.ui.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register" >
         <action
@@ -35,7 +38,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.administrator.glasshouse.ui.gate.GateFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/gate_fragment" >
         <action
             android:id="@+id/action_homeFragment_to_addGateWayFragment"
             app:destination="@id/addGateWayFragment" />
@@ -78,11 +81,20 @@
             app:destination="@id/configTimeMonitorFragment" />
         <action
             android:id="@+id/action_sensorFragment_to_fragment_monitor_detail"
-            app:destination="@id/fragment_monitor_detail" />
+            app:destination="@id/fragment_temperature_detail" />
+        <action
+            android:id="@+id/action_sensorFragment_to_lightDetailFragment"
+            app:destination="@id/lightDetailFragment" />
+        <action
+            android:id="@+id/action_sensorFragment_to_airHumidityFragment"
+            app:destination="@id/airHumidityFragment" />
+        <action
+            android:id="@+id/action_sensorFragment_to_groundHumidityFragment"
+            app:destination="@id/groundHumidityFragment" />
     </fragment>
     <fragment
         android:id="@+id/controlFragment"
-        android:name="com.example.administrator.glasshouse.Fragment.ControlFragment"
+        android:name="com.example.administrator.glasshouse.ui.control.ControlFragment"
         android:label="fragment_relay"
         tools:layout="@layout/fragment_control" >
         <argument
@@ -125,10 +137,10 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_monitor_detail"
-        android:name="com.example.administrator.glasshouse.Fragment.ChartFragment"
-        android:label="fragment_monitor_detail"
-        tools:layout="@layout/fragment_monitor_detail" />
+        android:id="@+id/fragment_temperature_detail"
+        android:name="com.example.administrator.glasshouse.ui.temperature.TemperatureDetailFragment"
+        android:label="fragment_temperature_detail"
+        tools:layout="@layout/fragment_temperature_detail" />
     <fragment
         android:id="@+id/addRelayFragment"
         android:name="com.example.administrator.glasshouse.Fragment.AddRelayFragment"
@@ -147,4 +159,19 @@
             android:id="@+id/action_addSensorFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/lightDetailFragment"
+        android:name="com.example.administrator.glasshouse.ui.light.LightDetailFragment"
+        android:label="fragment_light_detail"
+        tools:layout="@layout/fragment_light_detail" />
+    <fragment
+        android:id="@+id/airHumidityFragment"
+        android:name="com.example.administrator.glasshouse.ui.airhumidity.AirHumidityFragment"
+        android:label="fragment_air_humidity"
+        tools:layout="@layout/fragment_air_humidity" />
+    <fragment
+        android:id="@+id/groundHumidityFragment"
+        android:name="com.example.administrator.glasshouse.ui.gndhumi.GroundHumidityFragment"
+        android:label="fragment_ground_humidity"
+        tools:layout="@layout/fragment_ground_humidity" />
 </navigation>

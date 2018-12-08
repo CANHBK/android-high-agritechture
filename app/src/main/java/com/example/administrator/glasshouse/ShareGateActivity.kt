@@ -21,7 +21,7 @@ class ShareGateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_share_gate)
 
-        getAllUser()
+//        getAllUser()
 
         // Custom từng dòng của Suggesttion
         search_user.setOnQueryChangeListener { oldQuery, newQuery ->
@@ -72,32 +72,32 @@ class ShareGateActivity : AppCompatActivity() {
         return suggestions
     }
 
-    private fun getAllUser() {
-        MyApolloClient.getApolloClient().query(
-                GetAllUserQuery.builder().build()
-        ).enqueue(object : ApolloCall.Callback<GetAllUserQuery.Data>() {
-            override fun onResponse(response: Response<GetAllUserQuery.Data>) {
-                val users = response.data()!!.allUsers()!!
-                for (user in users) {
-                    val name = user.name()
-                    val id = user.id()
-                    val email = user.email()
-//                    val listPermission = user.
-//                    val listServiceTag : ArrayList<String> = ArrayList()
-//                    for (item in listPermission){
-//                        listServiceTag.add(item.serviceTag!!)
+//    private fun getAllUser() {
+//        MyApolloClient.getApolloClient().query(
+//                GetAllUserQuery.builder().build()
+//        ).enqueue(object : ApolloCall.Callback<GetAllUserQuery.Data>() {
+//            override fun onResponse(response: Response<GetAllUserQuery.Data>) {
+//                val users = response.data()!!.allUsers()!!
+//                for (user in users) {
+//                    val name = user.name()
+//                    val id = user.id()
+//                    val email = user.email()
+////                    val listPermission = user.
+////                    val listServiceTag : ArrayList<String> = ArrayList()
+////                    for (item in listPermission){
+////                        listServiceTag.add(item.serviceTag!!)
+////                    }
+//                    Log.d("!getUser", name)
+//                    if (name != null) {
+//                        allNameList.add(name)
+//                        mSuggestions.add(Suggestion(name))
 //                    }
-                    Log.d("!getUser", name)
-                    if (name != null) {
-                        allNameList.add(name)
-                        mSuggestions.add(Suggestion(name))
-                    }
-                }
-            }
-
-            override fun onFailure(e: ApolloException) {
-                Log.d("!getUser", e.message)
-            }
-        })
-    }
+//                }
+//            }
+//
+//            override fun onFailure(e: ApolloException) {
+//                Log.d("!getUser", e.message)
+//            }
+//        })
+//    }
 }

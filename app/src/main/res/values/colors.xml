@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00BCD4</color>
-    <color name="colorPrimaryDark">#0097A7</color>
+
+    <color name="background">#f4f0f0</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#c9c9c9</color>
     <color name="primary_light">#B2EBF2</color>
-    <color name="colorAccent">#448AFF</color>
+    <color name="colorAccent">#009dff</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
@@ -17,4 +19,5 @@
     <color name="green">#00FF00</color>
     <color name="light_green">#0bf2d1</color>
     <color name="red">#FF0000</color>
+    <color name="orange">#FF6600</color>
 </resources>

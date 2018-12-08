@@ -23,7 +23,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-
             android:name=".HomeActivity"
             android:screenOrientation="sensorPortrait">
             <intent-filter>
@@ -32,38 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProfileActivity" />
 
-        <activity android:name=".ProfileActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.administrator.glasshouse.MainActivity" />
-        </activity>
-        <activity android:name=".FarmChangeActivity" />
-        <activity android:name=".AddGateActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.administrator.glasshouse.FarmChangeActivity" />
-        </activity>
-        <activity android:name=".AddNodeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.administrator.glasshouse.MainActivity" />
-        </activity>
+
         <activity android:name=".ShareGateActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".SettingSensorActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.administrator.glasshouse.MainActivity" />
-        </activity>
-        <activity android:name=".SettingRelayActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.administrator.glasshouse.MainActivity" />
-        </activity>
-        <!-- <activity -->
-        <!-- android:name=".view.LoginActivity" -->
-        <!-- android:label="@string/title_activity_login"></activity> -->
 
     </application>
 

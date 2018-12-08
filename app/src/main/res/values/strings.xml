@@ -24,7 +24,7 @@
     <string name="thong_bao">Thông báo</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
-    <string name="setting">Setting</string>
+    <string name="setting">Cài đặt</string>
     <string name="log_out">Log out</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -99,4 +99,9 @@
     <string name="db_plus_network">db + network</string>
     <string name="network_only_by_item">network only (by item)</string>
     <string name="network_only_by_page">network only (by page)</string>
+    <string name="title_activity_graph">GraphActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="refresh">Làm mới</string>
+    <string name="error_too_short">quá ngắn</string>
+    <string name="error_format_invalid">sai định dạng</string>
 </resources>

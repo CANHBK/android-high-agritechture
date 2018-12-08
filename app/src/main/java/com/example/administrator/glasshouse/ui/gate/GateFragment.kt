@@ -7,59 +7,100 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.*
+import androidx.databinding.DataBindingComponent
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
+import com.example.administrator.glasshouse.AppExecutors
 import com.example.administrator.glasshouse.GetAllGateOfUserQuery
 import com.example.administrator.glasshouse.R
+import com.example.administrator.glasshouse.binding.FragmentDataBindingComponent
 import com.example.administrator.glasshouse.config.config
 import com.example.administrator.glasshouse.di.Injectable
+import com.example.administrator.glasshouse.ui.farm.FarmAdapter
+import com.example.administrator.glasshouse.util.autoCleared
+import com.example.administrator.glasshouse.vo.Farm
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.bottom_sheet_home.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.gate_fragment.*
 import javax.inject.Inject
 
 
-class GateFragment : androidx.fragment.app.Fragment(),Injectable {
+class GateFragment : androidx.fragment.app.Fragment(), Injectable {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var gateViewModel: GateViewModel
 
     @Inject
-    lateinit var apolloClient:ApolloClient
-    lateinit var recyclerView: androidx.recyclerview.widget.RecyclerView
-    lateinit var gateAdapter: GateAdapter
+    lateinit var apolloClient: ApolloClient
+
+    @Inject
+    lateinit var appExecutors: AppExecutors
+
+    private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
+
+
+    private var adapter by autoCleared<GateAdapter>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true);
+
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.gate_fragment, container, false)
 
 
-
-        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.recycler_view_gate_way)
+
+        gateViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(GateViewModel::class.java)
+
+
+        val userId = Paper.book().read<String>(config.USER_ID_KEY)
+
+
+        adapter = GateAdapter(dataBindingComponent, appExecutors)
+
+
+        gateViewModel.setUserId(userId)
+        gateViewModel.gates.observe(viewLifecycleOwner, Observer { gates ->
+            adapter.submitList(gates.data)
+        })
+
         (activity as AppCompatActivity).setSupportActionBar(bottomAppbar)
         val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_home);
         fabHome.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
+        recycler_view_gate_way.adapter = adapter
+
         refresh_layout_home.setOnRefreshListener(object : androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
                 Log.d("!call", "call")
-                getGateData()
+//                getGateData(userId)
 
                 Log.d("!call", "end")
             }
         }
         )
 
-        getGateData()
+        if (userId == null) {
+            view.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+        } else {
+
+        }
+
+
 
         addNewGateWay.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_addGateWayFragment)
@@ -72,48 +113,13 @@ class GateFragment : androidx.fragment.app.Fragment(),Injectable {
         add_node_env.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_addSensorFragment)
         }
+
     }
 
-    private fun getGateData() {
-        progress_gate_way.visibility = View.VISIBLE
-        val userId = Paper.book().read<String>(config.USER_ID_KEY)
-        apolloClient.query(
-                GetAllGateOfUserQuery.builder()
-                        .userID(userId)
-                        .build()
-        ).enqueue(object : ApolloCall.Callback<GetAllGateOfUserQuery.Data>() {
-            override fun onFailure(e: ApolloException) {
-                Log.d("!get", e.message)
-                progress_gate_way.visibility = View.INVISIBLE
-            }
-
-            override fun onResponse(response: Response<GetAllGateOfUserQuery.Data>) {
-                val result = response.data()!!.allGatesOfUser()
-                if (result != null) {
-                    activity!!.runOnUiThread {
-
-                        gateAdapter = GateAdapter(result, context!!)
-                        recyclerView.adapter = gateAdapter
-                        refresh_layout_home.isRefreshing = false;
-                        progress_gate_way.visibility = View.INVISIBLE
-                    }
-                } else { // không có dữ liệu sẽ nhảy vào đây
-                    activity!!.runOnUiThread {
-                        val error = response.errors()[0].message()
-                        Snackbar.make(view!!, error!!, Snackbar.LENGTH_LONG).show()
-                        progress_gate_way.visibility = View.INVISIBLE
-                        txt_none_gate_way.visibility = View.VISIBLE
-                    }
-
-                }
-            }
-        })
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         activity!!.menuInflater.inflate(R.menu.bottom_app_bar_home_menu, menu)
-//        inflater!!
 
     }
 

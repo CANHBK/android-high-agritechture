@@ -7,14 +7,14 @@ mutation loginMutation(
     email : $email
     password : $password
   ){
-    id
+    id email name avatar
   }
 }
 
 mutation registerMutation($params:UserInput!)
 {
   register(params:$params){
-    id
+    id email name
   }
 }
 

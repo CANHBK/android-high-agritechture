@@ -13,7 +13,9 @@ import javax.inject.Singleton
             AndroidInjectionModule::class,
             ApolloModule::class,
             ThreadModule::class,
-            HomeActivityModule::class]
+            HomeActivityModule::class,
+            ViewModelModule::class,
+        AppModule::class]
 )
 interface AppComponent {
     @Component.Builder

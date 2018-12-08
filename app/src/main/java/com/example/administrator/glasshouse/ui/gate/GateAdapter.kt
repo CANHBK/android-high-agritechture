@@ -1,67 +1,57 @@
 package com.example.administrator.glasshouse.ui.gate
 
-import android.content.Context
-import android.os.Bundle
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingComponent
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import com.example.administrator.glasshouse.GetAllGateOfUserQuery
+import androidx.recyclerview.widget.DiffUtil
+import com.example.administrator.glasshouse.AppExecutors
 import com.example.administrator.glasshouse.R
-import com.example.administrator.glasshouse.config.config
+import com.example.administrator.glasshouse.databinding.ItemGateWayBinding
+import com.example.administrator.glasshouse.ui.common.DataBoundListAdapter
+import com.example.administrator.glasshouse.vo.Gate
 
-class GateAdapter(val gateWayList: List<GetAllGateOfUserQuery.AllGatesOfUser>, val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<GateAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_gate_way, parent, false)
-        return ViewHolder(view)
-    }
+class GateAdapter(
+        private val dataBindingComponent: DataBindingComponent,
+        appExecutors: AppExecutors
+) : DataBoundListAdapter<Gate, ItemGateWayBinding>(
+        appExecutors = appExecutors,
+        diffCallback = GATE_COMPARATOR
+) {
+    override fun createBinding(parent: ViewGroup): ItemGateWayBinding {
+        val binding = DataBindingUtil.inflate<ItemGateWayBinding>(
+                LayoutInflater.from(parent.context),
+                R.layout.item_gate_way,
+                parent,
+                false,
+                dataBindingComponent
+        )
 
-    override fun getItemCount(): Int {
-        return gateWayList.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val gateWay = gateWayList[position]
-        val totalNodeControl = gateWay.controls()?.toInt()
-        val totalNodeEnv = gateWay.monitors()?.toInt()
-        holder.name.text = gateWay.name()
-        holder.subName.text = gateWay.serviceTag()
-        holder.txtTotalNodeControl.text = totalNodeControl.toString()
-        holder.txtTotalNodeEnv.text = totalNodeEnv.toString()
-        if (totalNodeControl == 0) holder.btnControl.backgroundTintList = (context.resources.getColorStateList(R.color.secondary_text))
-        if (totalNodeEnv == 0) holder.btnMonitor.backgroundTintList = (context.resources.getColorStateList(R.color.secondary_text))
-        holder.btnMonitor.setOnClickListener {
-            if (totalNodeEnv != 0) {
-                val serviceTagBundle = Bundle()
-                serviceTagBundle.putString(config.SERVICE_TAG_BUNDLE, gateWay.serviceTag());
-                it.findNavController().navigate(R.id.action_homeFragment_to_sensorFragment, serviceTagBundle)
-            }
-            Snackbar.make(it, "Chưa có Node Environment để giám sát", Snackbar.LENGTH_LONG).show()
-
-        }
-        holder.btnControl.setOnClickListener {
-            if (totalNodeControl != 0) {
-                val serviceTagBundle = Bundle()
-                serviceTagBundle.putString(config.SERVICE_TAG_BUNDLE, gateWay.serviceTag());
-                it.findNavController().navigate(R.id.action_homeFragment_to_controlFragment, serviceTagBundle)
-            }
-            Snackbar.make(it, "Chưa có Node Control để điều khiển", Snackbar.LENGTH_LONG).show()
-
+        binding.btnControl.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_controlFragment)
         }
 
+        binding.btnMonitor.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_sensorFragment)
+        }
+        return binding
     }
 
-    inner class ViewHolder(item: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(item) {
-        val name: TextView = item.findViewById<View>(R.id.txt_name_gate_way) as TextView
-        val subName: TextView = item.findViewById<View>(R.id.txt_sub_name_gate_way) as TextView
-        val txtTotalNodeEnv = item.findViewById<View>(R.id.txt_total_node_env) as TextView
-        val txtTotalNodeControl = item.findViewById<View>(R.id.txt_total_node_control) as TextView
-        val btnMonitor: MaterialButton = item.findViewById(R.id.btn_monitor)
-        val btnControl: MaterialButton = item.findViewById(R.id.btn_control)
+    override fun bind(binding: ItemGateWayBinding, item: Gate) {
+        binding.gate = item
+    }
+
+    companion object {
+        val GATE_COMPARATOR = object : DiffUtil.ItemCallback<Gate>() {
+            override fun areContentsTheSame(oldItem: Gate, newItem: Gate): Boolean =
+                    oldItem == newItem
+
+            override fun areItemsTheSame(oldItem: Gate, newItem: Gate): Boolean =
+                    oldItem.serviceTag == newItem.serviceTag
+        }
+
+
     }
 }

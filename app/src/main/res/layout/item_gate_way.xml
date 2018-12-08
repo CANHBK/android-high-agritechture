@@ -1,162 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
 
-    <com.google.android.material.card.MaterialCardView
-        app:cardCornerRadius="8dp"
-        android:elevation="15dp"
+        <variable
+            name="Gate"
+            type="com.example.administrator.glasshouse.vo.Gate" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
+        android:layout_height="230dp"
+        android:background="@color/background"
         android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:elevation="15dp"
             android:orientation="vertical"
-            android:padding="0dp">
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="8dp">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <TextView
-                        android:textColor="@color/primary_text"
-                        android:id="@+id/txt_name_gate_way"
-                        android:layout_width="wrap_content"
-                        android:layout_height="21dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/roboto_medium"
-                        tools:text="Tên GateWay"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/txt_sub_name_gate_way"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="@font/roboto_light"
-                        tools:text="G001"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/txt_name_gate_way"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_name_gate_way" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
+            app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="0dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="8dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:src="@drawable/ic_shrink"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt_name_gate_way"
+                            android:layout_width="wrap_content"
+                            android:layout_height="21dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@{Gate.name}"
+                            android:textColor="@color/primary_text"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Tên GateWay" />
+
+                        <TextView
+                            android:id="@+id/txt_sub_name_gate_way"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="@{Gate.serviceTag}"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@+id/txt_name_gate_way"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_name_gate_way"
+                            tools:text="G001" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txt_total_node_env"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/circle_background_purple"
-                        android:fontFamily="@font/roboto_bold"
-                        android:gravity="center"
-                        tools:text="56"
-                        android:textColor="@color/icons"
-                        android:textSize="24sp" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="@string/node_monitor"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:text="@{Gate.monitors}"
+                            android:id="@+id/txt_total_node_env"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle_background_purple"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:textColor="@color/icons"
+                            android:textSize="24sp"
+                            tools:text="56" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/node_monitor"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:text="@{Gate.controls}"
+                            android:id="@+id/txt_total_node_control"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/circle_background_purple"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:textColor="@color/icons"
+                            android:textSize="24sp"
+                            tools:text="56" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/node_control"
+                            android:textSize="16sp" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txt_total_node_control"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/circle_background_purple"
-                        android:fontFamily="@font/roboto_bold"
-                        android:gravity="center"
-                        tools:text="56"
-                        android:textColor="@color/icons"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="@string/node_control"
-                        android:textSize="16sp" />
-                </LinearLayout>
             </LinearLayout>
 
 
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_monitor"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/monitor"
+                android:textAllCaps="false"
+                app:cornerRadius="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_control"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:layout_weight="1"
+                android:text="@string/control"
+                android:textAllCaps="false"
+                app:cornerRadius="0dp" />
         </LinearLayout>
-
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:columnCount="2"
-        android:orientation="horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_monitor"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_columnWeight="1"
-            android:text="@string/monitor"
-            android:textAllCaps="false"
-            app:cornerRadius="0dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_control"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_columnWeight="1"
-            android:layout_margin="0dp"
-            android:text="@string/control"
-            android:textAllCaps="false"
-            app:cornerRadius="0dp" />
-    </GridLayout>
-</LinearLayout>
+    </LinearLayout>
+</layout>

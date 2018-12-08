@@ -1,9 +1,10 @@
 package com.example.administrator.glasshouse.api
+import androidx.lifecycle.LiveData
+import com.example.administrator.glasshouse.vo.Gate
+import com.example.administrator.glasshouse.vo.User
 
-import com.apollographql.apollo.ApolloCall
-import com.apollographql.apollo.api.Operation
-import com.apollographql.apollo.api.Query
-
-interface GraphQL {
-    fun <D : Operation.Data, T, V : Operation.Variables> query(query: Query<D, T, V>, apolloCallback: ApolloCall.Callback<T>)
+interface  GraphQL  {
+   fun loadGates(userId: String):LiveData<ApiResponse<List<Gate>>>
+   fun login(email:String,password:String):LiveData<ApiResponse<User>>
+   fun register(email:String,name:String,password:String):LiveData<ApiResponse<User>>
 }
