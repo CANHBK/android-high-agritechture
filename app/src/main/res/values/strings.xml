@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Nông nghiệp 4.0</string>
     <string name="retry">Retry</string>
     <string name="unknown_error">Unknown Error</string>
     <string name="a11y_user_photo">user photo</string>
@@ -42,6 +41,9 @@
     <string name="last_name">Last Name</string>
     <string name="glass_house">Glass House</string>
     <string name="email">Email</string>
+
+    <string name="app_name">Hi Tech Agri</string>
+    <string name="main_no_devices_yet">Có vẻ bạn chưa có bộ điều khiển trung tâm nào\nClick dấu + để thêm</string>
 
     <string-array name="Time">
         <item>Ngày</item>

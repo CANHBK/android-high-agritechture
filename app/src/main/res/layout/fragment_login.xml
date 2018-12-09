@@ -6,9 +6,15 @@
 
     <data>
 
+        <import type="com.example.administrator.glasshouse.binding.BindingAdapters" />
+
         <variable
             name="loading"
             type="boolean" />
+
+        <variable
+            name="viewModel"
+            type="com.example.administrator.glasshouse.ui.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,8 +26,10 @@
             android:id="@+id/load_more_bar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="17dp"
             android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:visibleGone="@{loading}" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,7 +85,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
-                    android:inputType="textNoSuggestions|textEmailAddress" />
+                    android:inputType="textNoSuggestions|textEmailAddress"
+                    android:text="@={viewModel.loginForm.fields.email}"
+                    app:error="@{viewModel.loginForm.emailError}"
+                    app:onFocus="@{viewModel.getEmailOnFocusChangeListener()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +109,9 @@
                     android:background="@color/transparent"
                     android:hint="Mật khẩu"
                     android:inputType="textPassword"
-                    />
+                    android:text="@={viewModel.loginForm.fields.password}"
+                    app:error="@{viewModel.loginForm.passwordError}"
+                    app:onFocus="@{viewModel.getPasswordOnFocusChangeListener()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -118,6 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="@{viewModel.loginForm.valid}"
+                    android:onClick="@{() -> viewModel.onButtonClick()}"
                     android:text="Đăng nhập" />
 
                 <TextView
@@ -144,6 +159,7 @@
                 android:text="Đăng ký tài khoản mới"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:onClick="@{(view) -> viewModel.registerAccount(view)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

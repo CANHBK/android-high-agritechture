@@ -3,10 +3,7 @@ package com.example.administrator.glasshouse.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.administrator.glasshouse.ViewModelFactory
-import com.example.administrator.glasshouse.api.GraphQL
-import com.example.administrator.glasshouse.db.GateDao
-import com.example.administrator.glasshouse.repository.GateRepository
-import com.example.administrator.glasshouse.ui.gate.GateViewModel
+import com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel
 import com.example.administrator.glasshouse.ui.login.LoginViewModel
 import com.example.administrator.glasshouse.ui.register.RegisterViewModel
 
@@ -19,8 +16,8 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(GateViewModel::class)
-    abstract fun bindGateViewModel(gateViewModel: GateViewModel): ViewModel
+    @ViewModelKey(DashBoardViewModel::class)
+    abstract fun bindGateViewModel(dashBoardViewModel: DashBoardViewModel): ViewModel
 
     @Binds
     @IntoMap

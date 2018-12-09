@@ -32,7 +32,7 @@ import io.paperdb.Paper
 
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_monitor.*
-import kotlinx.android.synthetic.main.gate_fragment.*
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import javax.inject.Inject
 
 class MonitorFragment : Fragment(), Injectable {

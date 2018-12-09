@@ -3,11 +3,9 @@ package com.example.administrator.glasshouse.ui.login
 import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,7 +18,9 @@ import com.example.administrator.glasshouse.binding.FragmentDataBindingComponent
 import com.example.administrator.glasshouse.databinding.FragmentLoginBinding
 import com.example.administrator.glasshouse.di.Injectable
 import com.example.administrator.glasshouse.util.autoCleared
+import com.example.administrator.glasshouse.vo.Const
 import com.example.administrator.glasshouse.vo.Status
+import io.paperdb.Paper
 import javax.inject.Inject
 
 class LoginFragment : Fragment(), Injectable {
@@ -30,7 +30,7 @@ class LoginFragment : Fragment(), Injectable {
 
     private lateinit var loginViewModel: LoginViewModel
 
-     var binding by autoCleared<FragmentLoginBinding>()
+    var binding by autoCleared<FragmentLoginBinding>()
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -39,6 +39,7 @@ class LoginFragment : Fragment(), Injectable {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         val dataBinding = DataBindingUtil.inflate<FragmentLoginBinding>(
                 inflater,
                 R.layout.fragment_login,
@@ -47,38 +48,48 @@ class LoginFragment : Fragment(), Injectable {
                 dataBindingComponent
         )
 
-
         binding = dataBinding
-        return dataBinding.root
-    }
-
-    @SuppressLint("VisibleForTests")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LoginViewModel::class.java)
 
 
+        if (savedInstanceState == null) {
+            loginViewModel.init()
+        }
+
+        return dataBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.setLifecycleOwner(viewLifecycleOwner)
 
+        binding.viewModel = loginViewModel
 
-        binding.btnLogin.setOnClickListener {
-                        login()
-        }
+        onLogin()
 
+        handleResultLogin()
 
+    }
 
-        binding.btnSignUp.setOnClickListener {
-            it.findNavController().navigate(R.id.to_create_account)
-        }
+    private fun onLogin() {
+        loginViewModel.getLoginFields()?.observe(this, Observer {
+            val email = it.email
+            val password = it.password
+            loginViewModel.login(email, password)
+        })
+    }
 
+    private fun handleResultLogin() {
         loginViewModel.user.observe(viewLifecycleOwner, Observer {
             val status = it.status
             when (status) {
                 Status.LOADING -> binding.loading = true
                 Status.SUCCESS -> {
                     binding.loading = false
+                    Paper.book().write(Const.USER_ID, it.data!!.id)
                     binding.root.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
                 Status.ERROR -> {
@@ -87,19 +98,5 @@ class LoginFragment : Fragment(), Injectable {
                 }
             }
         })
-    }
-
-
-    private fun login() {
-        val email = binding.edtEmail.text.toString()
-        val password = binding.edtPassword.text.toString()
-        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            loginViewModel.login(email, password)
-        } else {
-
-            Snackbar.make(binding.root, "Xin hãy nhập đầy đủ Email và mật khẩu", Snackbar.LENGTH_LONG).show()
-        }
-
-
     }
 }

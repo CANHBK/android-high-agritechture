@@ -17,7 +17,9 @@ import com.example.administrator.glasshouse.binding.FragmentDataBindingComponent
 import com.example.administrator.glasshouse.databinding.FragmentRegisterBinding
 import com.example.administrator.glasshouse.di.Injectable
 import com.example.administrator.glasshouse.util.autoCleared
+import com.example.administrator.glasshouse.vo.Const
 import com.example.administrator.glasshouse.vo.Status
+import io.paperdb.Paper
 import javax.inject.Inject
 
 class RegisterFragment : Fragment(), Injectable {
@@ -72,6 +74,7 @@ class RegisterFragment : Fragment(), Injectable {
                 Status.LOADING -> binding.loading = true
                 Status.SUCCESS -> {
                     binding.loading = false
+                    Paper.book().write(Const.USER_ID, it.data!!.id)
                     binding.root.findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
                 }
                 Status.ERROR -> {

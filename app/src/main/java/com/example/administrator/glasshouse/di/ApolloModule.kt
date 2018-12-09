@@ -1,11 +1,6 @@
 package com.example.administrator.glasshouse.di
 
-import androidx.lifecycle.LiveData
-import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.api.Operation
-import com.apollographql.apollo.api.Query
-import com.apollographql.apollo.cache.http.ApolloHttpCache
 import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport
 import com.example.administrator.glasshouse.api.GraphQL
 import dagger.Module
@@ -13,23 +8,17 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
-import com.example.administrator.glasshouse.api.ApiResponse
 import com.example.administrator.glasshouse.api.Apollo
-import com.example.administrator.glasshouse.db.GateDao
-import com.example.administrator.glasshouse.repository.GateRepository
-import com.example.administrator.glasshouse.vo.Gate
-import dagger.Binds
 import java.io.File
-import java.time.Instant
 
 
 @Module(includes = [OkHttpClientModule::class])
 class  ApolloModule {
     companion object {
-        private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
-//                    private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
-        private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
-//        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
+        //        private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
+        private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
+        //        private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
+        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
     }
 
 

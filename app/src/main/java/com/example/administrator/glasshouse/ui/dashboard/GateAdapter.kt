@@ -1,11 +1,9 @@
-package com.example.administrator.glasshouse.ui.gate
+package com.example.administrator.glasshouse.ui.dashboard
 
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.example.administrator.glasshouse.AppExecutors
 import com.example.administrator.glasshouse.R
@@ -29,13 +27,13 @@ class GateAdapter(
                 dataBindingComponent
         )
 
-        binding.btnControl.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_controlFragment)
-        }
-
-        binding.btnMonitor.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_sensorFragment)
-        }
+//        binding.btnControl.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_homeFragment_to_controlFragment)
+//        }
+//
+//        binding.btnMonitor.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_homeFragment_to_sensorFragment)
+//        }
         return binding
     }
 
