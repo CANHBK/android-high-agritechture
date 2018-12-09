@@ -156,10 +156,10 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
+                android:onClick="@{(view) -> viewModel.registerAccount(view)}"
                 android:text="Đăng ký tài khoản mới"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:onClick="@{(view) -> viewModel.registerAccount(view)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

@@ -1,5 +1,6 @@
 package com.example.administrator.glasshouse.ui.register
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
@@ -34,6 +35,7 @@ class RegisterFragment : Fragment(), Injectable {
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
+    @SuppressLint("VisibleForTests")
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -47,27 +49,37 @@ class RegisterFragment : Fragment(), Injectable {
         )
 
         binding = dataBinding
+
+        registerViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(RegisterViewModel::class.java)
+
+        if (savedInstanceState == null) {
+            registerViewModel.init()
+        }
+
         return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        registerViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(RegisterViewModel::class.java)
-
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         binding.viewModel = registerViewModel
 
-        binding.btnSignUp.setOnClickListener {
-            register()
-        }
+        register()
 
-        binding.btnLogin.setOnClickListener {
-            it.findNavController().popBackStack()
-        }
+        handleResultRegister()
 
+    }
+
+    private fun register() {
+        registerViewModel.getRegisterFields()?.observe(viewLifecycleOwner, Observer {
+            registerViewModel.register(it.email!!, it.name!!, it.password!!)
+        })
+    }
+
+    private fun handleResultRegister() {
         registerViewModel.user.observe(viewLifecycleOwner, Observer {
             val status = it.status
             when (status) {
@@ -85,11 +97,4 @@ class RegisterFragment : Fragment(), Injectable {
         })
     }
 
-    private fun register() {
-        val email = binding.edtEmail.text.toString()
-        val name = binding.edtFullName.text.toString()
-        val password = binding.edtPassword.text.toString()
-        val rePassword = binding.edtRePassword.text.toString()
-        registerViewModel.register(email, name, password)
-    }
 }

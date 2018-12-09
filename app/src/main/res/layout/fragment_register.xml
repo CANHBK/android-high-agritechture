@@ -2,21 +2,24 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<data>
-    <variable
-        name="loading"
-        type="boolean" />
 
-    <variable
-        name="viewModel"
-        type="com.example.administrator.glasshouse.ui.register.RegisterViewModel"/>
-</data>
+    <data>
+
+        <variable
+            name="loading"
+            type="boolean" />
+
+        <variable
+            name="viewModel"
+            type="com.example.administrator.glasshouse.ui.register.RegisterViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
         tools:context="com.example.administrator.glasshouse.ui.register.RegisterFragment">
+
         <ProgressBar
             android:id="@+id/load_more_bar"
             style="?android:attr/progressBarStyleHorizontal"
@@ -77,7 +80,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Họ và tên"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.registerForm.fields.name}"
+                    app:error="@{viewModel.registerForm.nameError}"
+                    app:onFocus="@{viewModel.getNameOnFocusChangeListener()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -97,7 +103,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.registerForm.fields.email}"
+                    app:error="@{viewModel.registerForm.emailError}"
+                    app:onFocus="@{viewModel.getEmailOnFocusChangeListener()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -116,7 +125,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Mật khẩu"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.registerForm.fields.password}"
+                    app:error="@{viewModel.registerForm.PasswordError}"
+                    app:onFocus="@{viewModel.getPasswordOnFocusChangeListener()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -135,7 +147,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nhập lại mật khẩu"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.registerForm.fields.rePassword}"
+                    app:error="@{viewModel.registerForm.rePasswordError}"
+                    app:onFocus="@{viewModel.getRePasswordOnFocusChangeListener()}" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -157,6 +172,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="@{viewModel.registerForm.valid}"
+                    android:onClick="@{() -> viewModel.onRegisterClick()}"
                     android:text="Đăng ký"
                     tools:targetApi="m" />
             </LinearLayout>
@@ -169,6 +186,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
+                android:onClick="@{(view) -> viewModel.login(view)}"
                 android:text="Đã có tài khoản, đăng nhập"
                 android:textSize="16sp"
                 android:textStyle="bold"

@@ -106,4 +106,5 @@
     <string name="refresh">Làm mới</string>
     <string name="error_too_short">quá ngắn</string>
     <string name="error_format_invalid">sai định dạng</string>
+    <string name="password_not_match">Mật khẩu không khớp</string>
 </resources>
