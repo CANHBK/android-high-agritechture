@@ -62,10 +62,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_sprout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+                app:srcCompat="@drawable/ic_sprout"
                 tools:ignore="ContentDescription" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -85,10 +85,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
+                    android:background="@color/transparent"
                     android:inputType="textNoSuggestions|textEmailAddress"
                     android:text="@={viewModel.loginForm.fields.email}"
                     app:error="@{viewModel.loginForm.emailError}"
-                    app:onFocus="@{viewModel.getEmailOnFocusChangeListener()}" />
+                    app:textChangedListener="@{viewModel.emailTextWatcher}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -111,7 +112,7 @@
                     android:inputType="textPassword"
                     android:text="@={viewModel.loginForm.fields.password}"
                     app:error="@{viewModel.loginForm.passwordError}"
-                    app:onFocus="@{viewModel.getPasswordOnFocusChangeListener()}" />
+                    app:textChangedListener="@{viewModel.passwordTextWatcher}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout

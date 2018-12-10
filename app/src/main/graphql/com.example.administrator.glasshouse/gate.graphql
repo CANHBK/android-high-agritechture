@@ -1,0 +1,49 @@
+mutation AddGateMutation($params : ServiceInput!){
+  addGate(params : $params){
+    group
+    name
+    id
+    serviceTag
+    owner
+  }
+}
+
+mutation RemoveGate($userId : ID!,$serviceTag: String!){
+  removeGate(userId : $userId, serviceTag: $serviceTag){
+    group
+    name
+    id
+    serviceTag
+    owner
+  }
+}
+
+mutation EditGate($userId : ID!,$serviceTag: String!, $name: String!){
+  editGate(userId : $userId, serviceTag: $serviceTag, name:$name){
+    group
+    name
+    id
+    serviceTag
+    owner
+
+  }
+}
+
+mutation ShareGateMutation($userIDShare:ID!,$serviceTag:String!,
+						$userIdWillBeShare:ID!,$permission:String!)
+	{
+      shareGateWay(userIdShare:$userIDShare,serviceTag:$serviceTag,
+      userIdWillBeShared:$userIdWillBeShare,permission:$permission)
+    }
+
+query GetAllGateOfUserQuery($userID:ID!){
+  allGatesOfUser(userId:$userID){
+  id
+    group
+    serviceTag
+    name
+    owner
+   monitors
+   controls
+  }
+}

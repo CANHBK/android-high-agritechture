@@ -11,7 +11,6 @@ class LoginForm : BaseObservable() {
     val fields = LoginFields()
     private val errors = LoginErrorFields()
     val loginFields = MutableLiveData<LoginFields>()
-
     val isValid: Boolean
         @Bindable
         get() {
@@ -36,7 +35,7 @@ class LoginForm : BaseObservable() {
         if (email != null && email.length > 5) {
             val indexOfAt = email.indexOf("@")
             val indexOfDot = email.lastIndexOf(".")
-            if (indexOfAt > 0 && indexOfDot > indexOfAt && indexOfDot < email.length - 1) {
+            if (indexOfAt in 1..(indexOfDot - 1) && indexOfDot < email.length - 1) {
                 errors.email = null
                 notifyPropertyChanged(BR.valid)
                 return true

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="hasError"
+            type="Boolean"/>
+        <variable
+            name="errorMessage"
+            type="String" />
+
+        <variable
+            name="loading"
+            type="Boolean" />
+        <variable
+            name="gate"
+            type="com.example.administrator.glasshouse.vo.Gate"/>
+        <variable
+            name="viewModel"
+            type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/load_more_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{loading}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{errorMessage}"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:visibleGone="@{hasError}" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_delete" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Xác nhận"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_warning_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textAlignment="center"
+            tools:text="Bạn đang chuẩn bị xóa abcdef, hành động này không thể quay lại, bạn có chắc chắn?" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.removeGate(gate.serviceTag)}"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/red"
+            android:text="Xóa" />
+
+    </LinearLayout>
+</layout>

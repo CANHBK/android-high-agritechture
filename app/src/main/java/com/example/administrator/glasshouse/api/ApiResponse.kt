@@ -1,9 +1,5 @@
 package com.example.administrator.glasshouse.api
 
-import android.util.Log
-import com.apollographql.apollo.api.Response
-import java.util.regex.Pattern
-
 /**
  * Common class used by API responses.
  * @param <T> the type of the response object

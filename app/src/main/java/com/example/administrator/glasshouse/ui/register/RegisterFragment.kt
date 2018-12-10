@@ -1,6 +1,5 @@
 package com.example.administrator.glasshouse.ui.register
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
@@ -35,7 +34,6 @@ class RegisterFragment : Fragment(), Injectable {
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    @SuppressLint("VisibleForTests")
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -52,10 +50,6 @@ class RegisterFragment : Fragment(), Injectable {
 
         registerViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RegisterViewModel::class.java)
-
-        if (savedInstanceState == null) {
-            registerViewModel.init()
-        }
 
         return dataBinding.root
     }

@@ -7,5 +7,4 @@ data class Monitor(
        val id:String,
        val name:String,
        val tag:String
-
 )

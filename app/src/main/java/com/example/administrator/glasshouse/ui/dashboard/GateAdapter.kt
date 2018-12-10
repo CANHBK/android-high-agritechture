@@ -1,5 +1,6 @@
 package com.example.administrator.glasshouse.ui.dashboard
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
@@ -13,7 +14,9 @@ import com.example.administrator.glasshouse.vo.Gate
 
 class GateAdapter(
         private val dataBindingComponent: DataBindingComponent,
-        appExecutors: AppExecutors
+        appExecutors: AppExecutors,
+        private val onDeleteClick: (Gate) -> Unit,
+        private val onEditClick: (Gate) -> Unit
 ) : DataBoundListAdapter<Gate, ItemGateWayBinding>(
         appExecutors = appExecutors,
         diffCallback = GATE_COMPARATOR
@@ -27,18 +30,17 @@ class GateAdapter(
                 dataBindingComponent
         )
 
-//        binding.btnControl.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_homeFragment_to_controlFragment)
-//        }
-//
-//        binding.btnMonitor.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_homeFragment_to_sensorFragment)
-//        }
         return binding
     }
 
     override fun bind(binding: ItemGateWayBinding, item: Gate) {
         binding.gate = item
+        binding.btnDelete.setOnClickListener {
+            onDeleteClick(item)
+        }
+        binding.btnEdit.setOnClickListener {
+            onEditClick(item)
+        }
     }
 
     companion object {

@@ -1,7 +1,5 @@
-
 package com.example.administrator.glasshouse.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.annotation.MainThread
@@ -29,12 +27,12 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     private val result = MediatorLiveData<Resource<ResultType>>()
 
     init {
-        result.value = Resource.loading(null)
         @Suppress("LeakingThis")
         val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
             if (shouldFetch(data)) {
+                result.value = Resource.loading(null)
                 fetchFromNetwork(dbSource)
             } else {
                 result.addSource(dbSource) { newData ->
@@ -47,7 +45,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     @MainThread
     private fun setValue(newValue: Resource<ResultType>) {
         if (result.value != newValue) {
-            result.value = newValue
+             result.value = newValue
         }
     }
 

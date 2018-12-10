@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import com.example.administrator.glasshouse.db.GateDao
 import com.example.administrator.glasshouse.db.SmartFarmDB
 import com.example.administrator.glasshouse.db.UserDao
+import com.example.administrator.glasshouse.util.NetworkState
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -30,5 +31,11 @@ class AppModule {
     @Provides
     fun userDao(db: SmartFarmDB): UserDao {
         return db.userDao()
+    }
+
+    @Singleton
+    @Provides
+    fun networkState(context: Context): NetworkState {
+        return NetworkState(context)
     }
 }

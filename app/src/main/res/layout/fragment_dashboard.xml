@@ -5,18 +5,44 @@
     tools:context=".ui.dashboard.DashboardFragment">
 
     <data>
-
-        <import type="android.view.View" />
+        <import type="androidx.lifecycle.LiveData"/>
+        <import type="com.example.administrator.glasshouse.vo.Status"/>
+        <import type="com.example.administrator.glasshouse.vo.Resource"/>
+        <import type="com.example.administrator.glasshouse.vo.Gate"/>
+        <import type="java.util.List"/>
 
         <variable
-            name="hasGate"
-            type="Boolean" />
+            name="gates"
+            type="LiveData&lt;Resource&lt;List&lt;Gate>>>" />
     </data>
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff">
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="130dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="bottom"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/topToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:subtitle="@string/list_gates"
+                    app:title="@string/over_view" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,61 +50,15 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
-                android:id="@+id/header"
+            <ProgressBar
+                android:id="@+id/load_more_bar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="horizontal"
-                android:stateListAnimator="@animator/header_elevation"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:indeterminate="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/txt_hello"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="64dp"
-                        android:layout_marginBottom="32dp"
-                        android:text="Nông nghiệp HiTech"
-                        android:textColor="#000"
-                        android:textSize="30sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/img_reload"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="16dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/txt_hello"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/txt_hello"
-                        app:srcCompat="@drawable/user" />
-
-                    <ProgressBar
-                        android:id="@+id/pb_loading"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:indeterminate="true"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleGone="@{gates.status==Status.LOADING}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_content"
@@ -87,7 +67,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header">
+                app:layout_constraintTop_toBottomOf="@+id/load_more_bar">
 
                 <LinearLayout
                     android:id="@+id/layout_empty"
@@ -98,11 +78,12 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="64dp"
                     android:orientation="vertical"
-                    android:visibility="@{hasGate?View.GONE:View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:visibleGone="@{gates.status!=Status.LOADING}"
+                    app:visibleIfListEmpty="@{gates.data}">
 
                     <ImageView
                         android:id="@+id/img_robot"
@@ -125,11 +106,16 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:visibility="@{hasGate?View.VISIBLE:View.GONE}"
+                    android:clipToPadding="false"
+                    android:elevation="2dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="72dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:visibleIfListNotEmpty="@{gates.data}"
                     tools:listitem="@layout/item_gate_way" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -140,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/appbarColor"
             app:fabAlignmentMode="end"
             app:hideOnScroll="true"
             app:layout_scrollFlags="scroll|enterAlways" />
@@ -150,7 +136,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:src="@drawable/ic_add_24dp"
+            android:focusable="true"
+            android:src="@drawable/ic_add_white_24dp"
             app:backgroundTint="@color/red"
             app:fabSize="normal"
             app:layout_anchor="@id/bottom_app_bar"

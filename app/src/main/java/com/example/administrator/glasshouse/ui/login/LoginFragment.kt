@@ -1,6 +1,5 @@
 package com.example.administrator.glasshouse.ui.login
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
@@ -34,7 +33,6 @@ class LoginFragment : Fragment(), Injectable {
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    @SuppressLint("VisibleForTests")
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -53,10 +51,6 @@ class LoginFragment : Fragment(), Injectable {
         loginViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(LoginViewModel::class.java)
 
-
-        if (savedInstanceState == null) {
-            loginViewModel.init()
-        }
 
         return dataBinding.root
     }

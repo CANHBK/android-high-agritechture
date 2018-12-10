@@ -58,7 +58,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_sprout"
+                app:srcCompat="@drawable/ic_sprout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
@@ -83,7 +83,7 @@
                     android:inputType="textPersonName"
                     android:text="@={viewModel.registerForm.fields.name}"
                     app:error="@{viewModel.registerForm.nameError}"
-                    app:onFocus="@{viewModel.getNameOnFocusChangeListener()}" />
+                    app:textChangedListener="@{viewModel.nameTextWatcher}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -106,7 +106,7 @@
                     android:inputType="textEmailAddress"
                     android:text="@={viewModel.registerForm.fields.email}"
                     app:error="@{viewModel.registerForm.emailError}"
-                    app:onFocus="@{viewModel.getEmailOnFocusChangeListener()}" />
+                    app:textChangedListener="@{viewModel.emailTextWatcher}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -128,7 +128,7 @@
                     android:inputType="textPassword"
                     android:text="@={viewModel.registerForm.fields.password}"
                     app:error="@{viewModel.registerForm.PasswordError}"
-                    app:onFocus="@{viewModel.getPasswordOnFocusChangeListener()}" />
+                    app:textChangedListener="@{viewModel.passwordTextWatcher}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -150,7 +150,7 @@
                     android:inputType="textPassword"
                     android:text="@={viewModel.registerForm.fields.rePassword}"
                     app:error="@{viewModel.registerForm.rePasswordError}"
-                    app:onFocus="@{viewModel.getRePasswordOnFocusChangeListener()}" />
+                    app:textChangedListener="@{viewModel.rePasswordTextWatcher}" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

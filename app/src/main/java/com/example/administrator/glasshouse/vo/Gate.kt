@@ -6,14 +6,14 @@ import androidx.room.Index
 @Entity(
         indices = [
             Index("id")],
-        primaryKeys = ["serviceTag"]
+        primaryKeys = ["id"]
 )
 data class Gate(
         val id: String,
         val name: String,
-        val serviceTag: String,
-        val monitors: String,
-        val controls: String,
-        val userId:String
+        val monitors: String = "0",
+        val controls: String = "0",
+        val serviceTag:String,
+        val owner:String
 
 )

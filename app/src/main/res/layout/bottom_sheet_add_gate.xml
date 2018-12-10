@@ -6,9 +6,23 @@
 
     <data>
 
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.example.administrator.glasshouse.vo.Gate" />
+
+        <import type="com.example.administrator.glasshouse.vo.Resource" />
+
+        <import type="com.example.administrator.glasshouse.vo.Status" />
+
+        <import type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel" />
+
+        <variable
+            name="gate"
+            type="LiveData&lt;Resource&lt;Gate>>" />
+
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel" />
+            type="DashBoardViewModel" />
     </data>
 
     <LinearLayout
@@ -16,7 +30,26 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <ProgressBar
+            android:id="@+id/load_more_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{gate.status==Status.LOADING}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{gate.message}"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:visibleGone="@{gate.status==Status.ERROR}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,37 +83,49 @@
             android:id="@+id/edt_gate_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/bg_edit_text"
             android:ems="10"
-            android:hint="ID bộ điều khiển"
+            android:hint="@string/id_gate"
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:paddingBottom="8dp"
+            android:text="@={viewModel.addGateForm.fields.id}"
             android:textColor="@color/color_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:error="@{viewModel.addGateForm.idError}"
+            app:textChangedListener="@{viewModel.serviceTagTextWatcher}"
+            tools:ignore="RtlSymmetry" />
 
         <EditText
             android:id="@+id/edt_gate_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edit_text"
             android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:hint="Tên bộ điều khiển"
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
+            android:text="@={viewModel.addGateForm.fields.name}"
             android:textColor="@color/color_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:error="@{viewModel.addGateForm.nameError}"
+            app:textChangedListener="@{viewModel.gateNameTextWatcher}" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="@{()-> viewModel.addGate()}"
+            android:layout_gravity="end"
+            android:onClick="@{() -> viewModel.onAddGateClick()}"
             android:text="Thêm"
             android:textAllCaps="false"
             android:textStyle="bold" />

@@ -1,0 +1,41 @@
+
+query AllMonitors($serviceTag :String!){
+  allMonitors(serviceTag: $serviceTag){
+        id
+       serviceTag
+          tag
+          name
+          sensors{
+          lastData index serviceTag tag name id
+          }
+
+     }
+}
+
+
+
+mutation AddMonitor($serviceTag : String!,$tag:String! $name:String!){
+  addMonitor(serviceTag : $serviceTag,tag:$tag,name:$name){
+  id serviceTag tag name
+    sensors{
+            lastData index serviceTag tag name id
+            }
+  }
+}
+
+mutation DeleteMonitor($tag:String!){
+  deleteMonitor(tag:$tag){
+  id serviceTag tag name
+    sensors{
+            lastData index serviceTag tag name id
+            }
+  }
+}
+mutation EditMonitor($tag:String!,$name:String!){
+  editMonitor(tag:$tag,name:$name){
+  id serviceTag tag name
+    sensors{
+            lastData index serviceTag tag name id
+            }
+  }
+}
