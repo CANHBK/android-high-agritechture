@@ -1,7 +1,7 @@
 package com.example.administrator.glasshouse.di
 
 import android.app.Application
-import com.example.administrator.glasshouse.FarmApp
+import com.example.administrator.glasshouse.util.FarmApp
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

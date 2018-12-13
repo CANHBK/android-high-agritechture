@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
-import com.example.administrator.glasshouse.AppExecutors
+import com.example.administrator.glasshouse.util.AppExecutors
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.databinding.ItemGateWayBinding
 import com.example.administrator.glasshouse.ui.common.DataBoundListAdapter
@@ -40,6 +41,12 @@ class GateAdapter(
         }
         binding.btnEdit.setOnClickListener {
             onEditClick(item)
+        }
+        binding.root.setOnClickListener {
+            Log.d("test","helo")
+
+            val monitor = DashboardFragmentDirections.monitor(item.serviceTag)
+            it.findNavController().navigate(monitor)
         }
     }
 

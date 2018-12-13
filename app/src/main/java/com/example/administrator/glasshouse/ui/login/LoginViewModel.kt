@@ -43,43 +43,45 @@ class LoginViewModel @Inject constructor(val repository: UserRepository) : Obser
 
     private var loginForm = LoginForm()
 
-    fun getEmailTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
+//    fun getEmailTextWatcher(): TextWatcher {
+//        return object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//                // Do nothing.
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {
+//                loginForm.isEmailValid(true)
+//            }
+//        }
+//    }
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                loginForm.isEmailValid(true)
-            }
-        }
-    }
-
-    fun getPasswordTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                loginForm.isPasswordValid(true)
-            }
-        }
-    }
+//    fun getPasswordTextWatcher(): TextWatcher {
+//        return object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//                // Do nothing.
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {
+//                loginForm.isPasswordValid(true)
+//            }
+//        }
+//    }
 
     fun getLoginForm(): LoginForm? {
         return loginForm
     }
 
     fun onButtonClick() {
+        loginForm.isEmailValid(true)
+        loginForm.isPasswordValid(true)
         loginForm.onClick()
     }
 

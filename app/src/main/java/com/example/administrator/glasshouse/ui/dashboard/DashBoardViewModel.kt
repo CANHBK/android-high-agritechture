@@ -1,10 +1,5 @@
 package com.example.administrator.glasshouse.ui.dashboard
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
-import android.widget.EditText
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -36,8 +31,12 @@ class DashBoardViewModel @Inject constructor(repository: GateRepository) : Obser
     private var addGateForm = AddGateForm()
     private var editGateForm = EditGateForm()
 
-    val userId: LiveData<String>
+
+
+    val user: LiveData<String>
         get() = _userId
+
+
 
     val gates: LiveData<Resource<List<Gate>>> = Transformations
             .switchMap(triggerLoadGates) { it ->
@@ -73,42 +72,6 @@ class DashBoardViewModel @Inject constructor(repository: GateRepository) : Obser
                     repository.editGate(_userId.value!!, serviceTag.value!!, gateName.value!!)
                 }
             }
-
-
-    fun getServiceTagTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-//                addGateForm.isIdValid(true)
-            }
-        }
-    }
-
-    fun getGateNameTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-//                editGateForm.isNameValid(true)
-//                addGateForm.isNameValid(true)
-            }
-        }
-    }
-
-
 
 
     fun getAddGateForm(): AddGateForm? {

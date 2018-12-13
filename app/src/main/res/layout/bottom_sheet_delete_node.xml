@@ -2,26 +2,30 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.dashboard.DeleteGateBottomSheet">
+    tools:context="com.example.administrator.glasshouse.ui.monitor.DeleteNodeBottomSheet">
 
     <data>
-        <variable
-            name="hasError"
-            type="Boolean"/>
-        <variable
-            name="errorMessage"
-            type="String" />
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.example.administrator.glasshouse.vo.Monitor" />
+
+        <import type="com.example.administrator.glasshouse.vo.Resource" />
+
+        <import type="com.example.administrator.glasshouse.vo.Status" />
+
+        <import type="com.example.administrator.glasshouse.ui.monitor.MonitorViewModel" />
 
         <variable
-            name="loading"
-            type="Boolean" />
+            name="monitor"
+            type="Monitor"/>
+
         <variable
-            name="gate"
-            type="com.example.administrator.glasshouse.vo.Gate"/>
+            name="result"
+            type="LiveData&lt;Resource&lt;Monitor>>" />
+
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel"/>
-
+            type="MonitorViewModel" />
     </data>
 
     <LinearLayout
@@ -39,15 +43,15 @@
             android:indeterminate="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibleGone="@{loading}" />
+            app:visibleGone="@{result.status==Status.LOADING}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{errorMessage}"
+            android:text="@{result.message}"
             android:textColor="@color/red"
             android:textSize="14sp"
-            app:visibleGone="@{hasError}" />
+            app:visibleGone="@{result.status==Status.ERROR}" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -86,9 +90,9 @@
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.removeGate(gate.serviceTag)}"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/red"
+            android:onClick="@{()->viewModel.deleteMonitor(monitor.tag)}"
+            android:backgroundTint="@color/color_red"
             android:text="Xóa" />
 
     </LinearLayout>

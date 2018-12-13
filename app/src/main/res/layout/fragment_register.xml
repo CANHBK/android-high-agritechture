@@ -83,7 +83,7 @@
                     android:inputType="textPersonName"
                     android:text="@={viewModel.registerForm.fields.name}"
                     app:error="@{viewModel.registerForm.nameError}"
-                    app:textChangedListener="@{viewModel.nameTextWatcher}"/>
+                />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -106,7 +106,7 @@
                     android:inputType="textEmailAddress"
                     android:text="@={viewModel.registerForm.fields.email}"
                     app:error="@{viewModel.registerForm.emailError}"
-                    app:textChangedListener="@{viewModel.emailTextWatcher}" />
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -128,7 +128,7 @@
                     android:inputType="textPassword"
                     android:text="@={viewModel.registerForm.fields.password}"
                     app:error="@{viewModel.registerForm.PasswordError}"
-                    app:textChangedListener="@{viewModel.passwordTextWatcher}"/>
+                  />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -149,8 +149,7 @@
                     android:hint="Nhập lại mật khẩu"
                     android:inputType="textPassword"
                     android:text="@={viewModel.registerForm.fields.rePassword}"
-                    app:error="@{viewModel.registerForm.rePasswordError}"
-                    app:textChangedListener="@{viewModel.rePasswordTextWatcher}" />
+                    app:error="@{viewModel.registerForm.rePasswordError}" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -172,7 +171,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:enabled="@{viewModel.registerForm.valid}"
                     android:onClick="@{() -> viewModel.onRegisterClick()}"
                     android:text="Đăng ký"
                     tools:targetApi="m" />

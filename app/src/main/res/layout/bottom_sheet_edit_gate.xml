@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.administrator.glasshouse.ui.dashboard.EditGateBottomSheet">
     <data>
         <variable
             name="gate"
@@ -100,8 +101,8 @@
             android:ems="10"
             android:hint="@{gate.name}"
             tools:hint="Tên bộ điều khiển"
+            app:error="@{viewModel.editGateForm.nameError}"
             android:text="@={viewModel.editGateForm.fields.name}"
-            app:textChangedListener="@{viewModel.gateNameTextWatcher}"
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingTop="8dp"

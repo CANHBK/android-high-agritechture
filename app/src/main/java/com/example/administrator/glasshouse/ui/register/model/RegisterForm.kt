@@ -1,13 +1,10 @@
 package com.example.administrator.glasshouse.ui.register.model
 
 import com.example.administrator.glasshouse.R
-
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
-import com.example.administrator.glasshouse.R.string.email
-import com.example.administrator.glasshouse.R.string.password
 
 class RegisterForm : BaseObservable() {
     val fields = RegisterFields()

@@ -2,6 +2,7 @@ package com.example.administrator.glasshouse.ui.dashboard
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.*
 import androidx.databinding.DataBindingComponent
@@ -10,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.example.administrator.glasshouse.AppExecutors
+import com.example.administrator.glasshouse.util.AppExecutors
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.binding.FragmentDataBindingComponent
 import com.example.administrator.glasshouse.databinding.FragmentDashboardBinding
@@ -27,6 +28,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
     private lateinit var addBottomSheet: AddGateBottomSheet
     private lateinit var deleteBottomSheet: DeleteGateBottomSheet
     private lateinit var editBottomSheet: EditGateBottomSheet
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -36,8 +38,8 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
     lateinit var appExecutors: AppExecutors
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
-    var binding by autoCleared<FragmentDashboardBinding>()
 
+    var binding by autoCleared<FragmentDashboardBinding>()
 
     private var adapter by autoCleared<GateAdapter>()
 
@@ -60,9 +62,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         dashBoardViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(DashBoardViewModel::class.java)
 
-        // Inflate the layout for this fragment
         return dataBinding.root
-
 
     }
 
@@ -70,7 +70,6 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(topToolbar)
         (activity as AppCompatActivity).setSupportActionBar(binding.bottomAppBar)
-
 
 
         dashBoardViewModel.loadGates()
@@ -93,19 +92,15 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         )
         binding.rvListDevice.adapter = rvAdapter
         adapter = rvAdapter
-        binding.gates=dashBoardViewModel.gates
+        binding.gates = dashBoardViewModel.gates
         addBottomSheet = AddGateBottomSheet.newInstance(dashBoardViewModel)
 
         dashBoardViewModel.gates.observe(viewLifecycleOwner, Observer { it ->
-
-            if(it.status==Status.SUCCESS&& it.data!!.isNotEmpty()){
+            if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {
                 adapter.submitList(it.data)
             }
         })
 
-//        dashBoardViewModel.change.observe(viewLifecycleOwner, Observer {
-//            adapter.submitList(it.data)
-//        })
 
         dashBoardViewModel.addGate.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {

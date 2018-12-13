@@ -59,9 +59,6 @@ class DeleteGateBottomSheet : BottomSheetDialogFragment(), Injectable {
 
         binding = dataBinding
 
-
-//        val btnDelete = view.findViewById<Button>(R.id.btn_delete)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             binding.txtWarningMessage.text =
                     Html.fromHtml("Bạn đang chuẩn bị xóa <span style=\"color: red\">${gate.name}</span>, hành động này không thể quay lại, bạn có chắc chắn?", Html.FROM_HTML_MODE_COMPACT)
@@ -69,11 +66,6 @@ class DeleteGateBottomSheet : BottomSheetDialogFragment(), Injectable {
             binding.txtWarningMessage.text =
                     Html.fromHtml("Bạn đang chuẩn bị xóa <span style=\"color: red\">${gate.name}</span>, hành động này không thể quay lại, bạn có chắc chắn?")
         }
-
-//        btnDelete.setOnClickListener {
-//            dashBoardViewModel.removeGate(gate.serviceTag)
-//        }
-
 
         return dataBinding.root
     }
@@ -103,8 +95,6 @@ class DeleteGateBottomSheet : BottomSheetDialogFragment(), Injectable {
                 Status.SUCCESS -> {
                     binding.loading = false
                     binding.hasError = false
-//                    dismiss()
-
                 }
                 Status.ERROR -> {
                     binding.hasError = true

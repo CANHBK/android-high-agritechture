@@ -36,7 +36,7 @@ class AddMonitorForm : BaseObservable() {
             return true
         } else {
             if (setMessage) {
-                errors.name = R.string.error_format_invalid
+                errors.tag = R.string.error_format_invalid
                 notifyPropertyChanged(BR.valid)
             }
             return false

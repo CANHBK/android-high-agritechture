@@ -37,126 +37,19 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_dashboard">
         <action
-            android:id="@+id/action_homeFragment_to_sensorFragment"
-            app:destination="@id/sensorFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_controlFragment"
-            app:destination="@id/controlFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_addRelayFragment"
-            app:destination="@id/addRelayFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_addSensorFragment"
-            app:destination="@id/addSensorFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/monitor"
+            app:destination="@id/monitorFragment" />
     </fragment>
     <fragment
-        android:id="@+id/sensorFragment"
+        android:id="@+id/monitorFragment"
         android:name="com.example.administrator.glasshouse.ui.monitor.MonitorFragment"
-        android:label="fragment_overview"
+        android:label="fragment_monitor"
         tools:layout="@layout/fragment_monitor" >
         <argument
             android:name="serviceTag"
-            android:defaultValue='""'
-            app:argType="string" />
-        <action
-            android:id="@+id/action_sensorFragment_to_configTimeMonitorFragment"
-            app:destination="@id/configTimeMonitorFragment" />
-        <action
-            android:id="@+id/action_sensorFragment_to_fragment_monitor_detail"
-            app:destination="@id/fragment_temperature_detail" />
-        <action
-            android:id="@+id/action_sensorFragment_to_lightDetailFragment"
-            app:destination="@id/lightDetailFragment" />
-        <action
-            android:id="@+id/action_sensorFragment_to_airHumidityFragment"
-            app:destination="@id/airHumidityFragment" />
-        <action
-            android:id="@+id/action_sensorFragment_to_groundHumidityFragment"
-            app:destination="@id/groundHumidityFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/controlFragment"
-        android:name="com.example.administrator.glasshouse.ui.control.ControlFragment"
-        android:label="fragment_relay"
-        tools:layout="@layout/fragment_control" >
-        <argument
-            android:name="serviceTag"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_controlFragment_to_configTimeControlFragment"
-            app:destination="@id/configTimeControlFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/configTimeControlFragment"
-        android:name="com.example.administrator.glasshouse.ConfigTimeControlFragment"
-        android:label="fragment_config_time_control"
-        tools:layout="@layout/fragment_config_time_control" >
-        <argument
-            android:name="nodeControlArg"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_configTimeControlFragment_to_chooseTimeControlFragment"
-            app:destination="@id/chooseTimeControlFragment" />
-        <argument
-            android:name="serviceTag"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/configTimeMonitorFragment"
-        android:name="com.example.administrator.glasshouse.ConfigTimeMonitorFragment"
-        android:label="fragment_config_time_monitor"
-        tools:layout="@layout/fragment_config_time_monitor" />
-    <fragment
-        android:id="@+id/chooseTimeControlFragment"
-        android:name="com.example.administrator.glasshouse.ChooseTimeControlFragment"
-        android:label="fragment_choose_time_control"
-        tools:layout="@layout/fragment_choose_time_control" >
-        <argument
-            android:name="serviceTag"
-            app:argType="string" />
-        <argument
-            android:name="nodeControlArg"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_temperature_detail"
-        android:name="com.example.administrator.glasshouse.ui.temperature.TemperatureDetailFragment"
-        android:label="fragment_temperature_detail"
-        tools:layout="@layout/fragment_temperature_detail" />
-    <fragment
-        android:id="@+id/addRelayFragment"
-        android:name="com.example.administrator.glasshouse.Fragment.AddRelayFragment"
-        android:label="fragment_add_relay"
-        tools:layout="@layout/fragment_add_relay" >
-        <action
-            android:id="@+id/action_addRelayFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addSensorFragment"
-        android:name="com.example.administrator.glasshouse.Fragment.AddSensorFragment"
-        android:label="fragment_add_sensor"
-        tools:layout="@layout/fragment_add_sensor" >
-        <action
-            android:id="@+id/action_addSensorFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/lightDetailFragment"
-        android:name="com.example.administrator.glasshouse.ui.light.LightDetailFragment"
-        android:label="fragment_light_detail"
-        tools:layout="@layout/fragment_light_detail" />
-    <fragment
-        android:id="@+id/airHumidityFragment"
-        android:name="com.example.administrator.glasshouse.ui.airhumidity.AirHumidityFragment"
-        android:label="fragment_air_humidity"
-        tools:layout="@layout/fragment_air_humidity" />
-    <fragment
-        android:id="@+id/groundHumidityFragment"
-        android:name="com.example.administrator.glasshouse.ui.gndhumi.GroundHumidityFragment"
-        android:label="fragment_ground_humidity"
-        tools:layout="@layout/fragment_ground_humidity" />
 </navigation>

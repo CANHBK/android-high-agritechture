@@ -32,8 +32,7 @@ class EditGateBottomSheet : BottomSheetDialogFragment(), Injectable {
         fun newInstance(gate: Gate, dashBoardViewModel: DashBoardViewModel): EditGateBottomSheet {
             this.gate = gate
             this.dashBoardViewModel = dashBoardViewModel
-            val f = EditGateBottomSheet()
-            return f
+            return EditGateBottomSheet()
         }
     }
 

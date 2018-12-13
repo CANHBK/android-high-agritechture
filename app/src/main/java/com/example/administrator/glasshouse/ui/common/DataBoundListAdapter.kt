@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import android.view.ViewGroup
-import com.example.administrator.glasshouse.AppExecutors
+import com.example.administrator.glasshouse.util.AppExecutors
 
 /**
  * A generic RecyclerView adapter that uses Data Binding & DiffUtil.
