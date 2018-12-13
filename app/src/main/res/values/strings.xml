@@ -1,109 +1,11 @@
 <resources>
-    <string name="retry">Retry</string>
-    <string name="unknown_error">Unknown Error</string>
-    <string name="a11y_user_photo">user photo</string>
-    <string name="a11y_user_name">user name</string>
-    <string name="search_hint">search repositories</string>
-    <string name="repo_full_name"><b>%s</b>/%s</string>
-    <string name="empty_search_result">No results for <b>%s</b></string>
-    <string name="a11y_contributor_avatar">contributor avatar</string>
-
-    <string name="login">Đăng nhập</string>
-    <string name="action_settings">Settings</string>
-    <string name="hint_name">Họ và tên</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Mật khẩu</string>
-    <string name="btn_sign_up">Sign Up</string>
-    <string name="err_msg_name">Enter your full name</string>
-    <string name="err_msg_email">Enter valid email address</string>
-    <string name="err_msg_password">Enter the password</string>
-
-    <string name="tong_quan">Tổng quan</string>
-    <string name="bieu_do">Biểu đồ</string>
-    <string name="thong_bao">Thông báo</string>
-    <string name="home">Home</string>
-    <string name="profile">Profile</string>
-    <string name="setting">Cài đặt</string>
-    <string name="log_out">Log out</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="more">More</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="full_name">Full Name</string>
-    <string name="password">Password</string>
-    <string name="switch_to_signin">Already Register? Sign in here</string>
-    <string name="sign_in">Sign In</string>
-    <string name="switch_sign_up">New User? Create Account</string>
-    <string name="forgot_password">Forgot Password</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="noti">notification</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="glass_house">Glass House</string>
-    <string name="email">Email</string>
 
     <string name="app_name">Hi Tech Agri</string>
     <string name="main_no_devices_yet">Có vẻ bạn chưa có bộ điều khiển trung tâm nào\nClick dấu + để thêm</string>
 
-    <string-array name="Time">
-        <item>Ngày</item>
-        <item>Tuần</item>
-        <item>Tháng</item>
-        <item>Năm</item>
-    </string-array>
-
-    <string-array name="Response">
-        <item>15 mins</item>
-        <item>30 mins</item>
-        <item>1 hour</item>
-        <item>2 hours</item>
-        <item>24 hours</item>
-    </string-array>
-
-    <string-array name="Parameter">
-        <item>Nhiệt độ</item>
-        <item>Độ ẩm</item>
-        <item>Ánh sáng</item>
-        <item>Độ pH</item>
-    </string-array>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="middle_name">Middle Name</string>
-    <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="register">Đăng kí</string>
-    <string name="create_new_account">Tạo tài khoản mới</string>
-    <string name="already_account_login">Đã có tài khoản, đăng nhập</string>
-    <string name="hint_repeat_password">Nhập lại mật khẩu</string>
-    <string name="add">Thêm</string>
-    <string name="add_new_gateway">Thêm Gate Way mới</string>
-    <string name="monitor">Giám sát</string>
-    <string name="control">Điều khiển</string>
-    <string name="gateList">Danh sách Gate Way</string>
-    <string name="noGate">Chưa có Gate Way nào!!!</string>
     <string name="node_monitor">Điểm quan sát</string>
-    <string name="node_control">Điểm điều khiển</string>
-    <string name="gate">GateWay</string>
 
-    <string name="post_subtitle">Submitted by %s</string>
-    <string name="default_subreddit">androiddev</string>
-    <string name="db_plus_network">db + network</string>
-    <string name="network_only_by_item">network only (by item)</string>
-    <string name="network_only_by_page">network only (by page)</string>
-    <string name="title_activity_graph">GraphActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="refresh">Làm mới</string>
     <string name="error_too_short">quá ngắn</string>
     <string name="error_format_invalid">sai định dạng</string>
     <string name="password_not_match">Mật khẩu không khớp</string>

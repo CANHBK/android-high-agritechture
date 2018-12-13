@@ -38,69 +38,69 @@ class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewMo
                 }
             }
 
-    fun getEmailTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
+//    fun getEmailTextWatcher(): TextWatcher {
+//        return object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//                // Do nothing.
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {
+//                registerForm.isEmailValid(true)
+//            }
+//        }
+//    }
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//    fun getNameTextWatcher(): TextWatcher {
+//        return object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//                // Do nothing.
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {
+//                registerForm.isNameValid(true)
+//            }
+//        }
+//    }
 
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                registerForm.isEmailValid(true)
-            }
-        }
-    }
-
-    fun getNameTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                registerForm.isNameValid(true)
-            }
-        }
-    }
-
-    fun getPasswordTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                registerForm.isPasswordValid(true)
-            }
-        }
-    }
-
-    fun getRePasswordTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Do nothing.
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                registerForm.isRePasswordValid(true)
-            }
-        }
-    }
+//    fun getPasswordTextWatcher(): TextWatcher {
+//        return object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//                // Do nothing.
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {
+//                registerForm.isPasswordValid(true)
+//            }
+//        }
+//    }
+//
+//    fun getRePasswordTextWatcher(): TextWatcher {
+//        return object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+//                // Do nothing.
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {
+//                registerForm.isRePasswordValid(true)
+//            }
+//        }
+//    }
 
     fun getRegisterForm(): RegisterForm? {
         return registerForm
@@ -108,6 +108,10 @@ class RegisterViewModel @Inject constructor(repository: UserRepository) : ViewMo
 
 
     fun onRegisterClick() {
+        registerForm.isNameValid(true)
+        registerForm.isEmailValid(true)
+        registerForm.isPasswordValid(true)
+        registerForm.isRePasswordValid(true)
         registerForm.onClick()
     }
 
