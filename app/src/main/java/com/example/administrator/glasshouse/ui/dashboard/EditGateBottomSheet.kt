@@ -32,8 +32,7 @@ class EditGateBottomSheet : BottomSheetDialogFragment(), Injectable {
         fun newInstance(gate: Gate, dashBoardViewModel: DashBoardViewModel): EditGateBottomSheet {
             this.gate = gate
             this.dashBoardViewModel = dashBoardViewModel
-            val f = EditGateBottomSheet()
-            return f
+            return EditGateBottomSheet()
         }
     }
 
@@ -63,6 +62,10 @@ class EditGateBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.setLifecycleOwner(viewLifecycleOwner)
+
+        dashBoardViewModel.initEditGate()
 
         editGate()
 

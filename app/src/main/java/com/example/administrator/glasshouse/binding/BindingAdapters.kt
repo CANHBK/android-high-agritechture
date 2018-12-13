@@ -30,6 +30,7 @@ object BindingAdapters {
         view.visibility = if (lists != null && !lists.isEmpty()) View.VISIBLE else View.GONE
     }
 
+
     @JvmStatic
     @BindingAdapter("error")
     fun setError(editText: TextInputEditText, strOrResId: Any?) {

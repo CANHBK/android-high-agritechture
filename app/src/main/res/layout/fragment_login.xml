@@ -89,7 +89,7 @@
                     android:inputType="textNoSuggestions|textEmailAddress"
                     android:text="@={viewModel.loginForm.fields.email}"
                     app:error="@{viewModel.loginForm.emailError}"
-                    app:textChangedListener="@{viewModel.emailTextWatcher}"/>
+                   />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -112,7 +112,7 @@
                     android:inputType="textPassword"
                     android:text="@={viewModel.loginForm.fields.password}"
                     app:error="@{viewModel.loginForm.passwordError}"
-                    app:textChangedListener="@{viewModel.passwordTextWatcher}" />
+                  />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -132,7 +132,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:enabled="@{viewModel.loginForm.valid}"
                     android:onClick="@{() -> viewModel.onButtonClick()}"
                     android:text="Đăng nhập" />
 

@@ -38,8 +38,8 @@ class DeleteGateBottomSheet : BottomSheetDialogFragment(), Injectable {
         fun newInstance(gate: Gate, dashBoardViewModel: DashBoardViewModel): DeleteGateBottomSheet {
             this.gate = gate
             this.dashBoardViewModel = dashBoardViewModel
-            val f = DeleteGateBottomSheet()
-            return f
+            return DeleteGateBottomSheet()
+
         }
     }
 
@@ -59,9 +59,6 @@ class DeleteGateBottomSheet : BottomSheetDialogFragment(), Injectable {
 
         binding = dataBinding
 
-
-//        val btnDelete = view.findViewById<Button>(R.id.btn_delete)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             binding.txtWarningMessage.text =
                     Html.fromHtml("Bạn đang chuẩn bị xóa <span style=\"color: red\">${gate.name}</span>, hành động này không thể quay lại, bạn có chắc chắn?", Html.FROM_HTML_MODE_COMPACT)
@@ -70,15 +67,12 @@ class DeleteGateBottomSheet : BottomSheetDialogFragment(), Injectable {
                     Html.fromHtml("Bạn đang chuẩn bị xóa <span style=\"color: red\">${gate.name}</span>, hành động này không thể quay lại, bạn có chắc chắn?")
         }
 
-//        btnDelete.setOnClickListener {
-//            dashBoardViewModel.removeGate(gate.serviceTag)
-//        }
-
-
         return dataBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+            view: View, savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.setLifecycleOwner(viewLifecycleOwner)
@@ -87,32 +81,8 @@ class DeleteGateBottomSheet : BottomSheetDialogFragment(), Injectable {
 
         binding.gate = gate
 
-        handleResultDeleteGate()
+        binding.result = dashBoardViewModel.removeGate
 
-
-    }
-
-    private fun handleResultDeleteGate() {
-        dashBoardViewModel.removeGate.observe(viewLifecycleOwner, Observer {
-            val status = it.status
-            when (status) {
-                Status.LOADING -> {
-                    binding.loading = true
-                    binding.hasError = false
-                }
-                Status.SUCCESS -> {
-                    binding.loading = false
-                    binding.hasError = false
-//                    dismiss()
-
-                }
-                Status.ERROR -> {
-                    binding.hasError = true
-                    binding.loading = false
-                    binding.errorMessage = it.message!!
-                }
-            }
-        })
     }
 
 }

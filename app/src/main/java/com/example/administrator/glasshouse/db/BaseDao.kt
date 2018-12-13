@@ -11,7 +11,7 @@ interface BaseDao<T> {
      *
      * @param obj the object to be inserted.
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(obj: T)
 
     /**
@@ -19,7 +19,7 @@ interface BaseDao<T> {
      *
      * @param obj the objects to be inserted.
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg obj: T)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -43,4 +43,5 @@ interface BaseDao<T> {
      */
     @Delete
     fun delete(obj: T)
+
 }

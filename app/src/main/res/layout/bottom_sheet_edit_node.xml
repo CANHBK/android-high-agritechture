@@ -2,23 +2,29 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.dashboard.EditGateBottomSheet">
+    tools:context="com.example.administrator.glasshouse.ui.monitor.EditNodeBottomSheet">
     <data>
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.example.administrator.glasshouse.vo.Monitor" />
+
+        <import type="com.example.administrator.glasshouse.vo.Resource" />
+
+        <import type="com.example.administrator.glasshouse.vo.Status" />
+
+        <import type="com.example.administrator.glasshouse.ui.monitor.MonitorViewModel" />
+
         <variable
-            name="gate"
-            type="com.example.administrator.glasshouse.vo.Gate"/>
+            name="monitor"
+            type="Monitor"/>
+
         <variable
-            name="errorMessage"
-            type="String"/>
-        <variable
-            name="hasError"
-            type="Boolean"/>
-        <variable
-            name="loading"
-            type="Boolean"/>
+            name="result"
+            type="LiveData&lt;Resource&lt;Monitor>>" />
+
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel"/>
+            type="MonitorViewModel" />
     </data>
 
     <LinearLayout
@@ -27,7 +33,6 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="8dp">
-
         <ProgressBar
             android:id="@+id/load_more_bar"
             style="?android:attr/progressBarStyleHorizontal"
@@ -36,15 +41,15 @@
             android:indeterminate="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibleGone="@{loading}" />
+            app:visibleGone="@{result.status==Status.LOADING}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{errorMessage}"
+            android:text="@{result.message}"
             android:textColor="@color/red"
             android:textSize="14sp"
-            app:visibleGone="@{hasError}" />
+            app:visibleGone="@{result.status==Status.ERROR}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +67,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_leaf" />
+                app:srcCompat="@drawable/ic_sensor" />
 
             <TextView
                 android:id="@+id/textView"
@@ -70,22 +75,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="9"
-                android:text="Thay đổi tên bộ điều khiển"
+                android:text="Thay đổi tên node cảm biến"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
 
         <EditText
-            android:id="@+id/edt_gate_id"
+            android:id="@+id/edt_node_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginBottom="2dp"
             android:background="@drawable/bg_edit_text"
             android:ems="10"
-            android:text="@{gate.serviceTag}"
             android:enabled="false"
-            android:hint="ID bộ điều khiển"
+            android:text="@{monitor.tag}"
+            android:hint="ID node cảm biến"
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
@@ -93,16 +98,16 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/edt_gate_name"
+            android:id="@+id/edt_node_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:background="@drawable/bg_edit_text"
             android:ems="10"
-            android:hint="@{gate.name}"
-            tools:hint="Tên bộ điều khiển"
-            app:error="@{viewModel.editGateForm.nameError}"
-            android:text="@={viewModel.editGateForm.fields.name}"
+            app:error="@{viewModel.editMonitorForm.nameError}"
+            tools:hint="Tên node cảm biến"
+            android:hint="@{monitor.name}"
+            android:text="@={viewModel.editMonitorForm.fields.name}"
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
@@ -116,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="Lưu"
-            android:onClick="@{() -> viewModel.onEditGateClick()}"
+            android:onClick="@{()->viewModel.onEditMonitorClick()}"
             android:textAllCaps="false"
             android:textStyle="bold" />
     </LinearLayout>

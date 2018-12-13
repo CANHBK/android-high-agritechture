@@ -9,12 +9,181 @@ import com.example.administrator.glasshouse.*
 import com.example.administrator.glasshouse.type.ServiceInput
 import com.example.administrator.glasshouse.type.UserInput
 import com.example.administrator.glasshouse.vo.Gate
+import com.example.administrator.glasshouse.vo.Monitor
 import com.example.administrator.glasshouse.vo.User
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class Apollo @Inject constructor(private val apolloClient: ApolloClient) : GraphQL, LiveData<ApiResponse<User>>() {
-    override fun removeGate(userId: String, idGate: String): LiveData<ApiResponse<Gate>> {
+    override fun subscribeStateRelay(controlTag: String) {
+
+    }
+
+    override fun loadMonitors(serviceTag: String): LiveData<ApiResponse<List<Monitor>>> {
+        val query = AllMonitorsQuery
+                .builder()
+                .serviceTag(serviceTag)
+                .build()
+        val call = apolloClient.query(query)
+        return object : LiveData<ApiResponse<List<Monitor>>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    call.enqueue(object : ApolloCall.Callback<AllMonitorsQuery.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<AllMonitorsQuery.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.allMonitors()!!
+                                val result = ArrayList<Monitor>()
+                                data.forEach {
+                                    val monitor = Monitor(
+                                            id = it.id()!!,
+                                            name = it.name()!!,
+                                            serviceTag = it.serviceTag()!!,
+                                            tag = it.tag()!!
+
+                                    )
+                                    result.add(monitor)
+                                }
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Monitor>> {
+        val mutation = apolloClient.mutate(
+                AddMonitorMutation.builder()
+                        .serviceTag(serviceTag)
+                        .tag(tag)
+                        .name(name)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Monitor>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<AddMonitorMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<AddMonitorMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.addMonitor()!!
+                                val result = Monitor(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun deleteMonitor(tag: String): LiveData<ApiResponse<Monitor>> {
+        val mutation = apolloClient.mutate(
+                DeleteMonitorMutation.builder()
+                        .tag(tag)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Monitor>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<DeleteMonitorMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<DeleteMonitorMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.deleteMonitor()!!
+                                val result = Monitor(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun editMonitor(tag: String, name: String): LiveData<ApiResponse<Monitor>> {
+        val mutation = apolloClient.mutate(
+                EditMonitorMutation.builder()
+                        .tag(tag)
+                        .name(name)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Monitor>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<EditMonitorMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<EditMonitorMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.editMonitor()!!
+                                val result = Monitor(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun deleteGate(userId: String, idGate: String): LiveData<ApiResponse<Gate>> {
 
         val mutation = apolloClient.mutate(
                 RemoveGateMutation.builder()

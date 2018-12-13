@@ -2,8 +2,8 @@ package com.example.administrator.glasshouse.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.administrator.glasshouse.db.GateDao
+import com.example.administrator.glasshouse.db.MonitorDao
 import com.example.administrator.glasshouse.db.SmartFarmDB
 import com.example.administrator.glasshouse.db.UserDao
 import com.example.administrator.glasshouse.util.NetworkState
@@ -31,6 +31,11 @@ class AppModule {
     @Provides
     fun userDao(db: SmartFarmDB): UserDao {
         return db.userDao()
+    }
+    @Singleton
+    @Provides
+    fun monitorDao(db: SmartFarmDB): MonitorDao {
+        return db.monitorDao()
     }
 
     @Singleton

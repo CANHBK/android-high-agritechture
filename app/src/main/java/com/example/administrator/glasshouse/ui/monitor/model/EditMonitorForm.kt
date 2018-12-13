@@ -25,16 +25,16 @@ class EditMonitorForm : BaseObservable() {
 
     fun isNameValid(setMessage: Boolean): Boolean {
         val name = fields.name
-        if (name != null && name.isNotEmpty()) {
+        return if (name != null && name.isNotEmpty()) {
             errors.name = null
             notifyPropertyChanged(BR.valid)
-            return true
+            true
         } else {
             if (setMessage) {
                 errors.name = R.string.not_empty
                 notifyPropertyChanged(BR.valid)
             }
-            return false
+            false
         }
     }
 

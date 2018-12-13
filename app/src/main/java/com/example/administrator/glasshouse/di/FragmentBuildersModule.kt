@@ -6,6 +6,10 @@ import com.example.administrator.glasshouse.ui.dashboard.DashboardFragment
 import com.example.administrator.glasshouse.ui.dashboard.DeleteGateBottomSheet
 import com.example.administrator.glasshouse.ui.dashboard.EditGateBottomSheet
 import com.example.administrator.glasshouse.ui.login.LoginFragment
+import com.example.administrator.glasshouse.ui.monitor.AddNodeBottomSheet
+import com.example.administrator.glasshouse.ui.monitor.DeleteNodeBottomSheet
+import com.example.administrator.glasshouse.ui.monitor.EditNodeBottomSheet
+import com.example.administrator.glasshouse.ui.monitor.MonitorFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -14,6 +18,24 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentBuildersModule {
 
+//    monitor
+
+    @ContributesAndroidInjector
+    abstract fun contributeAddNodeBottomSheet(): AddNodeBottomSheet
+
+    @ContributesAndroidInjector
+    abstract fun contributeEditNodeBottomSheet(): EditNodeBottomSheet
+
+    @ContributesAndroidInjector
+    abstract fun contributeDeleteNodeBottomSheet(): DeleteNodeBottomSheet
+
+    @ContributesAndroidInjector
+    abstract fun contributeMonitorFragment(): MonitorFragment
+
+
+
+
+//    gate
     @ContributesAndroidInjector
     abstract fun contributeAddGateBottomSheet(): AddGateBottomSheet
 
@@ -24,12 +46,14 @@ abstract class FragmentBuildersModule {
     abstract fun contributeDeleteGateBottomSheet(): DeleteGateBottomSheet
 
     @ContributesAndroidInjector
+    abstract fun contributeGateFragment(): DashboardFragment
+
+
+
+    @ContributesAndroidInjector
     abstract fun contributeRegisterFragment(): RegisterFragment
 
     @ContributesAndroidInjector
     abstract fun contributeLoginFragment(): LoginFragment
 
-
-    @ContributesAndroidInjector
-    abstract fun contributeGateFragment(): DashboardFragment
 }

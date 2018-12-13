@@ -2,27 +2,30 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.dashboard.DeleteGateBottomSheet">
+    tools:context="com.example.administrator.glasshouse.ui.monitor.DeleteNodeBottomSheet">
 
     <data>
         <import type="androidx.lifecycle.LiveData" />
 
-        <import type="com.example.administrator.glasshouse.vo.Gate" />
+        <import type="com.example.administrator.glasshouse.vo.Monitor" />
 
         <import type="com.example.administrator.glasshouse.vo.Resource" />
 
         <import type="com.example.administrator.glasshouse.vo.Status" />
 
+        <import type="com.example.administrator.glasshouse.ui.monitor.MonitorViewModel" />
+
+        <variable
+            name="monitor"
+            type="Monitor"/>
+
         <variable
             name="result"
-            type="LiveData&lt;Resource&lt;Gate>>" />
-        <variable
-            name="gate"
-            type="Gate"/>
+            type="LiveData&lt;Resource&lt;Monitor>>" />
+
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel"/>
-
+            type="MonitorViewModel" />
     </data>
 
     <LinearLayout
@@ -48,7 +51,7 @@
             android:text="@{result.message}"
             android:textColor="@color/red"
             android:textSize="14sp"
-            app:visibleGone="@{result.status==Status.ERROR}"  />
+            app:visibleGone="@{result.status==Status.ERROR}" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -84,12 +87,12 @@
             tools:text="Bạn đang chuẩn bị xóa abcdef, hành động này không thể quay lại, bạn có chắc chắn?" />
 
         <Button
-            android:id="@+id/btn_delete"
+            android:id="@+id/btn_delete_monitor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.removeGate(gate.serviceTag)}"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/red"
+            android:onClick="@{()-> viewModel.deleteMonitor(monitor.tag)}"
+            android:backgroundTint="@color/color_red"
             android:text="Xóa" />
 
     </LinearLayout>

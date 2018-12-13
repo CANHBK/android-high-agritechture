@@ -1,8 +1,7 @@
 package com.example.administrator.glasshouse.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import com.example.administrator.glasshouse.AppExecutors
+import com.example.administrator.glasshouse.util.AppExecutors
 import com.example.administrator.glasshouse.api.GraphQL
 import com.example.administrator.glasshouse.db.GateDao
 import com.example.administrator.glasshouse.util.NetworkState
@@ -22,16 +21,17 @@ class GateRepository @Inject constructor(
 
 ) : LiveData<Gate>() {
 
-    private val repoListRateLimit = RateLimiter<String>(1, TimeUnit.MINUTES)
+    private val repoListRateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
 
-    fun loadGates(userId: String): LiveData<Resource<List<Gate>>> {
+    fun loadGates(userId: String,refresh:Boolean=false): LiveData<Resource<List<Gate>>> {
         return object : NetworkBoundResource<List<Gate>, List<Gate>>(appExecutors) {
             override fun saveCallResult(item: List<Gate>) {
-                gateDao.updateList(item)
+                gateDao.insertList(item)
             }
 
             override fun shouldFetch(data: List<Gate>?): Boolean {
-                return networkState.hasInternet() && (data == null || data.isEmpty() || repoListRateLimit.shouldFetch(userId))
+                return (networkState.hasInternet() && (data == null || data.isEmpty() || repoListRateLimit.shouldFetch(userId)))||(refresh&&networkState.hasInternet())
+
             }
 
             override fun loadFromDb() = gateDao.loadGates(userId)
@@ -46,7 +46,6 @@ class GateRepository @Inject constructor(
         return object : NetworkBoundResource<Gate, Gate>(appExecutors) {
             override fun saveCallResult(item: Gate) {
                 gateDao.insert(item)
-//                gateDao.insertGate(item)
             }
 
             override fun shouldFetch(data: Gate?): Boolean {
@@ -61,11 +60,10 @@ class GateRepository @Inject constructor(
 
     }
 
-    fun removeGate(userId: String, idGate: String): LiveData<Resource<Gate>> {
+    fun deleteGate(userId: String, idGate: String): LiveData<Resource<Gate>> {
         return object : NetworkBoundResource<Gate, Gate>(appExecutors) {
             override fun saveCallResult(item: Gate) {
                 gateDao.delete(item)
-//                gateDao.deleteByServiceTag(item.serviceTag)
             }
 
             override fun shouldFetch(data: Gate?): Boolean {
@@ -74,7 +72,7 @@ class GateRepository @Inject constructor(
 
             override fun loadFromDb() = gateDao.loadGate(idGate)
 
-            override fun createCall() = graphQL.removeGate(userId, idGate)
+            override fun createCall() = graphQL.deleteGate(userId, idGate)
 
         }.asLiveData()
 
@@ -84,7 +82,6 @@ class GateRepository @Inject constructor(
         return object : NetworkBoundResource<Gate, Gate>(appExecutors) {
             override fun saveCallResult(item: Gate) {
                 gateDao.update(item)
-//                gateDao.updateGate(gateName, idGate)
             }
 
             override fun shouldFetch(data: Gate?): Boolean {

@@ -8,17 +8,16 @@ import androidx.room.Query
 import com.example.administrator.glasshouse.vo.User
 
 @Dao
-interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: User)
+interface UserDao : BaseDao<User> {
 
+    @Query("DELETE FROM user")
+    fun resetTable()
     @Query(
             """
         SELECT * FROM user
-        WHERE email = :email
         """
     )
-    fun loadUser(email: String): LiveData<User>
+    fun loadUser(): LiveData<User>
 
 
 }

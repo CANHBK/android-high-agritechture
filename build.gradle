@@ -17,6 +17,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 //        classpath 'com.apollographql.apollo:apollo-gradle-plugin:1.0.0'
         classpath 'com.apollographql.apollo:apollo-gradle-plugin:1.0.0-alpha3'
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha08"
         //Add this
 
         // NOTE: Do not place your application dependencies here; they belong
