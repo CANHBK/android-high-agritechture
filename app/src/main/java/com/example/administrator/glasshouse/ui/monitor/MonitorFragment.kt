@@ -26,6 +26,7 @@ import com.example.administrator.glasshouse.vo.Const
 import com.example.administrator.glasshouse.vo.Status
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import java.lang.Exception
 import javax.inject.Inject
 
 class MonitorFragment : Fragment(), Injectable {
@@ -76,12 +77,16 @@ class MonitorFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.setLifecycleOwner(viewLifecycleOwner)
 
-        monitorViewModel.loadMonitor(serviceTag)
+        binding.apply {
+            setLifecycleOwner(viewLifecycleOwner)
+            result = monitorViewModel.monitors
+            fabAdd.setOnClickListener {
+                addBottomSheet.show(activity!!.supportFragmentManager, addBottomSheet.tag)
+            }
+        }
 
-
-        val rvAdapter = MonitorAdapter(
+        MonitorAdapter(
                 dataBindingComponent = dataBindingComponent,
                 appExecutors = appExecutors,
                 onDeleteClick = {
@@ -92,52 +97,54 @@ class MonitorFragment : Fragment(), Injectable {
                     editBottomSheet = EditNodeBottomSheet.newInstance(monitor = it, monitorViewModel = monitorViewModel)
                     editBottomSheet.show(activity!!.supportFragmentManager, editBottomSheet.tag)
                 }
-        )
-        binding.rvListNode.adapter = rvAdapter
-        adapter = rvAdapter
-        binding.result = monitorViewModel.monitors
+        ).also {
+            binding.rvListNode.adapter = it
+            adapter = it
+        }
+
 
         addBottomSheet = AddNodeBottomSheet.newInstance(serviceTag = serviceTag, monitorViewModel = monitorViewModel)
 
-        monitorViewModel.monitors.observe(viewLifecycleOwner, Observer { it ->
+        monitorViewModel.apply {
+            loadMonitor(serviceTag)
+            monitors.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {
+                    adapter.submitList(it.data)
+                }
+            })
 
-            if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {
-                adapter.submitList(it.data)
-            }
-        })
+            addMonitor.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    try {
+                        addBottomSheet.dismiss()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
 
+            deleteMonitor.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    try {
+                        deleteBottomSheet.dismiss()
 
-        monitorViewModel.addMonitor.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
-                addBottomSheet.dismiss()
-            }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
 
-        })
-
-        monitorViewModel.deleteMonitor.observe(viewLifecycleOwner, Observer {
-
-            if (it.status == Status.SUCCESS) {
-                deleteBottomSheet.dismiss()
-            }
-
-        })
-
-        monitorViewModel.editMonitor.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
-                editBottomSheet.dismiss()
-            }
-        })
-
-        binding.fabAdd.setOnClickListener {
-
-            addBottomSheet.show(activity!!.supportFragmentManager, addBottomSheet.tag)
-
+            editMonitor.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    try {
+                        editBottomSheet.dismiss()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
         }
 
-//        binding.topToolbar.findViewById<View>(R.id.action_sync).setOnClickListener {
-//            monitorViewModel.loadMonitor(serviceTag)
-//        }
     }
-
 
 }

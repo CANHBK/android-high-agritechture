@@ -1,6 +1,5 @@
 package com.example.administrator.glasshouse.ui.dashboard
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +33,6 @@ class AddGateBottomSheet : BottomSheetDialogFragment(), Injectable {
             savedInstanceState: Bundle?
     ): BottomSheetDialog = BottomSheetDialog(requireContext(), theme)
 
-    @SuppressLint("VisibleForTests")
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -53,14 +51,18 @@ class AddGateBottomSheet : BottomSheetDialogFragment(), Injectable {
         return dataBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+            view: View, savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.setLifecycleOwner(viewLifecycleOwner)
 
+        dashBoardViewModel.initAddGate()
+
         binding.viewModel = dashBoardViewModel
 
-        binding.gate = dashBoardViewModel.addGate
+        binding.result = dashBoardViewModel.addGate
 
         addGate()
 

@@ -43,8 +43,6 @@ class GateAdapter(
             onEditClick(item)
         }
         binding.root.setOnClickListener {
-            Log.d("test","helo")
-
             val monitor = DashboardFragmentDirections.monitor(item.serviceTag)
             it.findNavController().navigate(monitor)
         }

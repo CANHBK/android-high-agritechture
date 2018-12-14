@@ -27,7 +27,7 @@ class MonitorRepository @Inject constructor(
     fun loadMonitors(serviceTag: String): LiveData<Resource<List<Monitor>>> {
         return object : NetworkBoundResource<List<Monitor>, List<Monitor>>(appExecutors) {
             override fun saveCallResult(item: List<Monitor>) {
-                monitorDao.insertList(item)
+                monitorDao.updateList(item)
             }
 
             override fun shouldFetch(data: List<Monitor>?): Boolean {

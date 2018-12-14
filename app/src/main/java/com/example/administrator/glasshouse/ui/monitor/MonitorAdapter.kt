@@ -33,13 +33,23 @@ class MonitorAdapter(
     }
 
     override fun bind(binding: ItemMonitorNodeBinding, item: Monitor) {
-        binding.monitor = item
-        binding.btnDelete.setOnClickListener {
-            onDeleteClick(item)
+
+        binding.apply {
+            monitor = item
+            btnDelete.setOnClickListener {
+                onDeleteClick(item)
+            }
+            btnEdit.setOnClickListener {
+                onEditClick(item)
+            }
         }
-        binding.btnEdit.setOnClickListener {
-            onEditClick(item)
-        }
+//        binding.monitor = item
+//        binding.btnDelete.setOnClickListener {
+//            onDeleteClick(item)
+//        }
+//        binding.btnEdit.setOnClickListener {
+//            onEditClick(item)
+//        }
 //        binding.root.setOnClickListener {
 //            val monitor = DashboardFragmentDirections.ActionHomeFragmentToMonitorFragment(item.serviceTag)
 //            it.findNavController().navigate(monitor)

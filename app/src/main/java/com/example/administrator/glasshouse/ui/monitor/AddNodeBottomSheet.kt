@@ -17,7 +17,7 @@ import com.example.administrator.glasshouse.util.autoCleared
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class AddNodeBottomSheet : BottomSheetDialogFragment(),Injectable {
+class AddNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -26,8 +26,8 @@ class AddNodeBottomSheet : BottomSheetDialogFragment(),Injectable {
     companion object {
         private lateinit var monitorViewModel: MonitorViewModel
         private lateinit var serviceTag: String
-        fun newInstance(serviceTag:String,monitorViewModel: MonitorViewModel): AddNodeBottomSheet {
-            this.serviceTag=serviceTag
+        fun newInstance(serviceTag: String, monitorViewModel: MonitorViewModel): AddNodeBottomSheet {
+            this.serviceTag = serviceTag
             this.monitorViewModel = monitorViewModel
             return AddNodeBottomSheet()
         }
@@ -56,11 +56,19 @@ class AddNodeBottomSheet : BottomSheetDialogFragment(),Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.setLifecycleOwner(viewLifecycleOwner)
+        monitorViewModel.initAddMonitor()
 
-        binding.viewModel = monitorViewModel
+        binding.apply {
+            setLifecycleOwner(viewLifecycleOwner)
+            viewModel = monitorViewModel
+            result = monitorViewModel.addMonitor
+        }
 
-        binding.result = monitorViewModel.addMonitor
+//        binding.setLifecycleOwner(viewLifecycleOwner)
+//
+//        binding.viewModel = monitorViewModel
+//
+//        binding.result = monitorViewModel.addMonitor
 
         addMonitor()
 
@@ -68,7 +76,7 @@ class AddNodeBottomSheet : BottomSheetDialogFragment(),Injectable {
 
     private fun addMonitor() {
         monitorViewModel.getAddMonitorFields()?.observe(viewLifecycleOwner, Observer {
-            monitorViewModel.addMonitor(serviceTag = serviceTag,tag=it.tag!!, name = it.name!!)
+            monitorViewModel.addMonitor(serviceTag = serviceTag, tag = it.tag!!, name = it.name!!)
         })
     }
 

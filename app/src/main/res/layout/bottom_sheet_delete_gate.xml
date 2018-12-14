@@ -5,19 +5,20 @@
     tools:context="com.example.administrator.glasshouse.ui.dashboard.DeleteGateBottomSheet">
 
     <data>
-        <variable
-            name="hasError"
-            type="Boolean"/>
-        <variable
-            name="errorMessage"
-            type="String" />
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.example.administrator.glasshouse.vo.Gate" />
+
+        <import type="com.example.administrator.glasshouse.vo.Resource" />
+
+        <import type="com.example.administrator.glasshouse.vo.Status" />
 
         <variable
-            name="loading"
-            type="Boolean" />
+            name="result"
+            type="LiveData&lt;Resource&lt;Gate>>" />
         <variable
             name="gate"
-            type="com.example.administrator.glasshouse.vo.Gate"/>
+            type="Gate"/>
         <variable
             name="viewModel"
             type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel"/>
@@ -39,15 +40,15 @@
             android:indeterminate="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibleGone="@{loading}" />
+            app:visibleGone="@{result.status==Status.LOADING}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{errorMessage}"
+            android:text="@{result.message}"
             android:textColor="@color/red"
             android:textSize="14sp"
-            app:visibleGone="@{hasError}" />
+            app:visibleGone="@{result.status==Status.ERROR}"  />
 
         <LinearLayout
             android:layout_width="wrap_content"

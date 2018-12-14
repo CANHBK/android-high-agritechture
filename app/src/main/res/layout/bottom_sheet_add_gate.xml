@@ -17,7 +17,7 @@
         <import type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel" />
 
         <variable
-            name="gate"
+            name="result"
             type="LiveData&lt;Resource&lt;Gate>>" />
 
         <variable
@@ -41,15 +41,15 @@
             android:indeterminate="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:visibleGone="@{gate.status==Status.LOADING}" />
+            app:visibleGone="@{result.status==Status.LOADING}" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{gate.message}"
+            android:text="@{result.message}"
             android:textColor="@color/red"
             android:textSize="14sp"
-            app:visibleGone="@{gate.status==Status.ERROR}" />
+            app:visibleGone="@{result.status==Status.ERROR}" />
 
         <LinearLayout
             android:layout_width="match_parent"

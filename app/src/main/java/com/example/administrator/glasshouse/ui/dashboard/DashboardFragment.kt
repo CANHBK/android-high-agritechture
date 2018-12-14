@@ -2,7 +2,6 @@ package com.example.administrator.glasshouse.ui.dashboard
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.*
 import androidx.databinding.DataBindingComponent
@@ -21,13 +20,14 @@ import com.example.administrator.glasshouse.vo.Const
 import com.example.administrator.glasshouse.vo.Status
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import java.lang.Exception
 import javax.inject.Inject
 
 
 class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
-    private lateinit var addBottomSheet: AddGateBottomSheet
-    private lateinit var deleteBottomSheet: DeleteGateBottomSheet
-    private lateinit var editBottomSheet: EditGateBottomSheet
+    private var addBottomSheet: AddGateBottomSheet? = null
+    private var deleteBottomSheet: DeleteGateBottomSheet? = null
+    private var editBottomSheet: EditGateBottomSheet? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -73,6 +73,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
 
 
         dashBoardViewModel.loadGates()
+
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         val userId = Paper.book().read<String>(Const.USER_ID)
@@ -82,12 +83,13 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
                 dataBindingComponent = dataBindingComponent,
                 appExecutors = appExecutors,
                 onDeleteClick = {
-                    deleteBottomSheet = DeleteGateBottomSheet.newInstance(gate = it, dashBoardViewModel = dashBoardViewModel)
-                    deleteBottomSheet.show(activity!!.supportFragmentManager, deleteBottomSheet.tag)
+                    deleteBottomSheet = DeleteGateBottomSheet.newInstance(
+                            gate = it, dashBoardViewModel = dashBoardViewModel)
+                    deleteBottomSheet?.show(activity!!.supportFragmentManager, deleteBottomSheet?.tag)
                 },
                 onEditClick = {
                     editBottomSheet = EditGateBottomSheet.newInstance(gate = it, dashBoardViewModel = dashBoardViewModel)
-                    editBottomSheet.show(activity!!.supportFragmentManager, editBottomSheet.tag)
+                    editBottomSheet?.show(activity!!.supportFragmentManager, editBottomSheet?.tag)
                 }
         )
         binding.rvListDevice.adapter = rvAdapter
@@ -95,37 +97,48 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         binding.gates = dashBoardViewModel.gates
         addBottomSheet = AddGateBottomSheet.newInstance(dashBoardViewModel)
 
-        dashBoardViewModel.gates.observe(viewLifecycleOwner, Observer { it ->
-            if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {
-                adapter.submitList(it.data)
-            }
-        })
+        dashBoardViewModel.apply {
+            gates.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {
+                    adapter.submitList(it.data)
+                }
+            })
 
+            addGate.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    try {
+                        addBottomSheet?.dismiss()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
 
-        dashBoardViewModel.addGate.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
-                addBottomSheet.dismiss()
-            }
+            removeGate.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    try {
+                        deleteBottomSheet?.dismiss()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
 
-        })
+            editGate.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    try {
+                        editBottomSheet?.dismiss()
 
-        dashBoardViewModel.removeGate.observe(viewLifecycleOwner, Observer {
-
-            if (it.status == Status.SUCCESS) {
-                deleteBottomSheet.dismiss()
-            }
-
-        })
-
-        dashBoardViewModel.editGate.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
-                editBottomSheet.dismiss()
-            }
-        })
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
+        }
 
         binding.fabAdd.setOnClickListener {
 
-            addBottomSheet.show(activity!!.supportFragmentManager, addBottomSheet.tag)
+            addBottomSheet?.show(activity!!.supportFragmentManager, addBottomSheet?.tag)
 
         }
 
@@ -136,10 +149,9 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         topToolbar.inflateMenu(R.menu.menu_dashboard)
 
         binding.topToolbar.findViewById<View>(R.id.action_sync).setOnClickListener {
-            dashBoardViewModel.loadGates()
+            dashBoardViewModel.loadGates(true)
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)

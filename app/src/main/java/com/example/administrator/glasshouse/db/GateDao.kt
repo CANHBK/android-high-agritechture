@@ -13,8 +13,7 @@ interface   GateDao :BaseDao<Gate>{
     @Query(
             """
         SELECT * FROM gate
-        WHERE owner = :userId
-        ORDER BY name ASC"""
+        WHERE owner = :userId"""
     )
     fun loadGates(userId: String): LiveData<List<Gate>>
 

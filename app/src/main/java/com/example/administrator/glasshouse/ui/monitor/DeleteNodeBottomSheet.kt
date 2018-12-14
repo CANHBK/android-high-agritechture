@@ -11,16 +11,12 @@ import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.binding.FragmentDataBindingComponent
-import com.example.administrator.glasshouse.databinding.BottomSheetAddNodeBinding
-import com.example.administrator.glasshouse.databinding.BottomSheetDeleteGateBinding
 import com.example.administrator.glasshouse.databinding.BottomSheetDeleteNodeBinding
 import com.example.administrator.glasshouse.di.Injectable
-import com.example.administrator.glasshouse.ui.dashboard.DeleteGateBottomSheet
 import com.example.administrator.glasshouse.util.autoCleared
 import com.example.administrator.glasshouse.vo.Monitor
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.w3c.dom.Node
 
 class DeleteNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
@@ -34,11 +30,10 @@ class DeleteNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
             this.monitor = monitor
             this.monitorViewModel = monitorViewModel
             return DeleteNodeBottomSheet()
-
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(requireContext(), theme)
+    override fun onCreateDialog(savedInstanceState: Bundle?): BottomSheetDialog = BottomSheetDialog(requireContext(), theme)
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -70,20 +65,11 @@ class DeleteNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
 
         binding.setLifecycleOwner(viewLifecycleOwner)
-
         binding.viewModel = monitorViewModel
-
-        binding.monitor = monitor
-
         binding.result = monitorViewModel.deleteMonitor
-
-        deleteMonitor()
-
+//        binding.btnDelete.setOnClickListener {
+//            monitorViewModel.deleteMonitor(monitor.tag)
+//        }
     }
-
-    private fun deleteMonitor() {
-        monitorViewModel.deleteMonitor(monitor.tag)
-    }
-
 
 }

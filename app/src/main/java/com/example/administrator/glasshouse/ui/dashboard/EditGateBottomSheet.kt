@@ -63,6 +63,10 @@ class EditGateBottomSheet : BottomSheetDialogFragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.setLifecycleOwner(viewLifecycleOwner)
+
+        dashBoardViewModel.initEditGate()
+
         editGate()
 
         handleResultEditGate()

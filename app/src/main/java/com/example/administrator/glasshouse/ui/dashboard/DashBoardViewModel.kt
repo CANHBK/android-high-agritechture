@@ -23,19 +23,26 @@ class DashBoardViewModel @Inject constructor(repository: GateRepository) : Obser
     private val triggerEditGate = MutableLiveData<Int>()
     private val triggerLoadGates = MutableLiveData<Int>()
 
+    private val refresh = MutableLiveData<Boolean>()
+
     private val _userId = MutableLiveData<String>()
 
     private val serviceTag = MutableLiveData<String>()
     private val gateName = MutableLiveData<String>()
 
-    private var addGateForm = AddGateForm()
-    private var editGateForm = EditGateForm()
+    private lateinit var addGateForm: AddGateForm
+    private lateinit var editGateForm: EditGateForm
 
+    fun initAddGate() {
+        addGateForm = AddGateForm()
+    }
 
+    fun initEditGate() {
+        editGateForm = EditGateForm()
+    }
 
     val user: LiveData<String>
         get() = _userId
-
 
 
     val gates: LiveData<Resource<List<Gate>>> = Transformations
@@ -43,7 +50,7 @@ class DashBoardViewModel @Inject constructor(repository: GateRepository) : Obser
                 if (it == null) {
                     AbsentLiveData.create()
                 } else {
-                    repository.loadGates(_userId.value!!)
+                    repository.loadGates(_userId.value!!, refresh.value!!)
                 }
             }
     val addGate: LiveData<Resource<Gate>> = Transformations
@@ -60,7 +67,7 @@ class DashBoardViewModel @Inject constructor(repository: GateRepository) : Obser
                 if (it == null) {
                     AbsentLiveData.create()
                 } else {
-                    repository.removeGate(_userId.value!!, serviceTag.value!!)
+                    repository.deleteGate(_userId.value!!, serviceTag.value!!)
                 }
             }
 
@@ -106,8 +113,9 @@ class DashBoardViewModel @Inject constructor(repository: GateRepository) : Obser
     }
 
 
-    fun loadGates() {
+    fun loadGates(refresh: Boolean = false) {
         _userId.value = Paper.book().read(Const.USER_ID)
+        this.refresh.value = refresh
         triggerLoadGates.value = Random.nextInt(1, 10)
     }
 

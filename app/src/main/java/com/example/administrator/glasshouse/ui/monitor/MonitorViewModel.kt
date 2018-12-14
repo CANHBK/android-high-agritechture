@@ -1,5 +1,6 @@
 package com.example.administrator.glasshouse.ui.monitor
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -15,19 +16,26 @@ import com.example.administrator.glasshouse.vo.Resource
 import javax.inject.Inject
 import kotlin.random.Random
 
-class MonitorViewModel @Inject constructor(repository: MonitorRepository) : ObservableViewModel(){
+class MonitorViewModel @Inject constructor(repository: MonitorRepository) : ObservableViewModel() {
     private val triggerAddMonitor = MutableLiveData<Int>()
     private val triggerDeleteMonitor = MutableLiveData<Int>()
     private val triggerEditMonitor = MutableLiveData<Int>()
     private val triggerLoadMonitors = MutableLiveData<Int>()
 
-
     private val serviceTag = MutableLiveData<String>()
     private val tag = MutableLiveData<String>()
     private val monitorName = MutableLiveData<String>()
 
-    private var addMonitorForm = AddMonitorForm()
-    private var editMonitorForm = EditMonitorForm()
+    private lateinit var addMonitorForm: AddMonitorForm
+    private lateinit var editMonitorForm: EditMonitorForm
+
+    fun initAddMonitor() {
+        addMonitorForm = AddMonitorForm()
+    }
+
+    fun initEditMonitor() {
+        editMonitorForm = EditMonitorForm()
+    }
 
     val monitors: LiveData<Resource<List<Monitor>>> = Transformations
             .switchMap(triggerLoadMonitors) { it ->
@@ -98,14 +106,14 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
 
 
     fun loadMonitor(serviceTag: String) {
-        this.serviceTag.value=serviceTag
+        this.serviceTag.value = serviceTag
         triggerLoadMonitors.value = Random.nextInt(1, 10)
     }
 
-    fun addMonitor(serviceTag: String,tag:String, name: String) {
+    fun addMonitor(serviceTag: String, tag: String, name: String) {
         this.serviceTag.value = serviceTag
         monitorName.value = name
-        this.tag.value=tag
+        this.tag.value = tag
         triggerAddMonitor.value = Random.nextInt(1, 10)
     }
 
