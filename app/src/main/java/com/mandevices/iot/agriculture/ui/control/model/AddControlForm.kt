@@ -35,8 +35,8 @@ class AddControlForm : BaseObservable() {
 
 
     fun isTagValid(setMessage: Boolean): Boolean {
-        val regex = """(?:^G)(?:\d){3}\b""".toRegex()
-        val id = fields.id
+        val regex = """^C-(?:\d|[A-F]){3}-(?:\d|[A-F]){1}:(?:\d|[A-F]){1}\b""".toRegex()
+        val id = fields.tag
         if (id != null && regex.containsMatchIn(id)) {
             errors.id = null
             notifyPropertyChanged(BR.valid)

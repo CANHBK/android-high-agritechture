@@ -6,11 +6,19 @@
 
     <data>
 
-        <import type="com.mandevices.iot.agriculture.vo.Monitor" />
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Status" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Resource" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Control" />
+
+        <import type="java.util.List" />
 
         <variable
-            name="nodeSetting"
-            type="Monitor" />
+            name="result"
+            type="LiveData&lt;Resource&lt;List&lt;Control>>>" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -32,12 +40,12 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <androidx.appcompat.widget.Toolbar
-                    app:title="Điều khiển thiết bị"
-                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
                     android:id="@+id/topToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin">
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                    app:title="Điều khiển thiết bị">
 
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -48,10 +56,54 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <ProgressBar
+                android:id="@+id/load_more_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleGone="@{result.status==Status.LOADING}" />
+
+            <LinearLayout
+                android:id="@+id/layout_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="64dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleGone="@{result.status!=Status.LOADING}"
+                app:visibleIfListEmpty="@{result.data}">
+
+                <ImageView
+                    android:id="@+id/img_robot"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    app:srcCompat="@drawable/sad" />
+
+                <TextView
+                    android:id="@+id/txt_empty_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="@string/main_no_devices_yet" />
+            </LinearLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:id="@+id/relay_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="16dp"
                 android:clipToPadding="false"
                 android:paddingBottom="72dp"
                 app:layout_constraintBottom_toBottomOf="parent"

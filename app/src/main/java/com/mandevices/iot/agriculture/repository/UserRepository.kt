@@ -20,7 +20,7 @@ class UserRepository @Inject constructor(
     ): LiveData<Resource<User>> {
         return object : NetworkBoundResource<User, User>(appExecutors) {
             override fun saveCallResult(item: User) {
-                userDao.update(item)
+                userDao.insert(item)
             }
 
             override fun shouldFetch(data: User?): Boolean {

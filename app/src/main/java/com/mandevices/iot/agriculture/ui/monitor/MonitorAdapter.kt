@@ -23,15 +23,13 @@ class MonitorAdapter(
         diffCallback = MONITOR_COMPARATOR
 ) {
     override fun createBinding(parent: ViewGroup): ItemMonitorNodeBinding {
-        val binding = DataBindingUtil.inflate<ItemMonitorNodeBinding>(
+        return DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.item_monitor_node,
                 parent,
                 false,
                 dataBindingComponent
         )
-
-        return binding
     }
 
     override fun bind(binding: ItemMonitorNodeBinding, item: Monitor) {

@@ -14,7 +14,7 @@
 
         <import type="com.mandevices.iot.agriculture.vo.Status" />
 
-        <import type="com.mandevices.iot.agriculture.ui.control.MonitorViewModel" />
+        <import type="com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel" />
 
         <variable
             name="result"
@@ -22,7 +22,7 @@
 
         <variable
             name="viewModel"
-            type="com.mandevices.iot.agriculture.ui.control.MonitorViewModel" />
+            type="com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel" />
     </data>
 
     <LinearLayout

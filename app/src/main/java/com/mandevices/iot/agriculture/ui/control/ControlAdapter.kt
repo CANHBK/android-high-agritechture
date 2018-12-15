@@ -17,7 +17,7 @@ class ControlAdapter(
         appExecutors: AppExecutors,
         private val onDeleteClick: (Control) -> Unit,
         private val onEditClick: (Control) -> Unit,
-        private val onSensorSetting: (Control, Int) -> Unit
+        private val onRelaySetting: (Control, Int) -> Unit
 ) : DataBoundListAdapter<Control, ItemControlRelayBinding>(
         appExecutors = appExecutors,
         diffCallback = CONTROL_COMPARATOR
@@ -45,7 +45,7 @@ class ControlAdapter(
 
 
         binding.apply {
-            control = item
+
             btnDelete.setOnClickListener {
                 onDeleteClick(item)
             }
@@ -54,24 +54,25 @@ class ControlAdapter(
             }
 
             relaySetupButton0.setOnClickListener {
-                onSensorSetting(item, 1)
+                onRelaySetting(item, 1)
             }
 
             relaySetupButton1.setOnClickListener {
-                onSensorSetting(item, 2)
+                onRelaySetting(item, 2)
             }
 
             relayNameText2.setOnClickListener {
-                onSensorSetting(item, 3)
+                onRelaySetting(item, 3)
             }
 
             relaySetupButton3.setOnClickListener {
-                onSensorSetting(item, 4)
+                onRelaySetting(item, 4)
             }
 
         }
 
         binding.relayBit = relayBitInt.reversed()
+        binding.control = item
 
 
     }

@@ -1,5 +1,9 @@
 package com.mandevices.iot.agriculture.di
 
+import com.mandevices.iot.agriculture.ui.control.AddControlBottomSheet
+import com.mandevices.iot.agriculture.ui.control.ControlFragment
+import com.mandevices.iot.agriculture.ui.control.DeleteControlBottomSheet
+import com.mandevices.iot.agriculture.ui.control.EditControlBottomSheet
 import com.mandevices.iot.agriculture.ui.dashboard.*
 import com.mandevices.iot.agriculture.ui.register.RegisterFragment
 import com.mandevices.iot.agriculture.ui.login.LoginFragment
@@ -8,6 +12,7 @@ import com.mandevices.iot.agriculture.ui.monitor.DeleteNodeBottomSheet
 import com.mandevices.iot.agriculture.ui.monitor.EditNodeBottomSheet
 import com.mandevices.iot.agriculture.ui.monitor.MonitorFragment
 import com.mandevices.iot.agriculture.ui.nodesettings.SensorSettingFragment
+import com.mandevices.iot.agriculture.ui.relaysettings.RelaySettingFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -30,6 +35,26 @@ abstract class FragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeMonitorFragment(): MonitorFragment
 
+    @ContributesAndroidInjector
+    abstract fun contributeSensorSettingFragment(): SensorSettingFragment
+
+
+    //    control
+    @ContributesAndroidInjector
+    abstract fun contributeAddControlBottomSheet(): AddControlBottomSheet
+
+    @ContributesAndroidInjector
+    abstract fun contributeEditControlBottomSheet(): EditControlBottomSheet
+
+    @ContributesAndroidInjector
+    abstract fun contributeDeleteControlBottomSheet(): DeleteControlBottomSheet
+
+    @ContributesAndroidInjector
+    abstract fun contributeControlFragment(): ControlFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeRelaySettingFragment(): RelaySettingFragment
+
 
 
 //    gate
@@ -44,11 +69,6 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeGateFragment(): DashboardFragment
-
-
-    //sensor
-    @ContributesAndroidInjector
-    abstract fun contributeSensorSettingFragment(): SensorSettingFragment
 
 
     //user

@@ -45,6 +45,11 @@ class GateAdapter(
             val monitor = DashboardFragmentDirections.monitor(item.serviceTag)
             it.findNavController().navigate(monitor)
         }
+
+        binding.controlButton.setOnClickListener {
+            val control = DashboardFragmentDirections.control(item.serviceTag)
+            it.findNavController().navigate(control)
+        }
     }
 
     companion object {

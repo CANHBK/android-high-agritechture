@@ -6,11 +6,11 @@
 
     <data>
 
-        <import type="com.mandevices.iot.agriculture.vo.Monitor" />
+        <import type="com.mandevices.iot.agriculture.vo.Control" />
 
         <variable
-            name="nodeSetting"
-            type="Monitor" />
+            name="control"
+            type="Control" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,9 +20,9 @@
         android:background="@color/white">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/header">
+            android:layout_height="120dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -32,13 +32,13 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <androidx.appcompat.widget.Toolbar
-                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
                     android:id="@+id/topToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin">
-                    <!--tools:title='@{nodeSetting.title , default="Cài đặt node abc"}'>-->
-                </androidx.appcompat.widget.Toolbar>
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                    app:subtitle="@{control.tag}"
+                    app:title="@{control.name}" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,17 +47,6 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/select_sensor_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="Tên relay"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/control_type_text"
@@ -69,35 +58,35 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relay_name_edit" />
+                app:layout_constraintTop_toBottomOf="@+id/relay_name_edit_layout" />
 
             <RadioGroup
+                android:id="@+id/profile_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/control_type_text"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
-                android:id="@+id/profile_group">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/control_type_text">
 
                 <RadioButton
-                    android:text="Tự động"
+                    android:id="@+id/automatic_option"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/automatic_option"
-                    android:layout_weight="1"
                     android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:text="Tự động"
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:text="Thủ công"
+                    android:id="@+id/manual_option"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/manual_option"
                     android:layout_weight="1"
+                    android:text="Thủ công"
                     android:textSize="18sp" />
             </RadioGroup>
 
@@ -114,60 +103,67 @@
                 app:layout_constraintTop_toBottomOf="@+id/profile_group" />
 
             <TextView
+                android:id="@+id/selected_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/selected_time_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@+id/time_select_text"
-                tools:text="12:06"
-                android:textSize="42sp"
-                android:textColor="@color/black"
-                android:clickable="true"
+                android:layout_marginEnd="8dp"
                 android:background="?android:attr/selectableItemBackground"
-                android:padding="16dp" />
+                android:clickable="true"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textSize="42sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_select_text"
+                tools:text="12:06" />
             <!--android:text='@{nodeSetting.time, default="- -:- -"}'-->
             <!--/>-->
             <Button
-                android:text="Lưu"
+                android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/save_button"
-                app:layout_constraintEnd_toStartOf="@+id/cancel_button"
-                app:layout_constraintStart_toStartOf="@+id/selected_time_text"
+                android:layout_marginEnd="8dp"
+                android:text="Lưu"
                 app:layout_constraintBaseline_toBaselineOf="@+id/cancel_button"
-                android:layout_marginEnd="8dp" />
+                app:layout_constraintEnd_toStartOf="@+id/cancel_button"
+                app:layout_constraintStart_toStartOf="@+id/selected_time_text" />
 
             <Button
-                android:text="Hủy"
+                android:id="@+id/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/cancel_button"
-                app:layout_constraintStart_toEndOf="@+id/save_button"
-                app:layout_constraintEnd_toEndOf="@+id/selected_time_text"
-                android:layout_marginTop="28dp"
-                app:layout_constraintTop_toBottomOf="@+id/selected_time_text"
-                app:layout_constraintHorizontal_bias="0.5"
                 android:layout_marginStart="8dp"
-                android:backgroundTint="#aaa" />
+                android:layout_marginTop="28dp"
+                android:backgroundTint="#aaa"
+                android:text="Hủy"
+                app:layout_constraintEnd_toEndOf="@+id/selected_time_text"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/save_button"
+                app:layout_constraintTop_toBottomOf="@+id/selected_time_text" />
 
-            <EditText
-                android:id="@+id/relay_name_edit"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/relay_name_edit_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:hint="Tên relay"
-                android:inputType="text"
-                android:text="Name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/select_sensor_text" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/relay_name_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Tên relay"
+                    android:inputType="text"
+                    tools:text="Tên Relay" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

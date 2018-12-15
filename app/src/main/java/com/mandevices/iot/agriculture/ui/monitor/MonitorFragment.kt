@@ -17,7 +17,6 @@ import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentMonitorBinding
 import com.mandevices.iot.agriculture.di.Injectable
-import com.mandevices.iot.agriculture.ui.control.MonitorViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Status
@@ -73,17 +72,17 @@ class MonitorFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
 
-        binding.topToolbar.setNavigationOnClickListener {
-            it.findNavController().popBackStack()
-        }
-
-
-
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
+
             result = monitorViewModel.monitors
+
             fabAdd.setOnClickListener {
                 addBottomSheet?.show(activity!!.supportFragmentManager, addBottomSheet?.tag)
+            }
+
+            topToolbar.setNavigationOnClickListener {
+                it.findNavController().popBackStack()
             }
         }
 

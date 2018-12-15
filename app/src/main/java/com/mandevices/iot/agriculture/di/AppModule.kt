@@ -2,10 +2,7 @@ package com.mandevices.iot.agriculture.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mandevices.iot.agriculture.db.GateDao
-import com.mandevices.iot.agriculture.db.MonitorDao
-import com.mandevices.iot.agriculture.db.SmartFarmDB
-import com.mandevices.iot.agriculture.db.UserDao
+import com.mandevices.iot.agriculture.db.*
 import com.mandevices.iot.agriculture.util.NetworkState
 import dagger.Module
 import dagger.Provides
@@ -36,6 +33,12 @@ class AppModule {
     @Provides
     fun monitorDao(db: SmartFarmDB): MonitorDao {
         return db.monitorDao()
+    }
+
+    @Singleton
+    @Provides
+    fun controlDao(db: SmartFarmDB): ControlDao {
+        return db.controlDao()
     }
 
     @Singleton

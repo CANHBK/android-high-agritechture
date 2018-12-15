@@ -27,7 +27,7 @@ class ControlRepository @Inject constructor(
     fun loadControls(serviceTag: String): LiveData<Resource<List<Control>>> {
         return object : NetworkBoundResource<List<Control>, List<Control>>(appExecutors) {
             override fun saveCallResult(item: List<Control>) {
-                controlDao.updateList(item)
+                controlDao.insertList(item)
             }
 
             override fun shouldFetch(data: List<Control>?): Boolean {

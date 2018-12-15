@@ -14,7 +14,6 @@ import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.mandevices.iot.agriculture.ui.control.MonitorViewModel
 
 class AddNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 

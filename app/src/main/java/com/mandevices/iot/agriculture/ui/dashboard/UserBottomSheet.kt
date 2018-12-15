@@ -70,7 +70,6 @@ class UserBottomSheet : BottomSheetDialogFragment(), Injectable {
         binding.user= user
 
         binding.logoutButton.setOnClickListener {
-//            it.findNavController().navigate(R.id.log_out)
             logOut()
 
         }

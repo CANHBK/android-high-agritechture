@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -16,7 +17,10 @@ import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentControlBinding
 import com.mandevices.iot.agriculture.databinding.FragmentDashboardBinding
+import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.ui.dashboard.*
+import com.mandevices.iot.agriculture.ui.monitor.MonitorFragmentArgs
+import com.mandevices.iot.agriculture.ui.monitor.MonitorFragmentDirections
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Const
@@ -28,18 +32,18 @@ import java.lang.Exception
 import javax.inject.Inject
 
 
-class ControlFragment : Fragment() {
+class ControlFragment : Fragment(), Injectable {
 
-    //TODO
-    private var addBottomSheet: AddGateBottomSheet? = null
-    private var deleteBottomSheet: DeleteGateBottomSheet? = null
-    private var editBottomSheet: EditGateBottomSheet? = null
-    private var userBottomSheet: UserBottomSheet? = null
+    private var addBottomSheet: AddControlBottomSheet? = null
+    private var deleteBottomSheet: DeleteControlBottomSheet? = null
+    private var editBottomSheet: EditControlBottomSheet? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var controlViewModel: ControlViewModel
+
+    private lateinit var serviceTag: String
 
 
     @Inject
@@ -51,8 +55,12 @@ class ControlFragment : Fragment() {
 
     private var adapter by autoCleared<ControlAdapter>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+
+        serviceTag = ControlFragmentArgs.fromBundle(arguments).serviceTag
 
         val dataBinding = DataBindingUtil.inflate<FragmentControlBinding>(
                 inflater,
@@ -67,7 +75,6 @@ class ControlFragment : Fragment() {
         controlViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ControlViewModel::class.java)
 
-
         return dataBinding.root
 
     }
@@ -78,50 +85,72 @@ class ControlFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(binding.bottomAppBar)
 
 
-        controlViewModel.loadControls()
+        binding.apply {
+            setLifecycleOwner(viewLifecycleOwner)
+
+            topToolbar.setNavigationOnClickListener {
+                it.findNavController().popBackStack()
+            }
+            result = controlViewModel.controls
+
+            fabAdd.setOnClickListener {
+
+                addBottomSheet?.show(activity!!.supportFragmentManager, addBottomSheet?.tag)
+
+            }
+            topToolbar.inflateMenu(R.menu.menu_dashboard)
+        }
 
 
-        binding.setLifecycleOwner(viewLifecycleOwner)
 
-        val userId = Paper.book().read<String>(Const.USER_ID)
-
-
-        val rvAdapter = GateAdapter(
+        ControlAdapter(
                 dataBindingComponent = dataBindingComponent,
                 appExecutors = appExecutors,
                 onDeleteClick = {
-                    deleteBottomSheet = DeleteGateBottomSheet.newInstance(
-                            gate = it, dashBoardViewModel = dashBoardViewModel)
+                    deleteBottomSheet = DeleteControlBottomSheet.newInstance(
+                            control = it, controlViewModel = controlViewModel)
                     deleteBottomSheet?.show(activity!!.supportFragmentManager, deleteBottomSheet?.tag)
                 },
                 onEditClick = {
-                    editBottomSheet = EditGateBottomSheet.newInstance(gate = it, dashBoardViewModel = dashBoardViewModel)
+                    editBottomSheet = EditControlBottomSheet.newInstance(control = it, controlViewModel = controlViewModel)
                     editBottomSheet?.show(activity!!.supportFragmentManager, editBottomSheet?.tag)
-                }
-        )
-        binding.rvListDevice.adapter = rvAdapter
-        adapter = rvAdapter
-        binding.gates = dashBoardViewModel.gates
-        addBottomSheet = AddGateBottomSheet.newInstance(dashBoardViewModel)
+                },
+                onRelaySetting = { control, relayIndex ->
+                    val relaySetting = ControlFragmentDirections.settingRelay(control, relayIndex)
+                    view.findNavController().navigate(relaySetting)
 
-        dashBoardViewModel.apply {
-            gates.observe(viewLifecycleOwner, Observer {
-                if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {
+                }
+
+        ).also {
+            binding.relayRecyclerView.adapter = it
+            adapter = it
+        }
+
+
+        addBottomSheet = AddControlBottomSheet.newInstance(serviceTag = serviceTag, controlViewModel = controlViewModel)
+
+
+        controlViewModel.apply {
+
+            loadControls(serviceTag = serviceTag)
+
+            controls.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
                     adapter.submitList(it.data)
                 }
             })
 
-            addGate.observe(viewLifecycleOwner, Observer {
+            addControl.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     try {
                         addBottomSheet?.dismiss()
-                    } catch (e: Exception) {
+                    } catch (e: Throwable) {
                         e.printStackTrace()
                     }
                 }
             })
 
-            removeGate.observe(viewLifecycleOwner, Observer {
+            deleteControl.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     try {
                         deleteBottomSheet?.dismiss()
@@ -131,7 +160,7 @@ class ControlFragment : Fragment() {
                 }
             })
 
-            editGate.observe(viewLifecycleOwner, Observer {
+            editControl.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     try {
                         editBottomSheet?.dismiss()
@@ -143,43 +172,7 @@ class ControlFragment : Fragment() {
             })
         }
 
-        binding.fabAdd.setOnClickListener {
 
-            addBottomSheet?.show(activity!!.supportFragmentManager, addBottomSheet?.tag)
-
-        }
-
-        userViewModel.user.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS) {
-                user = it.data!!
-            }
-        })
-
-        if (userId == null) {
-            view.findNavController().navigate(R.id.log_out)
-        }
-
-        topToolbar.inflateMenu(R.menu.menu_dashboard)
-
-        binding.topToolbar.findViewById<View>(R.id.action_sync).setOnClickListener {
-            dashBoardViewModel.loadGates(true)
-        }
-
-        binding.bottomAppBar.setNavigationOnClickListener {
-            //                Paper.book().delete(Const.USER_ID)
-            userBottomSheet = UserBottomSheet.newInstance(
-                    user = user,
-                    userViewModel = userViewModel) {
-                try {
-                    userBottomSheet?.dismiss()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-                view.findNavController().navigate(R.id.log_out)
-            }
-            userBottomSheet?.show(activity!!.supportFragmentManager, userBottomSheet?.tag)
-        }
     }
-
 
 }

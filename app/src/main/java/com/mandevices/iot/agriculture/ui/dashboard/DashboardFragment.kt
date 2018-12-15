@@ -153,7 +153,9 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
 
         userViewModel.user.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS) {
-                user = it.data!!
+                if (it.data != null) {
+                    user = it.data
+                }
             }
         })
 
@@ -168,11 +170,12 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         }
 
         binding.bottomAppBar.setNavigationOnClickListener {
-            //                Paper.book().delete(Const.USER_ID)
+
             userBottomSheet = UserBottomSheet.newInstance(
                     user = user,
                     userViewModel = userViewModel) {
                 try {
+                    Paper.book().delete(Const.USER_ID)
                     userBottomSheet?.dismiss()
                 } catch (e: Exception) {
                     e.printStackTrace()
