@@ -9,10 +9,14 @@ import java.io.Serializable
             Index("id")],
         primaryKeys = ["id"]
 )
-data class Control(
+data class Relay(
         val id: String,
         val name: String,
-        val tag: String,
+        val index:Int,
+        val controlTag: String,
         val serviceTag: String,
-        val relays:String?=null
+        val isPeriodic:Boolean,
+        val minute:String?,
+        val hour:String?,
+        val state:String
 ):Serializable

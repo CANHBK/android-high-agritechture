@@ -43,6 +43,12 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun relayDao(db: SmartFarmDB): RelayDao {
+        return db.relayDao()
+    }
+
+    @Singleton
+    @Provides
     fun networkState(context: Context): NetworkState {
         return NetworkState(context)
     }

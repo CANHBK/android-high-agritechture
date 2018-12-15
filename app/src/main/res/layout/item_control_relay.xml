@@ -6,9 +6,11 @@
 
     <data>
 
+        <import type="com.mandevices.iot.agriculture.vo.Relay" />
+
         <variable
-            name="relayBit"
-            type="java.util.List&lt;Integer>" />
+            name="relayList"
+            type="java.util.List&lt;Relay>" />
 
         <variable
             name="viewModel"
@@ -122,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="8dp"
                 android:text="@{control.tag}"
                 tools:text="C-001-0:F" />
 
@@ -132,6 +134,7 @@
                 android:paddingEnd="8dp"
                 android:text="TextView"
                 android:textAlignment="textEnd"
+                app:mode="@{relayList[0]}"
                 tools:text="Tự động" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -140,9 +143,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_yellow_rounded_filled"
+                android:background="@drawable/bg_very_light_gray_rounded_filled"
                 android:clickable="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <FrameLayout
                     android:id="@+id/frameLayout0"
@@ -151,7 +155,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_yellow"
+                    android:background="@drawable/bg_circular_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -161,6 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
                         app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
                 </FrameLayout>
 
@@ -170,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
-                    android:text="Quạt"
+                    android:text="@{relayList[0].name , default=`Name`}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/device_status_text0"
@@ -182,11 +187,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Đang BẬT"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/frameLayout0"
                     app:layout_constraintStart_toStartOf="@+id/relay_name_text0"
-                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text0" />
+                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text0"
+                    app:state="@{relayList[0].state}"
+                    tools:text="Đang TẮT" />
 
                 <ImageView
                     android:id="@+id/relay_setup_button0"
@@ -218,6 +224,7 @@
                 android:paddingEnd="8dp"
                 android:text="TextView"
                 android:textAlignment="textEnd"
+                app:mode="@{relayList[1]}"
                 tools:text="Tự động" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -226,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_yellow_rounded_filled"
+                android:background="@drawable/bg_very_light_gray_rounded_filled"
                 android:clickable="true"
                 android:orientation="vertical">
 
@@ -237,7 +244,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_yellow"
+                    android:background="@drawable/bg_circular_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -247,6 +254,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
                         app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
                 </FrameLayout>
 
@@ -256,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
-                    android:text="Quạt"
+                    android:text="@{relayList[1].name , default=`Name`}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/device_status_text1"
@@ -268,11 +276,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Đang BẬT"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/frameLayout1"
                     app:layout_constraintStart_toStartOf="@+id/relay_name_text1"
-                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text1" />
+                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text1"
+                    app:state="@{relayList[1].state}"
+                    tools:text="Đang TẮT" />
 
                 <ImageView
                     android:id="@+id/relay_setup_button1"
@@ -304,6 +313,7 @@
                 android:paddingEnd="8dp"
                 android:text="TextView"
                 android:textAlignment="textEnd"
+                app:mode="@{relayList[2]}"
                 tools:text="Tự động" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -312,7 +322,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_yellow_rounded_filled"
+                android:background="@drawable/bg_very_light_gray_rounded_filled"
                 android:clickable="true"
                 android:orientation="vertical">
 
@@ -323,7 +333,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_yellow"
+                    android:background="@drawable/bg_circular_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -333,6 +343,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
                         app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
                 </FrameLayout>
 
@@ -342,23 +353,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
-                    android:text="Quạt"
+                    android:text="@{relayList[2].name}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/device_status_text2"
                     app:layout_constraintStart_toEndOf="@+id/frameLayout2"
-                    app:layout_constraintTop_toTopOf="@+id/frameLayout2" />
+                    app:layout_constraintTop_toTopOf="@+id/frameLayout2"
+                    tools:text="Name" />
 
                 <TextView
                     android:id="@+id/device_status_text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Đang BẬT"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
                     app:layout_constraintStart_toStartOf="@+id/relay_name_text2"
-                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text2" />
+                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text2"
+                    app:state="@{relayList[2].state}"
+                    tools:text="Đang TẮT" />
 
                 <ImageView
                     android:id="@+id/relay_setup_button2"
@@ -388,8 +401,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingEnd="8dp"
-                android:text="TextView"
                 android:textAlignment="textEnd"
+                app:mode="@{relayList[3]}"
                 tools:text="Tự động" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -397,7 +410,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_yellow_rounded_filled"
+                android:background="@drawable/bg_very_light_gray_rounded_filled"
                 android:clickable="true"
                 android:orientation="vertical">
 
@@ -408,7 +421,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_yellow"
+                    android:background="@drawable/bg_circular_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -418,6 +431,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
                         app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
                 </FrameLayout>
 
@@ -427,7 +441,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
-                    android:text="Quạt"
+                    android:text="@{relayList[3].name , default = `Name`}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/device_status_text3"
@@ -439,11 +453,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Đang BẬT"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/frameLayout3"
                     app:layout_constraintStart_toStartOf="@+id/relay_name_text3"
-                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text3" />
+                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text3"
+                    app:state="@{relayList[3].state}"
+                    tools:text="Đang TẮT" />
 
                 <ImageView
                     android:id="@+id/relay_setup_button3"

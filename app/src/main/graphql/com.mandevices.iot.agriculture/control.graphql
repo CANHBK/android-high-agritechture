@@ -3,8 +3,19 @@ query AllControls($serviceTag :String!){
   allControls(serviceTag: $serviceTag){
        id
        serviceTag
-          tag
-          name
+       tag
+       name
+        relays {
+              id
+             index
+             isPeriodic
+             state
+             minute
+             hour
+             name
+             serviceTag
+             controlTag
+           }
 
 
      }
@@ -15,6 +26,17 @@ query AllControls($serviceTag :String!){
 mutation AddControl($serviceTag : String!,$tag:String! $name:String!){
   addControl(serviceTag : $serviceTag,tag:$tag,name:$name){
   id serviceTag tag name
+   relays {
+                id
+               index
+               isPeriodic
+               state
+               minute
+               hour
+               name
+               serviceTag
+               controlTag
+             }
 
   }
 }
@@ -27,6 +49,68 @@ mutation DeleteControl($tag:String!){
 mutation EditControl($tag:String!,$name:String!){
   editControl(tag:$tag,name:$name){
   id serviceTag tag name
+   relays {
+                id
+               index
+               isPeriodic
+               state
+               minute
+               hour
+               name
+               serviceTag
+               controlTag
+             }
 
   }
 }
+
+mutation ConfigTimeControl($serviceTag:String!,$controlTag:String!,
+$index:Int!,$isPeriodic:Boolean!,$hour:String!,$minute:String!,$state:String!) {
+  configTimeControl(
+    serviceTag: $serviceTag
+    controlTag: $controlTag
+    index: $index
+    isPeriodic: $isPeriodic
+    hour: $hour
+    minute: $minute
+    state:$state
+  ) {
+    id
+    serviceTag
+    name
+    tag
+    relays {
+      id
+      index
+      isPeriodic
+      controlTag
+      serviceTag
+      hour
+      minute
+      state
+      name
+    }
+  }
+}
+
+mutation SetStateRelay($tag:String!,$state:String!,$index:Int!) {
+  setStateRelay(tag: $tag, state: $state, index: $index) {
+    id
+    serviceTag
+    name
+    tag
+    relays {
+      id
+      index
+      isPeriodic
+      controlTag
+      serviceTag
+      hour
+      minute
+      state
+      name
+    }
+  }
+}
+
+
