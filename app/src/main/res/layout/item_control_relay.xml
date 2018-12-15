@@ -81,6 +81,22 @@
                     android:padding="5dp"
                     app:srcCompat="@drawable/ic_refresh_black_36dp" />
 
+                <ImageView
+                    android:id="@+id/img_battery"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_battery_80_black_24dp" />
+
+                <TextView
+                    android:id="@+id/battery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="30" />
+
             </LinearLayout>
 
             <TextView
