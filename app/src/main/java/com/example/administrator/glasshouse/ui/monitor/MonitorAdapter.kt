@@ -1,5 +1,6 @@
 package com.example.administrator.glasshouse.ui.monitor
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
@@ -34,6 +35,16 @@ class MonitorAdapter(
 
     override fun bind(binding: ItemMonitorNodeBinding, item: Monitor) {
 
+        //        E-003-F:0
+        val sensorHexString = item.tag.split(":")[0].split("-")[2]
+        val sensorHex = java.lang.Long.parseLong(sensorHexString, 16)
+        val sensorBit = sensorHex.toString(2)
+        val sensorBitInt = mutableListOf<Int>()
+        for (bit in sensorBit.toByteArray()) {
+            sensorBitInt.add(bit - 48)
+        }
+
+
         binding.apply {
             monitor = item
             btnDelete.setOnClickListener {
@@ -43,6 +54,11 @@ class MonitorAdapter(
                 onEditClick(item)
             }
         }
+
+        binding.sensorBit = sensorBitInt.reversed()
+
+
+//        Log.d("Tesst", sensorHexCode.toString())
 //        binding.monitor = item
 //        binding.btnDelete.setOnClickListener {
 //            onDeleteClick(item)

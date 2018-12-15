@@ -16,6 +16,10 @@ import javax.inject.Inject
 
 class Apollo @Inject constructor(private val apolloClient: ApolloClient) : GraphQL, LiveData<ApiResponse<User>>() {
 
+    override fun subscribeStateRelay(controlTag: String) {
+
+    }
+
     override fun loadMonitors(serviceTag: String): LiveData<ApiResponse<List<Monitor>>> {
         val query = AllMonitorsQuery
                 .builder()

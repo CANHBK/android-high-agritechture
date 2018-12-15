@@ -857,22 +857,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "sensors",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Sensor",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -3463,7 +3447,7 @@
               "deprecationReason": null
             },
             {
-              "name": "trackStateRelay",
+              "name": "state",
               "description": "",
               "args": [
                 {

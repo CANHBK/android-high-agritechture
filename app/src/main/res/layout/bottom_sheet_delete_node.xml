@@ -87,7 +87,7 @@
             tools:text="Bạn đang chuẩn bị xóa abcdef, hành động này không thể quay lại, bạn có chắc chắn?" />
 
         <Button
-            android:id="@+id/btn_delete"
+            android:id="@+id/btn_delete_monitor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

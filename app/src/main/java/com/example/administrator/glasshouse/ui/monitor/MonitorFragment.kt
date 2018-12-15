@@ -1,6 +1,5 @@
 package com.example.administrator.glasshouse.ui.monitor
 
-
 import android.os.Bundle
 
 import android.view.LayoutInflater
@@ -26,13 +25,14 @@ import com.example.administrator.glasshouse.vo.Const
 import com.example.administrator.glasshouse.vo.Status
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_monitor.*
 import java.lang.Exception
 import javax.inject.Inject
 
 class MonitorFragment : Fragment(), Injectable {
-    private lateinit var addBottomSheet: AddNodeBottomSheet
-    private lateinit var deleteBottomSheet: DeleteNodeBottomSheet
-    private lateinit var editBottomSheet: EditNodeBottomSheet
+    private var addBottomSheet: AddNodeBottomSheet? = null
+    private var deleteBottomSheet: DeleteNodeBottomSheet? = null
+    private var editBottomSheet: EditNodeBottomSheet? = null
 
     private lateinit var serviceTag: String
 
@@ -76,13 +76,19 @@ class MonitorFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
+
+        binding.topToolbar.setNavigationOnClickListener {
+            it.findNavController().popBackStack()
+        }
+
 
 
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
             result = monitorViewModel.monitors
             fabAdd.setOnClickListener {
-                addBottomSheet.show(activity!!.supportFragmentManager, addBottomSheet.tag)
+                addBottomSheet?.show(activity!!.supportFragmentManager, addBottomSheet?.tag)
             }
         }
 
@@ -91,11 +97,11 @@ class MonitorFragment : Fragment(), Injectable {
                 appExecutors = appExecutors,
                 onDeleteClick = {
                     deleteBottomSheet = DeleteNodeBottomSheet.newInstance(monitor = it, monitorViewModel = monitorViewModel)
-                    deleteBottomSheet.show(activity!!.supportFragmentManager, deleteBottomSheet.tag)
+                    deleteBottomSheet?.show(activity!!.supportFragmentManager, deleteBottomSheet?.tag)
                 },
                 onEditClick = {
                     editBottomSheet = EditNodeBottomSheet.newInstance(monitor = it, monitorViewModel = monitorViewModel)
-                    editBottomSheet.show(activity!!.supportFragmentManager, editBottomSheet.tag)
+                    editBottomSheet?.show(activity!!.supportFragmentManager, editBottomSheet?.tag)
                 }
         ).also {
             binding.rvListNode.adapter = it
@@ -107,6 +113,7 @@ class MonitorFragment : Fragment(), Injectable {
 
         monitorViewModel.apply {
             loadMonitor(serviceTag)
+
             monitors.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {
                     adapter.submitList(it.data)
@@ -116,7 +123,7 @@ class MonitorFragment : Fragment(), Injectable {
             addMonitor.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     try {
-                        addBottomSheet.dismiss()
+                        addBottomSheet?.dismiss()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -126,7 +133,7 @@ class MonitorFragment : Fragment(), Injectable {
             deleteMonitor.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     try {
-                        deleteBottomSheet.dismiss()
+                        deleteBottomSheet?.dismiss()
 
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -137,7 +144,7 @@ class MonitorFragment : Fragment(), Injectable {
             editMonitor.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     try {
-                        editBottomSheet.dismiss()
+                        editBottomSheet?.dismiss()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

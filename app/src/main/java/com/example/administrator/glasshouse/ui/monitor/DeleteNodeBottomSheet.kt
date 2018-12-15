@@ -66,8 +66,11 @@ class DeleteNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
         binding.setLifecycleOwner(viewLifecycleOwner)
         binding.viewModel = monitorViewModel
+
+        binding.monitor = monitor
+
         binding.result = monitorViewModel.deleteMonitor
-//        binding.btnDelete.setOnClickListener {
+//        binding.btnDeleteMonitor.setOnClickListener {
 //            monitorViewModel.deleteMonitor(monitor.tag)
 //        }
     }

@@ -51,16 +51,5 @@
         <argument
             android:name="serviceTag"
             app:argType="string" />
-        <action
-            android:id="@+id/monitor_setting"
-            app:destination="@id/monitorSettingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/monitorSettingFragment"
-        android:name="com.example.administrator.glasshouse.ui.nodesettings.MonitorSettingFragment"
-        android:label="MonitorSettingFragment">
-        <argument
-            android:name="monitorTag"
-            app:argType="string" />
     </fragment>
 </navigation>
