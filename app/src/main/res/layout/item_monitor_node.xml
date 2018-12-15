@@ -5,9 +5,14 @@
     tools:context="com.example.administrator.glasshouse.ui.monitor.MonitorAdapter">
 
     <data>
+
         <variable
             name="sensorBit"
-            type="java.util.List&lt;Integer>"/>
+            type="java.util.List&lt;Integer>" />
+
+        <variable
+            name="viewModel"
+            type="com.example.administrator.glasshouse.ui.monitor.MonitorViewModel" />
 
         <variable
             name="monitor"
@@ -230,7 +235,7 @@
                     tools:text="30" />
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/gnd_setup_button"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"
@@ -272,7 +277,7 @@
                     tools:text="30" />
 
                 <ImageView
-                    android:id="@+id/imageView7"
+                    android:id="@+id/light_sensor_setting"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"

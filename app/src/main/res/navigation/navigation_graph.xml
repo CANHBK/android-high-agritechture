@@ -26,7 +26,7 @@
         android:id="@+id/registerFragment"
         android:name="com.example.administrator.glasshouse.ui.register.RegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -42,14 +42,46 @@
         <action
             android:id="@+id/monitor"
             app:destination="@id/monitorFragment" />
+        <action
+            android:id="@+id/control"
+            app:destination="@id/relayControlFragment" />
     </fragment>
     <fragment
         android:id="@+id/monitorFragment"
         android:name="com.example.administrator.glasshouse.ui.monitor.MonitorFragment"
         android:label="fragment_monitor"
-        tools:layout="@layout/fragment_monitor" >
+        tools:layout="@layout/fragment_monitor">
         <argument
             android:name="serviceTag"
             app:argType="string" />
+        <action
+            android:id="@+id/setting_sensor"
+            app:destination="@id/monitorSettingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/monitorSettingFragment"
+        android:name="com.example.administrator.glasshouse.ui.nodesettings.SensorSettingFragment"
+        android:label="fragment_monitor_setting"
+        tools:layout="@layout/fragment_sensor_setting">
+        <argument
+            android:name="monitor"
+            app:argType="com.example.administrator.glasshouse.vo.Monitor" />
+        <argument
+            android:name="sensorIndex"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/relayControlFragment"
+        android:name="com.example.administrator.glasshouse.ui.control.RelayControlFragment"
+        android:label="fragment_relay_control"
+        tools:layout="@layout/fragment_relay_control">
+        <action
+            android:id="@+id/setting_relay"
+            app:destination="@id/relaySettingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/relaySettingFragment"
+        android:name="com.example.administrator.glasshouse.ui.relaysettings.RelaySettingFragment"
+        android:label="fragment_relay_setting"
+        tools:layout="@layout/fragment_relay_setting" />
 </navigation>
