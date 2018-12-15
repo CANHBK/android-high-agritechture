@@ -25,7 +25,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.w3c.dom.Node
 
 class EditNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
-class EditNodeBottomSheet : BottomSheetDialogFragment(),Injectable {
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -84,16 +83,6 @@ class EditNodeBottomSheet : BottomSheetDialogFragment(),Injectable {
 //        binding.monitor = monitor
 //
 //        binding.result = monitorViewModel.editMonitor
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.setLifecycleOwner(viewLifecycleOwner)
-
-        binding.viewModel = monitorViewModel
-
-        binding.monitor = monitor
-
-        binding.result = monitorViewModel.editMonitor
 
         editGate()
 

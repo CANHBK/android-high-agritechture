@@ -13,4 +13,7 @@
     <string name="id_gate">ID bộ điều khiển</string>
     <string name="over_view">Tổng quan</string>
     <string name="list_gates">Danh sách bộ điều khiển trung tâm</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

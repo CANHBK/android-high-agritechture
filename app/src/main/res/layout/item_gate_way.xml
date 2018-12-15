@@ -10,84 +10,95 @@
             type="com.example.administrator.glasshouse.vo.Gate" />
     </data>
 
-    <FrameLayout
-        android:id="@+id/layout_parent"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="10"
         android:background="@drawable/bg_white_rounded_filled"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:clipToPadding="false"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:id="@+id/layout_parent">
+
 
         <ImageView
-            android:id="@+id/img_gate"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_leaf"
+            android:id="@+id/img_gate"
+            android:translationZ="6dp"
             android:layout_marginTop="16dp"
             android:adjustViewBounds="false"
-            android:elevation="6dp"
-            android:src="@drawable/ic_leaf"
-            android:translationZ="6dp" />
+            android:elevation="6dp" />
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:background="@drawable/bg_white_rounded_filled"
-            android:elevation="3dp"
-            android:orientation="horizontal"
-            android:paddingStart="48dp"
             android:paddingTop="16dp"
+            android:paddingStart="48dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
             android:paddingEnd="16dp"
-            android:weightSum="10">
+            android:paddingBottom="8dp"
+            android:translationZ="2dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/txt_gate_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:text="@{Gate.name}"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:id="@+id/txt_gate_name"
                     android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:text="@{Gate.name}"
                     tools:text="Gate Name" />
 
                 <TextView
-                    android:id="@+id/txt_gate_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{Gate.serviceTag}"
-                    tools:text="G001" />
+                    android:id="@+id/txt_gate_id"
+                    tools:text="G001"
+                    android:text="@{Gate.serviceTag}" />
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/btn_edit"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                app:srcCompat="@drawable/ic_edit" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end">
 
-            <ImageView
-                android:id="@+id/btn_delete"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                app:srcCompat="@drawable/ic_delete" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_edit"
+                    android:id="@+id/btn_edit"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:padding="5dp"
+                    android:focusable="true" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_delete"
+                    android:id="@+id/btn_delete"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:padding="5dp"
+                    android:focusable="true" />
+            </LinearLayout>
 
         </LinearLayout>
 
