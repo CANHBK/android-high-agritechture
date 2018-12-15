@@ -23,5 +23,6 @@
     <color name="light_gray">#c8c8c8</color>
     <color name="very_light_gray">#d8d8d8</color>
     <color name="dark_light_yellow">#fffc88</color>
+    <color name="gray">#c7c7c7</color>
 
 </resources>
