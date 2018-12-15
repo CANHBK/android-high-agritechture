@@ -5,12 +5,9 @@
     tools:context="com.example.administrator.glasshouse.ui.monitor.MonitorAdapter">
 
     <data>
-
-        <import type="java.util.List" />
-
         <variable
             name="sensorBit"
-            type="List&lt;Integer>" />
+            type="java.util.List&lt;Integer>"/>
 
         <variable
             name="monitor"
@@ -70,6 +67,7 @@
                     android:id="@+id/btn_delete"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="5dp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
@@ -80,8 +78,12 @@
                     android:id="@+id/btn_reload"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:padding="5dp"
                     app:srcCompat="@drawable/ic_refresh_black_36dp" />
+
             </LinearLayout>
 
             <TextView
@@ -99,9 +101,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="24dp"
                 android:text="@{monitor.tag}"
+
                 tools:text="E-001-F:0" />
+
+            <Button
+                android:id="@+id/control_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="24dp"
+                android:text="Điều khiển"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,31 +123,43 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
+                android:weightSum="10"
                 app:visibleGone="@{sensorBit[0]==1}">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Nhiệt độ (°C)"
                     android:textColor="@color/color_red"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txt_temp_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:textAlignment="textEnd"
                     android:textColor="@color/color_red"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     tools:text="30" />
+
+                <ImageView
+                    android:id="@+id/temp_sensor_setup_button"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_ios_settings" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="10"
                 android:background="@color/light_yellow"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
@@ -146,23 +169,33 @@
                 app:visibleGone="@{sensorBit[2]==1}">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Độ ẩm không khí (%)"
                     android:textColor="@color/color_orange"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txt_air_humi_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:textAlignment="textEnd"
                     android:textColor="@color/color_orange"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     tools:text="30" />
+
+                <ImageView
+                    android:id="@+id/air_humi_setup_button"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_ios_settings" />
             </LinearLayout>
 
             <LinearLayout
@@ -174,26 +207,37 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
+                android:weightSum="10"
                 app:visibleGone="@{sensorBit[3]==1}">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Độ ẩm đất (%)"
                     android:textColor="@color/brown"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txt_soil_humi_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:textAlignment="textEnd"
                     android:textColor="@color/brown"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     tools:text="30" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_ios_settings" />
             </LinearLayout>
 
             <LinearLayout
@@ -205,26 +249,37 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
+                android:weightSum="10"
                 app:visibleGone="@{sensorBit[1]==1}">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Ánh sáng (lux)"
                     android:textColor="@color/design_default_color_primary"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txt_light_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:textAlignment="textEnd"
                     android:textColor="@color/design_default_color_primary"
                     android:textSize="26sp"
                     android:textStyle="bold"
                     tools:text="30" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_ios_settings" />
             </LinearLayout>
 
         </LinearLayout>

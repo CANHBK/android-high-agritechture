@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.example.administrator.glasshouse.vo.Const
 import com.example.administrator.glasshouse.vo.Status
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_monitor.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -74,6 +76,12 @@ class MonitorFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
+
+        binding.topToolbar.setNavigationOnClickListener {
+            it.findNavController().popBackStack()
+        }
+
 
 
         binding.apply {

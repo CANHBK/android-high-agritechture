@@ -72,17 +72,11 @@ class EditNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
             viewModel = monitorViewModel
-            monitor = monitor
             result = monitorViewModel.editMonitor
         }
 
-//        binding.setLifecycleOwner(viewLifecycleOwner)
-
-//        binding.viewModel = monitorViewModel
-//
-//        binding.monitor = monitor
-//
-//        binding.result = monitorViewModel.editMonitor
+        //TODO: Khi đưa vào apply thì không hoạt động
+        binding.monitor= monitor
 
         editGate()
 

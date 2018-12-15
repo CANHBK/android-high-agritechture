@@ -1,6 +1,6 @@
 package com.example.administrator.glasshouse.ui.monitor
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent

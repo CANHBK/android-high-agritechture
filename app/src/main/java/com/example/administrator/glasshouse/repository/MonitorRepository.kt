@@ -50,7 +50,7 @@ class MonitorRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: Monitor?): Boolean {
-                return networkState.hasInternet() && (data == null || repoListRateLimit.shouldFetch(tag))
+                return true
             }
 
             override fun loadFromDb() = monitorDao.loadMonitor(tag)
@@ -69,7 +69,7 @@ class MonitorRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: Monitor?): Boolean {
-                return networkState.hasInternet() && (data == null || repoListRateLimit.shouldFetch(tag))
+                return true
             }
 
             override fun loadFromDb() = monitorDao.loadMonitor(tag)
@@ -87,7 +87,7 @@ class MonitorRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: Monitor?): Boolean {
-                return networkState.hasInternet() && (data == null || repoListRateLimit.shouldFetch(tag))
+                return true
             }
 
             override fun loadFromDb() = monitorDao.loadMonitor(tag)
