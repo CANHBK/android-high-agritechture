@@ -18,8 +18,9 @@ mutation registerMutation($params:UserInput!)
   }
 }
 
-query GetUserByIDQuery($id:ID){
+query User($id:ID){
   user(id: $id){
+    id
     firstName
     middleName
     lastName

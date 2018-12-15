@@ -121,6 +121,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.bottomappbar.BottomAppBar
+            app:navigationIcon="@drawable/ic_menu_white_24dp"
             android:id="@+id/bottom_app_bar"
             style="@style/Widget.MaterialComponents.BottomAppBar"
             android:layout_width="match_parent"

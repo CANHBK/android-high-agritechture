@@ -1,10 +1,7 @@
 package com.example.administrator.glasshouse.di
 
-import com.example.administrator.glasshouse.ui.dashboard.AddGateBottomSheet
+import com.example.administrator.glasshouse.ui.dashboard.*
 import com.example.administrator.glasshouse.ui.register.RegisterFragment
-import com.example.administrator.glasshouse.ui.dashboard.DashboardFragment
-import com.example.administrator.glasshouse.ui.dashboard.DeleteGateBottomSheet
-import com.example.administrator.glasshouse.ui.dashboard.EditGateBottomSheet
 import com.example.administrator.glasshouse.ui.login.LoginFragment
 import com.example.administrator.glasshouse.ui.monitor.AddNodeBottomSheet
 import com.example.administrator.glasshouse.ui.monitor.DeleteNodeBottomSheet
@@ -52,6 +49,11 @@ abstract class FragmentBuildersModule {
     //sensor
     @ContributesAndroidInjector
     abstract fun contributeSensorSettingFragment(): SensorSettingFragment
+
+
+    //user
+    @ContributesAndroidInjector
+    abstract fun contributeUserProfileFragment(): UserBottomSheet
 
     @ContributesAndroidInjector
     abstract fun contributeRegisterFragment(): RegisterFragment

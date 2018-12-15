@@ -19,12 +19,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_homeFragment_to_loginFragment">
+                            <entry key="control">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="control">
+                            <entry key="log_out">
                               <value>
                                 <LayoutPositions />
                               </value>

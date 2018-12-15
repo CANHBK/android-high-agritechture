@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.administrator.glasshouse.util.ViewModelFactory
 import com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel
+import com.example.administrator.glasshouse.ui.dashboard.UserViewModel
 import com.example.administrator.glasshouse.ui.login.LoginViewModel
 import com.example.administrator.glasshouse.ui.monitor.MonitorViewModel
 import com.example.administrator.glasshouse.ui.nodesettings.SensorSettingViewModel
@@ -16,6 +17,11 @@ import dagger.multibindings.IntoMap
 @Suppress("unused")
 @Module
 abstract class ViewModelModule {
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserViewModel::class)
+    abstract fun bindUserViewModel(userViewModel: UserViewModel): ViewModel
+
     @Binds
     @IntoMap
     @ViewModelKey(SensorSettingViewModel::class)

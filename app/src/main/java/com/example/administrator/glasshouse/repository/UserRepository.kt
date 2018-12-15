@@ -15,8 +15,23 @@ class UserRepository @Inject constructor(
 
 ) : LiveData<User>() {
 
-    fun loadUser(): LiveData<User> {
-        return userDao.loadUser()
+    fun loadUser(
+            userId: String
+    ): LiveData<Resource<User>> {
+        return object : NetworkBoundResource<User, User>(appExecutors) {
+            override fun saveCallResult(item: User) {
+                userDao.update(item)
+            }
+
+            override fun shouldFetch(data: User?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = userDao.loadUser()
+
+            override fun createCall() = graphQL.loadUser(userId)
+        }.asLiveData()
+
     }
 
     fun login(

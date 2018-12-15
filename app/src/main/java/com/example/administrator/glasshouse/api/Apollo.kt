@@ -15,6 +15,49 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class Apollo @Inject constructor(private val apolloClient: ApolloClient) : GraphQL, LiveData<ApiResponse<User>>() {
+    override fun loadUser(userId: String): LiveData<ApiResponse<User>> {
+        val query = UserQuery
+                .builder()
+                .id(userId)
+                .build()
+        val call = apolloClient.query(query)
+        return object : LiveData<ApiResponse<User>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    call.enqueue(object : ApolloCall.Callback<UserQuery.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<UserQuery.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.user()!!
+
+                                val user = User(
+                                        id = data.id()!!,
+                                        fullName = data.name()!!,
+                                        email = data.email()
+                                )
+
+                                postValue(ApiResponse.create(user))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
 
     override fun subscribeStateRelay(controlTag: String) {
 

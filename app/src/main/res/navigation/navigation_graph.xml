@@ -37,7 +37,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_dashboard">
         <action
-            android:id="@+id/action_homeFragment_to_loginFragment"
+            android:id="@+id/log_out"
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/monitor"

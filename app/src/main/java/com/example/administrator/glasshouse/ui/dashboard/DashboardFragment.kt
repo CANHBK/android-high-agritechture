@@ -18,6 +18,7 @@ import com.example.administrator.glasshouse.di.Injectable
 import com.example.administrator.glasshouse.util.autoCleared
 import com.example.administrator.glasshouse.vo.Const
 import com.example.administrator.glasshouse.vo.Status
+import com.example.administrator.glasshouse.vo.User
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.lang.Exception
@@ -28,11 +29,15 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
     private var addBottomSheet: AddGateBottomSheet? = null
     private var deleteBottomSheet: DeleteGateBottomSheet? = null
     private var editBottomSheet: EditGateBottomSheet? = null
+    private var userBottomSheet: UserBottomSheet? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var dashBoardViewModel: DashBoardViewModel
+    private lateinit var userViewModel: UserViewModel
+
+    private lateinit var user: User
 
     @Inject
     lateinit var appExecutors: AppExecutors
@@ -62,6 +67,9 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         dashBoardViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(DashBoardViewModel::class.java)
 
+        userViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(UserViewModel::class.java)
+
         return dataBinding.root
 
     }
@@ -73,6 +81,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
 
 
         dashBoardViewModel.loadGates()
+        userViewModel.loadUser()
 
         binding.setLifecycleOwner(viewLifecycleOwner)
 
@@ -142,8 +151,14 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
 
         }
 
+        userViewModel.user.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS) {
+                user = it.data!!
+            }
+        })
+
         if (userId == null) {
-            view.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+            view.findNavController().navigate(R.id.log_out)
         }
 
         topToolbar.inflateMenu(R.menu.menu_dashboard)
@@ -151,23 +166,42 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         binding.topToolbar.findViewById<View>(R.id.action_sync).setOnClickListener {
             dashBoardViewModel.loadGates(true)
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
-        activity!!.menuInflater.inflate(R.menu.bottom_app_bar_home_menu, menu)
-
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        when (item!!.itemId) {
-            R.id.btn_sign_out -> {
-                Paper.book().delete(Const.USER_ID)
-                view!!.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+        binding.bottomAppBar.setNavigationOnClickListener {
+            //                Paper.book().delete(Const.USER_ID)
+            userBottomSheet = UserBottomSheet.newInstance(
+                    user = user,
+                    userViewModel = userViewModel) {
+                try {
+                    userBottomSheet?.dismiss()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                view.findNavController().navigate(R.id.log_out)
             }
+            userBottomSheet?.show(activity!!.supportFragmentManager, userBottomSheet?.tag)
         }
-        return super.onOptionsItemSelected(item)
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        activity!!.menuInflater.inflate(R.menu.bottom_app_bar_home_menu, menu)
+//
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//
+//        when (item!!.itemId) {
+//            R.id.btn_sign_out -> {
+////                Paper.book().delete(Const.USER_ID)
+//                userBottomSheet = UserBottomSheet.newInstance(
+//                        user = user,
+//                        userViewModel = userViewModel)
+//                userBottomSheet?.show(activity!!.supportFragmentManager, userBottomSheet?.tag)
+////                view!!.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
 }

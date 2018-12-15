@@ -4,9 +4,21 @@
 
     <data>
 
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.example.administrator.glasshouse.vo.User" />
+
+        <import type="com.example.administrator.glasshouse.vo.Resource" />
+
+        <import type="com.example.administrator.glasshouse.vo.Status" />
+        <variable
+            name="viewModel"
+            type="com.example.administrator.glasshouse.ui.dashboard.UserViewModel" />
+
         <variable
             name="user"
-            type="com.hellosg.studio.hitechagri.fragments.UserBottomSheet.User" />
+            type="User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,105 +27,105 @@
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/avatar_image"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:srcCompat="@drawable/sad"
-            android:id="@+id/avatar_image"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/sad" />
 
         <TextView
-            android:text="@{user.name , default=UserName}"
+            android:id="@+id/user_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/user_name_text"
-            app:layout_constraintStart_toEndOf="@+id/avatar_image"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/avatar_image"
+            android:text="@{user.fullName , default=UserName}"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/avatar_image"
+            app:layout_constraintTop_toTopOf="@+id/avatar_image" />
 
         <TextView
-            android:text="@{user.email , default=`abcxyz@gmail.com`}"
+            android:id="@+id/user_email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/user_email_text"
-            app:layout_constraintBottom_toBottomOf="@+id/avatar_image"
-            app:layout_constraintTop_toBottomOf="@+id/user_name_text"
             android:layout_marginBottom="8dp"
+            android:text="@{user.email , default=`abcxyz@gmail.com`}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar_image"
             app:layout_constraintStart_toStartOf="@+id/user_name_text"
-            android:textColor="@color/black" />
+            app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
 
         <TextView
+            android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:id="@+id/divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/avatar_image"
             android:layout_marginTop="16dp"
-            android:background="@color/gray" />
+            android:layout_marginEnd="8dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatar_image" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setting_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            android:paddingBottom="16dp"
+            android:layout_marginEnd="8dp"
             android:paddingTop="16dp"
-            android:id="@+id/setting_button">
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider">
 
             <ImageView
+                android:id="@+id/img_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_settings_black_24dp"
-                android:id="@+id/img_setting"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_settings_black_24dp" />
 
             <TextView
-                android:text="Cài đặt"
+                android:id="@+id/text_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_setting"
-                app:layout_constraintTop_toTopOf="@+id/img_setting"
+                android:layout_marginStart="48dp"
+                android:text="Cài đặt"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/img_setting"
                 app:layout_constraintStart_toEndOf="@+id/img_setting"
-                android:layout_marginStart="48dp"
-                app:layout_constraintVertical_bias="0.666"
-                android:textColor="@color/black" />
+                app:layout_constraintTop_toTopOf="@+id/img_setting"
+                app:layout_constraintVertical_bias="0.666" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/help_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            android:paddingBottom="16dp"
+            android:layout_marginEnd="8dp"
             android:paddingTop="16dp"
-            android:id="@+id/help_button"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/setting_button">
 
             <ImageView
+                android:id="@+id/img_help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_help_outline_black_24dp"
-                android:id="@+id/img_help"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_help_outline_black_24dp" />
 
             <TextView
                 android:id="@+id/text_help"
@@ -129,50 +141,50 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logout_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
-            android:id="@+id/logout_button"
-            app:layout_constraintHorizontal_bias="1.0"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/help_button">
 
             <ImageView
+                android:id="@+id/img_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_exit_to_app_black_24dp"
-                android:id="@+id/img_logout"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_exit_to_app_black_24dp" />
 
             <TextView
-                android:text="Đăng xuất"
+                android:id="@+id/text_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_logout"
-                app:layout_constraintTop_toTopOf="@+id/img_logout"
+                android:layout_marginStart="48dp"
+                android:text="Đăng xuất"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/img_logout"
                 app:layout_constraintStart_toEndOf="@+id/img_logout"
-                android:layout_marginStart="48dp"
-                app:layout_constraintVertical_bias="0.666"
-                android:textColor="@color/black" />
+                app:layout_constraintTop_toTopOf="@+id/img_logout"
+                app:layout_constraintVertical_bias="0.666" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/divider2"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:id="@+id/divider2"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logout_button" />
 
         <TextView
@@ -185,25 +197,25 @@
             app:layout_constraintEnd_toStartOf="@+id/textView10" />
 
         <TextView
-            android:text="Thông tin ứng dung"
+            android:id="@+id/information_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/information_button"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
+            android:layout_marginStart="8dp"
+            android:text="Thông tin ứng dung"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
-            android:layout_marginStart="8dp" />
+            app:layout_constraintStart_toEndOf="@+id/textView10" />
 
         <TextView
-            android:text="•"
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView10"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/logout_button"
-            app:layout_constraintEnd_toEndOf="@+id/divider2"
-            app:layout_constraintStart_toStartOf="@+id/divider2"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:text="•"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/divider2"
+            app:layout_constraintStart_toStartOf="@+id/divider2"
+            app:layout_constraintTop_toBottomOf="@+id/logout_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

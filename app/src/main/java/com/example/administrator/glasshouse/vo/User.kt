@@ -9,5 +9,7 @@ import androidx.room.Index
         primaryKeys = ["email"]
 )
 data class User(
-        val id: String, val fullName: String, val email: String
+        val id: String,
+        val fullName: String,
+        val email: String
 )

@@ -19,6 +19,7 @@ interface GraphQL {
 
     fun login(email: String, password: String): LiveData<ApiResponse<User>>
     fun register(email: String, name: String, password: String): LiveData<ApiResponse<User>>
+    fun loadUser(userId:String):LiveData<ApiResponse<User>>
 
     fun subscribeStateRelay(controlTag:String)
 }
