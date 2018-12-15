@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import javax.inject.Singleton
 import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
 import com.mandevices.iot.agriculture.api.Apollo
+import com.mandevices.iot.agriculture.db.RelayDao
 import java.io.File
 
 
@@ -46,7 +47,7 @@ class  ApolloModule {
 
     @Provides
     @Singleton
-     fun graphQL(apolloClient: ApolloClient): GraphQL{
-      return Apollo(apolloClient)
+     fun graphQL(apolloClient: ApolloClient,relayDao: RelayDao): GraphQL{
+      return Apollo(apolloClient,relayDao)
     }
 }

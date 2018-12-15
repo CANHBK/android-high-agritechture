@@ -916,10 +916,155 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "relays",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Relay",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Relay",
+          "description": "**_Rơle_** nằm trên `Node Control`",
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh được dán trên `Gate Way` quản lý `Node Control`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "controlTag",
+              "description": "Mã Tag của `Node Control`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "index",
+              "description": "\"Địa chỉ\" **_Rơle_** trên `Node Control`.\nSố `Rơle` trên `Node Control` được đọc từ mã `Tag`.\nHiện tại có 2 **_Rơle_** trên một `Node Control` nên mã `Tag` sẽ có dạng: `C-<addressNodeControle>-0:3`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "state",
+              "description": "Trạng thái hiện tại của **_Rơle_**\n+ `O`: Rơle đang đóng điện\n+ `F`: Rơle đang cắt điện",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "Tên của `Rơle` do người dùng đặt để dễ gợi nhớ đến thiết bị được `Rơle` điều khiển.\nMặc định là `Rơle số <chỉ số>`.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isPeriodic",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minute",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "hour",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Boolean",
+          "description": "The `Boolean` scalar type represents `true` or `false`.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -969,93 +1114,6 @@
             }
           ],
           "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Relay",
-          "description": "**_Rơle_** nằm trên `Node Control`",
-          "fields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh được dán trên `Gate Way` quản lý `Node Control`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodeControl",
-              "description": "Mã Tag của `Node Control`",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "index",
-              "description": "\"Địa chỉ\" **_Rơle_** trên `Node Control`.\nSố `Rơle` trên `Node Control` được đọc từ mã `Tag`.\nHiện tại có 2 **_Rơle_** trên một `Node Control` nên mã `Tag` sẽ có dạng: `C-<addressNodeControle>-0:3`",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "state",
-              "description": "Trạng thái hiện tại của **_Rơle_**\n+ `O`: Rơle đang đóng điện\n+ `F`: Rơle đang cắt điện",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "Tên của `Rơle` do người dùng đặt để dễ gợi nhớ đến thiết bị được `Rơle` điều khiển.\nMặc định là `Rơle số <chỉ số>`.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1744,16 +1802,6 @@
           "possibleTypes": null
         },
         {
-          "kind": "SCALAR",
-          "name": "Boolean",
-          "description": "The `Boolean` scalar type represents `true` or `false`.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "OBJECT",
           "name": "Farm",
           "description": "",
@@ -2229,33 +2277,6 @@
               "deprecationReason": null
             },
             {
-              "name": "setStateRelay",
-              "description": "Đặt trạng thái `Relay`",
-              "args": [
-                {
-                  "name": "params",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "StateRelayInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "configTimeNodeEnv",
               "description": "Đặt thời gian gửi thông số môi trường cho `Node Environment`",
               "args": [
@@ -2265,29 +2286,6 @@
                   "type": {
                     "kind": "INPUT_OBJECT",
                     "name": "ConfigTimeNodeEnv",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "configTimeNodeControl",
-              "description": "Đặt thời gian bật/tắt `Relay`",
-              "args": [
-                {
-                  "name": "params",
-                  "description": "",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "ConfigTimeNodeControlInput",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -2738,6 +2736,172 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "configTimeControl",
+              "description": "Đặt thời gian bật/tắt `Relay`",
+              "args": [
+                {
+                  "name": "serviceTag",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "controlTag",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "index",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "isPeriodic",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Boolean",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "minute",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "hour",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "state",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Control",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "setStateRelay",
+              "description": "Đặt trạng thái `Relay`",
+              "args": [
+                {
+                  "name": "tag",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "index",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "state",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Control",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -3121,73 +3285,6 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "StateRelayInput",
-          "description": "",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "nodeControl",
-              "description": "Mã định danh của `Node Control` chứa `Relay`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "index",
-              "description": "\"Địa chỉ\" của `Relay` trên `Node Control`.\nLà `chỉ số` nhận về khi truy vấn thông tin các `Relay` trên `Node Control`. (_allRelaysOfControl_)",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh của `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "state",
-              "description": "Trạng thái muốn đặt",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
           "name": "ConfigTimeNodeEnv",
           "description": "Các thông số cấu hình thời gian gửi thông số môi trường từ `Node Environment`",
           "fields": null,
@@ -3271,115 +3368,6 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "ConfigTimeNodeControlInput",
-          "description": "Các thông số cấu hình bật tắt các `Rơle` trên `Node Control`",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh của `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "nodeControl",
-              "description": "Mã định danh `Node Control` cần cấu hình",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "index",
-              "description": "\"Địa chỉ\" `Rơle` trên `Node Control` cần cầu hình, hiện tại có 2 `Rơle`:\n+ 1 - Rơle số 1\n+ 2 - Rơle số 2\nLưu ý: Thông tin về `Rơle` trên `Node Control` được lấy bằng cách thực hiện truy vấn",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "typeSetTime",
-              "description": "Kiểu cấu hình thời gian, hiện tại chỉ có 1 chế độ:\n+ 0 - Theo giờ cố định",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "minute",
-              "description": "Phút",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "hour",
-              "description": "Giờ",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "state",
-              "description": "Trạng thái Rơle muốn đặt:\n+ O - Đóng điện\n+ F - Cắt điện",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
                   "ofType": null
                 }
               },
@@ -4970,6 +4958,115 @@
         },
         {
           "kind": "INPUT_OBJECT",
+          "name": "ConfigTimeNodeControlInput",
+          "description": "Các thông số cấu hình bật tắt các `Rơle` trên `Node Control`",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh của `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "nodeControl",
+              "description": "Mã định danh `Node Control` cần cấu hình",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "index",
+              "description": "\"Địa chỉ\" `Rơle` trên `Node Control` cần cầu hình, hiện tại có 2 `Rơle`:\n+ 1 - Rơle số 1\n+ 2 - Rơle số 2\nLưu ý: Thông tin về `Rơle` trên `Node Control` được lấy bằng cách thực hiện truy vấn",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "typeSetTime",
+              "description": "Kiểu cấu hình thời gian, hiện tại chỉ có 1 chế độ:\n+ 0 - Theo giờ cố định",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "minute",
+              "description": "Phút",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "hour",
+              "description": "Giờ",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "state",
+              "description": "Trạng thái Rơle muốn đặt:\n+ O - Đóng điện\n+ F - Cắt điện",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
           "name": "AllSensorsInput",
           "description": "",
           "fields": null,
@@ -4991,6 +5088,73 @@
             {
               "name": "nodeEnv",
               "description": "Mã định danh `Node Environment`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "StateRelayInput",
+          "description": "",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "nodeControl",
+              "description": "Mã định danh của `Node Control` chứa `Relay`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "index",
+              "description": "\"Địa chỉ\" của `Relay` trên `Node Control`.\nLà `chỉ số` nhận về khi truy vấn thông tin các `Relay` trên `Node Control`. (_allRelaysOfControl_)",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh của `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "state",
+              "description": "Trạng thái muốn đặt",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
