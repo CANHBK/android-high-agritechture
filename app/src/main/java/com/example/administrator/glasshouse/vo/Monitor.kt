@@ -2,6 +2,7 @@ package com.example.administrator.glasshouse.vo
 
 import androidx.room.Entity
 import androidx.room.Index
+import java.io.Serializable
 
 @Entity(
         indices = [
@@ -13,4 +14,4 @@ data class Monitor(
         val name: String,
         val tag: String,
         val serviceTag: String
-)
+):Serializable

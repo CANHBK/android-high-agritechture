@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.administrator.glasshouse.ui.control.RelayControlFragment">
 
     <data>
 
@@ -31,6 +32,8 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <androidx.appcompat.widget.Toolbar
+                    app:title="Điều khiển thiết bị"
+                    app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
                     android:id="@+id/topToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"

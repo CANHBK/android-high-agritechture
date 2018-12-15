@@ -102,6 +102,11 @@ class MonitorFragment : Fragment(), Injectable {
                 onEditClick = {
                     editBottomSheet = EditNodeBottomSheet.newInstance(monitor = it, monitorViewModel = monitorViewModel)
                     editBottomSheet?.show(activity!!.supportFragmentManager, editBottomSheet?.tag)
+                },
+                onSensorSetting = { monitor, sensorIndex ->
+                    val sensorSetting = MonitorFragmentDirections.settingSensor(monitor, sensorIndex)
+                    view.findNavController().navigate(sensorSetting)
+
                 }
         ).also {
             binding.rvListNode.adapter = it

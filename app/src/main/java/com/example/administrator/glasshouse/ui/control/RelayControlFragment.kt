@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.administrator.glasshouse.R
 import com.example.administrator.glasshouse.databinding.FragmentRelayControlBinding
 
-/**
- * A simple [Fragment] subclass.
- *
- */
+
 class RelayControlFragment : Fragment() {
 
     private lateinit var binding: FragmentRelayControlBinding

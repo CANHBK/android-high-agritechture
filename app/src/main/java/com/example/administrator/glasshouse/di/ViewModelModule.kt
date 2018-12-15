@@ -6,6 +6,7 @@ import com.example.administrator.glasshouse.util.ViewModelFactory
 import com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel
 import com.example.administrator.glasshouse.ui.login.LoginViewModel
 import com.example.administrator.glasshouse.ui.monitor.MonitorViewModel
+import com.example.administrator.glasshouse.ui.nodesettings.SensorSettingViewModel
 import com.example.administrator.glasshouse.ui.register.RegisterViewModel
 
 import dagger.Binds
@@ -15,6 +16,11 @@ import dagger.multibindings.IntoMap
 @Suppress("unused")
 @Module
 abstract class ViewModelModule {
+    @Binds
+    @IntoMap
+    @ViewModelKey(SensorSettingViewModel::class)
+    abstract fun bindSensorSettingViewModel(sensorSettingViewModel: SensorSettingViewModel): ViewModel
+
     @Binds
     @IntoMap
     @ViewModelKey(MonitorViewModel::class)
