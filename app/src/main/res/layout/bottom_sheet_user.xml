@@ -116,16 +116,16 @@
                 android:layout_marginStart="16dp" />
 
             <TextView
-                android:text="Trợ giúp &#x26; phản hồi"
+                android:id="@+id/text_help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_help"
-                app:layout_constraintTop_toTopOf="@+id/img_help"
+                android:layout_marginStart="48dp"
+                android:text="Trợ giúp và phản hồi"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/img_help"
                 app:layout_constraintStart_toEndOf="@+id/img_help"
-                android:layout_marginStart="48dp"
-                app:layout_constraintVertical_bias="0.666"
-                android:textColor="@color/black" />
+                app:layout_constraintTop_toTopOf="@+id/img_help"
+                app:layout_constraintVertical_bias="0.666" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
