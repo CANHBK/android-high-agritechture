@@ -1,4 +1,4 @@
-package com.mandevices.iot.agriculture.ui.dashboard.model
+package com.mandevices.iot.agriculture.ui.control.model
 
 import com.mandevices.iot.agriculture.R
 
@@ -6,10 +6,11 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
-import com.mandevices.iot.agriculture.ui.control.model.AddGateErrorFields
-import com.mandevices.iot.agriculture.ui.control.model.AddGateFields
+import com.mandevices.iot.agriculture.ui.dashboard.model.AddGateErrorFields
+import com.mandevices.iot.agriculture.ui.dashboard.model.AddGateFields
 
-class AddGateForm : BaseObservable() {
+
+class AddControlForm : BaseObservable() {
     val fields = AddGateFields()
     private val errors = AddGateErrorFields()
     val addGateFields = MutableLiveData<AddGateFields>()

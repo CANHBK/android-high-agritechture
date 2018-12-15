@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.mandevices.iot.agriculture.repository.GateRepository
-import com.mandevices.iot.agriculture.ui.dashboard.model.AddGateFields
-import com.mandevices.iot.agriculture.ui.dashboard.model.AddGateForm
-import com.mandevices.iot.agriculture.ui.dashboard.model.EditGateFields
-import com.mandevices.iot.agriculture.ui.dashboard.model.EditGateForm
+import com.mandevices.iot.agriculture.ui.control.model.AddGateFields
+import com.mandevices.iot.agriculture.ui.control.model.AddGateForm
+import com.mandevices.iot.agriculture.ui.control.model.EditGateFields
+import com.mandevices.iot.agriculture.ui.control.model.EditGateForm
 import com.mandevices.iot.agriculture.util.AbsentLiveData
 import com.mandevices.iot.agriculture.util.ObservableViewModel
 import com.mandevices.iot.agriculture.vo.Const

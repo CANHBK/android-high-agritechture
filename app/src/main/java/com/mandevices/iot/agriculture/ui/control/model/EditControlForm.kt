@@ -1,4 +1,4 @@
-package com.mandevices.iot.agriculture.ui.dashboard.model
+package com.mandevices.iot.agriculture.ui.control.model
 
 import com.mandevices.iot.agriculture.R
 
@@ -6,10 +6,10 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
-import com.mandevices.iot.agriculture.ui.control.model.EditGateErrorFields
-import com.mandevices.iot.agriculture.ui.control.model.EditGateFields
+import com.mandevices.iot.agriculture.ui.dashboard.model.EditGateErrorFields
+import com.mandevices.iot.agriculture.ui.dashboard.model.EditGateFields
 
-class EditGateForm : BaseObservable() {
+class EditControlForm : BaseObservable() {
     val fields = EditGateFields()
     private val errors = EditGateErrorFields()
     val editGateFields = MutableLiveData<EditGateFields>()

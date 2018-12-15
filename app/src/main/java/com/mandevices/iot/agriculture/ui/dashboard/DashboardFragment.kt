@@ -183,25 +183,4 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        activity!!.menuInflater.inflate(R.menu.bottom_app_bar_home_menu, menu)
-//
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//
-//        when (item!!.itemId) {
-//            R.id.btn_sign_out -> {
-////                Paper.book().delete(Const.USER_ID)
-//                userBottomSheet = UserBottomSheet.newInstance(
-//                        user = user,
-//                        userViewModel = userViewModel)
-//                userBottomSheet?.show(activity!!.supportFragmentManager, userBottomSheet?.tag)
-////                view!!.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
-
 }
