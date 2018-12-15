@@ -11,21 +11,21 @@ import com.mandevices.iot.agriculture.ui.dashboard.model.AddGateFields
 
 
 class AddControlForm : BaseObservable() {
-    val fields = AddGateFields()
-    private val errors = AddGateErrorFields()
-    val addGateFields = MutableLiveData<AddGateFields>()
+    val fields = AddControlFields()
+    private val errors = AddControlErrorFields()
+    val addControlFields = MutableLiveData<AddControlFields>()
 
     val isValid: Boolean
         @Bindable
         get() {
-            var valid = isIdValid(false)
+            var valid = isTagValid(false)
             valid = isNameValid(false) && valid
             notifyPropertyChanged(BR.idError)
             notifyPropertyChanged(BR.nameError)
             return valid
         }
 
-    val idError: Int?
+    val tagError: Int?
         @Bindable
         get() = errors.id
 
@@ -34,7 +34,7 @@ class AddControlForm : BaseObservable() {
         get() = errors.name
 
 
-    fun isIdValid(setMessage: Boolean): Boolean {
+    fun isTagValid(setMessage: Boolean): Boolean {
         val regex = """(?:^G)(?:\d){3}\b""".toRegex()
         val id = fields.id
         if (id != null && regex.containsMatchIn(id)) {
@@ -67,7 +67,7 @@ class AddControlForm : BaseObservable() {
 
     fun onClick() {
         if (isValid) {
-            addGateFields.value = fields
+            addControlFields.value = fields
         }
     }
 }

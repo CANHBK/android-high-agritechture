@@ -6,8 +6,10 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.mandevices.iot.agriculture.*
+import com.mandevices.iot.agriculture.R.id.monitor
 import com.mandevices.iot.agriculture.type.ServiceInput
 import com.mandevices.iot.agriculture.type.UserInput
+import com.mandevices.iot.agriculture.vo.Control
 import com.mandevices.iot.agriculture.vo.Gate
 import com.mandevices.iot.agriculture.vo.Monitor
 import com.mandevices.iot.agriculture.vo.User
@@ -15,6 +17,171 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class Apollo @Inject constructor(private val apolloClient: ApolloClient) : GraphQL, LiveData<ApiResponse<User>>() {
+    override fun loadControls(serviceTag: String): LiveData<ApiResponse<List<Control>>> {
+        val query = AllControlsQuery
+                .builder()
+                .serviceTag(serviceTag)
+                .build()
+        val call = apolloClient.query(query)
+        return object : LiveData<ApiResponse<List<Control>>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    call.enqueue(object : ApolloCall.Callback<AllControlsQuery.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<AllControlsQuery.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.allControls()!!
+                                val result = ArrayList<Control>()
+                                data.forEach {
+                                    val control = Control(
+                                            id = it.id()!!,
+                                            name = it.name()!!,
+                                            serviceTag = it.serviceTag()!!,
+                                            tag = it.tag()!!
+
+                                    )
+                                    result.add(control)
+                                }
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun addControl(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Control>> {
+        val mutation = apolloClient.mutate(
+                AddControlMutation.builder()
+                        .serviceTag(serviceTag)
+                        .tag(tag)
+                        .name(name)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Control>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<AddControlMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<AddControlMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.addControl()!!
+                                val result = Control(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun deleteControl(tag: String): LiveData<ApiResponse<Control>> {
+        val mutation = apolloClient.mutate(
+                DeleteControlMutation.builder()
+                        .tag(tag)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Control>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<DeleteControlMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<DeleteControlMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.deleteControl()!!
+                                val result = Control(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun editControl(tag: String, name: String): LiveData<ApiResponse<Control>> {
+        val mutation = apolloClient.mutate(
+                EditControlMutation.builder()
+                        .tag(tag)
+                        .name(name)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Control>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<EditControlMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<EditControlMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.editControl()!!
+                                val result = Control(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+
     override fun loadUser(userId: String): LiveData<ApiResponse<User>> {
         val query = UserQuery
                 .builder()

@@ -6,7 +6,7 @@ import com.mandevices.iot.agriculture.util.ViewModelFactory
 import com.mandevices.iot.agriculture.ui.dashboard.DashBoardViewModel
 import com.mandevices.iot.agriculture.ui.dashboard.UserViewModel
 import com.mandevices.iot.agriculture.ui.login.LoginViewModel
-import com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel
+import com.mandevices.iot.agriculture.ui.control.MonitorViewModel
 import com.mandevices.iot.agriculture.ui.nodesettings.SensorSettingViewModel
 import com.mandevices.iot.agriculture.ui.register.RegisterViewModel
 

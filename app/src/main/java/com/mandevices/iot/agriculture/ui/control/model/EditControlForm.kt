@@ -10,9 +10,9 @@ import com.mandevices.iot.agriculture.ui.dashboard.model.EditGateErrorFields
 import com.mandevices.iot.agriculture.ui.dashboard.model.EditGateFields
 
 class EditControlForm : BaseObservable() {
-    val fields = EditGateFields()
-    private val errors = EditGateErrorFields()
-    val editGateFields = MutableLiveData<EditGateFields>()
+    val fields = EditControlFields()
+    private val errors = EditControlErrorFields()
+    val editControlFields = MutableLiveData<EditControlFields>()
 
     val isValid: Boolean
         @Bindable
@@ -43,7 +43,7 @@ class EditControlForm : BaseObservable() {
 
     fun onClick() {
         if (isValid) {
-            editGateFields.value = fields
+            editControlFields.value = fields
         }
     }
 }

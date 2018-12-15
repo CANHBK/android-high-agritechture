@@ -1,0 +1,32 @@
+
+query AllControls($serviceTag :String!){
+  allControls(serviceTag: $serviceTag){
+       id
+       serviceTag
+          tag
+          name
+
+
+     }
+}
+
+
+
+mutation AddControl($serviceTag : String!,$tag:String! $name:String!){
+  addControl(serviceTag : $serviceTag,tag:$tag,name:$name){
+  id serviceTag tag name
+
+  }
+}
+
+mutation DeleteControl($tag:String!){
+  deleteControl(tag:$tag){
+  id serviceTag tag name
+  }
+}
+mutation EditControl($tag:String!,$name:String!){
+  editControl(tag:$tag,name:$name){
+  id serviceTag tag name
+
+  }
+}

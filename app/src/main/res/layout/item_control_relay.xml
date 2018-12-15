@@ -7,8 +7,16 @@
     <data>
 
         <variable
-            name="monitor"
-            type="com.mandevices.iot.agriculture.vo.Monitor" />
+            name="relayBit"
+            type="java.util.List&lt;Integer>" />
+
+        <variable
+            name="viewModel"
+            type="com.mandevices.iot.agriculture.ui.control.ControlViewModel" />
+
+        <variable
+            name="control"
+            type="com.mandevices.iot.agriculture.vo.Control" />
     </data>
 
     <FrameLayout
@@ -88,10 +96,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@{monitor.name}"
+                android:text="@{control.name}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                tools:text="Relay name" />
+                tools:text="Tên Node Điều khiển" />
 
             <TextView
                 android:id="@+id/txt_node_id"
@@ -99,9 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="32dp"
-
-                android:text="@{monitor.tag}"
-                tools:text="E-001-F:0" />
+                android:text="@{control.tag}"
+                tools:text="C-001-0:F" />
 
             <TextView
                 android:layout_width="match_parent"

@@ -6,8 +6,6 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
-import com.mandevices.iot.agriculture.ui.control.model.AddGateErrorFields
-import com.mandevices.iot.agriculture.ui.control.model.AddGateFields
 
 class AddGateForm : BaseObservable() {
     val fields = AddGateFields()
