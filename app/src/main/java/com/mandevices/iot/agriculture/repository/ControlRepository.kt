@@ -1,6 +1,7 @@
 package com.mandevices.iot.agriculture.repository
 
 import androidx.lifecycle.LiveData
+import com.google.gson.GsonBuilder
 import com.mandevices.iot.agriculture.api.GraphQL
 import com.mandevices.iot.agriculture.db.ControlDao
 import com.mandevices.iot.agriculture.db.MonitorDao
@@ -9,6 +10,7 @@ import com.mandevices.iot.agriculture.util.NetworkState
 import com.mandevices.iot.agriculture.util.RateLimiter
 import com.mandevices.iot.agriculture.vo.Control
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.Relay
 import com.mandevices.iot.agriculture.vo.Resource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -24,6 +26,23 @@ class ControlRepository @Inject constructor(
 
     private val repoListRateLimit = RateLimiter<String>(1, TimeUnit.MINUTES)
 
+    fun setState(serviceTag: String,index: Int,state:String,tag: String): LiveData<Resource< List<Control>>> {
+        return object : NetworkBoundResource<List<Control>, Control>(appExecutors) {
+            override fun saveCallResult(item: Control) {
+                controlDao.update(item)
+            }
+
+            override fun shouldFetch(data: List<Control>?): Boolean {
+                return networkState.hasInternet()
+            }
+
+            override fun loadFromDb() = controlDao.loadControls(serviceTag)
+
+            override fun createCall() = graphQL.setState(index = index,state=state,tag = tag)
+
+        }.asLiveData()
+
+    }
     fun loadControls(serviceTag: String): LiveData<Resource<List<Control>>> {
         return object : NetworkBoundResource<List<Control>, List<Control>>(appExecutors) {
             override fun saveCallResult(item: List<Control>) {
@@ -45,6 +64,7 @@ class ControlRepository @Inject constructor(
     fun addControl(serviceTag: String, tag: String, name: String): LiveData<Resource<Control>> {
         return object : NetworkBoundResource<Control, Control>(appExecutors) {
             override fun saveCallResult(item: Control) {
+
                 controlDao.insert(item)
 
             }

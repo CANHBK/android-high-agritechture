@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import javax.inject.Singleton
 import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
 import com.mandevices.iot.agriculture.api.Apollo
+import com.mandevices.iot.agriculture.db.RelayDao
 import java.io.File
 
 

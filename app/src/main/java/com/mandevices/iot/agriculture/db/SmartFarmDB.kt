@@ -2,14 +2,11 @@ package com.mandevices.iot.agriculture.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.mandevices.iot.agriculture.vo.Control
-import com.mandevices.iot.agriculture.vo.Gate
-import com.mandevices.iot.agriculture.vo.Monitor
-import com.mandevices.iot.agriculture.vo.User
+import com.mandevices.iot.agriculture.vo.*
 
 @Database(
-        entities = [Gate::class,User::class,Monitor::class,Control::class],
-        version = 5,
+        entities = [Gate::class,User::class,Monitor::class,Control::class,Relay::class],
+        version = 9,
         exportSchema = true
 )
 abstract class SmartFarmDB : RoomDatabase() {
@@ -17,4 +14,5 @@ abstract class SmartFarmDB : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun monitorDao():MonitorDao
     abstract fun controlDao():ControlDao
+    abstract fun relayDao():RelayDao
 }

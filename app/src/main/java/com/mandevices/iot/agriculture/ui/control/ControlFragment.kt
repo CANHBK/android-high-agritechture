@@ -17,6 +17,7 @@ import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentControlBinding
 import com.mandevices.iot.agriculture.databinding.FragmentDashboardBinding
+import com.mandevices.iot.agriculture.db.RelayDao
 import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.ui.dashboard.*
 import com.mandevices.iot.agriculture.ui.monitor.MonitorFragmentArgs
@@ -24,6 +25,7 @@ import com.mandevices.iot.agriculture.ui.monitor.MonitorFragmentDirections
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Const
+import com.mandevices.iot.agriculture.vo.Relay
 import com.mandevices.iot.agriculture.vo.Status
 import com.mandevices.iot.agriculture.vo.User
 import io.paperdb.Paper
@@ -40,6 +42,9 @@ class ControlFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var relayDao:RelayDao
 
     private lateinit var controlViewModel: ControlViewModel
 
@@ -95,7 +100,12 @@ class ControlFragment : Fragment(), Injectable {
 
             fabAdd.setOnClickListener {
 
-                addBottomSheet?.show(activity!!.supportFragmentManager, addBottomSheet?.tag)
+               try {
+                   addBottomSheet?.show(activity!!.supportFragmentManager, addBottomSheet?.tag)
+               }catch (e:Exception){
+                   e.printStackTrace()
+               }
+
 
             }
             topToolbar.inflateMenu(R.menu.menu_dashboard)
@@ -119,7 +129,11 @@ class ControlFragment : Fragment(), Injectable {
                     val relaySetting = ControlFragmentDirections.settingRelay(control, relayIndex)
                     view.findNavController().navigate(relaySetting)
 
-                }
+                },
+                onSetState = {
+                   serviceTag,tag, index,state -> controlViewModel.setState(serviceTag = serviceTag,tag = tag,index = index,state = state)
+                },
+                controlViewModel = controlViewModel
 
         ).also {
             binding.relayRecyclerView.adapter = it
@@ -133,6 +147,12 @@ class ControlFragment : Fragment(), Injectable {
         controlViewModel.apply {
 
             loadControls(serviceTag = serviceTag)
+
+            setStateRelay.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    adapter.submitList(it.data)
+                }
+            })
 
             controls.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {

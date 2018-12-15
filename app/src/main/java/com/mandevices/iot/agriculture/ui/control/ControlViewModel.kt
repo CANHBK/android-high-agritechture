@@ -1,8 +1,10 @@
 package com.mandevices.iot.agriculture.ui.control
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.repository.ControlRepository
 import com.mandevices.iot.agriculture.repository.MonitorRepository
 import com.mandevices.iot.agriculture.ui.control.model.AddControlFields
@@ -26,10 +28,13 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
     private val triggerDeleteControl = MutableLiveData<Int>()
     private val triggerEditControl = MutableLiveData<Int>()
     private val triggerLoadControls = MutableLiveData<Int>()
+    private val triggerSetState = MutableLiveData<Int>()
 
     private val serviceTag = MutableLiveData<String>()
     private val tag = MutableLiveData<String>()
     private val controlName = MutableLiveData<String>()
+    private val index = MutableLiveData<Int>()
+    private val state = MutableLiveData<String>()
 
     private lateinit var addControlForm: AddControlForm
     private lateinit var editControlForm: EditControlForm
@@ -67,6 +72,14 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                     repository.deleteControl(tag.value!!)
                 }
             }
+    val setStateRelay: LiveData<Resource<List<Control>>> = Transformations
+            .switchMap(triggerSetState) { it ->
+                if (it == null) {
+                    AbsentLiveData.create()
+                } else {
+                    repository.setState(tag=tag.value!!,index = index.value!!, state = state.value!!,serviceTag = serviceTag.value!!)
+                }
+            }
 
     val editControl: LiveData<Resource<Control>> = Transformations
             .switchMap(triggerEditControl) { it ->
@@ -78,7 +91,7 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
             }
 
 
-    fun getAddControlForm(): AddControlForm{
+    fun getAddControlForm(): AddControlForm {
 
         return addControlForm
     }
@@ -131,5 +144,21 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
         this.tag.value = tag
         controlName.value = name
         triggerEditControl.value = Random.nextInt(1, 10)
+    }
+
+    fun getImageStateOn(): Int {
+        return R.drawable.ic_power_settings_new_black_48dp
+    }
+
+    fun getImageStateOff(): Int {
+        return R.drawable.ic_power_settings_new_orange_400_48dp
+    }
+
+    fun setState(serviceTag: String,tag:String,index: Int, state: String) {
+        this.index.value = index
+        this.tag.value=tag
+        this.serviceTag.value=serviceTag
+        this.state.value = if (state == "F") "O" else "F"
+        triggerSetState.value = Random.nextInt(1, 10)
     }
 }

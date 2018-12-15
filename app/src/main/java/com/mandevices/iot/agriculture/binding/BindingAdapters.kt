@@ -5,7 +5,15 @@ import android.view.View
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 import android.text.TextWatcher
-
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.adapters.Converters
+import com.mandevices.iot.agriculture.R
+import com.mandevices.iot.agriculture.R.id.textView
+import com.mandevices.iot.agriculture.vo.Relay
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 
 
 /**
@@ -42,6 +50,26 @@ object BindingAdapters {
             }
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("state")
+    fun setState(textView: TextView, state: String) {
+        textView.text = if (state == "F") "Đang TẮT" else "Đang BẬT"
+
+    }
+
+    @JvmStatic
+    @BindingAdapter("mode")
+    fun setMode(textView: TextView, relay: Relay) {
+        textView.text = if (relay.isPeriodic) "Tự động - ${relay.hour} - ${relay.minute}" else "Thủ công"
+
+    }
+    @JvmStatic
+    @BindingAdapter("app:srcVector")
+    fun setSrcVector(view: ImageView, @DrawableRes drawable: Int) {
+        view.setImageDrawable(ContextCompat.getDrawable(view.context,drawable))
+    }
+
 
     @JvmStatic
     @BindingAdapter("error")
