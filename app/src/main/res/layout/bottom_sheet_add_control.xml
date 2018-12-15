@@ -1,13 +1,131 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.mandevices.iot.agriculture.ui.control.AddControlBottomSheet">
+    tools:context="com.mandevices.iot.agriculture.ui.control.addControlBottomSheet">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Gate" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Resource" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Status" />
+
+        <import type="com.mandevices.iot.agriculture.ui.dashboard.DashBoardViewModel" />
+
+        <variable
+            name="result"
+            type="LiveData&lt;Resource&lt;Gate>>" />
+
+        <variable
+            name="viewModel"
+            type="DashBoardViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
-</FrameLayout>
+        <ProgressBar
+            android:id="@+id/load_more_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{result.status==Status.LOADING}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{result.message}"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:visibleGone="@{result.status==Status.ERROR}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_switch_color" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="9"
+                android:text="Thêm node điều khiển"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_gate_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="ID node điều khiển"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@={viewModel.addGateForm.fields.id}"
+            android:textColor="@color/color_dark"
+            android:textSize="18sp"
+            app:error="@{viewModel.addGateForm.idError}"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/edt_gate_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="Tên node điều khiển"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@={viewModel.addGateForm.fields.name}"
+            android:textColor="@color/color_dark"
+            android:textSize="18sp"
+            app:error="@{viewModel.addGateForm.nameError}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:onClick="@{() -> viewModel.onAddGateClick()}"
+            android:text="Thêm"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+</layout>
