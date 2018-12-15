@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.relaysettings.RelaySettingFragment">
+    tools:context="com.mandevices.iot.agriculture.ui.relaysettings.RelaySettingFragment">
 
     <data>
 
-        <import type="com.example.administrator.glasshouse.vo.Monitor" />
+        <import type="com.mandevices.iot.agriculture.vo.Monitor" />
 
         <variable
             name="nodeSetting"

@@ -2,17 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.monitor.MonitorFragment">
+    tools:context="com.mandevices.iot.agriculture.ui.monitor.MonitorFragment">
 
     <data>
 
         <import type="androidx.lifecycle.LiveData" />
 
-        <import type="com.example.administrator.glasshouse.vo.Status" />
+        <import type="com.mandevices.iot.agriculture.vo.Status" />
 
-        <import type="com.example.administrator.glasshouse.vo.Resource" />
+        <import type="com.mandevices.iot.agriculture.vo.Resource" />
 
-        <import type="com.example.administrator.glasshouse.vo.Monitor" />
+        <import type="com.mandevices.iot.agriculture.vo.Monitor" />
 
         <import type="java.util.List" />
 

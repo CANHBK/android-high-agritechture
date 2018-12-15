@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.login.LoginFragment">
+    tools:context="com.mandevices.iot.agriculture.ui.login.LoginFragment">
 
     <data>
 
-        <import type="com.example.administrator.glasshouse.binding.BindingAdapters" />
+        <import type="com.mandevices.iot.agriculture.binding.BindingAdapters" />
 
         <variable
             name="loading"
@@ -14,7 +14,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.login.LoginViewModel" />
+            type="com.mandevices.iot.agriculture.ui.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
