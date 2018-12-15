@@ -10,6 +10,7 @@ import com.example.administrator.glasshouse.ui.monitor.AddNodeBottomSheet
 import com.example.administrator.glasshouse.ui.monitor.DeleteNodeBottomSheet
 import com.example.administrator.glasshouse.ui.monitor.EditNodeBottomSheet
 import com.example.administrator.glasshouse.ui.monitor.MonitorFragment
+import com.example.administrator.glasshouse.ui.nodesettings.SensorSettingFragment
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -34,7 +35,6 @@ abstract class FragmentBuildersModule {
 
 
 
-
 //    gate
     @ContributesAndroidInjector
     abstract fun contributeAddGateBottomSheet(): AddGateBottomSheet
@@ -49,6 +49,9 @@ abstract class FragmentBuildersModule {
     abstract fun contributeGateFragment(): DashboardFragment
 
 
+    //sensor
+    @ContributesAndroidInjector
+    abstract fun contributeSensorSettingFragment(): SensorSettingFragment
 
     @ContributesAndroidInjector
     abstract fun contributeRegisterFragment(): RegisterFragment

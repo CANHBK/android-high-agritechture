@@ -16,7 +16,8 @@ class MonitorAdapter(
         private val dataBindingComponent: DataBindingComponent,
         appExecutors: AppExecutors,
         private val onDeleteClick: (Monitor) -> Unit,
-        private val onEditClick: (Monitor) -> Unit
+        private val onEditClick: (Monitor) -> Unit,
+        private val onSensorSetting: (Monitor, Int) -> Unit
 ) : DataBoundListAdapter<Monitor, ItemMonitorNodeBinding>(
         appExecutors = appExecutors,
         diffCallback = MONITOR_COMPARATOR
@@ -53,23 +54,28 @@ class MonitorAdapter(
             btnEdit.setOnClickListener {
                 onEditClick(item)
             }
+
+            tempSensorSetupButton.setOnClickListener {
+                onSensorSetting(item, 1)
+            }
+
+            lightSensorSetting.setOnClickListener {
+                onSensorSetting(item,2)
+            }
+
+            airHumiSetupButton.setOnClickListener {
+                onSensorSetting(item,3)
+            }
+
+            gndSetupButton.setOnClickListener {
+                onSensorSetting(item,4)
+            }
+
         }
 
         binding.sensorBit = sensorBitInt.reversed()
 
 
-//        Log.d("Tesst", sensorHexCode.toString())
-//        binding.monitor = item
-//        binding.btnDelete.setOnClickListener {
-//            onDeleteClick(item)
-//        }
-//        binding.btnEdit.setOnClickListener {
-//            onEditClick(item)
-//        }
-//        binding.root.setOnClickListener {
-//            val monitor = DashboardFragmentDirections.ActionHomeFragmentToMonitorFragment(item.serviceTag)
-//            it.findNavController().navigate(monitor)
-//        }
     }
 
     companion object {
