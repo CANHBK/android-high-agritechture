@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.monitor.MonitorAdapter">
+    tools:context="com.mandevices.iot.agriculture.ui.monitor.MonitorAdapter">
 
     <data>
 
@@ -12,11 +12,11 @@
 
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.monitor.MonitorViewModel" />
+            type="com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel" />
 
         <variable
             name="monitor"
-            type="com.example.administrator.glasshouse.vo.Monitor" />
+            type="com.mandevices.iot.agriculture.vo.Monitor" />
     </data>
 
     <FrameLayout

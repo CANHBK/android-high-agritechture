@@ -6,9 +6,9 @@
 
     <data>
         <import type="androidx.lifecycle.LiveData"/>
-        <import type="com.example.administrator.glasshouse.vo.Status"/>
-        <import type="com.example.administrator.glasshouse.vo.Resource"/>
-        <import type="com.example.administrator.glasshouse.vo.Gate"/>
+        <import type="com.mandevices.iot.agriculture.vo.Status"/>
+        <import type="com.mandevices.iot.agriculture.vo.Resource"/>
+        <import type="com.mandevices.iot.agriculture.vo.Gate"/>
         <import type="java.util.List"/>
 
         <variable

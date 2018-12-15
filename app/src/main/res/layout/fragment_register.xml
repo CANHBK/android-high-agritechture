@@ -11,14 +11,14 @@
 
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.register.RegisterViewModel" />
+            type="com.mandevices.iot.agriculture.ui.register.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
-        tools:context="com.example.administrator.glasshouse.ui.register.RegisterFragment">
+        tools:context="com.mandevices.iot.agriculture.ui.register.RegisterFragment">
 
         <ProgressBar
             android:id="@+id/load_more_bar"

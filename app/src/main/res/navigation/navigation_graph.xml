@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.administrator.glasshouse.ui.login.LoginFragment"
+        android:name="com.mandevices.iot.agriculture.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"
 
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.administrator.glasshouse.ui.register.RegisterFragment"
+        android:name="com.mandevices.iot.agriculture.ui.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.administrator.glasshouse.ui.dashboard.DashboardFragment"
+        android:name="com.mandevices.iot.agriculture.ui.dashboard.DashboardFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/monitorFragment"
-        android:name="com.example.administrator.glasshouse.ui.monitor.MonitorFragment"
+        android:name="com.mandevices.iot.agriculture.ui.monitor.MonitorFragment"
         android:label="fragment_monitor"
         tools:layout="@layout/fragment_monitor">
         <argument
@@ -60,19 +60,19 @@
     </fragment>
     <fragment
         android:id="@+id/monitorSettingFragment"
-        android:name="com.example.administrator.glasshouse.ui.nodesettings.SensorSettingFragment"
+        android:name="com.mandevices.iot.agriculture.ui.nodesettings.SensorSettingFragment"
         android:label="fragment_monitor_setting"
         tools:layout="@layout/fragment_sensor_setting">
         <argument
             android:name="monitor"
-            app:argType="com.example.administrator.glasshouse.vo.Monitor" />
+            app:argType="com.mandevices.iot.agriculture.vo.Monitor" />
         <argument
             android:name="sensorIndex"
             app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/relayControlFragment"
-        android:name="com.example.administrator.glasshouse.ui.control.RelayControlFragment"
+        android:name="com.mandevices.iot.agriculture.ui.control.RelayControlFragment"
         android:label="fragment_relay_control"
         tools:layout="@layout/fragment_relay_control">
         <action
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/relaySettingFragment"
-        android:name="com.example.administrator.glasshouse.ui.relaysettings.RelaySettingFragment"
+        android:name="com.mandevices.iot.agriculture.ui.relaysettings.RelaySettingFragment"
         android:label="fragment_relay_setting"
         tools:layout="@layout/fragment_relay_setting" />
 </navigation>

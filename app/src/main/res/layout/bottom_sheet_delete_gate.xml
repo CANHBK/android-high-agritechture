@@ -2,16 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.administrator.glasshouse.ui.dashboard.DeleteGateBottomSheet">
+    tools:context="com.mandevices.iot.agriculture.ui.dashboard.DeleteGateBottomSheet">
 
     <data>
         <import type="androidx.lifecycle.LiveData" />
 
-        <import type="com.example.administrator.glasshouse.vo.Gate" />
+        <import type="com.mandevices.iot.agriculture.vo.Gate" />
 
-        <import type="com.example.administrator.glasshouse.vo.Resource" />
+        <import type="com.mandevices.iot.agriculture.vo.Resource" />
 
-        <import type="com.example.administrator.glasshouse.vo.Status" />
+        <import type="com.mandevices.iot.agriculture.vo.Status" />
 
         <variable
             name="result"
@@ -21,7 +21,7 @@
             type="Gate"/>
         <variable
             name="viewModel"
-            type="com.example.administrator.glasshouse.ui.dashboard.DashBoardViewModel"/>
+            type="com.mandevices.iot.agriculture.ui.dashboard.DashBoardViewModel"/>
 
     </data>
 
