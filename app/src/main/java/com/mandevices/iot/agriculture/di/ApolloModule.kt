@@ -47,7 +47,7 @@ class  ApolloModule {
 
     @Provides
     @Singleton
-     fun graphQL(apolloClient: ApolloClient): GraphQL{
-      return Apollo(apolloClient)
+     fun graphQL(apolloClient: ApolloClient,relayDao: RelayDao): GraphQL{
+      return Apollo(apolloClient,relayDao)
     }
 }
