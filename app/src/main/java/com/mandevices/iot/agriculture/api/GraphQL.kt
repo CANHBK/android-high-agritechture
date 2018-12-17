@@ -23,6 +23,7 @@ interface GraphQL {
     fun addControl(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Control>>
     fun deleteControl(tag: String): LiveData<ApiResponse<Control>>
     fun editControl(tag: String, name: String): LiveData<ApiResponse<Control>>
+    fun setState(index: Int, tag: String, state: String): LiveData<ApiResponse<Control>>
 
     fun login(email: String, password: String): LiveData<ApiResponse<User>>
     fun register(email: String, name: String, password: String): LiveData<ApiResponse<User>>

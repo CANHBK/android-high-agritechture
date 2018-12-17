@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mandevices.iot.agriculture.ui.monitor.MonitorAdapter">
+    tools:context="com.mandevices.iot.agriculture.ui.control.ControlAdapter">
 
     <data>
 
@@ -143,19 +143,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_gray_rounded_filled"
+                android:background="@{relayList[0].state.equals(`F`) ? @drawable/bg_very_light_gray_rounded_filled : @drawable/bg_very_light_yellow_rounded_filled}"
                 android:clickable="true"
                 android:orientation="vertical"
                 >
 
                 <FrameLayout
-                    android:id="@+id/frameLayout0"
+                    android:clickable="true"
+                    android:id="@+id/btn1"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_white"
+                    android:background="@{relayList[0].state.equals(`F`) ? @drawable/bg_circular_gray : @drawable/bg_circular_yellow}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -165,8 +166,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
-                        app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
+                        android:src="@{relayList[0].state.equals(`F`) ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                     />
                 </FrameLayout>
 
                 <TextView
@@ -179,8 +181,8 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/device_status_text0"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout0"
-                    app:layout_constraintTop_toTopOf="@+id/frameLayout0" />
+                    app:layout_constraintStart_toEndOf="@+id/btn1"
+                    app:layout_constraintTop_toTopOf="@+id/btn1" />
 
                 <TextView
                     android:id="@+id/device_status_text0"
@@ -188,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout0"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn1"
                     app:layout_constraintStart_toStartOf="@+id/relay_name_text0"
                     app:layout_constraintTop_toBottomOf="@+id/relay_name_text0"
                     app:state="@{relayList[0].state}"
@@ -233,18 +235,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_gray_rounded_filled"
+                android:background="@{relayList[1].state.equals(`F`) ? @drawable/bg_very_light_gray_rounded_filled : @drawable/bg_very_light_yellow_rounded_filled}"
                 android:clickable="true"
                 android:orientation="vertical">
 
                 <FrameLayout
-                    android:id="@+id/frameLayout1"
+                    android:id="@+id/btn2"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_white"
+                    android:background="@{relayList[1].state.equals(`F`) ? @drawable/bg_circular_gray : @drawable/bg_circular_yellow}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -254,8 +256,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
-                        app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:src="@{relayList[1].state.equals(`F`) ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}" />
                 </FrameLayout>
 
                 <TextView
@@ -268,8 +270,8 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/device_status_text1"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout1"
-                    app:layout_constraintTop_toTopOf="@+id/frameLayout1" />
+                    app:layout_constraintStart_toEndOf="@+id/btn2"
+                    app:layout_constraintTop_toTopOf="@+id/btn2" />
 
                 <TextView
                     android:id="@+id/device_status_text1"
@@ -277,7 +279,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout1"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn2"
                     app:layout_constraintStart_toStartOf="@+id/relay_name_text1"
                     app:layout_constraintTop_toBottomOf="@+id/relay_name_text1"
                     app:state="@{relayList[1].state}"
@@ -307,182 +309,182 @@
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                app:mode="@{relayList[2]}"
-                tools:text="Tự động" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingEnd="8dp"-->
+                <!--android:text="TextView"-->
+                <!--android:textAlignment="textEnd"-->
+                <!--app:mode="@{relayList[2]}"-->
+                <!--tools:text="Tự động" />-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_gray_rounded_filled"
-                android:clickable="true"
-                android:orientation="vertical">
+            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--android:id="@+id/constraintLayout3"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="36dp"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:background="@drawable/bg_very_light_gray_rounded_filled"-->
+                <!--android:clickable="true"-->
+                <!--android:orientation="vertical">-->
 
-                <FrameLayout
-                    android:id="@+id/frameLayout2"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                <!--<FrameLayout-->
+                    <!--android:id="@+id/btn3"-->
+                    <!--android:layout_width="64dp"-->
+                    <!--android:layout_height="64dp"-->
+                    <!--android:layout_marginStart="2dp"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--android:layout_marginBottom="2dp"-->
+                    <!--android:background="@drawable/bg_circular_yellow"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-                    <ImageView
-                        android:id="@+id/device_image2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
-                        app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
-                </FrameLayout>
+                    <!--<ImageView-->
+                        <!--android:id="@+id/device_image2"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'-->
+                        <!--app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />-->
+                <!--</FrameLayout>-->
 
-                <TextView
-                    android:id="@+id/relay_name_text2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@{relayList[2].name}"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/device_status_text2"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout2"
-                    app:layout_constraintTop_toTopOf="@+id/frameLayout2"
-                    tools:text="Name" />
+                <!--<TextView-->
+                    <!--android:id="@+id/relay_name_text2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="32dp"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:text="@{relayList[2].name}"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="18sp"-->
+                    <!--app:layout_constraintBottom_toTopOf="@+id/device_status_text2"-->
+                    <!--app:layout_constraintStart_toEndOf="@+id/btn3"-->
+                    <!--app:layout_constraintTop_toTopOf="@+id/btn3"-->
+                    <!--tools:text="Name" />-->
 
-                <TextView
-                    android:id="@+id/device_status_text2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
-                    app:layout_constraintStart_toStartOf="@+id/relay_name_text2"
-                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text2"
-                    app:state="@{relayList[2].state}"
-                    tools:text="Đang TẮT" />
+                <!--<TextView-->
+                    <!--android:id="@+id/device_status_text2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:textSize="12sp"-->
+                    <!--app:layout_constraintBottom_toBottomOf="@+id/btn3"-->
+                    <!--app:layout_constraintStart_toStartOf="@+id/relay_name_text2"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/relay_name_text2"-->
+                    <!--app:state="@{relayList[2].state}"-->
+                    <!--tools:text="Đang TẮT" />-->
 
-                <ImageView
-                    android:id="@+id/relay_setup_button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_ios_settings" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/relay_setup_button2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:layout_marginEnd="8dp"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:background="?android:attr/selectableItemBackgroundBorderless"-->
+                    <!--android:clickable="true"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:srcCompat="@drawable/ic_ios_settings" />-->
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:indeterminate="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--<ProgressBar-->
+                    <!--style="?android:attr/progressBarStyleHorizontal"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginEnd="8dp"-->
+                    <!--android:indeterminate="true"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent" />-->
+            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="8dp"
-                android:textAlignment="textEnd"
-                app:mode="@{relayList[3]}"
-                tools:text="Tự động" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingEnd="8dp"-->
+                <!--android:textAlignment="textEnd"-->
+                <!--app:mode="@{relayList[3]}"-->
+                <!--tools:text="Tự động" />-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_very_light_gray_rounded_filled"
-                android:clickable="true"
-                android:orientation="vertical">
+            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="36dp"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:background="@drawable/bg_very_light_gray_rounded_filled"-->
+                <!--android:clickable="true"-->
+                <!--android:orientation="vertical">-->
 
-                <FrameLayout
-                    android:id="@+id/frameLayout3"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:background="@drawable/bg_circular_white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                <!--<FrameLayout-->
+                    <!--android:id="@+id/btn4"-->
+                    <!--android:layout_width="64dp"-->
+                    <!--android:layout_height="64dp"-->
+                    <!--android:layout_marginStart="2dp"-->
+                    <!--android:layout_marginTop="2dp"-->
+                    <!--android:layout_marginBottom="2dp"-->
+                    <!--android:background="@drawable/bg_circular_yellow"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent">-->
 
-                    <ImageView
-                        android:id="@+id/device_image3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'
-                        app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />
-                </FrameLayout>
+                    <!--<ImageView-->
+                        <!--android:id="@+id/device_image3"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'-->
+                        <!--app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />-->
+                <!--</FrameLayout>-->
 
-                <TextView
-                    android:id="@+id/relay_name_text3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@{relayList[3].name , default = `Name`}"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/device_status_text3"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout3"
-                    app:layout_constraintTop_toTopOf="@+id/frameLayout3" />
+                <!--<TextView-->
+                    <!--android:id="@+id/relay_name_text3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="32dp"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:text="@{relayList[3].name , default = `Name`}"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="18sp"-->
+                    <!--app:layout_constraintBottom_toTopOf="@+id/device_status_text3"-->
+                    <!--app:layout_constraintStart_toEndOf="@+id/btn4"-->
+                    <!--app:layout_constraintTop_toTopOf="@+id/btn4" />-->
 
-                <TextView
-                    android:id="@+id/device_status_text3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout3"
-                    app:layout_constraintStart_toStartOf="@+id/relay_name_text3"
-                    app:layout_constraintTop_toBottomOf="@+id/relay_name_text3"
-                    app:state="@{relayList[3].state}"
-                    tools:text="Đang TẮT" />
+                <!--<TextView-->
+                    <!--android:id="@+id/device_status_text3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:textSize="12sp"-->
+                    <!--app:layout_constraintBottom_toBottomOf="@+id/btn4"-->
+                    <!--app:layout_constraintStart_toStartOf="@+id/relay_name_text3"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/relay_name_text3"-->
+                    <!--app:state="@{relayList[3].state}"-->
+                    <!--tools:text="Đang TẮT" />-->
 
-                <ImageView
-                    android:id="@+id/relay_setup_button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_ios_settings" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/relay_setup_button3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:layout_marginEnd="8dp"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:background="?android:attr/selectableItemBackgroundBorderless"-->
+                    <!--android:clickable="true"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:srcCompat="@drawable/ic_ios_settings" />-->
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:indeterminate="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--<ProgressBar-->
+                    <!--style="?android:attr/progressBarStyleHorizontal"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginEnd="8dp"-->
+                    <!--android:indeterminate="true"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent" />-->
+            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </LinearLayout>
 

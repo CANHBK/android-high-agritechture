@@ -17,9 +17,68 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 class Apollo @Inject constructor(
-        private val apolloClient: ApolloClient,
-        private val relayDao: RelayDao
+        private val apolloClient: ApolloClient
 ) : GraphQL, LiveData<ApiResponse<User>>() {
+    override fun setState(index: Int, tag: String, state: String): LiveData<ApiResponse<Control>> {
+        val mutation = apolloClient.mutate(
+                SetStateRelayMutation.builder()
+                        .index(index)
+                        .tag(tag)
+                        .state(state)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Control>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<SetStateRelayMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<SetStateRelayMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.setStateRelay()!!
+                                val relaysList = mutableListOf<Relay>()
+                                data.relays()!!.forEach {
+                                    val relay = Relay(
+                                            id = it.id()!!,
+                                            index = it.index()!!,
+                                            name = it.name()!!,
+                                            controlTag = it.controlTag()!!,
+                                            serviceTag = it.serviceTag()!!,
+                                            minute = it.minute(),
+                                            hour = it.hour(),
+                                            isPeriodic = it.isPeriodic!!,
+                                            state = it.state()!!
+                                    )
+                                    relaysList.add(relay)
+                                }
+
+                                val gson = GsonBuilder().setPrettyPrinting().create()
+
+                                val test: String = gson.toJson(relaysList)
+                                val result = Control(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!, relays = test)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+
     override fun loadControls(serviceTag: String): LiveData<ApiResponse<List<Control>>> {
         val query = AllControlsQuery
                 .builder()

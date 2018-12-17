@@ -21,10 +21,11 @@ import com.mandevices.iot.agriculture.vo.Relay
 class ControlAdapter(
         private val dataBindingComponent: DataBindingComponent,
         appExecutors: AppExecutors,
+        private val controlViewModel:ControlViewModel,
         private val onDeleteClick: (Control) -> Unit,
         private val onEditClick: (Control) -> Unit,
         private val onRelaySetting: (Control, Int) -> Unit,
-        private val relayDao: RelayDao
+        private val onSetState:(String,String,Int,String)->Unit
 ) : DataBoundListAdapter<Control, ItemControlRelayBinding>(
         appExecutors = appExecutors,
         diffCallback = CONTROL_COMPARATOR
@@ -61,6 +62,7 @@ class ControlAdapter(
             relayBitInt.add(bit - 48)
         }
 
+        binding.viewModel=controlViewModel
 
         binding.apply {
 
@@ -80,18 +82,31 @@ class ControlAdapter(
                 onRelaySetting(item, 2)
             }
 
-            relayNameText2.setOnClickListener {
-                onRelaySetting(item, 3)
-            }
-
-            relaySetupButton3.setOnClickListener {
-                onRelaySetting(item, 4)
-            }
+//            relayNameText2.setOnClickListener {
+//                onRelaySetting(item, 3)
+//            }
+//
+//            relaySetupButton3.setOnClickListener {
+//                onRelaySetting(item, 4)
+//            }
 
         }
 
         binding.relayList = relayList
         binding.control = item
+
+        binding.deviceImage0.setOnClickListener {
+            onSetState(item.serviceTag,item.tag,1,relayList[0].state)
+        }
+        binding.deviceImage1.setOnClickListener {
+            onSetState(item.serviceTag,item.tag,2,relayList[1].state)
+        }
+//        binding.btn1.setOnClickListener {
+//            onSetState(item.serviceTag,item.tag,3,relayList[2].state)
+//        }
+//        binding.btn1.setOnClickListener {
+//            onSetState(item.serviceTag,item.tag,4,relayList[3].state)
+//        }
 
 
     }

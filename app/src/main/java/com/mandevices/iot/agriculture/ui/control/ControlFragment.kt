@@ -130,7 +130,10 @@ class ControlFragment : Fragment(), Injectable {
                     view.findNavController().navigate(relaySetting)
 
                 },
-                relayDao = relayDao
+                onSetState = {
+                   serviceTag,tag, index,state -> controlViewModel.setState(serviceTag = serviceTag,tag = tag,index = index,state = state)
+                },
+                controlViewModel = controlViewModel
 
         ).also {
             binding.relayRecyclerView.adapter = it
@@ -144,6 +147,12 @@ class ControlFragment : Fragment(), Injectable {
         controlViewModel.apply {
 
             loadControls(serviceTag = serviceTag)
+
+            setStateRelay.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    adapter.submitList(it.data)
+                }
+            })
 
             controls.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
