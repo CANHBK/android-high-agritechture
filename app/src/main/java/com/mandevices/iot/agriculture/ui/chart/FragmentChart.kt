@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.github.mikephil.charting.data.Entry
 import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentChartBinding
@@ -28,6 +29,7 @@ import com.mandevices.iot.agriculture.vo.Status
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
+import org.json.JSONObject
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -40,7 +42,7 @@ class FragmentChart : Fragment(), Injectable {
 
     private lateinit var monitorViewModel: MonitorViewModel
 
-    private lateinit var sensorData: String
+    private var sensorData: String? = null
 
     private lateinit var monitorTag: String
     private var dataIndex :Int?=null
@@ -118,6 +120,18 @@ class FragmentChart : Fragment(), Injectable {
                 }
             })
 
+        }
+
+        if (sensorData != null) {
+            val sensorObject = JSONObject(sensorData)
+            val dataArray = sensorObject.getJSONArray("data")
+
+            var entries = mutableListOf<Entry>()
+            for (i in 0 until (dataArray.length() - 1)) {
+                val value = dataArray
+                        .getJSONObject(i)
+
+            }
         }
 
     }
