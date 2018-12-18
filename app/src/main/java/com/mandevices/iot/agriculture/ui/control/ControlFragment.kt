@@ -2,9 +2,11 @@ package com.mandevices.iot.agriculture.ui.control
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -30,6 +32,8 @@ import com.mandevices.iot.agriculture.vo.Status
 import com.mandevices.iot.agriculture.vo.User
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import org.eclipse.paho.android.service.MqttAndroidClient
+import org.eclipse.paho.client.mqttv3.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -49,6 +53,12 @@ class ControlFragment : Fragment(), Injectable {
     private lateinit var controlViewModel: ControlViewModel
 
     private lateinit var serviceTag: String
+
+    @Inject
+    lateinit var client: MqttAndroidClient
+
+    @Inject
+    lateinit var mqttConnectOptions: MqttConnectOptions
 
 
     @Inject
@@ -89,6 +99,8 @@ class ControlFragment : Fragment(), Injectable {
         (activity as AppCompatActivity).setSupportActionBar(topToolbar)
         (activity as AppCompatActivity).setSupportActionBar(binding.bottomAppBar)
 
+
+        setupMqtt()
 
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
@@ -193,6 +205,56 @@ class ControlFragment : Fragment(), Injectable {
         }
 
 
+    }
+
+    private fun setupMqtt() {
+        try {
+            if (!client.isConnected) {
+                val conToken = client.connect(mqttConnectOptions)
+                conToken.actionCallback = object : IMqttActionListener {
+                    override fun onSuccess(asyncActionToken: IMqttToken?) {
+                        myMqttSubscribe("RELAY")
+                    }
+
+                    override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else myMqttSubscribe("RELAY")
+
+            client.setCallback(object : MqttCallback {
+                override fun messageArrived(topic: String?, message: MqttMessage?) {
+                    Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
+                    controlViewModel.loadControls(serviceTag)
+                }
+
+                override fun connectionLost(cause: Throwable?) {
+                    setupMqtt()
+                }
+
+                override fun deliveryComplete(token: IMqttDeliveryToken?) {
+
+                }
+
+            })
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+
+    }
+
+    private fun myMqttSubscribe(topic: String) {
+        val subToken = client.subscribe(topic, 2)
+        subToken.actionCallback = object : IMqttActionListener {
+            override fun onSuccess(asyncActionToken: IMqttToken?) {
+                Log.d("MQTT", "Success: $topic")
+            }
+
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+                Log.d("MQTT", "Failed: $topic")
+            }
+
+        }
     }
 
 }

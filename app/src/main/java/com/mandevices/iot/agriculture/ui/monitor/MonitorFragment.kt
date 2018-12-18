@@ -1,10 +1,12 @@
 package com.mandevices.iot.agriculture.ui.monitor
 
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -18,8 +20,11 @@ import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentMonitorBinding
 import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.util.AppExecutors
+import com.mandevices.iot.agriculture.util.FarmApp
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Status
+import org.eclipse.paho.android.service.MqttAndroidClient
+import org.eclipse.paho.client.mqttv3.*
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -27,6 +32,12 @@ class MonitorFragment : Fragment(), Injectable {
     private var addBottomSheet: AddNodeBottomSheet? = null
     private var deleteBottomSheet: DeleteNodeBottomSheet? = null
     private var editBottomSheet: EditNodeBottomSheet? = null
+
+    @Inject
+    lateinit var client: MqttAndroidClient
+
+    @Inject
+    lateinit var mqttConnectOptions: MqttConnectOptions
 
     private lateinit var serviceTag: String
 
@@ -71,6 +82,8 @@ class MonitorFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
+
+        setupMqtt()
 
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
@@ -151,6 +164,56 @@ class MonitorFragment : Fragment(), Injectable {
             })
         }
 
+    }
+
+    private fun setupMqtt() {
+        try {
+            if (!client.isConnected) {
+                val conToken = client.connect(mqttConnectOptions)
+                conToken.actionCallback = object : IMqttActionListener {
+                    override fun onSuccess(asyncActionToken: IMqttToken?) {
+                        myMqttSubscribe("GET-ENVIRONMENT-PARAMS")
+                    }
+
+                    override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else myMqttSubscribe("GET-ENVIRONMENT-PARAMS")
+
+            client.setCallback(object : MqttCallback {
+                override fun messageArrived(topic: String?, message: MqttMessage?) {
+                    Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
+                    monitorViewModel.loadMonitor(serviceTag)
+                }
+
+                override fun connectionLost(cause: Throwable?) {
+                    setupMqtt()
+                }
+
+                override fun deliveryComplete(token: IMqttDeliveryToken?) {
+
+                }
+
+            })
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+
+    }
+
+    private fun myMqttSubscribe(topic: String) {
+        val subToken = client.subscribe(topic, 2)
+        subToken.actionCallback = object : IMqttActionListener {
+            override fun onSuccess(asyncActionToken: IMqttToken?) {
+                Log.d("MQTT", "Success: $topic")
+            }
+
+            override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+                Log.d("MQTT", "Failed: $topic")
+            }
+
+        }
     }
 
 }

@@ -50,7 +50,8 @@ class ControlRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: List<Control>?): Boolean {
-                return networkState.hasInternet() && (data == null || data.isEmpty() || repoListRateLimit.shouldFetch(serviceTag))
+                return networkState.hasInternet()
+//                return networkState.hasInternet() && (data == null || data.isEmpty() || repoListRateLimit.shouldFetch(serviceTag))
             }
 
             override fun loadFromDb() = controlDao.loadControls(serviceTag)

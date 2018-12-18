@@ -11,6 +11,9 @@ buildscript {
         maven {
             url 'https://dl.bintray.com/apollographql/android/'
         }
+        maven {
+            url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
