@@ -30,3 +30,44 @@ mutation EditMonitor($tag:String!,$name:String!){
 
   }
 }
+
+query GetNewestMonitorData($tag: String!) {
+  getNewestMonitorData(tag: $tag) {
+    id
+    serviceTag
+    tag
+    name
+    sensors {
+      id
+      serviceTag
+      tag
+      index
+      name
+      isAuto
+      setTime
+      sensorID
+    }
+    data {
+      id
+      serviceTag
+      value
+      updatedAt
+    }
+  }
+}
+
+query GetMonitorDataByDate($tag: String!, $year: Int!, $month: Int!, $day: Int!) {
+  getMonitorDataByDate(tag: $tag, year: $year, month: $month, day: $day) {
+    id
+    serviceTag
+    tag
+    name
+    data {
+      id
+      serviceTag
+      value
+      updatedAt
+    }
+  }
+}
+
