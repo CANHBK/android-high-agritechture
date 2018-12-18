@@ -114,6 +114,9 @@ class MonitorFragment : Fragment(), Injectable {
                     val sensorSetting = MonitorFragmentDirections.settingSensor(monitor, sensorIndex)
                     view.findNavController().navigate(sensorSetting)
 
+                },
+                onDataChartClick = {monitorTag,dataIndex->
+                    view.findNavController().navigate(MonitorFragmentDirections.monitorChart(monitorTag,dataIndex))
                 }
         ).also {
             binding.rvListNode.adapter = it

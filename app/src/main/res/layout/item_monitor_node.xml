@@ -137,6 +137,8 @@
 
 
             <LinearLayout
+                android:id="@+id/temp"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/light_red"
@@ -146,7 +148,8 @@
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
                 android:weightSum="10"
-                app:visibleGone="@{sensorBit[0]==1}">
+                app:visibleGone="@{sensorBit[0]==1}"
+                android:focusable="true">
 
                 <TextView
                     android:layout_width="0dp"
@@ -188,6 +191,9 @@
                 tools:text="Thủ công - 09:35" />
 
             <LinearLayout
+                android:id="@+id/air_humi"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
@@ -238,6 +244,9 @@
                 android:textColor="@color/brown"
                 tools:text="Tự động" />
             <LinearLayout
+                android:id="@+id/gnd_humi"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/light_brown"
@@ -288,6 +297,9 @@
                 android:textColor="@color/design_default_color_primary"
                 tools:text="Tự động" />
             <LinearLayout
+                android:id="@+id/light"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_light_blue_rounded_filled"

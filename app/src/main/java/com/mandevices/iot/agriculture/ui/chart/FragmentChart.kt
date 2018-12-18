@@ -43,6 +43,7 @@ class FragmentChart : Fragment(), Injectable {
     private lateinit var sensorData: String
 
     private lateinit var monitorTag: String
+    private var dataIndex :Int?=null
 
     @Inject
     lateinit var client: MqttAndroidClient
@@ -66,6 +67,7 @@ class FragmentChart : Fragment(), Injectable {
     ): View? {
 
         monitorTag = FragmentChartArgs.fromBundle(arguments).monitorTag
+        dataIndex = FragmentChartArgs.fromBundle(arguments).dataIndex
 
         val dataBinding = DataBindingUtil.inflate<FragmentChartBinding>(
                 inflater,

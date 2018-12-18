@@ -17,7 +17,8 @@ class MonitorAdapter(
         appExecutors: AppExecutors,
         private val onDeleteClick: (Monitor) -> Unit,
         private val onEditClick: (Monitor) -> Unit,
-        private val onSensorSetting: (Monitor, Int) -> Unit
+        private val onSensorSetting: (Monitor, Int) -> Unit,
+        private val onDataChartClick: (String, Int) -> Unit
 ) : DataBoundListAdapter<Monitor, ItemMonitorNodeBinding>(
         appExecutors = appExecutors,
         diffCallback = MONITOR_COMPARATOR
@@ -67,6 +68,22 @@ class MonitorAdapter(
 
             gndSetupButton.setOnClickListener {
                 onSensorSetting(item,4)
+            }
+
+            temp.setOnClickListener {
+                onDataChartClick(item.tag,1)
+            }
+
+            light.setOnClickListener {
+                onDataChartClick(item.tag,2)
+            }
+
+            airHumi.setOnClickListener {
+                onDataChartClick(item.tag,3)
+            }
+
+            gndHumi.setOnClickListener {
+                onDataChartClick(item.tag,4)
             }
 
         }
