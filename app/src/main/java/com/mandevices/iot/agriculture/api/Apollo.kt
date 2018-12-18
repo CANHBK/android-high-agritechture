@@ -19,6 +19,57 @@ import javax.inject.Inject
 class Apollo @Inject constructor(
         private val apolloClient: ApolloClient
 ) : GraphQL, LiveData<ApiResponse<User>>() {
+    override fun getMonitorDataByDate(tag: String, year: Int, month: Int, day: Int): LiveData<ApiResponse<SensorData>> {
+        val query = GetMonitorDataByDateQuery
+                .builder()
+                .tag(tag)
+                .year(year)
+                .month(month)
+                .day(day)
+                .build()
+        val call = apolloClient.query(query)
+        return object : LiveData<ApiResponse<SensorData>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    call.enqueue(object : ApolloCall.Callback<GetMonitorDataByDateQuery.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<GetMonitorDataByDateQuery.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.monitorDataByDate!!
+
+
+                                val gson = GsonBuilder().setPrettyPrinting().create()
+
+                                val test: String = gson.toJson(data)
+
+
+                                val result = SensorData(id = data.id()!!.toInt(),content = test, day = data.day(),year = data.year(),month = data.month(),monitorTag = data.tag()!!
+
+                                )
+
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
     override fun setState(index: Int, tag: String, state: String): LiveData<ApiResponse<Control>> {
         val mutation = apolloClient.mutate(
                 SetStateRelayMutation.builder()

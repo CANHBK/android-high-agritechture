@@ -1,5 +1,6 @@
 package com.mandevices.iot.agriculture.di
 
+import com.mandevices.iot.agriculture.ui.chart.FragmentChart
 import com.mandevices.iot.agriculture.ui.control.AddControlBottomSheet
 import com.mandevices.iot.agriculture.ui.control.ControlFragment
 import com.mandevices.iot.agriculture.ui.control.DeleteControlBottomSheet
@@ -37,6 +38,9 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSensorSettingFragment(): SensorSettingFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeChartFragment(): FragmentChart
 
 
     //    control

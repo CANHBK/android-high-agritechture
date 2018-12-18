@@ -109,6 +109,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="@={viewModel.editControlForm.fields.name}"
+            android:hint="@{control.name}"
             android:textSize="18sp"
             app:error="@{viewModel.editControlForm.nameError}"
             tools:hint="Tên node điều khiển" />

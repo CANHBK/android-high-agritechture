@@ -44,7 +44,6 @@ class ControlAdapter(
 
     override fun bind(binding: ItemControlRelayBinding, item: Control) {
 
-
         val gson = GsonBuilder().setPrettyPrinting().create()
 
         var relayList: List<Relay> = gson.fromJson(item.relays, object : TypeToken<List<Relay>>() {}.type)
@@ -101,6 +100,8 @@ class ControlAdapter(
         binding.deviceImage1.setOnClickListener {
             onSetState(item.serviceTag,item.tag,2,relayList[1].state)
         }
+
+        binding.result=controlViewModel.setStateRelay
 //        binding.btn1.setOnClickListener {
 //            onSetState(item.serviceTag,item.tag,3,relayList[2].state)
 //        }
