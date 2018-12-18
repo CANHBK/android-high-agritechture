@@ -14,12 +14,12 @@ import java.io.File
 
 
 @Module(includes = [OkHttpClientModule::class])
-class  ApolloModule {
+class ApolloModule {
     companion object {
-//        private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
-                private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
-//        private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
-        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
+        private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
+        //        private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
+        private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
+//        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
     }
 
 
@@ -47,7 +47,7 @@ class  ApolloModule {
 
     @Provides
     @Singleton
-     fun graphQL(apolloClient: ApolloClient): GraphQL{
-      return Apollo(apolloClient)
+    fun graphQL(apolloClient: ApolloClient): GraphQL {
+        return Apollo(apolloClient)
     }
 }

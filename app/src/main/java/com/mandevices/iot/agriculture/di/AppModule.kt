@@ -3,9 +3,13 @@ package com.mandevices.iot.agriculture.di
 import android.content.Context
 import androidx.room.Room
 import com.mandevices.iot.agriculture.db.*
+import com.mandevices.iot.agriculture.util.MqttConfig
 import com.mandevices.iot.agriculture.util.NetworkState
 import dagger.Module
 import dagger.Provides
+import org.eclipse.paho.android.service.MqttAndroidClient
+import org.eclipse.paho.client.mqttv3.MqttClient
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions
 import javax.inject.Singleton
 
 @Module
@@ -29,6 +33,7 @@ class AppModule {
     fun userDao(db: SmartFarmDB): UserDao {
         return db.userDao()
     }
+
     @Singleton
     @Provides
     fun monitorDao(db: SmartFarmDB): MonitorDao {
@@ -51,5 +56,24 @@ class AppModule {
     @Provides
     fun networkState(context: Context): NetworkState {
         return NetworkState(context)
+    }
+
+    @Singleton
+    @Provides
+    fun mqttClient(context: Context): MqttAndroidClient {
+        val clientId = MqttClient.generateClientId()
+        val client = MqttAndroidClient(context, MqttConfig.MQTT_SERVER_URI, clientId)
+        return client
+    }
+
+    @Singleton
+    @Provides
+    fun mqttConnectionOptions(context: Context): MqttConnectOptions {
+        val mqttConnectOptions = MqttConnectOptions()
+        mqttConnectOptions.apply {
+            this.userName = MqttConfig.MQTT_USER_NAME
+            this.password = MqttConfig.MQTT_PASSWORD.toCharArray()
+        }
+        return mqttConnectOptions
     }
 }
