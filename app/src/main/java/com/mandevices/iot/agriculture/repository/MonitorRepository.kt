@@ -3,11 +3,13 @@ package com.mandevices.iot.agriculture.repository
 import androidx.lifecycle.LiveData
 import com.mandevices.iot.agriculture.api.GraphQL
 import com.mandevices.iot.agriculture.db.MonitorDao
+import com.mandevices.iot.agriculture.db.SensorDataDao
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.NetworkState
 import com.mandevices.iot.agriculture.util.RateLimiter
 import com.mandevices.iot.agriculture.vo.Monitor
 import com.mandevices.iot.agriculture.vo.Resource
+import com.mandevices.iot.agriculture.vo.SensorData
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -15,12 +17,32 @@ import javax.inject.Inject
 class MonitorRepository @Inject constructor(
         private val appExecutors: AppExecutors,
         private val monitorDao: MonitorDao,
+        private val sensorDataDao: SensorDataDao,
         private val graphQL: GraphQL,
         private val networkState: NetworkState
 
 ) : LiveData<Monitor>() {
 
     private val repoListRateLimit = RateLimiter<String>(1, TimeUnit.MINUTES)
+
+
+    fun getMonitorDataByDate(tag: String, year: Int, month: Int, day: Int): LiveData<Resource<SensorData>> {
+        return object : NetworkBoundResource<SensorData, SensorData>(appExecutors) {
+            override fun saveCallResult(item: SensorData) {
+                sensorDataDao.insert(item)
+            }
+
+            override fun shouldFetch(data: SensorData?): Boolean {
+                return networkState.hasInternet()
+            }
+
+            override fun loadFromDb() = sensorDataDao.loadSensorDataByDate(tag = tag, year = year, month = month, day = day)
+
+            override fun createCall() = graphQL.getMonitorDataByDate(tag = tag, year = year, month = month, day = day)
+
+        }.asLiveData()
+
+    }
 
     fun loadMonitors(serviceTag: String): LiveData<Resource<List<Monitor>>> {
         return object : NetworkBoundResource<List<Monitor>, List<Monitor>>(appExecutors) {

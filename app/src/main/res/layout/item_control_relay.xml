@@ -7,6 +7,11 @@
     <data>
 
         <import type="com.mandevices.iot.agriculture.vo.Relay" />
+        <import type="java.util.List"/>
+        <import type="com.mandevices.iot.agriculture.vo.Resource"/>
+        <import type="com.mandevices.iot.agriculture.vo.Control"/>
+        <import type="com.mandevices.iot.agriculture.vo.Status"/>
+        <import type="androidx.lifecycle.LiveData"/>
 
         <variable
             name="relayList"
@@ -17,8 +22,12 @@
             type="com.mandevices.iot.agriculture.ui.control.ControlViewModel" />
 
         <variable
+            name="result"
+            type="LiveData&lt;Resource&lt;List&lt;Control>>>"/>
+
+        <variable
             name="control"
-            type="com.mandevices.iot.agriculture.vo.Control" />
+            type="Control" />
     </data>
 
     <FrameLayout
@@ -208,13 +217,15 @@
                     app:srcCompat="@drawable/ic_ios_settings" />
 
                 <ProgressBar
+                    android:id="@+id/progressBar2"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:indeterminate="true"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:visibleGone="@{result.status==Status.LOADING}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -294,6 +305,7 @@
                     app:srcCompat="@drawable/ic_ios_settings" />
 
                 <ProgressBar
+                    app:visibleGone="@{result.status==Status.LOADING}"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

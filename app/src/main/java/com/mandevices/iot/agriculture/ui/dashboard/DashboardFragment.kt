@@ -37,7 +37,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
     private lateinit var dashBoardViewModel: DashBoardViewModel
     private lateinit var userViewModel: UserViewModel
 
-    private lateinit var user: User
+    private  var user: User?=null
 
     @Inject
     lateinit var appExecutors: AppExecutors
@@ -152,6 +152,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         }
 
         userViewModel.user.observe(viewLifecycleOwner, Observer {
+
             if (it.status == Status.SUCCESS) {
                 if (it.data != null) {
                     user = it.data
@@ -172,7 +173,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         binding.bottomAppBar.setNavigationOnClickListener {
 
             userBottomSheet = UserBottomSheet.newInstance(
-                    user = user,
+                    user = user!!,
                     userViewModel = userViewModel) {
                 try {
                     Paper.book().delete(Const.USER_ID)

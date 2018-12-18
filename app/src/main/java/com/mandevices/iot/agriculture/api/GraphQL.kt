@@ -1,10 +1,7 @@
 package com.mandevices.iot.agriculture.api
 
 import androidx.lifecycle.LiveData
-import com.mandevices.iot.agriculture.vo.Control
-import com.mandevices.iot.agriculture.vo.Gate
-import com.mandevices.iot.agriculture.vo.Monitor
-import com.mandevices.iot.agriculture.vo.User
+import com.mandevices.iot.agriculture.vo.*
 
 interface GraphQL {
 
@@ -17,6 +14,7 @@ interface GraphQL {
     fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Monitor>>
     fun deleteMonitor(tag: String): LiveData<ApiResponse<Monitor>>
     fun editMonitor(tag: String, name: String): LiveData<ApiResponse<Monitor>>
+    fun getMonitorDataByDate(tag: String, year:Int,month:Int,day:Int): LiveData<ApiResponse<SensorData>>
 
 
     fun loadControls(serviceTag: String): LiveData<ApiResponse<List<Control>>>

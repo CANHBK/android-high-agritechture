@@ -57,6 +57,9 @@
         <action
             android:id="@+id/setting_sensor"
             app:destination="@id/monitorSettingFragment" />
+        <action
+            android:id="@+id/monitor_chart"
+            app:destination="@id/fragmentChart" />
     </fragment>
     <fragment
         android:id="@+id/monitorSettingFragment"
@@ -93,5 +96,13 @@
         <argument
             android:name="relayIndex"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentChart"
+        android:name="com.mandevices.iot.agriculture.ui.chart.FragmentChart"
+        android:label="FragmentChart" >
+        <argument
+            android:name="monitorTag"
+            app:argType="string" />
     </fragment>
 </navigation>

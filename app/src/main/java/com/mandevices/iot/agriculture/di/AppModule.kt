@@ -51,6 +51,11 @@ class AppModule {
     fun relayDao(db: SmartFarmDB): RelayDao {
         return db.relayDao()
     }
+    @Singleton
+    @Provides
+    fun sensorDataDao(db: SmartFarmDB): SensorDataDao {
+        return db.sensorDataDao()
+    }
 
     @Singleton
     @Provides

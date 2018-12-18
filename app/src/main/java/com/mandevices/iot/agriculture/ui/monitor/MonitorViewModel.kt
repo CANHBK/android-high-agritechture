@@ -12,6 +12,8 @@ import com.mandevices.iot.agriculture.util.AbsentLiveData
 import com.mandevices.iot.agriculture.util.ObservableViewModel
 import com.mandevices.iot.agriculture.vo.Monitor
 import com.mandevices.iot.agriculture.vo.Resource
+import com.mandevices.iot.agriculture.vo.SensorData
+import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -20,6 +22,12 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
     private val triggerDeleteMonitor = MutableLiveData<Int>()
     private val triggerEditMonitor = MutableLiveData<Int>()
     private val triggerLoadMonitors = MutableLiveData<Int>()
+    private val triggerLoadMonitorDataByDate = MutableLiveData<Int>()
+
+
+    private val year = MutableLiveData<Int>()
+    private val month = MutableLiveData<Int>()
+    private val day = MutableLiveData<Int>()
 
     private val serviceTag = MutableLiveData<String>()
     private val tag = MutableLiveData<String>()
@@ -35,6 +43,16 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
     fun initEditMonitor() {
         editMonitorForm = EditMonitorForm()
     }
+
+
+    val monitorDataByDate: LiveData<Resource<SensorData>> = Transformations
+            .switchMap(triggerLoadMonitorDataByDate) { it ->
+                if (it == null) {
+                    AbsentLiveData.create()
+                } else {
+                    repository.getMonitorDataByDate(tag.value!!, year.value!!, month.value!!, day.value!!)
+                }
+            }
 
     val monitors: LiveData<Resource<List<Monitor>>> = Transformations
             .switchMap(triggerLoadMonitors) { it ->
@@ -114,6 +132,18 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
         monitorName.value = name
         this.tag.value = tag
         triggerAddMonitor.value = Random.nextInt(1, 10)
+    }
+
+    fun getMonitorDataByDate(
+            tag: String,
+            year: Int = Calendar.getInstance().get(Calendar.YEAR),
+            month: Int = Calendar.getInstance().get(Calendar.MONTH)+1,
+            day: Int = Calendar.getInstance().get(Calendar.DATE)) {
+        this.tag.value = tag
+        this.year.value = year
+        this.month.value = month
+        this.day.value = day
+        triggerLoadMonitorDataByDate.value = Random.nextInt(1, 10)
     }
 
     fun deleteMonitor(tag: String) {

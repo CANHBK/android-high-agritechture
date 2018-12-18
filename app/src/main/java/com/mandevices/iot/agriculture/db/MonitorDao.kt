@@ -4,10 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.SensorData
 
 
 @Dao
 abstract class MonitorDao : BaseDao<Monitor> {
+
+
 
     @Query(
             """
@@ -24,4 +27,5 @@ abstract class MonitorDao : BaseDao<Monitor> {
         ORDER BY name ASC"""
     )
     abstract fun loadMonitor(tag: String): LiveData<Monitor>
+
 }
