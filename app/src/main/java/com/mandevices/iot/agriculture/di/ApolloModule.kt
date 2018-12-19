@@ -22,7 +22,6 @@ class ApolloModule {
 //        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
     }
 
-
     @Provides
     @Singleton
     fun cacheStore(file: File): DiskLruHttpCacheStore {

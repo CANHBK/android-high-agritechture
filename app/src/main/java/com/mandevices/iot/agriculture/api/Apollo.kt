@@ -50,7 +50,7 @@ class Apollo @Inject constructor(
                                 val test: String = gson.toJson(data.data())
 
 
-                                val result = SensorData(id = data.id()!!.toInt(),content = test, day = data.day(),year = data.year(),month = data.month(),monitorTag = data.tag()!!
+                                val result = SensorData(id = data.id()!!, content = test, day = data.day(), year = data.year(), month = data.month(), monitorTag = data.tag()!!
 
                                 )
 

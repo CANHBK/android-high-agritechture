@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
         primaryKeys = ["id"]
 )
 data class SensorData(
-        val id: Int,
+        val id: String,
         var content: String,
         val monitorTag:String,
         val year: Int,

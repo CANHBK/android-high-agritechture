@@ -1,10 +1,13 @@
 package com.mandevices.iot.agriculture.ui.chart
 
+import android.app.DatePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingComponent
@@ -14,7 +17,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentChartBinding
@@ -29,9 +37,12 @@ import com.mandevices.iot.agriculture.vo.Status
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
+import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
+import java.util.*
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class FragmentChart : Fragment(), Injectable {
 
@@ -45,7 +56,7 @@ class FragmentChart : Fragment(), Injectable {
     private var sensorData: String? = null
 
     private lateinit var monitorTag: String
-    private var dataIndex :Int?=null
+    private var dataIndex: Int? = null
 
     @Inject
     lateinit var client: MqttAndroidClient
@@ -62,6 +73,8 @@ class FragmentChart : Fragment(), Injectable {
     var binding by autoCleared<FragmentChartBinding>()
 
     private var adapter by autoCleared<ControlAdapter>()
+
+    private val sensorNameList = listOf<String>("", "Nhiệt độ", "Ánh sáng", "Độ ẩm không khí", "Độ ẩm đất")
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -103,12 +116,56 @@ class FragmentChart : Fragment(), Injectable {
             }
 
             topToolbar.inflateMenu(R.menu.menu_dashboard)
+
+            nodeName.text = monitorTag
+
+            sensorType.text = sensorNameList[dataIndex!!]
+
+            setDateButton.setOnClickListener {
+                val c = Calendar.getInstance()
+                val mYear = c.get(Calendar.YEAR)
+                val mMonth = c.get(Calendar.MONTH)
+                val mDay = c.get(Calendar.DAY_OF_MONTH)
+
+                DatePickerDialog(context,
+                        DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                            this.dateText.text = "$dayOfMonth/${month + 1}/$year"
+                            monitorViewModel.getMonitorDataByDate(
+                                    tag = monitorTag,
+                                    year = year,
+                                    month = month + 1,
+                                    day = dayOfMonth)
+                        },
+                        mYear, mMonth, mDay)
+                        .show()
+            }
+
+            binding.lineChart.apply {
+                axisLeft.apply {
+                    axisMinimum = 0f
+                    setDrawGridLines(false)
+                }
+                axisRight.apply {
+                    setDrawGridLines(false)
+                }
+                xAxis.apply {
+                    position = XAxis.XAxisPosition.BOTTOM
+                    setDrawGridLines(false)
+                }
+                axisRight.isEnabled = false
+                isDragEnabled = true
+                Description().also { description ->
+                    description.text = "Ten Sensor"
+                    this.description = description
+                }
+                isScaleXEnabled = true
+                isScaleYEnabled = true
+                setVisibleXRangeMaximum(12f)
+                animateX(1000, Easing.Linear)
+                moveViewToX(100f)
+                legend.isEnabled = true
+            }
         }
-
-
-
-
-
 
         monitorViewModel.apply {
 
@@ -117,21 +174,50 @@ class FragmentChart : Fragment(), Injectable {
             monitorDataByDate.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
                     sensorData = it.data!!.content
+                    if (sensorData != null) {
+                        val dataArray = JSONArray(sensorData)
+
+                        val entries = mutableListOf<Entry>()
+                        val dataValueArray = mutableListOf<Int>()
+                        for (i in 0 until dataArray.length()) {
+                            val dataObject = dataArray.getJSONObject(i)
+                            val dataValue = dataObject.getJSONArray("value")
+                            val dataInt = dataValue.optInt(dataIndex!! - 1)
+                            dataValueArray.add(dataInt)
+                            val dataTimeLong = dataObject.getLong("updatedAt")
+                            val date = Calendar.getInstance()
+                            date.timeInMillis = dataTimeLong
+                            entries.add(
+                                    Entry((date.get(Calendar.HOUR_OF_DAY) + date.get(Calendar.MINUTE) / 60).toFloat(),
+                                            dataInt.toFloat()))
+                        }
+
+                        var aveValue = 0f
+                        for (value in dataValueArray) {
+                            aveValue += value * 1.0f / dataValueArray.size
+                        }
+
+                        binding.maxValText.text = "${dataValueArray.max()}"
+                        binding.minValText.text = "${dataValueArray.min()}"
+                        binding.aveValText.text = "${aveValue.roundToInt()}"
+
+                        LineDataSet(entries, "Cảm biến")
+                                .also { lineDataSet ->
+                                    lineDataSet.apply {
+                                        color = Color.RED
+                                        circleColors = listOf(Color.RED)
+                                        setDrawFilled(true)
+                                        fillColor = Color.parseColor("#ffc9c7")
+                                        valueTextColor = Color.parseColor("#000000")
+                                    }
+
+                                    binding.lineChart.data = LineData(lineDataSet)
+                                    binding.lineChart.invalidate()
+                                }
+                    }
                 }
             })
 
-        }
-
-        if (sensorData != null) {
-            val sensorObject = JSONObject(sensorData)
-            val dataArray = sensorObject.getJSONArray("data")
-
-            var entries = mutableListOf<Entry>()
-            for (i in 0 until (dataArray.length() - 1)) {
-                val value = dataArray
-                        .getJSONObject(i)
-
-            }
         }
 
     }
