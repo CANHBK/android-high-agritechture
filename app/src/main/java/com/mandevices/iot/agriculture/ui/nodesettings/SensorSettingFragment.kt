@@ -18,6 +18,7 @@ import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentSensorSettingBinding
 import com.mandevices.iot.agriculture.di.Injectable
+import com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import java.util.*
@@ -30,7 +31,7 @@ class SensorSettingFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var sensorSettingViewModel: SensorSettingViewModel
+    private lateinit var monitorViewModel: MonitorViewModel
 
     @Inject
     lateinit var appExecutors: AppExecutors
@@ -65,8 +66,8 @@ class SensorSettingFragment : Fragment(), Injectable {
             }, mHour, mMinute, true).show()
         }
 
-        sensorSettingViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(SensorSettingViewModel::class.java)
+        monitorViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(MonitorViewModel::class.java)
 
         return dataBinding.root
 
@@ -79,6 +80,16 @@ class SensorSettingFragment : Fragment(), Injectable {
         binding.topToolbar.setNavigationOnClickListener {
             it.findNavController().popBackStack()
         }
+        monitorViewModel.apply {
+            configTimerMonitor.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            })
+        }
+
+        binding.apply {
+            viewModel = monitorViewModel
+        }
+
     }
 
 

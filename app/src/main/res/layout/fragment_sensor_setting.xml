@@ -7,9 +7,13 @@
     <data>
 
         <import type="com.mandevices.iot.agriculture.vo.Monitor" />
+        <import type="com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel"/>
 
         <variable
-            name="nodeSetting"
+            name="viewModel"
+            type="MonitorViewModel"/>
+        <variable
+            name="monitor"
             type="Monitor" />
     </data>
 
@@ -146,6 +150,7 @@
                 android:text="Lưu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.configTimerMonitor(monitor.serviceTag,monitor.tag)}"
                 android:id="@+id/save_button"
                 app:layout_constraintEnd_toStartOf="@+id/cancel_button"
                 app:layout_constraintStart_toStartOf="@+id/selected_time_text"

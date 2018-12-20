@@ -80,6 +80,9 @@
                     app:srcCompat="@drawable/ic_delete" />
 
                 <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{()-> viewModel.getMonitorParams(monitor.serviceTag,monitor.tag)}"
                     android:id="@+id/btn_reload"
                     android:layout_width="30dp"
                     android:layout_height="30dp"

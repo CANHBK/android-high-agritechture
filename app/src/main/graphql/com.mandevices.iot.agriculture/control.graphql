@@ -6,15 +6,17 @@ query AllControls($serviceTag :String!){
        tag
        name
         relays {
-              id
-             index
-             isPeriodic
-             state
-             minute
-             hour
-             name
-             serviceTag
-             controlTag
+             id
+                  index
+                  isAuto
+                  controlTag
+                  serviceTag
+                  onHour
+                  onMinute
+                  offHour
+                  offMinute
+                  state
+                  name
            }
 
 
@@ -26,16 +28,17 @@ query AllControls($serviceTag :String!){
 mutation AddControl($serviceTag : String!,$tag:String! $name:String!){
   addControl(serviceTag : $serviceTag,tag:$tag,name:$name){
   id serviceTag tag name
-   relays {
-                id
-               index
-               isPeriodic
-               state
-               minute
-               hour
-               name
-               serviceTag
-               controlTag
+   relays { id
+                 index
+                 isAuto
+                 controlTag
+                 serviceTag
+                 onHour
+                 onMinute
+                 offHour
+                 offMinute
+                 state
+                 name
              }
 
   }
@@ -51,28 +54,33 @@ mutation EditControl($tag:String!,$name:String!){
   id serviceTag tag name
    relays {
                 id
-               index
-               isPeriodic
-               state
-               minute
-               hour
-               name
-               serviceTag
-               controlTag
+                     index
+                     isAuto
+                     controlTag
+                     serviceTag
+                     onHour
+                     onMinute
+                     offHour
+                     offMinute
+                     state
+                     name
              }
 
   }
 }
 
 mutation ConfigTimeControl($serviceTag:String!,$controlTag:String!,
-$index:Int!,$isPeriodic:Boolean!,$hour:String!,$minute:String!,$state:String!) {
+$index:Int!,$isAuto:Boolean!,$name:String!,$onHour:String!,$onMinute:String!,$offHour:String!,$offMinute:String!,$state:String!) {
   configTimeControl(
     serviceTag: $serviceTag
     controlTag: $controlTag
+    name:$name
     index: $index
-    isPeriodic: $isPeriodic
-    hour: $hour
-    minute: $minute
+    isAuto: $isAuto
+    onHour: $onHour
+    onMinute: $onMinute
+    offHour: $offHour
+    offMinute: $offMinute
     state:$state
   ) {
     id
@@ -82,11 +90,13 @@ $index:Int!,$isPeriodic:Boolean!,$hour:String!,$minute:String!,$state:String!) {
     relays {
       id
       index
-      isPeriodic
+      isAuto
       controlTag
       serviceTag
-      hour
-      minute
+      onHour
+      onMinute
+      offHour
+      offMinute
       state
       name
     }
@@ -100,15 +110,17 @@ mutation SetStateRelay($tag:String!,$state:String!,$index:Int!) {
     name
     tag
     relays {
-      id
-      index
-      isPeriodic
-      controlTag
-      serviceTag
-      hour
-      minute
-      state
-      name
+     id
+          index
+          isAuto
+          controlTag
+          serviceTag
+          onHour
+          onMinute
+          offHour
+          offMinute
+          state
+          name
     }
   }
 }

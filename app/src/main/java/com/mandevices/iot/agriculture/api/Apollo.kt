@@ -19,6 +19,56 @@ import javax.inject.Inject
 class Apollo @Inject constructor(
         private val apolloClient: ApolloClient
 ) : GraphQL, LiveData<ApiResponse<User>>() {
+    override fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<Monitor>> {
+        val query = GetMonitorParamsQuery.builder()
+                .serviceTag(serviceTag)
+                .tag(tag)
+                .params(params)
+                .build()
+        val call = apolloClient.query(query)
+        return object : LiveData<ApiResponse<Monitor>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    call.enqueue(object : ApolloCall.Callback<GetMonitorParamsQuery.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<GetMonitorParamsQuery.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.monitorParams!!
+
+                                val monitor = Monitor(
+                                        id = data.id()!!,
+                                        name = data.name()!!,
+                                        serviceTag = data.serviceTag()!!,
+                                        tag = data.tag()!!,
+                                        lastTemp = data.data()!![0].value()!![0],
+                                        lastLight = data.data()!![0].value()!![1],
+                                        lastAirHumi = data.data()!![0].value()!![2],
+                                        lastGndHumi = data.data()!![0].value()!![3]
+                                )
+
+                                postValue(ApiResponse.create(monitor))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
     override fun getMonitorDataByDate(tag: String, year: Int, month: Int, day: Int): LiveData<ApiResponse<SensorData>> {
         val query = GetMonitorDataByDateQuery
                 .builder()

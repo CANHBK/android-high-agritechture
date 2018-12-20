@@ -7,7 +7,14 @@
     <data>
 
         <import type="com.mandevices.iot.agriculture.vo.Control" />
+        <import type="com.mandevices.iot.agriculture.ui.control.ControlViewModel"/>
 
+        <variable
+            name="viewModel"
+            type="ControlViewModel"/>
+        <variable
+            name="relayIndex"
+            type="Integer"/>
         <variable
             name="control"
             type="Control" />
@@ -161,6 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:text="@{control.relays[relayIndex]}"
                     android:hint="Tên relay"
                     android:inputType="text"
                     tools:text="Tên Relay" />

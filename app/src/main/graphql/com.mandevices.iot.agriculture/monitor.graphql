@@ -82,3 +82,25 @@ query GetMonitorDataByDate($tag: String!, $year: Int!, $month: Int!, $day: Int!)
   }
 }
 
+query GetMonitorParams($serviceTag:String!,$tag:String!,$params:[String]!){
+getMonitorParams(
+    serviceTag: $serviceTag
+    tag: $tag
+    params: $params
+  ) {
+    id
+    serviceTag
+    tag
+    name
+    year
+    month
+    day
+    data {
+      id
+      serviceTag
+      value
+      updatedAt
+    }
+  }
+}
+
