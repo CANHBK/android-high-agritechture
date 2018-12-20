@@ -59,6 +59,13 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("text")
+    fun setText(textView: TextView, value: Int) {
+        textView.text = if (value!=0) value.toString() else "--"
+
+    }
+
+    @JvmStatic
     @BindingAdapter("mode")
     fun setMode(textView: TextView, relay: Relay) {
         textView.text = if (relay.isPeriodic) "Tự động - ${relay.hour} - ${relay.minute}" else "Thủ công"

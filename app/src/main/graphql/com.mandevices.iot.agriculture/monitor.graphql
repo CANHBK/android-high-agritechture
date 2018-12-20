@@ -1,11 +1,16 @@
 
 query AllMonitors($serviceTag :String!){
   allMonitors(serviceTag: $serviceTag){
-        id
-       serviceTag
+         id
+          serviceTag
           tag
           name
-
+          data {
+            id
+            serviceTag
+            value
+            updatedAt
+          }
 
      }
 }

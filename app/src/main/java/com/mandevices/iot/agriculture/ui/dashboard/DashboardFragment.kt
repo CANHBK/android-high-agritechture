@@ -70,6 +70,20 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
         userViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(UserViewModel::class.java)
 
+        userViewModel.loadUser()
+
+        userViewModel.user.observe(viewLifecycleOwner, Observer {
+
+            if (it.status == Status.SUCCESS) {
+                if (it.data != null) {
+                    user = it.data
+                }
+            }
+            if (it.status==Status.ERROR){
+                view?.findNavController()?.navigate(R.id.log_out)
+            }
+        })
+
         return dataBinding.root
 
     }
@@ -81,7 +95,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
 
 
         dashBoardViewModel.loadGates()
-        userViewModel.loadUser()
+
 
         binding.setLifecycleOwner(viewLifecycleOwner)
 
@@ -151,14 +165,7 @@ class DashboardFragment : androidx.fragment.app.Fragment(), Injectable {
 
         }
 
-        userViewModel.user.observe(viewLifecycleOwner, Observer {
 
-            if (it.status == Status.SUCCESS) {
-                if (it.data != null) {
-                    user = it.data
-                }
-            }
-        })
 
         if (userId == null) {
             view.findNavController().navigate(R.id.log_out)

@@ -408,14 +408,31 @@ class Apollo @Inject constructor(
                                 val data = response.data()!!.allMonitors()!!
                                 val result = ArrayList<Monitor>()
                                 data.forEach {
-                                    val monitor = Monitor(
-                                            id = it.id()!!,
-                                            name = it.name()!!,
-                                            serviceTag = it.serviceTag()!!,
-                                            tag = it.tag()!!
+                                    if (it.data()!!.size != 0) {
+                                        val monitor = Monitor(
+                                                id = it.id()!!,
+                                                name = it.name()!!,
+                                                serviceTag = it.serviceTag()!!,
+                                                tag = it.tag()!!,
+                                                lastTemp = it.data()!![0].value()!![0],
+                                                lastLight = it.data()!![0].value()!![1],
+                                                lastAirHumi = it.data()!![0].value()!![2],
+                                                lastGndHumi = it.data()!![0].value()!![3]
 
-                                    )
-                                    result.add(monitor)
+                                        )
+                                        result.add(monitor)
+                                    } else {
+                                        val monitor = Monitor(
+                                                id = it.id()!!,
+                                                name = it.name()!!,
+                                                serviceTag = it.serviceTag()!!,
+                                                tag = it.tag()!!
+
+                                        )
+                                        result.add(monitor)
+                                    }
+
+
                                 }
                                 postValue(ApiResponse.create(result))
                             } else {

@@ -168,6 +168,7 @@
                     android:textColor="@color/color_red"
                     android:textSize="26sp"
                     android:textStyle="bold"
+                    app:text="@{monitor.lastTemp}"
                     tools:text="30" />
 
                 <ImageView
@@ -217,6 +218,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    app:text="@{monitor.lastLight}"
                     android:textAlignment="textEnd"
                     android:textColor="@color/design_default_color_primary"
                     android:textSize="26sp"
@@ -267,6 +269,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    app:text="@{monitor.lastAirHumi}"
                     android:id="@+id/txt_air_humi_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -320,6 +323,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    app:text="@{monitor.lastGndHumi}"
                     android:id="@+id/txt_soil_humi_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
