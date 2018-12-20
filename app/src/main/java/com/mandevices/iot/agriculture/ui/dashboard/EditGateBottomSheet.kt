@@ -67,6 +67,8 @@ class EditGateBottomSheet : BottomSheetDialogFragment(), Injectable {
 
         dashBoardViewModel.initEditGate()
 
+        dashBoardViewModel.getEditGateForm()?.fields?.name= gate.name
+
         editGate()
 
         handleResultEditGate()

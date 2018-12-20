@@ -107,9 +107,9 @@
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
+            android:selectAllOnFocus="true"
             android:paddingBottom="8dp"
             android:text="@={viewModel.editControlForm.fields.name}"
-            android:hint="@{control.name}"
             android:textSize="18sp"
             app:error="@{viewModel.editControlForm.nameError}"
             tools:hint="Tên node điều khiển" />

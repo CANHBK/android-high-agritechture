@@ -61,7 +61,7 @@ class EditNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
 
         monitorViewModel.initEditMonitor()
-
+        monitorViewModel.getEditMonitorForm().fields.name = monitor.name
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
             viewModel = monitorViewModel
@@ -69,7 +69,7 @@ class EditNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
         }
 
         //TODO: Khi đưa vào apply thì không hoạt động
-        binding.monitor= monitor
+        binding.monitor = monitor
 
         editGate()
 

@@ -106,7 +106,7 @@
             android:ems="10"
             app:error="@{viewModel.editMonitorForm.nameError}"
             tools:hint="Tên node cảm biến"
-            android:hint="@{monitor.name}"
+            android:selectAllOnFocus="true"
             android:text="@={viewModel.editMonitorForm.fields.name}"
             android:inputType="textPersonName"
             android:paddingStart="16dp"

@@ -73,6 +73,7 @@ class EditControlBottomSheet : BottomSheetDialogFragment(), Injectable {
 
         binding.control= control
 
+        controlViewModel.getEditControlForm().fields.name= control.name
         editControl()
 
     }

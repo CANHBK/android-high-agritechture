@@ -101,6 +101,7 @@
             android:ems="10"
             android:hint="@{gate.name}"
             tools:hint="Tên bộ điều khiển"
+            android:selectAllOnFocus="true"
             app:error="@{viewModel.editGateForm.nameError}"
             android:text="@={viewModel.editGateForm.fields.name}"
             android:inputType="textPersonName"
