@@ -23,6 +23,8 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
     private val triggerEditMonitor = MutableLiveData<Int>()
     private val triggerLoadMonitors = MutableLiveData<Int>()
     private val triggerLoadMonitorDataByDate = MutableLiveData<Int>()
+    private val triggerGetMonitorParams = MutableLiveData<Int>()
+    private val triggerConfig = MutableLiveData<Int>()
 
 
     private val year = MutableLiveData<Int>()
@@ -60,6 +62,22 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
                     AbsentLiveData.create()
                 } else {
                     repository.loadMonitors(serviceTag.value!!)
+                }
+            }
+    val monitorParams: LiveData<Resource<Monitor>> = Transformations
+            .switchMap(triggerGetMonitorParams) { it ->
+                if (it == null) {
+                    AbsentLiveData.create()
+                } else {
+                    repository.getMonitorParams(serviceTag.value!!, tag = tag.value!!)
+                }
+            }
+    val configTimerMonitor: LiveData<Resource<Monitor>> = Transformations
+            .switchMap(triggerConfig) { it ->
+                if (it == null) {
+                    AbsentLiveData.create()
+                } else {
+                    repository.getMonitorParams(serviceTag.value!!, tag = tag.value!!)
                 }
             }
     val addMonitor: LiveData<Resource<Monitor>> = Transformations
@@ -137,13 +155,25 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
     fun getMonitorDataByDate(
             tag: String,
             year: Int = Calendar.getInstance().get(Calendar.YEAR),
-            month: Int = Calendar.getInstance().get(Calendar.MONTH)+1,
+            month: Int = Calendar.getInstance().get(Calendar.MONTH) + 1,
             day: Int = Calendar.getInstance().get(Calendar.DATE)) {
         this.tag.value = tag
         this.year.value = year
         this.month.value = month
         this.day.value = day
         triggerLoadMonitorDataByDate.value = Random.nextInt(1, 10)
+    }
+
+    fun getMonitorParams(serviceTag: String, tag: String) {
+        this.serviceTag.value = serviceTag
+        this.tag.value = tag
+        triggerGetMonitorParams.value = Random.nextInt(1, 10)
+    }
+
+    fun configTimerMonitor(serviceTag: String, tag: String) {
+        this.serviceTag.value = serviceTag
+        this.tag.value = tag
+        triggerConfig.value = Random.nextInt(1, 10)
     }
 
     fun deleteMonitor(tag: String) {

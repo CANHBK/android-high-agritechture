@@ -62,6 +62,25 @@ class MonitorRepository @Inject constructor(
 
     }
 
+    fun getMonitorParams(serviceTag: String, tag: String, params: List<String> = listOf<String>("1","2","3","4")): LiveData<Resource<Monitor>> {
+        return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
+            override fun saveCallResult(item: Monitor) {
+                monitorDao.update(item)
+
+            }
+
+            override fun shouldFetch(data: Monitor?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = monitorDao.loadMonitor(tag)
+
+            override fun createCall() = graphQL.getMonitorParams(serviceTag = serviceTag, tag = tag, params = params)
+
+        }.asLiveData()
+
+    }
+
     fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<Resource<Monitor>> {
         return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
             override fun saveCallResult(item: Monitor) {

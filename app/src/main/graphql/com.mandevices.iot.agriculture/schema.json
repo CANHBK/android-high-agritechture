@@ -238,6 +238,65 @@
               "deprecationReason": null
             },
             {
+              "name": "getMonitorParams",
+              "description": "",
+              "args": [
+                {
+                  "name": "serviceTag",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "tag",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "params",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "SCALAR",
+                        "name": "String",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Monitor",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "newEnvironmentParams",
               "description": "Lấy thông số môi trường hiện tại từ `Node Environment`",
               "args": [
@@ -829,8 +888,20 @@
               "deprecationReason": null
             },
             {
-              "name": "setTime",
+              "name": "hour",
               "description": "Thời gian cài đặt cho chế độ thủ công\nhh:mm",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minute",
+              "description": "",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -1227,7 +1298,7 @@
               "deprecationReason": null
             },
             {
-              "name": "isPeriodic",
+              "name": "isAuto",
               "description": "",
               "args": [],
               "type": {
@@ -1239,7 +1310,7 @@
               "deprecationReason": null
             },
             {
-              "name": "minute",
+              "name": "onMinute",
               "description": "",
               "args": [],
               "type": {
@@ -1251,7 +1322,31 @@
               "deprecationReason": null
             },
             {
-              "name": "hour",
+              "name": "onHour",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "offMinute",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "offHour",
               "description": "",
               "args": [],
               "type": {
@@ -2477,23 +2572,97 @@
               "deprecationReason": null
             },
             {
-              "name": "configTimeNodeEnv",
+              "name": "configTimeMonitor",
               "description": "Đặt thời gian gửi thông số môi trường cho `Node Environment`",
               "args": [
                 {
-                  "name": "params",
+                  "name": "serviceTag",
                   "description": "",
                   "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "ConfigTimeNodeEnv",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "monitorTag",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "index",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "isAuto",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Boolean",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "minute",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "hour",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
                   },
                   "defaultValue": null
                 }
               ],
               "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
+                "kind": "OBJECT",
+                "name": "Sensor",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3067,7 +3236,7 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "isPeriodic",
+                  "name": "isAuto",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",
@@ -3081,7 +3250,7 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "minute",
+                  "name": "name",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",
@@ -3095,7 +3264,49 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "hour",
+                  "name": "onHour",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "onMinute",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offHour",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "offMinute",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",
@@ -3558,101 +3769,6 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "ConfigTimeNodeEnv",
-          "description": "Các thông số cấu hình thời gian gửi thông số môi trường từ `Node Environment`",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh của `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment` cần cấu hình",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "index",
-              "description": "Thông số môi trường muốn cấu hình.\n+ 1 - Nhiệt độ\n+ 2 - Ánh sáng\n+ 3 - Độ ẩm không khí\n+ 4 - Độ ẩm đất",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "typeSetTime",
-              "description": "Kiểu thời gian cấu hình.\n+ 0 - Theo giờ cố định\n+ 1 - Theo chu kì",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "minute",
-              "description": "Phút",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "hour",
-              "description": "Giờ",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
               },
               "defaultValue": null
             }
@@ -5286,6 +5402,101 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "ConfigTimeNodeEnv",
+          "description": "Các thông số cấu hình thời gian gửi thông số môi trường từ `Node Environment`",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh của `Gate Way`",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment` cần cấu hình",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "index",
+              "description": "Thông số môi trường muốn cấu hình.\n+ 1 - Nhiệt độ\n+ 2 - Ánh sáng\n+ 3 - Độ ẩm không khí\n+ 4 - Độ ẩm đất",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "typeSetTime",
+              "description": "Kiểu thời gian cấu hình.\n+ 0 - Theo giờ cố định\n+ 1 - Theo chu kì",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "minute",
+              "description": "Phút",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "hour",
+              "description": "Giờ",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },

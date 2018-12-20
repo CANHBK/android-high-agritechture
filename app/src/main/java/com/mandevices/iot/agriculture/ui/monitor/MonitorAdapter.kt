@@ -15,6 +15,7 @@ import com.mandevices.iot.agriculture.vo.Monitor
 class MonitorAdapter(
         private val dataBindingComponent: DataBindingComponent,
         appExecutors: AppExecutors,
+        private val monitorViewModel: MonitorViewModel,
         private val onDeleteClick: (Monitor) -> Unit,
         private val onEditClick: (Monitor) -> Unit,
         private val onSensorSetting: (Monitor, Int) -> Unit,
@@ -47,6 +48,7 @@ class MonitorAdapter(
 
         binding.apply {
             monitor = item
+            viewModel=monitorViewModel
             btnDelete.setOnClickListener {
                 onDeleteClick(item)
             }

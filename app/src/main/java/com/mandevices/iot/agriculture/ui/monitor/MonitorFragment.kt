@@ -102,6 +102,7 @@ class MonitorFragment : Fragment(), Injectable {
         MonitorAdapter(
                 dataBindingComponent = dataBindingComponent,
                 appExecutors = appExecutors,
+                monitorViewModel = monitorViewModel,
                 onDeleteClick = {
                     deleteBottomSheet = DeleteNodeBottomSheet.newInstance(monitor = it, monitorViewModel = monitorViewModel)
                     deleteBottomSheet?.show(activity!!.supportFragmentManager, deleteBottomSheet?.tag)
@@ -128,6 +129,12 @@ class MonitorFragment : Fragment(), Injectable {
 
         monitorViewModel.apply {
             loadMonitor(serviceTag)
+
+
+
+            monitorParams.observe(viewLifecycleOwner, Observer {
+
+            })
 
             monitors.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data!!.isNotEmpty()) {

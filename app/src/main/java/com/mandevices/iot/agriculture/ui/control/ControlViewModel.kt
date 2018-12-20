@@ -55,6 +55,15 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                     repository.loadControls(serviceTag.value!!)
                 }
             }
+
+//    val configTimerControl: LiveData<Resource<Control>> = Transformations
+//            .switchMap(triggerConfig) { it ->
+//                if (it == null) {
+//                    AbsentLiveData.create()
+//                } else {
+//                    repository.configTimerControl(serviceTag.value!!)
+//                }
+//            }
     val addControl: LiveData<Resource<Control>> = Transformations
             .switchMap(triggerAddControl) { it ->
                 if (it == null) {

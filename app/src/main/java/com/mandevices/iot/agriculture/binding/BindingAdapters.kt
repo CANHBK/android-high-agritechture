@@ -68,7 +68,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("mode")
     fun setMode(textView: TextView, relay: Relay) {
-        textView.text = if (relay.isPeriodic) "Tự động - ${relay.hour} - ${relay.minute}" else "Thủ công"
+        textView.text = if (relay.isAuto) "Tự động bật lúc ${relay.onHour} - ${relay.offMinute} và tắt lúc ${relay.offHour} - ${relay.offMinute}" else "Thủ công"
 
     }
     @JvmStatic

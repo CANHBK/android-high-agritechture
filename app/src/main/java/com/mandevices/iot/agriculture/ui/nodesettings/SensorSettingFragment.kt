@@ -18,8 +18,10 @@ import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentSensorSettingBinding
 import com.mandevices.iot.agriculture.di.Injectable
+import com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
+import com.mandevices.iot.agriculture.vo.Monitor
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.min
@@ -30,10 +32,12 @@ class SensorSettingFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var sensorSettingViewModel: SensorSettingViewModel
+    private lateinit var monitorViewModel: MonitorViewModel
 
     @Inject
     lateinit var appExecutors: AppExecutors
+
+    private lateinit var monitor:Monitor
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -43,6 +47,7 @@ class SensorSettingFragment : Fragment(), Injectable {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        monitor=SensorSettingFragmentArgs.fromBundle(arguments).monitor
         val dataBinding = DataBindingUtil.inflate<FragmentSensorSettingBinding>(
                 inflater,
                 R.layout.fragment_sensor_setting,
@@ -65,8 +70,8 @@ class SensorSettingFragment : Fragment(), Injectable {
             }, mHour, mMinute, true).show()
         }
 
-        sensorSettingViewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(SensorSettingViewModel::class.java)
+        monitorViewModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(MonitorViewModel::class.java)
 
         return dataBinding.root
 
@@ -79,6 +84,15 @@ class SensorSettingFragment : Fragment(), Injectable {
         binding.topToolbar.setNavigationOnClickListener {
             it.findNavController().popBackStack()
         }
+        monitorViewModel.apply {
+            configTimerMonitor.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            })
+        }
+
+        binding.monitor=monitor
+//        binding.viewModel = monitorViewModel
+
     }
 
 

@@ -33,6 +33,7 @@ class RelaySettingFragment : Fragment(),Injectable {
     private lateinit var controlViewModel: ControlViewModel
 
     private lateinit var control: Control
+    private  var relayIndex:Int?=null
 
     @Inject
     lateinit var appExecutors: AppExecutors
@@ -45,6 +46,7 @@ class RelaySettingFragment : Fragment(),Injectable {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         control = RelaySettingFragmentArgs.fromBundle(arguments).control
+        relayIndex=RelaySettingFragmentArgs.fromBundle(arguments).relayIndex
 
         val dataBinding = DataBindingUtil.inflate<FragmentRelaySettingBinding>(
                 inflater,
@@ -96,15 +98,13 @@ class RelaySettingFragment : Fragment(),Injectable {
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
 
-
-
-
-
             topToolbar.setNavigationOnClickListener {
                 it.findNavController().popBackStack()
             }
         }
+//        binding.viewModel = controlViewModel
         binding.control = control
+//        binding.relayIndex = relayIndex
     }
 
 
