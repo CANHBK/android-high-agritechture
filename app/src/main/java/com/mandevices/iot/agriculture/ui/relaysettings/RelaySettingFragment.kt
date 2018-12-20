@@ -119,10 +119,21 @@ class RelaySettingFragment : Fragment(), Injectable {
         binding.control = control
 //        binding.relayIndex = relayIndex
 
+        val isAuto = when (binding.profileGroup.checkedRadioButtonId) {
+            R.id.automatic_option -> true
+            else -> false
+        }
+
         //TODO: hàm config, cần truyền 10 tham số, trong đó name không cần truyền vì chưa xử lý xong
         controlViewModel.configTimeControl(
-                serviceTag =
-
+                serviceTag = control.serviceTag,
+                controlTag = control.tag,
+                index = relayIndex!!,
+                isAuto = isAuto,
+                onHour = binding.selectedOnTimeText.text.toString().split(":")[0],
+                onMinute = binding.selectedOnTimeText.text.toString().split(":")[1],
+                offHour = binding.selectedOffTimeText.text.toString().split(":")[0],
+                offMinute = binding.selectedOffTimeText.text.toString().split(":")[1]
         )
 
         controlViewModel.configTimerControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
