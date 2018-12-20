@@ -26,6 +26,38 @@ class ControlRepository @Inject constructor(
 
     private val repoListRateLimit = RateLimiter<String>(1, TimeUnit.MINUTES)
 
+    fun configTimeControl(
+            serviceTag: String,index: Int,state:String,
+            controlTag: String,isAuto:Boolean,onHour:String,onMinute:String,
+            offHour:String,offMinute:String,
+            name: String
+    ): LiveData<Resource< Control>> {
+        return object : NetworkBoundResource<Control, Control>(appExecutors) {
+            override fun saveCallResult(item: Control) {
+                controlDao.update(item)
+            }
+
+            override fun shouldFetch(data: Control?): Boolean {
+                return networkState.hasInternet()
+            }
+
+            override fun loadFromDb() = controlDao.loadControl(controlTag)
+
+            override fun createCall() = graphQL.configTimeControl(
+                    serviceTag = serviceTag,
+                    state = state,
+                    index = index ,
+                    controlTag = controlTag,
+                    isAuto = isAuto,
+                    onHour = onHour,
+                    onMinute = onMinute,
+                    offHour = offHour,
+                    offMinute = offMinute,
+                    name = name)
+
+        }.asLiveData()
+
+    }
     fun setState(serviceTag: String,index: Int,state:String,tag: String): LiveData<Resource< List<Control>>> {
         return object : NetworkBoundResource<List<Control>, Control>(appExecutors) {
             override fun saveCallResult(item: Control) {

@@ -19,6 +19,74 @@ import javax.inject.Inject
 class Apollo @Inject constructor(
         private val apolloClient: ApolloClient
 ) : GraphQL, LiveData<ApiResponse<User>>() {
+    override fun configTimeControl(serviceTag: String, controlTag: String, index: Int, isAuto: Boolean, name: String, onHour: String, onMinute: String, offHour: String, offMinute: String, state: String): LiveData<ApiResponse<Control>> {
+        val mutation = apolloClient.mutate(
+                ConfigTimeControlMutation.builder()
+                        .serviceTag(serviceTag)
+                        .controlTag(controlTag)
+                        .index(index)
+                        .isAuto(isAuto)
+                        .name(name)
+                        .onHour(onHour)
+                        .onMinute(onMinute)
+                        .offHour(offHour)
+                        .onMinute(offMinute)
+                        .state(state)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Control>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<ConfigTimeControlMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<ConfigTimeControlMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.configTimeControl()!!
+                                val relaysList = mutableListOf<Relay>()
+                                data.relays()!!.forEach {
+                                    val relay = Relay(
+                                            id = it.id()!!,
+                                            index = it.index()!!,
+                                            name = it.name()!!,
+                                            controlTag = it.controlTag()!!,
+                                            serviceTag = it.serviceTag()!!,
+                                            onMinute = it.onMinute(),
+                                            onHour = it.onHour(),
+                                            offHour = it.offHour(),
+                                            offMinute = it.offMinute(),
+                                            isAuto = it.isAuto!!,
+                                            state = it.state()!!
+                                    )
+                                    relaysList.add(relay)
+                                }
+
+                                val gson = GsonBuilder().setPrettyPrinting().create()
+
+                                val test: String = gson.toJson(relaysList)
+                                val result = Control(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!, relays = test)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
     override fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<Monitor>> {
         val query = GetMonitorParamsQuery.builder()
                 .serviceTag(serviceTag)

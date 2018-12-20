@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 
 import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
@@ -22,18 +24,20 @@ import com.mandevices.iot.agriculture.ui.control.ControlViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Control
+import com.mandevices.iot.agriculture.vo.Relay
+import com.mandevices.iot.agriculture.vo.Status
 import java.util.*
 import javax.inject.Inject
 
 
-class RelaySettingFragment : Fragment(),Injectable {
+class RelaySettingFragment : Fragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var controlViewModel: ControlViewModel
 
     private lateinit var control: Control
-    private  var relayIndex:Int?=null
+    private var relayIndex: Int? = null
 
     @Inject
     lateinit var appExecutors: AppExecutors
@@ -46,7 +50,7 @@ class RelaySettingFragment : Fragment(),Injectable {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         control = RelaySettingFragmentArgs.fromBundle(arguments).control
-        relayIndex=RelaySettingFragmentArgs.fromBundle(arguments).relayIndex
+        relayIndex = RelaySettingFragmentArgs.fromBundle(arguments).relayIndex
 
         val dataBinding = DataBindingUtil.inflate<FragmentRelaySettingBinding>(
                 inflater,
@@ -102,10 +106,31 @@ class RelaySettingFragment : Fragment(),Injectable {
                 it.findNavController().popBackStack()
             }
         }
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        var relayList: List<Relay> = gson.fromJson(control.relays, object : TypeToken<List<Relay>>() {}.type)
+
+        relayList = relayList.sortedWith(compareBy {
+            it.index
+        })
+        controlViewModel.initEditControl()
+        controlViewModel.getEditControlForm().fields.name = relayList[relayIndex!! - 1].name
+        controlViewModel.editControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer { })
 //        binding.viewModel = controlViewModel
         binding.control = control
 //        binding.relayIndex = relayIndex
+
+        //TODO: hàm config, cần truyền 10 tham số, trong đó name không cần truyền vì chưa xử lý xong
+        controlViewModel.configTimeControl(
+                serviceTag =
+
+        )
+
+        controlViewModel.configTimerControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (it.status == Status.SUCCESS) {
+                view.findNavController().popBackStack()
+            }
+        })
     }
 
 
-    }
+}

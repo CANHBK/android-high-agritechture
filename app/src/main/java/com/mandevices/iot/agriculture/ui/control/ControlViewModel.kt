@@ -29,9 +29,16 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
     private val triggerEditControl = MutableLiveData<Int>()
     private val triggerLoadControls = MutableLiveData<Int>()
     private val triggerSetState = MutableLiveData<Int>()
+    private val triggerConfig = MutableLiveData<Int>()
 
     private val serviceTag = MutableLiveData<String>()
     private val tag = MutableLiveData<String>()
+    private val isAuto = MutableLiveData<Boolean>()
+    private val name = MutableLiveData<String>()
+    private val onHour = MutableLiveData<String>()
+    private val onMinute = MutableLiveData<String>()
+    private val offHour = MutableLiveData<String>()
+    private val offMinute = MutableLiveData<String>()
     private val controlName = MutableLiveData<String>()
     private val index = MutableLiveData<Int>()
     private val state = MutableLiveData<String>()
@@ -56,14 +63,24 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                 }
             }
 
-//    val configTimerControl: LiveData<Resource<Control>> = Transformations
-//            .switchMap(triggerConfig) { it ->
-//                if (it == null) {
-//                    AbsentLiveData.create()
-//                } else {
-//                    repository.configTimerControl(serviceTag.value!!)
-//                }
-//            }
+    val configTimerControl: LiveData<Resource<Control>> = Transformations
+            .switchMap(triggerConfig) { it ->
+                if (it == null) {
+                    AbsentLiveData.create()
+                } else {
+                    repository.configTimeControl(
+                            serviceTag = serviceTag.value!!,
+                            controlTag = tag.value!!,
+                            index = index.value!!,
+                            state = state.value!!,
+                            isAuto = isAuto.value!!,
+                            onMinute = onMinute.value!!,
+                            onHour = onHour.value!!,
+                            offMinute = offMinute.value!!,
+                            offHour = offHour.value!!,
+                            name = name.value!!)
+                }
+            }
     val addControl: LiveData<Resource<Control>> = Transformations
             .switchMap(triggerAddControl) { it ->
                 if (it == null) {
@@ -86,7 +103,7 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                 if (it == null) {
                     AbsentLiveData.create()
                 } else {
-                    repository.setState(tag=tag.value!!,index = index.value!!, state = state.value!!,serviceTag = serviceTag.value!!)
+                    repository.setState(tag = tag.value!!, index = index.value!!, state = state.value!!, serviceTag = serviceTag.value!!)
                 }
             }
 
@@ -155,18 +172,35 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
         triggerEditControl.value = Random.nextInt(1, 10)
     }
 
-    fun getImageStateOn(): Int {
-        return R.drawable.ic_power_settings_new_black_48dp
-    }
+//    fun getImageStateOn(): Int {
+//        return R.drawable.ic_power_settings_new_black_48dp
+//    }
+//
+//    fun getImageStateOff(): Int {
+//        return R.drawable.ic_power_settings_new_orange_400_48dp
+//    }
 
-    fun getImageStateOff(): Int {
-        return R.drawable.ic_power_settings_new_orange_400_48dp
-    }
-
-    fun setState(serviceTag: String,tag:String,index: Int, state: String) {
+    fun configTimeControl(
+            serviceTag: String, controlTag: String, index: Int,
+            name: String = "Chưa hoan thanh", onHour: String, onMinute: String, offHour: String, offMinute: String, state: String, isAuto: Boolean) {
+        this.serviceTag.value = serviceTag
+        this.tag.value = controlTag
         this.index.value = index
-        this.tag.value=tag
-        this.serviceTag.value=serviceTag
+        this.name.value = name
+        this.onHour.value = onHour
+        this.onMinute.value = onMinute
+        this.offHour.value = offHour
+        this.offMinute.value = offMinute
+        this.state.value = state
+        this.isAuto.value = isAuto
+        triggerConfig.value = Random.nextInt(1, 10)
+
+    }
+
+    fun setState(serviceTag: String, tag: String, index: Int, state: String) {
+        this.index.value = index
+        this.tag.value = tag
+        this.serviceTag.value = serviceTag
         this.state.value = if (state == "F") "O" else "F"
         triggerSetState.value = Random.nextInt(1, 10)
     }
