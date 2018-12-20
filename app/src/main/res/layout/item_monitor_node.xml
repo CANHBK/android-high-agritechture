@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:textColor="@color/color_red"
-                tools:text="Tự động" />
+                android:text="Tự động" />
 
 
             <LinearLayout
@@ -168,7 +168,7 @@
                     android:textColor="@color/color_red"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    tools:text="30" />
+                    android:text="30" />
 
                 <ImageView
                     android:id="@+id/temp_sensor_setup_button"
@@ -186,9 +186,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
-                android:text="TextView"
                 android:textColor="@color/design_default_color_primary"
-                tools:text="Tự động" />
+                android:text="Tự động" />
             <LinearLayout
                 android:id="@+id/light"
                 android:clickable="true"
@@ -221,7 +220,7 @@
                     android:textColor="@color/design_default_color_primary"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    tools:text="30" />
+                    android:text="250" />
 
                 <ImageView
                     android:id="@+id/light_sensor_setting"
@@ -239,9 +238,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
-                android:text="TextView"
                 android:textColor="@color/color_orange"
-                tools:text="Thủ công - 09:35" />
+                android:text="Thủ công - 09:35" />
 
             <LinearLayout
                 android:id="@+id/air_humi"
@@ -275,7 +273,7 @@
                     android:textColor="@color/color_orange"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    tools:text="30" />
+                    android:text="80" />
 
                 <ImageView
                     android:id="@+id/air_humi_setup_button"
@@ -293,9 +291,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
-                android:text="TextView"
                 android:textColor="@color/brown"
-                tools:text="Tự động" />
+                android:text="Tự động" />
             <LinearLayout
                 android:id="@+id/gnd_humi"
                 android:clickable="true"
@@ -328,7 +325,7 @@
                     android:textColor="@color/brown"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    tools:text="30" />
+                    android:text="5" />
 
                 <ImageView
                     android:id="@+id/gnd_setup_button"
