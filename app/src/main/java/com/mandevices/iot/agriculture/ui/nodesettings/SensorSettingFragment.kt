@@ -22,6 +22,7 @@ import com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.Status
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.min
@@ -93,6 +94,26 @@ class SensorSettingFragment : Fragment(), Injectable {
         binding.monitor=monitor
 //        binding.viewModel = monitorViewModel
 
+        val sensorIndex = SensorSettingFragmentArgs.fromBundle(arguments).sensorIndex
+        val isAuto = when (binding.profileGroup.checkedRadioButtonId) {
+            R.id.automatic_option -> true
+            else -> false
+        }
+
+        monitorViewModel.configTimerMonitor(
+                serviceTag = monitor.serviceTag,
+                tag = monitor.tag,
+                index = sensorIndex.toString(),
+                isAuto = isAuto,
+                hour = binding.selectedTimeText.text.toString().split(":")[0],
+                minute = binding.selectedTimeText.text.toString().split(":")[1]
+        )
+
+        monitorViewModel.configTimerMonitor.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
+            if(it.status==Status.SUCCESS){
+                view.findNavController().popBackStack()
+            }
+        })
     }
 
 

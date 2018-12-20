@@ -105,3 +105,41 @@ getMonitorParams(
   }
 }
 
+mutation ConfigTimeMonitor($serviceTag: String!, $monitorTag: String!, $index: String!, $isAuto: Boolean!, $minute: String!, $hour:String!){
+configTimeMonitor(
+serviceTag:$serviceTag
+monitorTag:$monitorTag
+index:$index
+isAuto:$isAuto
+minute:$minute
+hour:$hour
+){
+  id
+    serviceTag
+    tag
+    name
+    year
+    month
+    day
+    sensors {
+      id
+      serviceTag
+      tag
+      index
+      name
+      isAuto
+      hour
+      minute
+      sensorID
+    }
+    data {
+      id
+      serviceTag
+      value
+      updatedAt
+    }
+  }
+}
+
+
+

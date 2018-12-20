@@ -328,18 +328,32 @@
               "deprecationReason": null
             },
             {
-              "name": "batteryNodeEnv",
+              "name": "batteryMonitor",
               "description": "Truy vấn thông tin `Pin` của `Node Environment`",
               "args": [
                 {
-                  "name": "params",
+                  "name": "serviceTag",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
                     "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "NodeEnvInput",
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "tag",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
                       "ofType": null
                     }
                   },
@@ -2662,7 +2676,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "Sensor",
+                "name": "Monitor",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3307,20 +3321,6 @@
                 },
                 {
                   "name": "offMinute",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "state",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",

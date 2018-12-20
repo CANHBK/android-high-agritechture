@@ -19,7 +19,76 @@ import javax.inject.Inject
 class Apollo @Inject constructor(
         private val apolloClient: ApolloClient
 ) : GraphQL, LiveData<ApiResponse<User>>() {
-    override fun configTimeControl(serviceTag: String, controlTag: String, index: Int, isAuto: Boolean, name: String, onHour: String, onMinute: String, offHour: String, offMinute: String, state: String): LiveData<ApiResponse<Control>> {
+    override fun configTimeMonitor(
+            serviceTag: String,
+            monitorTag: String,
+            index: String,
+            isAuto: Boolean,
+            minute: String,
+            hour: String
+    ): LiveData<ApiResponse<Monitor>> {
+        val mutation = apolloClient.mutate(
+                ConfigTimeMonitorMutation.builder()
+                        .serviceTag(serviceTag)
+                        .monitorTag(monitorTag)
+                        .index(index)
+                        .isAuto(isAuto)
+                        .minute(minute)
+                        .hour(hour)
+                        .build()
+        )
+        return object : LiveData<ApiResponse<Monitor>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    mutation.enqueue(object : ApolloCall.Callback<ConfigTimeMonitorMutation.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<ConfigTimeMonitorMutation.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.configTimeMonitor()!!
+                                val sensorList = mutableListOf<Sensor>()
+                                data.sensors()!!.forEach {
+                                    val sensor = Sensor(
+                                            id = it.id()!!,
+                                            index = it.index()!!,
+                                            name = it.name()!!,
+                                            tag = it.tag()!!,
+                                            serviceTag = it.serviceTag()!!,
+                                            minute = it.minute(),
+                                            hour = it.hour(),
+                                            sensorID = it.sensorID(),
+                                            isAuto = it.isAuto!!
+                                    )
+                                    sensorList.add(sensor)
+                                }
+
+                                val gson = GsonBuilder().setPrettyPrinting().create()
+
+                                val test: String = gson.toJson(sensorList)
+                                val result = Monitor(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!, sensors = test)
+                                postValue(ApiResponse.create(result))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+
+    override fun configTimeControl(serviceTag: String, controlTag: String, index: Int, isAuto: Boolean, name: String, onHour: String, onMinute: String, offHour: String, offMinute: String): LiveData<ApiResponse<Control>> {
         val mutation = apolloClient.mutate(
                 ConfigTimeControlMutation.builder()
                         .serviceTag(serviceTag)
@@ -31,7 +100,6 @@ class Apollo @Inject constructor(
                         .onMinute(onMinute)
                         .offHour(offHour)
                         .onMinute(offMinute)
-                        .state(state)
                         .build()
         )
         return object : LiveData<ApiResponse<Control>>() {

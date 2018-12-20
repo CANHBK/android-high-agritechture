@@ -72,7 +72,6 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                             serviceTag = serviceTag.value!!,
                             controlTag = tag.value!!,
                             index = index.value!!,
-                            state = state.value!!,
                             isAuto = isAuto.value!!,
                             onMinute = onMinute.value!!,
                             onHour = onHour.value!!,
@@ -182,7 +181,7 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
 
     fun configTimeControl(
             serviceTag: String, controlTag: String, index: Int,
-            name: String = "Chưa hoan thanh", onHour: String, onMinute: String, offHour: String, offMinute: String, state: String, isAuto: Boolean) {
+            name: String = "Chưa hoan thanh", onHour: String, onMinute: String, offHour: String, offMinute: String, isAuto: Boolean) {
         this.serviceTag.value = serviceTag
         this.tag.value = controlTag
         this.index.value = index
@@ -191,7 +190,6 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
         this.onMinute.value = onMinute
         this.offHour.value = offHour
         this.offMinute.value = offMinute
-        this.state.value = state
         this.isAuto.value = isAuto
         triggerConfig.value = Random.nextInt(1, 10)
 

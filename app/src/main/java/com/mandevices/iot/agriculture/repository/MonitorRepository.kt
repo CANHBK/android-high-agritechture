@@ -62,7 +62,7 @@ class MonitorRepository @Inject constructor(
 
     }
 
-    fun getMonitorParams(serviceTag: String, tag: String, params: List<String> = listOf<String>("1","2","3","4")): LiveData<Resource<Monitor>> {
+    fun getMonitorParams(serviceTag: String, tag: String, params: List<String> = listOf<String>("1", "2", "3", "4")): LiveData<Resource<Monitor>> {
         return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
             override fun saveCallResult(item: Monitor) {
                 monitorDao.update(item)
@@ -76,6 +76,38 @@ class MonitorRepository @Inject constructor(
             override fun loadFromDb() = monitorDao.loadMonitor(tag)
 
             override fun createCall() = graphQL.getMonitorParams(serviceTag = serviceTag, tag = tag, params = params)
+
+        }.asLiveData()
+
+    }
+
+    fun configTimeMonitor(
+            serviceTag: String,
+            monitorTag: String,
+            index: String,
+            isAuto: Boolean,
+            minute: String,
+            hour: String)
+            : LiveData<Resource<Monitor>> {
+        return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
+            override fun saveCallResult(item: Monitor) {
+                monitorDao.update(item)
+
+            }
+
+            override fun shouldFetch(data: Monitor?): Boolean {
+                return true
+            }
+
+            override fun loadFromDb() = monitorDao.loadMonitor(monitorTag)
+
+            override fun createCall() = graphQL.configTimeMonitor(
+                    serviceTag = serviceTag,
+                    monitorTag = monitorTag,
+                    index = index,
+                    isAuto = isAuto,
+                    minute = minute,
+                    hour = hour)
 
         }.asLiveData()
 

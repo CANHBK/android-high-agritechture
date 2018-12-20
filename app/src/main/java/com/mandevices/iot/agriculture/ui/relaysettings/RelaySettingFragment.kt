@@ -124,7 +124,7 @@ class RelaySettingFragment : Fragment(), Injectable {
             else -> false
         }
 
-        //TODO: hàm config, cần truyền 10 tham số, trong đó name không cần truyền vì chưa xử lý xong
+
         controlViewModel.configTimeControl(
                 serviceTag = control.serviceTag,
                 controlTag = control.tag,
