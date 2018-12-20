@@ -105,7 +105,6 @@ class FragmentChart : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(topToolbar)
 
-
         setupMqtt()
 
         binding.apply {

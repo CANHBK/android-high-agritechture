@@ -1,6 +1,7 @@
 package com.mandevices.iot.agriculture.ui.relaysettings
 
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,7 @@ import com.mandevices.iot.agriculture.ui.control.ControlViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Control
+import java.util.*
 import javax.inject.Inject
 
 
@@ -53,6 +55,31 @@ class RelaySettingFragment : Fragment(),Injectable {
         )
 
         binding = dataBinding
+
+        binding.apply {
+            selectedOnTimeText.setOnClickListener {
+                val currentTime = Calendar.getInstance()
+                val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
+                val mMinute = currentTime.get(Calendar.MINUTE)
+
+                selectedOnTimeText.text = "$mHour:$mMinute"
+                selectedOffTimeText.text = "$mHour:$mMinute"
+
+                TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    this.selectedOnTimeText.text = "$hourOfDay:$minute"
+                }, mHour, mMinute, true).show()
+            }
+
+            selectedOffTimeText.setOnClickListener {
+                val currentTime = Calendar.getInstance()
+                val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
+                val mMinute = currentTime.get(Calendar.MINUTE)
+
+                TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    this.selectedOffTimeText.text = "$hourOfDay:$minute"
+                }, mHour, mMinute, true).show()
+            }
+        }
 
         controlViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ControlViewModel::class.java)

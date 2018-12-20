@@ -1,6 +1,7 @@
 package com.mandevices.iot.agriculture.ui.nodesettings
 
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,9 @@ import com.mandevices.iot.agriculture.databinding.FragmentSensorSettingBinding
 import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
+import java.util.*
 import javax.inject.Inject
+import kotlin.math.min
 
 
 class SensorSettingFragment : Fragment(), Injectable {
@@ -49,6 +52,18 @@ class SensorSettingFragment : Fragment(), Injectable {
         )
 
         binding = dataBinding
+
+        binding.selectedTimeText.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
+            val mMinute = currentTime.get(Calendar.MINUTE)
+
+            binding.selectedTimeText.text = "$mHour:$mMinute"
+
+            TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                binding.selectedTimeText.text = "$hourOfDay:$minute"
+            }, mHour, mMinute, true).show()
+        }
 
         sensorSettingViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(SensorSettingViewModel::class.java)
