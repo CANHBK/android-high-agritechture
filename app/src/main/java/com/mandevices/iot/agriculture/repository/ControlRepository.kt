@@ -27,11 +27,11 @@ class ControlRepository @Inject constructor(
     private val repoListRateLimit = RateLimiter<String>(1, TimeUnit.MINUTES)
 
     fun configTimeControl(
-            serviceTag: String,index: Int,state:String,
-            controlTag: String,isAuto:Boolean,onHour:String,onMinute:String,
-            offHour:String,offMinute:String,
+            serviceTag: String, index: Int,
+            controlTag: String, isAuto: Boolean, onHour: String, onMinute: String,
+            offHour: String, offMinute: String,
             name: String
-    ): LiveData<Resource< Control>> {
+    ): LiveData<Resource<Control>> {
         return object : NetworkBoundResource<Control, Control>(appExecutors) {
             override fun saveCallResult(item: Control) {
                 controlDao.update(item)
@@ -45,8 +45,7 @@ class ControlRepository @Inject constructor(
 
             override fun createCall() = graphQL.configTimeControl(
                     serviceTag = serviceTag,
-                    state = state,
-                    index = index ,
+                    index = index,
                     controlTag = controlTag,
                     isAuto = isAuto,
                     onHour = onHour,
@@ -58,7 +57,8 @@ class ControlRepository @Inject constructor(
         }.asLiveData()
 
     }
-    fun setState(serviceTag: String,index: Int,state:String,tag: String): LiveData<Resource< List<Control>>> {
+
+    fun setState(serviceTag: String, index: Int, state: String, tag: String): LiveData<Resource<List<Control>>> {
         return object : NetworkBoundResource<List<Control>, Control>(appExecutors) {
             override fun saveCallResult(item: Control) {
                 controlDao.update(item)
@@ -70,11 +70,12 @@ class ControlRepository @Inject constructor(
 
             override fun loadFromDb() = controlDao.loadControls(serviceTag)
 
-            override fun createCall() = graphQL.setState(index = index,state=state,tag = tag)
+            override fun createCall() = graphQL.setState(index = index, state = state, tag = tag)
 
         }.asLiveData()
 
     }
+
     fun loadControls(serviceTag: String): LiveData<Resource<List<Control>>> {
         return object : NetworkBoundResource<List<Control>, List<Control>>(appExecutors) {
             override fun saveCallResult(item: List<Control>) {
@@ -94,25 +95,6 @@ class ControlRepository @Inject constructor(
 
     }
 
-    fun configTimeControl(serviceTag: String, tag: String, name: String): LiveData<Resource<Control>> {
-        return object : NetworkBoundResource<Control, Control>(appExecutors) {
-            override fun saveCallResult(item: Control) {
-
-                controlDao.insert(item)
-
-            }
-
-            override fun shouldFetch(data: Control?): Boolean {
-                return true
-            }
-
-            override fun loadFromDb() = controlDao.loadControl(tag)
-
-            override fun createCall() = graphQL.addControl(serviceTag = serviceTag, tag = tag, name = name)
-
-        }.asLiveData()
-
-    }
 
     fun addControl(serviceTag: String, tag: String, name: String): LiveData<Resource<Control>> {
         return object : NetworkBoundResource<Control, Control>(appExecutors) {

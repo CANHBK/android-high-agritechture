@@ -22,6 +22,7 @@ import com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.Status
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.min
@@ -93,6 +94,16 @@ class SensorSettingFragment : Fragment(), Injectable {
         binding.monitor=monitor
 //        binding.viewModel = monitorViewModel
 
+        //TODO: 6 tham số
+        monitorViewModel.configTimerMonitor(
+
+        )
+
+        monitorViewModel.configTimerMonitor.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
+            if(it.status==Status.SUCCESS){
+                view.findNavController().popBackStack()
+            }
+        })
     }
 
 

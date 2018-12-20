@@ -70,7 +70,7 @@ mutation EditControl($tag:String!,$name:String!){
 }
 
 mutation ConfigTimeControl($serviceTag:String!,$controlTag:String!,
-$index:Int!,$isAuto:Boolean!,$name:String!,$onHour:String!,$onMinute:String!,$offHour:String!,$offMinute:String!,$state:String!) {
+$index:Int!,$isAuto:Boolean!,$name:String!,$onHour:String!,$onMinute:String!,$offHour:String!,$offMinute:String!) {
   configTimeControl(
     serviceTag: $serviceTag
     controlTag: $controlTag
@@ -81,7 +81,7 @@ $index:Int!,$isAuto:Boolean!,$name:String!,$onHour:String!,$onMinute:String!,$of
     onMinute: $onMinute
     offHour: $offHour
     offMinute: $offMinute
-    state:$state
+
   ) {
     id
     serviceTag

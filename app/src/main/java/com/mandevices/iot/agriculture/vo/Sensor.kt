@@ -9,14 +9,14 @@ import java.io.Serializable
             Index("id")],
         primaryKeys = ["id"]
 )
-data class Monitor(
+data class Sensor(
         val id: String,
         val name: String,
+        val index:Int,
         val tag: String,
         val serviceTag: String,
-        val lastTemp: Int=0,
-        val lastLight:Int=0,
-        val lastAirHumi:Int=0,
-        val lastGndHumi:Int=0,
-        val sensors:String?=null
-) : Serializable
+        val isAuto:Boolean,
+        val minute:String?,
+        val hour:String?,
+        val sensorID:String
+):Serializable
