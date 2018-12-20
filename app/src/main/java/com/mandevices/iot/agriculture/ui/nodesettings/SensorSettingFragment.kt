@@ -100,14 +100,18 @@ class SensorSettingFragment : Fragment(), Injectable {
             else -> false
         }
 
-        monitorViewModel.configTimerMonitor(
-                serviceTag = monitor.serviceTag,
-                tag = monitor.tag,
-                index = sensorIndex.toString(),
-                isAuto = isAuto,
-                hour = binding.selectedTimeText.text.toString().split(":")[0],
-                minute = binding.selectedTimeText.text.toString().split(":")[1]
-        )
+
+        binding.saveButton.setOnClickListener {
+            monitorViewModel.configTimerMonitor(
+                    serviceTag = monitor.serviceTag,
+                    tag = monitor.tag,
+                    index = sensorIndex.toString(),
+                    isAuto = isAuto,
+                    hour = binding.selectedTimeText.text.toString().split(":")[0],
+                    minute = binding.selectedTimeText.text.toString().split(":")[1]
+            )
+        }
+
 
         monitorViewModel.configTimerMonitor.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
             if(it.status==Status.SUCCESS){

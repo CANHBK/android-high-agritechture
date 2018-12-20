@@ -168,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:text="@{viewModel.editControlForm.fields.name}"
+                    android:text="@={viewModel.editControlForm.fields.name}"
                     android:hint="Tên relay"
                     android:inputType="text"
                     tools:text="Tên Relay" />

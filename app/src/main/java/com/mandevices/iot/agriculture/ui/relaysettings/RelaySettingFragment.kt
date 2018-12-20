@@ -124,19 +124,23 @@ class RelaySettingFragment : Fragment(), Injectable {
             else -> false
         }
 
+binding.saveButton.setOnClickListener {
+   val test =  binding.selectedOffTimeText.text.toString().split(":")[1]
 
-        controlViewModel.configTimeControl(
-                serviceTag = control.serviceTag,
-                controlTag = control.tag,
-                index = relayIndex!!,
-                isAuto = isAuto,
-                onHour = binding.selectedOnTimeText.text.toString().split(":")[0],
-                onMinute = binding.selectedOnTimeText.text.toString().split(":")[1],
-                offHour = binding.selectedOffTimeText.text.toString().split(":")[0],
-                offMinute = binding.selectedOffTimeText.text.toString().split(":")[1]
-        )
+    controlViewModel.configTimeControl(
+            serviceTag = control.serviceTag,
+            controlTag = control.tag,
+            index = relayIndex!!,
+            isAuto = isAuto,
+            onHour = binding.selectedOnTimeText.text.toString().split(":")[0],
+            onMinute = binding.selectedOnTimeText.text.toString().split(":")[1],
+            offHour = binding.selectedOffTimeText.text.toString().split(":")[0],
+            offMinute = binding.selectedOffTimeText.text.toString().split(":")[1]
+    )
+}
 
-        controlViewModel.configTimerControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+        controlViewModel.configTimeControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             if (it.status == Status.SUCCESS) {
                 view.findNavController().popBackStack()
             }

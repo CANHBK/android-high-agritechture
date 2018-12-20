@@ -99,7 +99,7 @@ class Apollo @Inject constructor(
                         .onHour(onHour)
                         .onMinute(onMinute)
                         .offHour(offHour)
-                        .onMinute(offMinute)
+                        .offMinute(offMinute)
                         .build()
         )
         return object : LiveData<ApiResponse<Control>>() {

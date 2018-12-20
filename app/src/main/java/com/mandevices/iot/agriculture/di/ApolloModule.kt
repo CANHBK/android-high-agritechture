@@ -17,7 +17,7 @@ import java.io.File
 class ApolloModule {
     companion object {
         private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
-        //        private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
+//                private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
         private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
 //        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
     }
