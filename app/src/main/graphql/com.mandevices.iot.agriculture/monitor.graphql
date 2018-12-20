@@ -93,9 +93,6 @@ getMonitorParams(
     serviceTag
     tag
     name
-    year
-    month
-    day
     data {
       id
       serviceTag
