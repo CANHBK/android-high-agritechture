@@ -183,10 +183,10 @@ class Apollo @Inject constructor(
                                         name = data.name()!!,
                                         serviceTag = data.serviceTag()!!,
                                         tag = data.tag()!!,
-                                        lastTemp = data.data()!![0].value()!![1],
-                                        lastLight = data.data()!![0].value()!![2],
-                                        lastAirHumi = data.data()!![0].value()!![3],
-                                        lastGndHumi = data.data()!![0].value()!![4]
+                                        lastTemp = data.data()!![0].value()!![0],
+                                        lastLight = data.data()!![0].value()!![1],
+                                        lastAirHumi = data.data()!![0].value()!![2],
+                                        lastGndHumi = data.data()!![0].value()!![3]
                                 )
 
                                 postValue(ApiResponse.create(monitor))
