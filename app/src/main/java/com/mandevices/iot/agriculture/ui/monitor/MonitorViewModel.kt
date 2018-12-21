@@ -26,6 +26,7 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
     private val triggerLoadMonitorDataByDate = MutableLiveData<Int>()
     private val triggerGetMonitorParams = MutableLiveData<Int>()
     private val triggerConfig = MutableLiveData<Int>()
+    private val triggerGetNewestMonitorData = MutableLiveData<Int>()
 
 
     private val year = MutableLiveData<Int>()
@@ -98,6 +99,15 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
                     AbsentLiveData.create()
                 } else {
                     repository.addMonitor(serviceTag.value!!, tag.value!!, monitorName.value!!)
+                }
+            }
+
+ val newestMonitorData: LiveData<Resource<Monitor>> = Transformations
+            .switchMap(triggerGetNewestMonitorData) { it ->
+                if (it == null) {
+                    AbsentLiveData.create()
+                } else {
+                    repository.getNewestMonitorData(tag.value!!)
                 }
             }
 
@@ -180,6 +190,11 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
         this.serviceTag.value = serviceTag
         this.tag.value = tag
         triggerGetMonitorParams.value = Random.nextInt(1, 10)
+    }
+
+    fun getNewestMonitorData(tag:String){
+        this.tag.value = tag
+        triggerGetNewestMonitorData.value = Random.nextInt(1, 10)
     }
 
     fun configTimerMonitor(serviceTag: String, tag: String, index: String, isAuto: Boolean, hour: String, minute: String) {

@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentMonitorBinding
@@ -22,9 +24,12 @@ import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.FarmApp
 import com.mandevices.iot.agriculture.util.autoCleared
+import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.Relay
 import com.mandevices.iot.agriculture.vo.Status
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
+import org.json.JSONObject
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -172,6 +177,10 @@ class MonitorFragment : Fragment(), Injectable {
                     }
                 }
             })
+
+            newestMonitorData.observe(viewLifecycleOwner, Observer {
+                Log.d("abc","test")
+            })
         }
 
     }
@@ -194,7 +203,10 @@ class MonitorFragment : Fragment(), Injectable {
             client.setCallback(object : MqttCallback {
                 override fun messageArrived(topic: String?, message: MqttMessage?) {
                     Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
-                    monitorViewModel.loadMonitor(serviceTag)
+
+                    val atJsonObject = JSONObject(message.toString())
+                    val monitorTag = atJsonObject.getString("at")
+                    monitorViewModel.getNewestMonitorData(monitorTag)
                 }
 
                 override fun connectionLost(cause: Throwable?) {

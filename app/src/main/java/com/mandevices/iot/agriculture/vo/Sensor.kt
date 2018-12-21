@@ -15,7 +15,7 @@ data class Sensor(
         val index:Int,
         val tag: String,
         val serviceTag: String,
-        val isAuto:Boolean,
+        var isAuto:Boolean=true,
         val minute:String?,
         val hour:String?,
         val sensorID:String

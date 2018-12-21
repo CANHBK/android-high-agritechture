@@ -22,6 +22,7 @@ interface GraphQL {
 
     fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Monitor>>
     fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<Monitor>>
+    fun getNewestMonitorData(tag: String): LiveData<ApiResponse<Monitor>>
     fun deleteMonitor(tag: String): LiveData<ApiResponse<Monitor>>
     fun editMonitor(tag: String, name: String): LiveData<ApiResponse<Monitor>>
     fun getMonitorDataByDate(tag: String, year: Int, month: Int, day: Int): LiveData<ApiResponse<SensorData>>

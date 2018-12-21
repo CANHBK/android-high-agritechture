@@ -42,20 +42,6 @@ query GetNewestMonitorData($tag: String!) {
     serviceTag
     tag
     name
-    year
-    month
-    day
-    sensors {
-      id
-      serviceTag
-      tag
-      index
-      name
-      isAuto
-      hour
-      minute
-      sensorID
-    }
     data {
       id
       serviceTag
@@ -115,9 +101,6 @@ hour:$hour
     serviceTag
     tag
     name
-    year
-    month
-    day
     sensors {
       id
       serviceTag
@@ -128,12 +111,6 @@ hour:$hour
       hour
       minute
       sensorID
-    }
-    data {
-      id
-      serviceTag
-      value
-      updatedAt
     }
   }
 }
