@@ -27,6 +27,12 @@ object BindingAdapters {
     }
 
     @JvmStatic
+    @BindingAdapter("visibleByRelay")
+    fun visibleByRelay(view: View, relay: Relay?) {
+        view.visibility = if (relay!!.onHour!=null) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
     @BindingAdapter("visibleIfListEmpty")
     fun <T> visibleIfListEmpty(view: View, lists: List<T>?) {
         view.visibility = if (lists == null || lists.isEmpty()) View.VISIBLE else View.GONE
@@ -61,20 +67,28 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("text")
     fun setText(textView: TextView, value: Int) {
-        textView.text = if (value!=0) value.toString() else "--"
+        textView.text = if (value != 0) value.toString() else "--"
 
     }
 
     @JvmStatic
     @BindingAdapter("mode")
     fun setMode(textView: TextView, relay: Relay) {
-        textView.text = if (relay.isAuto) "Tự động bật lúc ${relay.onHour} - ${relay.offMinute} và tắt lúc ${relay.offHour} - ${relay.offMinute}" else "Thủ công"
+        textView.text = "${relay.onHour}:${relay.onMinute}"
 
     }
     @JvmStatic
-    @BindingAdapter("app:srcVector")
-    fun setSrcVector(view: ImageView, @DrawableRes drawable: Int) {
-        view.setImageDrawable(ContextCompat.getDrawable(view.context,drawable))
+    @BindingAdapter("timeOff")
+    fun setTimeOff(textView: TextView, relay: Relay) {
+        textView.text = "${relay.offHour}:${relay.offMinute}"
+
+    }
+
+   @JvmStatic
+    @BindingAdapter("visibleIfRepeat")
+    fun visibleIfRepeat(view: View, relay: Relay) {
+        view.visibility = if (relay.isRepeat) View.VISIBLE else View.GONE
+
     }
 
 

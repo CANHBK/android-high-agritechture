@@ -19,6 +19,7 @@ class MonitorAdapter(
         private val onDeleteClick: (Monitor) -> Unit,
         private val onEditClick: (Monitor) -> Unit,
         private val onSensorSetting: (Monitor, Int) -> Unit,
+        private val onRefresh: (ItemMonitorNodeBinding,Monitor) -> Unit,
         private val onDataChartClick: (String, Int) -> Unit
 ) : DataBoundListAdapter<Monitor, ItemMonitorNodeBinding>(
         appExecutors = appExecutors,
@@ -48,7 +49,10 @@ class MonitorAdapter(
 
         binding.apply {
             monitor = item
-            viewModel=monitorViewModel
+            viewModel = monitorViewModel
+            btnReload.setOnClickListener {
+                onRefresh(binding,item)
+            }
             btnDelete.setOnClickListener {
                 onDeleteClick(item)
             }
@@ -61,31 +65,31 @@ class MonitorAdapter(
             }
 
             lightSensorSetting.setOnClickListener {
-                onSensorSetting(item,2)
+                onSensorSetting(item, 2)
             }
 
             airHumiSetupButton.setOnClickListener {
-                onSensorSetting(item,3)
+                onSensorSetting(item, 3)
             }
 
             gndSetupButton.setOnClickListener {
-                onSensorSetting(item,4)
+                onSensorSetting(item, 4)
             }
 
             temp.setOnClickListener {
-                onDataChartClick(item.tag,1)
+                onDataChartClick(item.tag, 1)
             }
 
             light.setOnClickListener {
-                onDataChartClick(item.tag,2)
+                onDataChartClick(item.tag, 2)
             }
 
             airHumi.setOnClickListener {
-                onDataChartClick(item.tag,3)
+                onDataChartClick(item.tag, 3)
             }
 
             gndHumi.setOnClickListener {
-                onDataChartClick(item.tag,4)
+                onDataChartClick(item.tag, 4)
             }
 
         }

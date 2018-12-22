@@ -31,7 +31,7 @@ interface GraphQL {
     fun loadControls(serviceTag: String): LiveData<ApiResponse<List<Control>>>
     fun addControl(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Control>>
     fun configTimeControl(serviceTag: String, controlTag: String,
-                          index: Int, isAuto: Boolean, name: String, onHour: String, onMinute: String,
+                          index: Int, isRepeat: Boolean, name: String, onHour: String, onMinute: String,
                           offHour: String, offMinute: String): LiveData<ApiResponse<Control>>
 
     fun deleteControl(tag: String): LiveData<ApiResponse<Control>>

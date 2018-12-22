@@ -1,24 +1,16 @@
 package com.mandevices.iot.agriculture.ui.control
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.repository.ControlRepository
-import com.mandevices.iot.agriculture.repository.MonitorRepository
 import com.mandevices.iot.agriculture.ui.control.model.AddControlFields
 import com.mandevices.iot.agriculture.ui.control.model.AddControlForm
 import com.mandevices.iot.agriculture.ui.control.model.EditControlFields
 import com.mandevices.iot.agriculture.ui.control.model.EditControlForm
-import com.mandevices.iot.agriculture.ui.monitor.model.AddMonitorFields
-import com.mandevices.iot.agriculture.ui.monitor.model.AddMonitorForm
-import com.mandevices.iot.agriculture.ui.monitor.model.EditMonitorFields
-import com.mandevices.iot.agriculture.ui.monitor.model.EditMonitorForm
 import com.mandevices.iot.agriculture.util.AbsentLiveData
 import com.mandevices.iot.agriculture.util.ObservableViewModel
 import com.mandevices.iot.agriculture.vo.Control
-import com.mandevices.iot.agriculture.vo.Monitor
 import com.mandevices.iot.agriculture.vo.Resource
 import javax.inject.Inject
 import kotlin.random.Random
@@ -30,10 +22,11 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
     private val triggerLoadControls = MutableLiveData<Int>()
     private val triggerSetState = MutableLiveData<Int>()
     private val triggerConfig = MutableLiveData<Int>()
+    private val triggerRefresh = MutableLiveData<Int>()
 
     private val serviceTag = MutableLiveData<String>()
     private val tag = MutableLiveData<String>()
-    private val isAuto = MutableLiveData<Boolean>()
+    private val isRepeat = MutableLiveData<Boolean>()
     private val name = MutableLiveData<String>()
     private val onHour = MutableLiveData<String>()
     private val onMinute = MutableLiveData<String>()
@@ -63,6 +56,15 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                 }
             }
 
+    val refresh: LiveData<Resource<List<Control>>> = Transformations
+            .switchMap(triggerRefresh) { it ->
+                if (it == null) {
+                    AbsentLiveData.create()
+                } else {
+                    repository.refresh(serviceTag.value!!)
+                }
+            }
+
     val configTimeControl: LiveData<Resource<Control>> = Transformations
             .switchMap(triggerConfig) { it ->
                 if (it == null) {
@@ -72,7 +74,7 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                             serviceTag = serviceTag.value!!,
                             controlTag = tag.value!!,
                             index = index.value!!,
-                            isAuto = isAuto.value!!,
+                            isRepeat = isRepeat.value!!,
                             onMinute = onMinute.value!!,
                             onHour = onHour.value!!,
                             offMinute = offMinute.value!!,
@@ -97,12 +99,12 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
                     repository.deleteControl(tag.value!!)
                 }
             }
-    val setStateRelay: LiveData<Resource<List<Control>>> = Transformations
+    val setStateRelay: LiveData<Resource<Control>> = Transformations
             .switchMap(triggerSetState) { it ->
                 if (it == null) {
                     AbsentLiveData.create()
                 } else {
-                    repository.setState(tag = tag.value!!, index = index.value!!, state = state.value!!, serviceTag = serviceTag.value!!)
+                    repository.setState(tag = tag.value!!, index = index.value!!, state = state.value!!)
                 }
             }
 
@@ -152,6 +154,10 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
         this.serviceTag.value = serviceTag
         triggerLoadControls.value = Random.nextInt(1, 10)
     }
+    fun refresh(serviceTag: String) {
+        this.serviceTag.value = serviceTag
+        triggerRefresh.value = Random.nextInt(1, 10)
+    }
 
     fun addControl(serviceTag: String, tag: String, name: String) {
         this.serviceTag.value = serviceTag
@@ -171,17 +177,9 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
         triggerEditControl.value = Random.nextInt(1, 10)
     }
 
-//    fun getImageStateOn(): Int {
-//        return R.drawable.ic_power_settings_new_black_48dp
-//    }
-//
-//    fun getImageStateOff(): Int {
-//        return R.drawable.ic_power_settings_new_orange_400_48dp
-//    }
-
     fun configTimeControl(
             serviceTag: String, controlTag: String, index: Int,
-            name: String = "Chưa hoan thanh", onHour: String, onMinute: String, offHour: String, offMinute: String, isAuto: Boolean) {
+            name: String = "Chưa hoan thanh", onHour: String, onMinute: String, offHour: String, offMinute: String, isRepeat: Boolean) {
         this.serviceTag.value = serviceTag
         this.tag.value = controlTag
         this.index.value = index
@@ -190,7 +188,7 @@ class ControlViewModel @Inject constructor(repository: ControlRepository) : Obse
         this.onMinute.value = onMinute
         this.offHour.value = offHour
         this.offMinute.value = offMinute
-        this.isAuto.value = isAuto
+        this.isRepeat.value = isRepeat
         triggerConfig.value = Random.nextInt(1, 10)
 
     }

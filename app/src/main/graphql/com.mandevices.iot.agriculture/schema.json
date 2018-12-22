@@ -211,33 +211,6 @@
               "deprecationReason": null
             },
             {
-              "name": "environmentParams",
-              "description": "Truy vấn các thông số môi trường đã thu thập được trong `Database`",
-              "args": [
-                {
-                  "name": "params",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "NodeEnvInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "EnvironmentParams",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "getMonitorParams",
               "description": "",
               "args": [
@@ -1312,7 +1285,7 @@
               "deprecationReason": null
             },
             {
-              "name": "isAuto",
+              "name": "isRepeat",
               "description": "",
               "args": [],
               "type": {
@@ -1423,558 +1396,6 @@
             }
           ],
           "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "NodeEnvInput",
-          "description": "Các thông số xác định `Node Environment`",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh `Gate Way`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "name",
-              "description": "Tên người dùng đặt cho `Node Environment`",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "EnvironmentParams",
-          "description": "Các thông số môi trường đã thu thập được trên `Node Environment`",
-          "fields": [
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh `Gate Way`",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "temperatures",
-              "description": "Các thông số về nhiệt độ",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Temperature",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lights",
-              "description": "Các thông số về ánh sáng",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Light",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "airHumidities",
-              "description": "Các thông số về độ ẩm không khí",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "AirHumidity",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "groundHumidities",
-              "description": "Các thông số về độ ẩm đất",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "GroundHumidity",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Temperature",
-          "description": "Thông tin về nhiệt độ thu thập được trên `Node Environment`",
-          "fields": [
-            {
-              "name": "raws",
-              "description": "Các thông số nhiệt độ gốc, chưa qua xử lý",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "RawTemperature",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "temperatures",
-              "description": "Các nhiệt độ thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `độ C`",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "times",
-              "description": "Các thời điểm thu thập nhiệt độ đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các nhiệt độ thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawTemperature",
-          "description": "Thông số nhiệt độ gốc, chưa qua xử lý",
-          "fields": [
-            {
-              "name": "value",
-              "description": "Giá trị nhiệt độ, đợn vị: `độ C`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian nhiệt độ được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Light",
-          "description": "Thông cường độ sáng gốc thu thập được trên `Node Environment`, đã qua xử lý",
-          "fields": [
-            {
-              "name": "raws",
-              "description": "Các thông số cường độ sáng, chưa qua xử lý",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "RawLight",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lights",
-              "description": "Các thông số cường độ sáng thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `lux`",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "times",
-              "description": "Các thời điểm thu thập cường độ sáng đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các cường độ sáng thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawLight",
-          "description": "Thông cường độ sáng gốc thu thập được trên `Node Environment`, chưa qua xử lý",
-          "fields": [
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "value",
-              "description": "Giá trị cường độ sáng, đơn vị `lux`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian cường độ sáng được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "AirHumidity",
-          "description": "",
-          "fields": [
-            {
-              "name": "raws",
-              "description": "Các thông số độ ẩm không khí, chưa qua xử lý",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "RawAirHumidity",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "airHumidities",
-              "description": "Các thông số độ ẩm không khí thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `%`",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "times",
-              "description": "Các thời điểm thu thập độ ẩm không khí đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các độ ẩm thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawAirHumidity",
-          "description": "",
-          "fields": [
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "value",
-              "description": "Giá trị độ ẩm không khí, đơn vị: `%`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian độ ẩm không khí được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "GroundHumidity",
-          "description": "",
-          "fields": [
-            {
-              "name": "raws",
-              "description": "Các thông số độ ẩm đất, chưa qua xử lý",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "RawGroundHumidity",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "groundHumidities",
-              "description": "Các thông số độ ẩm đất thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `%`",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "times",
-              "description": "Các thời điểm thu thập độ ẩm đất đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các độ ẩm thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "RawGroundHumidity",
-          "description": "",
-          "fields": [
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "value",
-              "description": "Giá trị độ ẩm đất, đơn vị `%`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "Thời gian độ ẩm đất được thu thập, đơn vị `UNIX_TIME`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -3250,7 +2671,7 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "isAuto",
+                  "name": "isRepeat",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",
@@ -3950,60 +3371,6 @@
               "deprecationReason": null
             },
             {
-              "name": "newEnvironmentParams",
-              "description": "",
-              "args": [
-                {
-                  "name": "params",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "NodeEnvInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "NewEnvironmentParams",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "autoUpdatedEnvironmentParams",
-              "description": "",
-              "args": [
-                {
-                  "name": "params",
-                  "description": "",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "NodeEnvInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "NodeEnvironment",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "state",
               "description": "",
               "args": [
@@ -4025,184 +3392,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "NodeControl",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "NodeEnvironment",
-          "description": "`Node` chứa các cảm biến để thu thập thông số môi trường",
-          "fields": [
-            {
-              "name": "id",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "serviceTag",
-              "description": "Mã định danh được dán trên `Gate Way` quản lý `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodeEnv",
-              "description": "Mã định danh được dán trên `Node Environment`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "name",
-              "description": "Tên do người dùng đặt. Mặc định là giá trị của `nodeEnv`",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "sensors",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Sensor",
-                    "ofType": null
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "temperatures",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "param",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "lights",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "param",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "airHumidities",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "param",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "groundHumidities",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "param",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "param",
-          "description": "",
-          "fields": [
-            {
-              "name": "value",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "createdAt",
-              "description": "",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -5152,6 +4341,41 @@
         },
         {
           "kind": "OBJECT",
+          "name": "param",
+          "description": "",
+          "fields": [
+            {
+              "name": "value",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "mqttMessage",
           "description": "",
           "fields": [
@@ -5206,6 +4430,509 @@
                   "name": "String",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RawTemperature",
+          "description": "Thông số nhiệt độ gốc, chưa qua xử lý",
+          "fields": [
+            {
+              "name": "value",
+              "description": "Giá trị nhiệt độ, đợn vị: `độ C`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian nhiệt độ được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Temperature",
+          "description": "Thông tin về nhiệt độ thu thập được trên `Node Environment`",
+          "fields": [
+            {
+              "name": "raws",
+              "description": "Các thông số nhiệt độ gốc, chưa qua xử lý",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "RawTemperature",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "temperatures",
+              "description": "Các nhiệt độ thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `độ C`",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "times",
+              "description": "Các thời điểm thu thập nhiệt độ đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các nhiệt độ thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RawLight",
+          "description": "Thông cường độ sáng gốc thu thập được trên `Node Environment`, chưa qua xử lý",
+          "fields": [
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "Giá trị cường độ sáng, đơn vị `lux`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian cường độ sáng được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Light",
+          "description": "Thông cường độ sáng gốc thu thập được trên `Node Environment`, đã qua xử lý",
+          "fields": [
+            {
+              "name": "raws",
+              "description": "Các thông số cường độ sáng, chưa qua xử lý",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "RawLight",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lights",
+              "description": "Các thông số cường độ sáng thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `lux`",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "times",
+              "description": "Các thời điểm thu thập cường độ sáng đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các cường độ sáng thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RawAirHumidity",
+          "description": "",
+          "fields": [
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "Giá trị độ ẩm không khí, đơn vị: `%`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian độ ẩm không khí được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AirHumidity",
+          "description": "",
+          "fields": [
+            {
+              "name": "raws",
+              "description": "Các thông số độ ẩm không khí, chưa qua xử lý",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "RawAirHumidity",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "airHumidities",
+              "description": "Các thông số độ ẩm không khí thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `%`",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "times",
+              "description": "Các thời điểm thu thập độ ẩm không khí đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các độ ẩm thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "RawGroundHumidity",
+          "description": "",
+          "fields": [
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "Giá trị độ ẩm đất, đơn vị `%`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "Thời gian độ ẩm đất được thu thập, đơn vị `UNIX_TIME`",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "GroundHumidity",
+          "description": "",
+          "fields": [
+            {
+              "name": "raws",
+              "description": "Các thông số độ ẩm đất, chưa qua xử lý",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "RawGroundHumidity",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "groundHumidities",
+              "description": "Các thông số độ ẩm đất thu thập được đã qua xử lý để vẽ đồ thị, đơn vị `%`",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "times",
+              "description": "Các thời điểm thu thập độ ẩm đất đã qua xử lý để vẽ đồ thị, tương ứng 1-1 với các độ ẩm thu thập.\nĐơn vị phụ thuộc vào yêu cầu từ người dùng: theo giờ, theo ngày, theo tháng, theo năm, ...",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "EnvironmentParams",
+          "description": "Các thông số môi trường đã thu thập được trên `Node Environment`",
+          "fields": [
+            {
+              "name": "serviceTag",
+              "description": "Mã định danh `Gate Way`",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodeEnv",
+              "description": "Mã định danh `Node Environment`",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "temperatures",
+              "description": "Các thông số về nhiệt độ",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Temperature",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lights",
+              "description": "Các thông số về ánh sáng",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Light",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "airHumidities",
+              "description": "Các thông số về độ ẩm không khí",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "AirHumidity",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "groundHumidities",
+              "description": "Các thông số về độ ẩm đất",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "GroundHumidity",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5350,49 +5077,6 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "Permission",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Node",
-          "description": "Chứa thông tin các `Node` có trong `GateWay`",
-          "fields": [
-            {
-              "name": "nodeControl",
-              "description": "Node chứa các `Rơle` bật tắt thiết bị",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "NodeControl",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodeEnvirionment",
-              "description": "Node chứa các `Sensor` để thu thập thông số môi trường",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "NodeEnvironment",
                   "ofType": null
                 }
               },

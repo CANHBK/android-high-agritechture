@@ -6,6 +6,13 @@
 
     <data>
 
+        <import type="com.mandevices.iot.agriculture.vo.Monitor" />
+        <import type="com.mandevices.iot.agriculture.vo.Resource"/>
+        <import type="com.mandevices.iot.agriculture.vo.Status" />
+        <variable
+            name="resultRefresh"
+            type="Resource&lt;Monitor>"/>
+
         <variable
             name="sensorBit"
             type="java.util.List&lt;Integer>" />
@@ -80,15 +87,14 @@
                     app:srcCompat="@drawable/ic_delete" />
 
                 <ImageView
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="@{()-> viewModel.getMonitorParams(monitor.serviceTag,monitor.tag)}"
                     android:id="@+id/btn_reload"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="5dp"
                     app:srcCompat="@drawable/ic_refresh_black_36dp" />
 
@@ -129,6 +135,23 @@
 
                 android:text="@{monitor.tag}"
                 tools:text="E-001-F:0" />
+            <ProgressBar
+                android:id="@+id/load_more_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:visibleGone="@{resultRefresh.status==Status.LOADING}" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{resultRefresh.message}"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                app:visibleGone="@{resultRefresh.status==Status.ERROR}" />
 
             <TextView
                 android:id="@+id/temp_status_text"
@@ -141,18 +164,18 @@
 
             <LinearLayout
                 android:id="@+id/temp"
-                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/light_red"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
                 android:weightSum="10"
-                app:visibleGone="@{sensorBit[0]==1}"
-                android:focusable="true">
+                app:visibleGone="@{sensorBit[0]==1}">
 
                 <TextView
                     android:layout_width="0dp"
@@ -193,13 +216,14 @@
                 android:text="TextView"
                 android:textColor="@color/design_default_color_primary"
                 tools:text="Tự động" />
+
             <LinearLayout
                 android:id="@+id/light"
-                android:clickable="true"
-                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_light_blue_rounded_filled"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
@@ -221,11 +245,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    app:text="@{monitor.lastLight}"
                     android:textAlignment="textEnd"
                     android:textColor="@color/design_default_color_primary"
                     android:textSize="26sp"
                     android:textStyle="bold"
+                    app:text="@{monitor.lastLight}"
                     tools:text="30" />
 
                 <ImageView
@@ -250,12 +274,12 @@
 
             <LinearLayout
                 android:id="@+id/air_humi"
-                android:clickable="true"
-                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:background="@color/light_yellow"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
@@ -272,7 +296,6 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    app:text="@{monitor.lastAirHumi}"
                     android:id="@+id/txt_air_humi_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -281,6 +304,7 @@
                     android:textColor="@color/color_orange"
                     android:textSize="26sp"
                     android:textStyle="bold"
+                    app:text="@{monitor.lastAirHumi}"
                     tools:text="30" />
 
                 <ImageView
@@ -302,13 +326,14 @@
                 android:text="TextView"
                 android:textColor="@color/brown"
                 tools:text="Tự động" />
+
             <LinearLayout
                 android:id="@+id/gnd_humi"
-                android:clickable="true"
-                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/light_brown"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
                 android:paddingTop="8dp"
@@ -326,7 +351,6 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    app:text="@{monitor.lastGndHumi}"
                     android:id="@+id/txt_soil_humi_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -335,6 +359,7 @@
                     android:textColor="@color/brown"
                     android:textSize="26sp"
                     android:textStyle="bold"
+                    app:text="@{monitor.lastGndHumi}"
                     tools:text="30" />
 
                 <ImageView

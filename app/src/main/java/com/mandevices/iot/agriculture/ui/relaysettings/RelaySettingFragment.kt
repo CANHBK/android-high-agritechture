@@ -61,26 +61,21 @@ class RelaySettingFragment : Fragment(), Injectable {
         )
 
         binding = dataBinding
+        val currentTime = Calendar.getInstance()
+        val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val mMinute = currentTime.get(Calendar.MINUTE)
+
 
         binding.apply {
+            selectedOnTimeText.text = "$mHour:$mMinute"
+            selectedOffTimeText.text = "$mHour:$mMinute"
             selectedOnTimeText.setOnClickListener {
-                val currentTime = Calendar.getInstance()
-                val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
-                val mMinute = currentTime.get(Calendar.MINUTE)
-
-                selectedOnTimeText.text = "$mHour:$mMinute"
-                selectedOffTimeText.text = "$mHour:$mMinute"
-
                 TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                     this.selectedOnTimeText.text = "$hourOfDay:$minute"
                 }, mHour, mMinute, true).show()
             }
 
             selectedOffTimeText.setOnClickListener {
-                val currentTime = Calendar.getInstance()
-                val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
-                val mMinute = currentTime.get(Calendar.MINUTE)
-
                 TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                     this.selectedOffTimeText.text = "$hourOfDay:$minute"
                 }, mHour, mMinute, true).show()
@@ -98,40 +93,51 @@ class RelaySettingFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
-
-        binding.apply {
-            setLifecycleOwner(viewLifecycleOwner)
-
-            topToolbar.setNavigationOnClickListener {
-                it.findNavController().popBackStack()
-            }
-        }
         val gson = GsonBuilder().setPrettyPrinting().create()
         var relayList: List<Relay> = gson.fromJson(control.relays, object : TypeToken<List<Relay>>() {}.type)
 
         relayList = relayList.sortedWith(compareBy {
             it.index
         })
-        controlViewModel.initEditControl()
-        controlViewModel.getEditControlForm().fields.name = relayList[relayIndex!! - 1].name
-        controlViewModel.editControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer { })
-//        binding.viewModel = controlViewModel
-        binding.control = control
-//        binding.relayIndex = relayIndex
+        controlViewModel.apply {
+            initEditControl()
 
-        val isAuto = when (binding.profileGroup.checkedRadioButtonId) {
-            R.id.automatic_option -> true
-            else -> false
+            getEditControlFields()?.observe(viewLifecycleOwner, androidx.lifecycle.Observer { })
+            configTimeControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                if (it.status == Status.SUCCESS) {
+                    view.findNavController().popBackStack()
+                }
+            })
+        }
+        binding.apply {
+            setLifecycleOwner(viewLifecycleOwner)
+            topToolbar.setNavigationOnClickListener {
+                it.findNavController().popBackStack()
+            }
+            result = controlViewModel.configTimeControl
+            cancelButton.setOnClickListener {
+                it.findNavController().popBackStack()
+            }
+            viewModel = controlViewModel
+        }
+
+        controlViewModel.getEditControlForm().fields.name = relayList[relayIndex!! - 1].name
+        binding.control = control
+        var isRepeat = false
+        binding.profileGroup.setOnCheckedChangeListener { group, checkedId ->
+            isRepeat = when (binding.profileGroup.checkedRadioButtonId) {
+                R.id.repeat_option -> true
+                else -> false
+            }
         }
 
         binding.saveButton.setOnClickListener {
-            val test = binding.selectedOffTimeText.text.toString().split(":")[1]
-
             controlViewModel.configTimeControl(
                     serviceTag = control.serviceTag,
                     controlTag = control.tag,
                     index = relayIndex!!,
-                    isAuto = isAuto,
+                    name = binding.relayNameEdit.text.toString(),
+                    isRepeat = isRepeat,
                     onHour = binding.selectedOnTimeText.text.toString().split(":")[0],
                     onMinute = binding.selectedOnTimeText.text.toString().split(":")[1],
                     offHour = binding.selectedOffTimeText.text.toString().split(":")[0],
@@ -140,11 +146,6 @@ class RelaySettingFragment : Fragment(), Injectable {
         }
 
 
-        controlViewModel.configTimeControl.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            if (it.status == Status.SUCCESS) {
-                view.findNavController().popBackStack()
-            }
-        })
     }
 
 

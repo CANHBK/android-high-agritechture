@@ -25,7 +25,6 @@ import com.mandevices.iot.agriculture.vo.Monitor
 import com.mandevices.iot.agriculture.vo.Status
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.min
 
 
 class SensorSettingFragment : Fragment(), Injectable {
@@ -38,7 +37,7 @@ class SensorSettingFragment : Fragment(), Injectable {
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    private lateinit var monitor:Monitor
+    private lateinit var monitor: Monitor
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -48,7 +47,7 @@ class SensorSettingFragment : Fragment(), Injectable {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        monitor=SensorSettingFragmentArgs.fromBundle(arguments).monitor
+        monitor = SensorSettingFragmentArgs.fromBundle(arguments).monitor
         val dataBinding = DataBindingUtil.inflate<FragmentSensorSettingBinding>(
                 inflater,
                 R.layout.fragment_sensor_setting,
@@ -82,24 +81,23 @@ class SensorSettingFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
 
-        binding.topToolbar.setNavigationOnClickListener {
-            it.findNavController().popBackStack()
-        }
-        monitorViewModel.apply {
-            configTimerMonitor.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
-            })
-        }
-
-        binding.monitor=monitor
-//        binding.viewModel = monitorViewModel
-
         val sensorIndex = SensorSettingFragmentArgs.fromBundle(arguments).sensorIndex
         val isAuto = when (binding.profileGroup.checkedRadioButtonId) {
-            R.id.automatic_option -> true
+            R.id.repeat_option -> true
             else -> false
         }
 
+
+        binding.apply {
+            setLifecycleOwner(viewLifecycleOwner)
+            result = monitorViewModel.configTimerMonitor
+
+            topToolbar.setNavigationOnClickListener {
+                it.findNavController().popBackStack()
+            }
+
+        }
+        binding.monitor=monitor
 
         binding.saveButton.setOnClickListener {
             monitorViewModel.configTimerMonitor(
@@ -111,13 +109,15 @@ class SensorSettingFragment : Fragment(), Injectable {
                     minute = binding.selectedTimeText.text.toString().split(":")[1]
             )
         }
+        monitorViewModel.apply {
+            monitorViewModel.configTimerMonitor.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                if (it.status == Status.SUCCESS) {
+                    view.findNavController().popBackStack()
+                }
+            })
+        }
 
 
-        monitorViewModel.configTimerMonitor.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
-            if(it.status==Status.SUCCESS){
-                view.findNavController().popBackStack()
-            }
-        })
     }
 
 

@@ -8,7 +8,7 @@ query AllControls($serviceTag :String!){
         relays {
              id
                   index
-                  isAuto
+                  isRepeat
                   controlTag
                   serviceTag
                   onHour
@@ -30,7 +30,7 @@ mutation AddControl($serviceTag : String!,$tag:String! $name:String!){
   id serviceTag tag name
    relays { id
                  index
-                 isAuto
+                 isRepeat
                  controlTag
                  serviceTag
                  onHour
@@ -55,7 +55,7 @@ mutation EditControl($tag:String!,$name:String!){
    relays {
                 id
                      index
-                     isAuto
+                     isRepeat
                      controlTag
                      serviceTag
                      onHour
@@ -70,13 +70,13 @@ mutation EditControl($tag:String!,$name:String!){
 }
 
 mutation ConfigTimeControl($serviceTag:String!,$controlTag:String!,
-$index:Int!,$isAuto:Boolean!,$name:String!,$onHour:String!,$onMinute:String!,$offHour:String!,$offMinute:String!) {
+$index:Int!,$isRepeat:Boolean!,$name:String!,$onHour:String!,$onMinute:String!,$offHour:String!,$offMinute:String!) {
   configTimeControl(
     serviceTag: $serviceTag
     controlTag: $controlTag
     name:$name
     index: $index
-    isAuto: $isAuto
+    isRepeat: $isRepeat
     onHour: $onHour
     onMinute: $onMinute
     offHour: $offHour
@@ -90,7 +90,7 @@ $index:Int!,$isAuto:Boolean!,$name:String!,$onHour:String!,$onMinute:String!,$of
     relays {
       id
       index
-      isAuto
+      isRepeat
       controlTag
       serviceTag
       onHour
@@ -112,7 +112,7 @@ mutation SetStateRelay($tag:String!,$state:String!,$index:Int!) {
     relays {
      id
           index
-          isAuto
+          isRepeat
           controlTag
           serviceTag
           onHour

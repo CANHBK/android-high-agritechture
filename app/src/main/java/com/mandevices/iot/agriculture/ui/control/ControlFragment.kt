@@ -34,6 +34,7 @@ import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
+import org.json.JSONObject
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -143,7 +144,15 @@ class ControlFragment : Fragment(), Injectable {
 
                 },
                 onSetState = {
-                   serviceTag,tag, index,state -> controlViewModel.setState(serviceTag = serviceTag,tag = tag,index = index,state = state)
+                  binding, serviceTag,tag, index,state ->
+                    controlViewModel.setState(serviceTag = serviceTag,tag = tag,index = index,state = state)
+                    binding.setLifecycleOwner(viewLifecycleOwner)
+                    binding.result=controlViewModel.setStateRelay
+                    binding.index = index
+//                    controlViewModel.setStateRelay.observe(viewLifecycleOwner, Observer {
+//                        binding.result=it
+//                        binding.index = index
+//                    })
                 },
                 controlViewModel = controlViewModel
 
@@ -160,11 +169,6 @@ class ControlFragment : Fragment(), Injectable {
 
             loadControls(serviceTag = serviceTag)
 
-            setStateRelay.observe(viewLifecycleOwner, Observer {
-                if (it.status == Status.SUCCESS) {
-                    adapter.submitList(it.data)
-                }
-            })
 
             controls.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS) {
@@ -202,6 +206,7 @@ class ControlFragment : Fragment(), Injectable {
                     }
                 }
             })
+            refresh.observe(viewLifecycleOwner, Observer {  })
         }
 
 
@@ -217,15 +222,18 @@ class ControlFragment : Fragment(), Injectable {
                     }
 
                     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else myMqttSubscribe("RELAY")
 
             client.setCallback(object : MqttCallback {
                 override fun messageArrived(topic: String?, message: MqttMessage?) {
-                    Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
-                    controlViewModel.loadControls(serviceTag)
+                    val atJsonObject = JSONObject(message.toString())
+                    val type = atJsonObject.getString("type")
+                    if(type=="auto"){
+                        controlViewModel.refresh(serviceTag)
+                    }
                 }
 
                 override fun connectionLost(cause: Throwable?) {

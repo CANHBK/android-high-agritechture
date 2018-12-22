@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken
 import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentMonitorBinding
+import com.mandevices.iot.agriculture.databinding.ItemMonitorNodeBinding
 import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.FarmApp
@@ -121,8 +122,14 @@ class MonitorFragment : Fragment(), Injectable {
                     view.findNavController().navigate(sensorSetting)
 
                 },
-                onDataChartClick = {monitorTag,dataIndex->
-                    view.findNavController().navigate(MonitorFragmentDirections.monitorChart(monitorTag,dataIndex))
+                onDataChartClick = { monitorTag, dataIndex ->
+                    view.findNavController().navigate(MonitorFragmentDirections.monitorChart(monitorTag, dataIndex))
+                },
+                onRefresh = { binding, monitor ->
+                    monitorViewModel.getMonitorParams(monitor.serviceTag, monitor.tag)
+                    monitorViewModel.monitorParams.observe(viewLifecycleOwner, Observer {
+                        binding.resultRefresh=it
+                    })
                 }
         ).also {
             binding.rvListNode.adapter = it
@@ -179,7 +186,7 @@ class MonitorFragment : Fragment(), Injectable {
             })
 
             newestMonitorData.observe(viewLifecycleOwner, Observer {
-                Log.d("abc","test")
+                Log.d("abc", "test")
             })
         }
 
@@ -202,7 +209,7 @@ class MonitorFragment : Fragment(), Injectable {
 
             client.setCallback(object : MqttCallback {
                 override fun messageArrived(topic: String?, message: MqttMessage?) {
-                    Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
 
                     val atJsonObject = JSONObject(message.toString())
                     val monitorTag = atJsonObject.getString("at")

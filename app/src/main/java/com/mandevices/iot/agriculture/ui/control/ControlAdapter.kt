@@ -25,7 +25,7 @@ class ControlAdapter(
         private val onDeleteClick: (Control) -> Unit,
         private val onEditClick: (Control) -> Unit,
         private val onRelaySetting: (Control, Int) -> Unit,
-        private val onSetState:(String,String,Int,String)->Unit
+        private val onSetState:(ItemControlRelayBinding,String,String,Int,String)->Unit
 ) : DataBoundListAdapter<Control, ItemControlRelayBinding>(
         appExecutors = appExecutors,
         diffCallback = CONTROL_COMPARATOR
@@ -81,34 +81,20 @@ class ControlAdapter(
                 onRelaySetting(item, 2)
             }
 
-//            relayNameText2.setOnClickListener {
-//                onRelaySetting(item, 3)
-//            }
-//
-//            relaySetupButton3.setOnClickListener {
-//                onRelaySetting(item, 4)
-//            }
-
         }
 
         binding.relayList = relayList
         binding.control = item
+        binding.index = -1
 
         binding.deviceImage0.setOnClickListener {
-            onSetState(item.serviceTag,item.tag,1,relayList[0].state)
+            onSetState(binding,item.serviceTag,item.tag,1,relayList[0].state)
         }
         binding.deviceImage1.setOnClickListener {
-            onSetState(item.serviceTag,item.tag,2,relayList[1].state)
+            onSetState(binding,item.serviceTag,item.tag,2,relayList[1].state)
         }
 
-        binding.result=controlViewModel.setStateRelay
-//        binding.btn1.setOnClickListener {
-//            onSetState(item.serviceTag,item.tag,3,relayList[2].state)
-//        }
-//        binding.btn1.setOnClickListener {
-//            onSetState(item.serviceTag,item.tag,4,relayList[3].state)
-//        }
-
+//        binding.result=controlViewModel.setStateRelay
 
     }
 

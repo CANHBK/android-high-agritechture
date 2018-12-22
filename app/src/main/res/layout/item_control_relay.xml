@@ -7,11 +7,20 @@
     <data>
 
         <import type="com.mandevices.iot.agriculture.vo.Relay" />
-        <import type="java.util.List"/>
-        <import type="com.mandevices.iot.agriculture.vo.Resource"/>
-        <import type="com.mandevices.iot.agriculture.vo.Control"/>
-        <import type="com.mandevices.iot.agriculture.vo.Status"/>
-        <import type="androidx.lifecycle.LiveData"/>
+
+        <import type="java.util.List" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Resource" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Control" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Status" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="index"
+            type="Integer" />
 
         <variable
             name="relayList"
@@ -23,7 +32,7 @@
 
         <variable
             name="result"
-            type="LiveData&lt;Resource&lt;List&lt;Control>>>"/>
+            type="LiveData&lt;Resource&lt;Control>>" />
 
         <variable
             name="control"
@@ -52,7 +61,7 @@
             android:src="@drawable/ic_switch_color"
             android:translationZ="6dp" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -65,8 +74,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/btn_edit"
@@ -120,61 +132,133 @@
 
             <TextView
                 android:id="@+id/txt_node_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
                 android:text="@{control.name}"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Tên Node Điều khiển" />
 
             <TextView
                 android:id="@+id/txt_node_id"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@{control.tag}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_node_name"
                 tools:text="C-001-0:F" />
 
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingEnd="8dp"-->
+            <!--android:text="TextView"-->
+            <!--android:textAlignment="textEnd"-->
+            <!--app:mode="@{relayList[0]}"-->
+            <!--tools:text="Tự động" />-->
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_power_settings_new_orange_400_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView5"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:visibleByRelay="@{relayList[0]}" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_power_settings_new_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView5"
+                app:layout_constraintEnd_toStartOf="@+id/textView7"
+                app:visibleByRelay="@{relayList[0]}" />
+
             <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView6"
+                app:timeOff="@{relayList[0]}"
+                tools:text="17:00" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_loop_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:visibleIfRepeat="@{relayList[0]}" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="@+id/imageView4"
+                app:mode="@{relayList[0]}"
+                tools:text="12:00" />
+
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                app:mode="@{relayList[0]}"
-                tools:text="Tự động" />
+                android:text="@{result.message}"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:visibleGone="@{(result.status==Status.ERROR)&amp;&amp;(index==1)}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="140dp"
                 android:background="@{relayList[0].state.equals(`F`) ? @drawable/bg_very_light_gray_rounded_filled : @drawable/bg_very_light_yellow_rounded_filled}"
                 android:clickable="true"
                 android:orientation="vertical"
-                >
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/bg_very_light_yellow_rounded_filled">
+
 
                 <FrameLayout
-                    android:clickable="true"
                     android:id="@+id/btn1"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
+                    android:layout_marginTop="4dp"
                     android:background="@{relayList[0].state.equals(`F`) ? @drawable/bg_circular_gray : @drawable/bg_circular_yellow}"
+                    android:clickable="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    tools:background="@drawable/bg_circular_yellow">
 
                     <ImageView
                         android:id="@+id/device_image0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@{relayList[0].state.equals(`F`) ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}"
                         android:background="?android:attr/selectableItemBackgroundBorderless"
-                     />
+                        android:src="@{relayList[0].state.equals(`F`) ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}"
+                        tools:background="@drawable/ic_power_settings_new_orange_400_48dp" />
                 </FrameLayout>
 
                 <TextView
@@ -186,7 +270,6 @@
                     android:text="@{relayList[0].name , default=`Name`}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/device_status_text0"
                     app:layout_constraintStart_toEndOf="@+id/btn1"
                     app:layout_constraintTop_toTopOf="@+id/btn1" />
 
@@ -225,27 +308,38 @@
                     android:indeterminate="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:visibleGone="@{result.status==Status.LOADING}" />
+                    app:visibleGone="@{(result.status==Status.LOADING )&amp;&amp;(index==1)}" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
             <TextView
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                app:mode="@{relayList[1]}"
-                tools:text="Tự động" />
+                android:text="@{result.message}"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:visibleGone="@{(result.status==Status.ERROR)&amp;&amp;(index==2)}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="260dp"
+                android:layout_marginBottom="4dp"
                 android:background="@{relayList[1].state.equals(`F`) ? @drawable/bg_very_light_gray_rounded_filled : @drawable/bg_very_light_yellow_rounded_filled}"
                 android:clickable="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/bg_very_light_gray_rounded_filled">
+
 
                 <FrameLayout
                     android:id="@+id/btn2"
@@ -254,7 +348,7 @@
                     android:background="@{relayList[1].state.equals(`F`) ? @drawable/bg_circular_gray : @drawable/bg_circular_yellow}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    tools:background="@drawable/bg_circular_gray">
 
                     <ImageView
                         android:id="@+id/device_image1"
@@ -262,7 +356,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:src="@{relayList[1].state.equals(`F`) ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}" />
+                        android:src="@{relayList[1].state.equals(`F`) ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}"
+                        tools:background="@drawable/ic_power_settings_new_black_48dp" />
                 </FrameLayout>
 
                 <TextView
@@ -305,194 +400,81 @@
                     app:srcCompat="@drawable/ic_ios_settings" />
 
                 <ProgressBar
-                    app:visibleGone="@{result.status==Status.LOADING}"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:indeterminate="true"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:visibleGone="@{(result.status==Status.LOADING )&amp;&amp;(index==2)}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingEnd="8dp"-->
-                <!--android:text="TextView"-->
-                <!--android:textAlignment="textEnd"-->
-                <!--app:mode="@{relayList[2]}"-->
-                <!--tools:text="Tự động" />-->
+            <ImageView
+                app:visibleIfRepeat="@{relayList[1]}"
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_loop_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                <!--android:id="@+id/constraintLayout3"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="36dp"-->
-                <!--android:layout_marginBottom="16dp"-->
-                <!--android:background="@drawable/bg_very_light_gray_rounded_filled"-->
-                <!--android:clickable="true"-->
-                <!--android:orientation="vertical">-->
+            <TextView
+                app:timeOff="@{relayList[1]}"
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                app:layout_constraintEnd_toStartOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="@+id/imageView9"
+                tools:text="09:45" />
 
-                <!--<FrameLayout-->
-                    <!--android:id="@+id/btn3"-->
-                    <!--android:layout_width="64dp"-->
-                    <!--android:layout_height="64dp"-->
-                    <!--android:layout_marginStart="2dp"-->
-                    <!--android:layout_marginTop="2dp"-->
-                    <!--android:layout_marginBottom="2dp"-->
-                    <!--android:background="@drawable/bg_circular_yellow"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent">-->
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_power_settings_new_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintEnd_toStartOf="@+id/textView9" />
 
-                    <!--<ImageView-->
-                        <!--android:id="@+id/device_image2"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_gravity="center"-->
-                        <!--android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'-->
-                        <!--app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />-->
-                <!--</FrameLayout>-->
+            <TextView
+                app:mode="@{relayList[1]}"
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                app:layout_constraintTop_toTopOf="@+id/imageView10"
+                tools:text="09:00" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/relay_name_text2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="32dp"-->
-                    <!--android:layout_marginTop="8dp"-->
-                    <!--android:text="@{relayList[2].name}"-->
-                    <!--android:textColor="@color/black"-->
-                    <!--android:textSize="18sp"-->
-                    <!--app:layout_constraintBottom_toTopOf="@+id/device_status_text2"-->
-                    <!--app:layout_constraintStart_toEndOf="@+id/btn3"-->
-                    <!--app:layout_constraintTop_toTopOf="@+id/btn3"-->
-                    <!--tools:text="Name" />-->
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_power_settings_new_orange_400_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintEnd_toStartOf="@+id/textView11" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/device_status_text2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginBottom="8dp"-->
-                    <!--android:textSize="12sp"-->
-                    <!--app:layout_constraintBottom_toBottomOf="@+id/btn3"-->
-                    <!--app:layout_constraintStart_toStartOf="@+id/relay_name_text2"-->
-                    <!--app:layout_constraintTop_toBottomOf="@+id/relay_name_text2"-->
-                    <!--app:state="@{relayList[2].state}"-->
-                    <!--tools:text="Đang TẮT" />-->
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="imageView9,textView11,imageView10,textView9"
+                app:visibleByRelay="@{relayList[1]}" />
 
-                <!--<ImageView-->
-                    <!--android:id="@+id/relay_setup_button2"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="8dp"-->
-                    <!--android:layout_marginEnd="8dp"-->
-                    <!--android:layout_marginBottom="8dp"-->
-                    <!--android:background="?android:attr/selectableItemBackgroundBorderless"-->
-                    <!--android:clickable="true"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--app:srcCompat="@drawable/ic_ios_settings" />-->
+            <androidx.constraintlayout.widget.Group
+                app:visibleByRelay="@{relayList[0]}"
+                android:id="@+id/group2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="textView8,imageView4,textView7,imageView6" />
 
-                <!--<ProgressBar-->
-                    <!--style="?android:attr/progressBarStyleHorizontal"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginEnd="8dp"-->
-                    <!--android:indeterminate="true"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent" />-->
-            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingEnd="8dp"-->
-                <!--android:textAlignment="textEnd"-->
-                <!--app:mode="@{relayList[3]}"-->
-                <!--tools:text="Tự động" />-->
-
-            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="36dp"-->
-                <!--android:layout_marginBottom="16dp"-->
-                <!--android:background="@drawable/bg_very_light_gray_rounded_filled"-->
-                <!--android:clickable="true"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<FrameLayout-->
-                    <!--android:id="@+id/btn4"-->
-                    <!--android:layout_width="64dp"-->
-                    <!--android:layout_height="64dp"-->
-                    <!--android:layout_marginStart="2dp"-->
-                    <!--android:layout_marginTop="2dp"-->
-                    <!--android:layout_marginBottom="2dp"-->
-                    <!--android:background="@drawable/bg_circular_yellow"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent">-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/device_image3"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_gravity="center"-->
-                        <!--android:src='@{relayList[0].state == "F" ? @drawable/ic_power_settings_new_black_48dp : @drawable/ic_power_settings_new_orange_400_48dp}'-->
-                        <!--app:srcCompat="@drawable/ic_power_settings_new_black_48dp" />-->
-                <!--</FrameLayout>-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/relay_name_text3"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="32dp"-->
-                    <!--android:layout_marginTop="8dp"-->
-                    <!--android:text="@{relayList[3].name , default = `Name`}"-->
-                    <!--android:textColor="@color/black"-->
-                    <!--android:textSize="18sp"-->
-                    <!--app:layout_constraintBottom_toTopOf="@+id/device_status_text3"-->
-                    <!--app:layout_constraintStart_toEndOf="@+id/btn4"-->
-                    <!--app:layout_constraintTop_toTopOf="@+id/btn4" />-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/device_status_text3"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginBottom="8dp"-->
-                    <!--android:textSize="12sp"-->
-                    <!--app:layout_constraintBottom_toBottomOf="@+id/btn4"-->
-                    <!--app:layout_constraintStart_toStartOf="@+id/relay_name_text3"-->
-                    <!--app:layout_constraintTop_toBottomOf="@+id/relay_name_text3"-->
-                    <!--app:state="@{relayList[3].state}"-->
-                    <!--tools:text="Đang TẮT" />-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/relay_setup_button3"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="8dp"-->
-                    <!--android:layout_marginEnd="8dp"-->
-                    <!--android:layout_marginBottom="8dp"-->
-                    <!--android:background="?android:attr/selectableItemBackgroundBorderless"-->
-                    <!--android:clickable="true"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--app:srcCompat="@drawable/ic_ios_settings" />-->
-
-                <!--<ProgressBar-->
-                    <!--style="?android:attr/progressBarStyleHorizontal"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginEnd="8dp"-->
-                    <!--android:indeterminate="true"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent" />-->
-            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 </layout>

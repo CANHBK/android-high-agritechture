@@ -139,13 +139,13 @@ class Apollo @Inject constructor(
         }
     }
 
-    override fun configTimeControl(serviceTag: String, controlTag: String, index: Int, isAuto: Boolean, name: String, onHour: String, onMinute: String, offHour: String, offMinute: String): LiveData<ApiResponse<Control>> {
+    override fun configTimeControl(serviceTag: String, controlTag: String, index: Int, isRepeat: Boolean, name: String, onHour: String, onMinute: String, offHour: String, offMinute: String): LiveData<ApiResponse<Control>> {
         val mutation = apolloClient.mutate(
                 ConfigTimeControlMutation.builder()
                         .serviceTag(serviceTag)
                         .controlTag(controlTag)
                         .index(index)
-                        .isAuto(isAuto)
+                        .isRepeat(isRepeat)
                         .name(name)
                         .onHour(onHour)
                         .onMinute(onMinute)
@@ -180,7 +180,7 @@ class Apollo @Inject constructor(
                                             onHour = it.onHour(),
                                             offHour = it.offHour(),
                                             offMinute = it.offMinute(),
-                                            isAuto = it.isAuto!!,
+                                            isRepeat = it.isRepeat!!,
                                             state = it.state()!!
                                     )
                                     relaysList.add(relay)
@@ -342,7 +342,7 @@ class Apollo @Inject constructor(
                                             onHour = it.onHour(),
                                             offHour = it.offHour(),
                                             offMinute = it.offMinute(),
-                                            isAuto = it.isAuto!!,
+                                            isRepeat = it.isRepeat!!,
                                             state = it.state()!!
                                     )
                                     relaysList.add(relay)
@@ -404,7 +404,7 @@ class Apollo @Inject constructor(
                                                 onHour = it.onHour(),
                                                 offHour = it.offHour(),
                                                 offMinute = it.offMinute(),
-                                                isAuto = it.isAuto!!,
+                                                isRepeat = it.isRepeat!!,
                                                 state = it.state()!!
                                         )
                                         relaysList.add(relay)
@@ -477,7 +477,7 @@ class Apollo @Inject constructor(
                                             onHour = it.onHour(),
                                             offHour = it.offHour(),
                                             offMinute = it.offMinute(),
-                                            isAuto = it.isAuto!!,
+                                            isRepeat = it.isRepeat!!,
                                             state = it.state()!!
                                     )
                                     relaysList.add(relay)

@@ -15,7 +15,7 @@ data class Relay(
         val index:Int,
         val controlTag: String,
         val serviceTag: String,
-        val isAuto:Boolean,
+        val isRepeat:Boolean,
         val onMinute:String?,
         val onHour:String?,
         val offMinute:String?,

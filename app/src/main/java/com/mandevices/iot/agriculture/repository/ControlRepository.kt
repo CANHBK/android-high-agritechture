@@ -28,7 +28,7 @@ class ControlRepository @Inject constructor(
 
     fun configTimeControl(
             serviceTag: String, index: Int,
-            controlTag: String, isAuto: Boolean, onHour: String, onMinute: String,
+            controlTag: String, isRepeat: Boolean, onHour: String, onMinute: String,
             offHour: String, offMinute: String,
             name: String
     ): LiveData<Resource<Control>> {
@@ -47,7 +47,7 @@ class ControlRepository @Inject constructor(
                     serviceTag = serviceTag,
                     index = index,
                     controlTag = controlTag,
-                    isAuto = isAuto,
+                    isRepeat = isRepeat,
                     onHour = onHour,
                     onMinute = onMinute,
                     offHour = offHour,
@@ -58,17 +58,17 @@ class ControlRepository @Inject constructor(
 
     }
 
-    fun setState(serviceTag: String, index: Int, state: String, tag: String): LiveData<Resource<List<Control>>> {
-        return object : NetworkBoundResource<List<Control>, Control>(appExecutors) {
+    fun setState(index: Int, state: String, tag: String): LiveData<Resource<Control>> {
+        return object : NetworkBoundResource<Control, Control>(appExecutors) {
             override fun saveCallResult(item: Control) {
                 controlDao.update(item)
             }
 
-            override fun shouldFetch(data: List<Control>?): Boolean {
+            override fun shouldFetch(data: Control?): Boolean {
                 return networkState.hasInternet()
             }
 
-            override fun loadFromDb() = controlDao.loadControls(serviceTag)
+            override fun loadFromDb() = controlDao.loadControl(tag)
 
             override fun createCall() = graphQL.setState(index = index, state = state, tag = tag)
 
@@ -86,8 +86,25 @@ class ControlRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: List<Control>?): Boolean {
+                return networkState.hasInternet() && (data == null || data.isEmpty() || repoListRateLimit.shouldFetch(serviceTag))
+            }
+
+            override fun loadFromDb() = controlDao.loadControls(serviceTag)
+
+            override fun createCall() = graphQL.loadControls(serviceTag = serviceTag)
+
+        }.asLiveData()
+
+    }
+
+    fun refresh(serviceTag: String): LiveData<Resource<List<Control>>> {
+        return object : NetworkBoundResource<List<Control>, List<Control>>(appExecutors) {
+            override fun saveCallResult(item: List<Control>) {
+                controlDao.updateList(item)
+            }
+
+            override fun shouldFetch(data: List<Control>?): Boolean {
                 return networkState.hasInternet()
-//                return networkState.hasInternet() && (data == null || data.isEmpty() || repoListRateLimit.shouldFetch(serviceTag))
             }
 
             override fun loadFromDb() = controlDao.loadControls(serviceTag)
