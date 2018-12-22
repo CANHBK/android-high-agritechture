@@ -22,7 +22,7 @@ class MonitorAdapter(
         private val monitorViewModel: MonitorViewModel,
         private val onDeleteClick: (Monitor) -> Unit,
         private val onEditClick: (Monitor) -> Unit,
-        private val onSensorSetting: (Monitor, Int) -> Unit,
+        private val onSensorSetting: (Monitor, Sensor) -> Unit,
         private val onRefresh: (ItemMonitorNodeBinding,Monitor) -> Unit,
         private val onDataChartClick: (String, Int) -> Unit
 ) : DataBoundListAdapter<Monitor, ItemMonitorNodeBinding>(
@@ -73,19 +73,19 @@ class MonitorAdapter(
             }
 
             tempSensorSetupButton.setOnClickListener {
-                onSensorSetting(item, 1)
+                onSensorSetting(item, sensorsListInput[0])
             }
 
             lightSensorSetting.setOnClickListener {
-                onSensorSetting(item, 2)
+                onSensorSetting(item, sensorsListInput[1])
             }
 
             airHumiSetupButton.setOnClickListener {
-                onSensorSetting(item, 3)
+                onSensorSetting(item, sensorsListInput[2])
             }
 
             gndSetupButton.setOnClickListener {
-                onSensorSetting(item, 4)
+                onSensorSetting(item, sensorsListInput[3])
             }
 
             temp.setOnClickListener {

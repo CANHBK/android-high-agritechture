@@ -228,6 +228,28 @@ class Apollo @Inject constructor(
                             val errors = response.errors()
                             if (errors.isEmpty()) {
                                 val data = response.data()!!.monitorParams!!
+                                val sensorsData = response.data()!!.allSensor()
+
+
+                                val sensorList = mutableListOf<Sensor>()
+                                sensorsData!!.forEach {
+                                    val sensor = Sensor(
+                                            id = it.id()!!,
+                                            index = it.index()!!,
+                                            name = it.name()!!,
+                                            tag = it.tag(),
+                                            serviceTag = it.serviceTag()!!,
+                                            minute = it.minute(),
+                                            hour = it.hour(),
+                                            sensorID = it.sensorID(),
+                                            isPeriodic = it.isPeriodic?:false
+                                    )
+                                    sensorList.add(sensor)
+                                }
+
+                                val gson = GsonBuilder().setPrettyPrinting().create()
+
+                                val sensors: String = gson.toJson(sensorList)
 
                                 val monitor = Monitor(
                                         id = data.id()!!,
@@ -237,8 +259,11 @@ class Apollo @Inject constructor(
                                         lastTemp = data.data()!![0].value()!![0],
                                         lastLight = data.data()!![0].value()!![1],
                                         lastAirHumi = data.data()!![0].value()!![2],
-                                        lastGndHumi = data.data()!![0].value()!![3]
+                                        lastGndHumi = data.data()!![0].value()!![3],
+                                        sensors = sensors
                                 )
+
+
 
                                 postValue(ApiResponse.create(monitor))
                             } else {

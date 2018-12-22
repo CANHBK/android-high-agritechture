@@ -22,6 +22,7 @@ import com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.Sensor
 import com.mandevices.iot.agriculture.vo.Status
 import java.text.DecimalFormat
 import java.util.*
@@ -39,6 +40,7 @@ class SensorSettingFragment : Fragment(), Injectable {
     lateinit var appExecutors: AppExecutors
 
     private lateinit var monitor: Monitor
+    private lateinit var sensor:Sensor
 
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
@@ -49,6 +51,7 @@ class SensorSettingFragment : Fragment(), Injectable {
             savedInstanceState: Bundle?
     ): View? {
         monitor = SensorSettingFragmentArgs.fromBundle(arguments).monitor
+        sensor = SensorSettingFragmentArgs.fromBundle(arguments).sensor
         val dataBinding = DataBindingUtil.inflate<FragmentSensorSettingBinding>(
                 inflater,
                 R.layout.fragment_sensor_setting,
@@ -87,7 +90,7 @@ class SensorSettingFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
 
-        val sensorIndex = SensorSettingFragmentArgs.fromBundle(arguments).sensorIndex
+
 
         var isPeriodic = false
         binding.profileGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -112,7 +115,7 @@ class SensorSettingFragment : Fragment(), Injectable {
             monitorViewModel.configTimerMonitor(
                     serviceTag = monitor.serviceTag,
                     tag = monitor.tag,
-                    index = sensorIndex.toString(),
+                    index = sensor.index.toString(),
                     isPeriodic = isPeriodic,
                     hour = binding.selectedTimeText.text.toString().split(":")[0],
                     minute = binding.selectedTimeText.text.toString().split(":")[1]

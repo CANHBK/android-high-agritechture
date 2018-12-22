@@ -97,6 +97,17 @@ getMonitorParams(
       updatedAt
     }
   }
+    allSensor(tag: $tag) {
+      id
+      serviceTag
+      tag
+      index
+      sensorID
+      name
+        isPeriodic
+      hour
+      minute
+     }
 }
 
 mutation ConfigTimeMonitor($serviceTag: String!, $monitorTag: String!, $index: String!, $isPeriodic: Boolean!, $minute: String!, $hour:String!){

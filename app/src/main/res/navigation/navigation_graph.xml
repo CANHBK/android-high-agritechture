@@ -70,8 +70,8 @@
             android:name="monitor"
             app:argType="com.mandevices.iot.agriculture.vo.Monitor" />
         <argument
-            android:name="sensorIndex"
-            app:argType="integer" />
+            android:name="sensor"
+            app:argType="com.mandevices.iot.agriculture.vo.Sensor" />
     </fragment>
     <fragment
         android:id="@+id/controlFragment"

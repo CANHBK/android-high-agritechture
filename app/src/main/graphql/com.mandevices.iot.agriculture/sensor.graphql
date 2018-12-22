@@ -1,10 +1,13 @@
 query AllSensor($tag:String!){
-     allSensors(tag: $tag) {
-        id
-        index
-        name
-        tag
-        sensorID
-        serviceTag
-      }
+   allSensor(tag: $tag) {
+     id
+       serviceTag
+       tag
+       index
+       sensorID
+       name
+     	isPeriodic
+       hour
+       minute
+   }
 }

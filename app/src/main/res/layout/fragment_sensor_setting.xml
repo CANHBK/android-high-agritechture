@@ -11,9 +11,10 @@
         <import type="androidx.lifecycle.LiveData"/>
         <import type="com.mandevices.iot.agriculture.vo.Resource"/>
         <import type="com.mandevices.iot.agriculture.vo.Status"/>
-        <!--<variable-->
-            <!--name="viewModel"-->
-            <!--type="MonitorViewModel"/>-->
+        <import type="com.mandevices.iot.agriculture.vo.Sensor"/>
+        <variable
+            name="sensor"
+            type="Sensor"/>
         <variable
             name="result"
             type="LiveData&lt;Resource&lt;Monitor>>"/>
@@ -39,8 +40,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:title="Cài đặt cảm biến"
-                    app:subtitle="Nhiệt độ">
+                    app:title="Cài đặt cảm biến "
+                    app:subtitle="@{sensor.name}"
+                    tools:title="Cài đặt cảm biến"
+                    tools:subtitle="Nhiệt độ">
                     <!--tools:title='@{nodeSetting.title , default="Cài đặt node abc"}'>-->
                 </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>

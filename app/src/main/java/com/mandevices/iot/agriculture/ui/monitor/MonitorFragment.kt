@@ -117,8 +117,8 @@ class MonitorFragment : Fragment(), Injectable {
                     editBottomSheet = EditNodeBottomSheet.newInstance(monitor = it, monitorViewModel = monitorViewModel)
                     editBottomSheet?.show(activity!!.supportFragmentManager, editBottomSheet?.tag)
                 },
-                onSensorSetting = { monitor, sensorIndex ->
-                    val sensorSetting = MonitorFragmentDirections.settingSensor(monitor, sensorIndex)
+                onSensorSetting = { monitor, sensor ->
+                    val sensorSetting = MonitorFragmentDirections.settingSensor(monitor, sensor)
                     view.findNavController().navigate(sensorSetting)
 
                 },
