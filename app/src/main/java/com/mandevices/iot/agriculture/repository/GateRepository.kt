@@ -26,6 +26,9 @@ class GateRepository @Inject constructor(
     fun loadGates(userId: String,refresh:Boolean=false): LiveData<Resource<List<Gate>>> {
         return object : NetworkBoundResource<List<Gate>, List<Gate>>(appExecutors) {
             override fun saveCallResult(item: List<Gate>) {
+                if(item.isEmpty()){
+                   gateDao.deleteAllRecord()
+                }
                 gateDao.insertList(item)
             }
 

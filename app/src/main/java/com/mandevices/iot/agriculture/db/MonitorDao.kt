@@ -10,7 +10,8 @@ import com.mandevices.iot.agriculture.vo.SensorData
 @Dao
 abstract class MonitorDao : BaseDao<Monitor> {
 
-
+    @Query("DELETE FROM monitor" )
+    abstract fun deleteAllRecord()
 
     @Query(
             """

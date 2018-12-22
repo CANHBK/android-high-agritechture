@@ -24,5 +24,8 @@ abstract class ControlDao : BaseDao<Control> {
         WHERE tag = :tag
         ORDER BY name ASC"""
     )
+
     abstract fun loadControl(tag: String): LiveData<Control>
+    @Query("DELETE FROM control" )
+   abstract fun deleteAllRecord()
 }

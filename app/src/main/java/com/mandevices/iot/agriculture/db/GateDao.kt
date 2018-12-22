@@ -23,4 +23,7 @@ interface   GateDao :BaseDao<Gate>{
     )
     fun loadGate(idGate: String): LiveData<Gate>
 
+    @Query("DELETE FROM gate" )
+    fun deleteAllRecord()
+
 }

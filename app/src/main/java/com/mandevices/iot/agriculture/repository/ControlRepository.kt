@@ -79,6 +79,9 @@ class ControlRepository @Inject constructor(
     fun loadControls(serviceTag: String): LiveData<Resource<List<Control>>> {
         return object : NetworkBoundResource<List<Control>, List<Control>>(appExecutors) {
             override fun saveCallResult(item: List<Control>) {
+                if(item.isEmpty()){
+                    controlDao.deleteAllRecord()
+                }
                 controlDao.insertList(item)
             }
 

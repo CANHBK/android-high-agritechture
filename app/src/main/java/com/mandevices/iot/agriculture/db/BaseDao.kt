@@ -1,9 +1,7 @@
 package com.mandevices.iot.agriculture.db
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import android.os.FileObserver.DELETE
+import androidx.room.*
 
 interface BaseDao<T> {
     /**
@@ -43,5 +41,7 @@ interface BaseDao<T> {
      */
     @Delete
     fun delete(obj: T)
+
+
 
 }

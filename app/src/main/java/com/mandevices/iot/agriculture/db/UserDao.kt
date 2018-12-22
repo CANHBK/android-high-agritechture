@@ -7,6 +7,8 @@ import com.mandevices.iot.agriculture.vo.User
 
 @Dao
 interface UserDao : BaseDao<User> {
+    @Query("DELETE FROM user" )
+    abstract fun deleteAllRecord()
 
     @Query("DELETE FROM user")
     fun resetTable()

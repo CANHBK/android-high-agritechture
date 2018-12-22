@@ -11,6 +11,8 @@ import com.mandevices.iot.agriculture.vo.Relay
 @Dao
 abstract class RelayDao : BaseDao<Relay> {
 
+    @Query("DELETE FROM relay" )
+    abstract fun deleteAllRecord()
     @Query(
             """
         SELECT * FROM relay

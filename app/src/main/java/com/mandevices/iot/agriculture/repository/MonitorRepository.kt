@@ -47,6 +47,9 @@ class MonitorRepository @Inject constructor(
     fun loadMonitors(serviceTag: String): LiveData<Resource<List<Monitor>>> {
         return object : NetworkBoundResource<List<Monitor>, List<Monitor>>(appExecutors) {
             override fun saveCallResult(item: List<Monitor>) {
+                if(item.isEmpty()){
+                    monitorDao.deleteAllRecord()
+                }
                 monitorDao.insertList(item)
             }
 
