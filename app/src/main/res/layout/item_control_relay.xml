@@ -24,7 +24,7 @@
 
         <variable
             name="relayList"
-            type="java.util.List&lt;Relay>" />
+            type="List&lt;Relay>" />
 
         <variable
             name="viewModel"
@@ -153,15 +153,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_node_name"
                 tools:text="C-001-0:F" />
-
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingEnd="8dp"-->
-            <!--android:text="TextView"-->
-            <!--android:textAlignment="textEnd"-->
-            <!--app:mode="@{relayList[0]}"-->
-            <!--tools:text="Tự động" />-->
 
             <ImageView
                 android:id="@+id/imageView4"

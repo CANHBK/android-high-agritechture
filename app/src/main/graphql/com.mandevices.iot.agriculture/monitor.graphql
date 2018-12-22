@@ -11,6 +11,17 @@ query AllMonitors($serviceTag :String!){
             value
             updatedAt
           }
+           sensors {
+                id
+                serviceTag
+                tag
+                index
+                name
+                isPeriodic
+                hour
+                minute
+                sensorID
+              }
 
      }
 }
@@ -88,12 +99,12 @@ getMonitorParams(
   }
 }
 
-mutation ConfigTimeMonitor($serviceTag: String!, $monitorTag: String!, $index: String!, $isAuto: Boolean!, $minute: String!, $hour:String!){
+mutation ConfigTimeMonitor($serviceTag: String!, $monitorTag: String!, $index: String!, $isPeriodic: Boolean!, $minute: String!, $hour:String!){
 configTimeMonitor(
 serviceTag:$serviceTag
 monitorTag:$monitorTag
 index:$index
-isAuto:$isAuto
+isPeriodic:$isPeriodic
 minute:$minute
 hour:$hour
 ){
@@ -107,7 +118,7 @@ hour:$hour
       tag
       index
       name
-      isAuto
+      isPeriodic
       hour
       minute
       sensorID

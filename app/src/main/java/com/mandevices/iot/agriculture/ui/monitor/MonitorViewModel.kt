@@ -15,7 +15,6 @@ import com.mandevices.iot.agriculture.vo.Resource
 import com.mandevices.iot.agriculture.vo.SensorData
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.min
 import kotlin.random.Random
 
 class MonitorViewModel @Inject constructor(repository: MonitorRepository) : ObservableViewModel() {
@@ -35,7 +34,7 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
 
     private val serviceTag = MutableLiveData<String>()
     private val tag = MutableLiveData<String>()
-    private val isAuto = MutableLiveData<Boolean>()
+    private val isPeriodic = MutableLiveData<Boolean>()
     private val index = MutableLiveData<String>()
     private val hour = MutableLiveData<String>()
     private val minute = MutableLiveData<String>()
@@ -87,7 +86,7 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
                             serviceTag = serviceTag.value!!,
                             monitorTag = tag.value!!,
                             index = index.value!!,
-                            isAuto = isAuto.value!!,
+                            isPeriodic = isPeriodic.value!!,
                             hour = hour.value!!,
                             minute = minute.value!!
                     )
@@ -197,11 +196,11 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
         triggerGetNewestMonitorData.value = Random.nextInt(1, 10)
     }
 
-    fun configTimerMonitor(serviceTag: String, tag: String, index: String, isAuto: Boolean, hour: String, minute: String) {
+    fun configTimerMonitor(serviceTag: String, tag: String, index: String, isPeriodic: Boolean, hour: String, minute: String) {
         this.serviceTag.value = serviceTag
         this.tag.value = tag
         this.index.value = index
-        this.isAuto.value = isAuto
+        this.isPeriodic.value = isPeriodic
         this.hour.value = hour
         this.minute.value = minute
         triggerConfig.value = Random.nextInt(1, 10)

@@ -6,11 +6,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.databinding.ItemMonitorNodeBinding
 import com.mandevices.iot.agriculture.ui.common.DataBoundListAdapter
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.Relay
+import com.mandevices.iot.agriculture.vo.Sensor
 
 class MonitorAdapter(
         private val dataBindingComponent: DataBindingComponent,
@@ -37,12 +41,20 @@ class MonitorAdapter(
 
     override fun bind(binding: ItemMonitorNodeBinding, item: Monitor) {
 
+        val gson = GsonBuilder().setPrettyPrinting().create()
+
+        var sensorsListInput: List<Sensor> = gson.fromJson(item.sensors, object : TypeToken<List<Sensor>>() {}.type)
+
+        sensorsListInput = sensorsListInput.sortedWith(compareBy {
+            it.index
+        })
+
         //        E-003-F:0
         val sensorHexString = item.tag.split(":")[0].split("-")[2]
         val sensorHex = java.lang.Long.parseLong(sensorHexString, 16)
-        val sensorBit = sensorHex.toString(2)
+//        val sensorBit =
         val sensorBitInt = mutableListOf<Int>()
-        for (bit in sensorBit.toByteArray()) {
+        for (bit in sensorHex.toString(2).toByteArray()) {
             sensorBitInt.add(bit - 48)
         }
 
@@ -91,10 +103,10 @@ class MonitorAdapter(
             gndHumi.setOnClickListener {
                 onDataChartClick(item.tag, 4)
             }
-
+            sensorsList = sensorsListInput
+            sensorBit = sensorBitInt.reversed()
         }
 
-        binding.sensorBit = sensorBitInt.reversed()
 
 
     }

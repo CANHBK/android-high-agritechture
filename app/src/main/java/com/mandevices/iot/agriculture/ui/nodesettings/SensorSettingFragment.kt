@@ -57,11 +57,12 @@ class SensorSettingFragment : Fragment(), Injectable {
         )
 
         binding = dataBinding
-
+        val currentTime = Calendar.getInstance()
+        val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val mMinute = currentTime.get(Calendar.MINUTE)
+        binding.selectedTimeText.text = "$mHour:$mMinute"
         binding.selectedTimeText.setOnClickListener {
-            val currentTime = Calendar.getInstance()
-            val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
-            val mMinute = currentTime.get(Calendar.MINUTE)
+
 
             binding.selectedTimeText.text = "$mHour:$mMinute"
 
@@ -82,11 +83,14 @@ class SensorSettingFragment : Fragment(), Injectable {
         (activity as AppCompatActivity).setSupportActionBar(binding.topToolbar)
 
         val sensorIndex = SensorSettingFragmentArgs.fromBundle(arguments).sensorIndex
-        val isAuto = when (binding.profileGroup.checkedRadioButtonId) {
-            R.id.repeat_option -> true
-            else -> false
-        }
 
+        var isPeriodic = false
+        binding.profileGroup.setOnCheckedChangeListener { group, checkedId ->
+            isPeriodic = when (binding.profileGroup.checkedRadioButtonId) {
+                R.id.periodic_option -> true
+                else -> false
+            }
+        }
 
         binding.apply {
             setLifecycleOwner(viewLifecycleOwner)
@@ -97,14 +101,14 @@ class SensorSettingFragment : Fragment(), Injectable {
             }
 
         }
-        binding.monitor=monitor
+        binding.monitor = monitor
 
         binding.saveButton.setOnClickListener {
             monitorViewModel.configTimerMonitor(
                     serviceTag = monitor.serviceTag,
                     tag = monitor.tag,
                     index = sensorIndex.toString(),
-                    isAuto = isAuto,
+                    isPeriodic = isPeriodic,
                     hour = binding.selectedTimeText.text.toString().split(":")[0],
                     minute = binding.selectedTimeText.text.toString().split(":")[1]
             )

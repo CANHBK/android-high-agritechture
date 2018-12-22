@@ -74,7 +74,7 @@ class Apollo @Inject constructor(
             serviceTag: String,
             monitorTag: String,
             index: String,
-            isAuto: Boolean,
+            isPeriodic: Boolean,
             minute: String,
             hour: String
     ): LiveData<ApiResponse<Monitor>> {
@@ -83,7 +83,7 @@ class Apollo @Inject constructor(
                         .serviceTag(serviceTag)
                         .monitorTag(monitorTag)
                         .index(index)
-                        .isAuto(isAuto)
+                        .isPeriodic(isPeriodic)
                         .minute(minute)
                         .hour(hour)
                         .build()
@@ -114,7 +114,7 @@ class Apollo @Inject constructor(
                                             minute = it.minute(),
                                             hour = it.hour(),
                                             sensorID = it.sensorID(),
-                                            isAuto = it.isAuto?:true
+                                            isPeriodic = it.isPeriodic?:false
                                     )
                                     sensorList.add(sensor)
                                 }
@@ -652,6 +652,25 @@ class Apollo @Inject constructor(
                                 val result = ArrayList<Monitor>()
                                 data.forEach {
                                     if (it.data()!!.size != 0) {
+                                        val sensorsList = mutableListOf<Sensor>()
+                                        it.sensors()!!.forEach {
+                                            val sensor = Sensor(
+                                                    id = it.id()!!,
+                                                    index = it.index()!!,
+                                                    name = it.name()!!,
+                                                    tag = it.tag(),
+                                                    serviceTag = it.serviceTag()!!,
+                                                    minute = it.minute(),
+                                                    hour = it.hour(),
+                                                    isPeriodic = it.isPeriodic,
+                                                    sensorID = it.sensorID()
+                                            )
+                                            sensorsList.add(sensor)
+                                        }
+
+                                        val gson = GsonBuilder().setPrettyPrinting().create()
+
+                                        val sensors: String = gson.toJson(sensorsList)
                                         val monitor = Monitor(
                                                 id = it.id()!!,
                                                 name = it.name()!!,
@@ -660,7 +679,8 @@ class Apollo @Inject constructor(
                                                 lastTemp = it.data()!![0].value()!![0],
                                                 lastLight = it.data()!![0].value()!![1],
                                                 lastAirHumi = it.data()!![0].value()!![2],
-                                                lastGndHumi = it.data()!![0].value()!![3]
+                                                lastGndHumi = it.data()!![0].value()!![3],
+                                                sensors = sensors
 
                                         )
                                         result.add(monitor)

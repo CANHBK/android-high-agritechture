@@ -863,7 +863,7 @@
               "deprecationReason": null
             },
             {
-              "name": "isAuto",
+              "name": "isPeriodic",
               "description": "Chế độ hoạt động của sensor:\ntrue = Tự động, false: Thủ công",
               "args": [],
               "type": {
@@ -2053,7 +2053,7 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "isAuto",
+                  "name": "isPeriodic",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",

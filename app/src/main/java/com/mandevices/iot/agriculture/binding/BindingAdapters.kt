@@ -14,6 +14,7 @@ import com.mandevices.iot.agriculture.R.id.textView
 import com.mandevices.iot.agriculture.vo.Relay
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import com.mandevices.iot.agriculture.vo.Sensor
 
 
 /**
@@ -29,7 +30,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("visibleByRelay")
     fun visibleByRelay(view: View, relay: Relay?) {
-        view.visibility = if (relay!!.onHour!=null) View.VISIBLE else View.GONE
+        view.visibility = if (relay!!.onHour != null) View.VISIBLE else View.GONE
     }
 
     @JvmStatic
@@ -77,6 +78,7 @@ object BindingAdapters {
         textView.text = "${relay.onHour}:${relay.onMinute}"
 
     }
+
     @JvmStatic
     @BindingAdapter("timeOff")
     fun setTimeOff(textView: TextView, relay: Relay) {
@@ -84,10 +86,30 @@ object BindingAdapters {
 
     }
 
-   @JvmStatic
+    @JvmStatic
+    @BindingAdapter("time")
+    fun time(textView: TextView, sensor: Sensor) {
+        textView.text = "${sensor.hour}:${sensor.minute}"
+
+    }
+
+    @JvmStatic
     @BindingAdapter("visibleIfRepeat")
     fun visibleIfRepeat(view: View, relay: Relay) {
         view.visibility = if (relay.isRepeat) View.VISIBLE else View.GONE
+
+    }
+    @JvmStatic
+    @BindingAdapter("visibleIfPeriodic")
+    fun visibleIfPeriodic(view: View, sensor: Sensor) {
+        view.visibility = if (sensor.isPeriodic!=null && sensor.isPeriodic!!) View.VISIBLE else View.GONE
+
+    }
+
+    @JvmStatic
+    @BindingAdapter("visibleIfSensorSetting")
+    fun visibleIfSensorSetting(view: View, sensor: Sensor) {
+        view.visibility = if (sensor.isPeriodic != null) View.VISIBLE else View.INVISIBLE
 
     }
 

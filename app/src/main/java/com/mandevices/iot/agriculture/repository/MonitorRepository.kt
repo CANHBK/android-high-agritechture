@@ -107,7 +107,7 @@ class MonitorRepository @Inject constructor(
             serviceTag: String,
             monitorTag: String,
             index: String,
-            isAuto: Boolean,
+            isPeriodic: Boolean,
             minute: String,
             hour: String)
             : LiveData<Resource<Monitor>> {
@@ -127,7 +127,7 @@ class MonitorRepository @Inject constructor(
                     serviceTag = serviceTag,
                     monitorTag = monitorTag,
                     index = index,
-                    isAuto = isAuto,
+                    isPeriodic = isPeriodic,
                     minute = minute,
                     hour = hour)
 

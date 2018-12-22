@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Cấu hình điều khiển"
+                android:text="Kiểu gửi dữ liệu"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,16 +123,16 @@
                 android:id="@+id/profile_group">
 
                 <RadioButton
-                    android:text="Tự động"
+                    android:text="Theo chu kì"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/repeat_option"
+                    android:id="@+id/periodic_option"
                     android:layout_weight="1"
                     android:layout_marginEnd="16dp"
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:text="Thủ công"
+                    android:text="Theo giờ cố định"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/manual_option"

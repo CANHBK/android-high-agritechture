@@ -15,7 +15,7 @@ interface GraphQL {
             serviceTag: String,
             monitorTag: String,
             index: String,
-            isAuto: Boolean,
+            isPeriodic: Boolean,
             minute: String,
             hour: String
     ): LiveData<ApiResponse<Monitor>>
