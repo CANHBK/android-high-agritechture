@@ -23,6 +23,7 @@ import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Monitor
 import com.mandevices.iot.agriculture.vo.Status
+import java.text.DecimalFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -60,14 +61,13 @@ class SensorSettingFragment : Fragment(), Injectable {
         val currentTime = Calendar.getInstance()
         val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
         val mMinute = currentTime.get(Calendar.MINUTE)
-        binding.selectedTimeText.text = "$mHour:$mMinute"
         binding.selectedTimeText.setOnClickListener {
 
 
-            binding.selectedTimeText.text = "$mHour:$mMinute"
+            binding.selectedTimeText.text = "${timeTextFormat(mHour)}:${timeTextFormat(mMinute)}"
 
             TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                binding.selectedTimeText.text = "$hourOfDay:$minute"
+                binding.selectedTimeText.text = "${timeTextFormat(hourOfDay)}:${timeTextFormat(minute)}"
             }, mHour, mMinute, true).show()
         }
 
@@ -76,6 +76,11 @@ class SensorSettingFragment : Fragment(), Injectable {
 
         return dataBinding.root
 
+    }
+
+    private fun timeTextFormat(timeNumber: Int): String {
+        return if (timeNumber > 9) "$timeNumber"
+        else "0$timeNumber"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

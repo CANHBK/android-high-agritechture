@@ -65,19 +65,18 @@ class RelaySettingFragment : Fragment(), Injectable {
         val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
         val mMinute = currentTime.get(Calendar.MINUTE)
 
-
         binding.apply {
-            selectedOnTimeText.text = "$mHour:$mMinute"
-            selectedOffTimeText.text = "$mHour:$mMinute"
+            selectedOnTimeText.text = "${timeTextFormat(mHour)}:${timeTextFormat(mMinute)}"
+            selectedOffTimeText.text = "${timeTextFormat(mHour)}:${timeTextFormat(mMinute)}"
             selectedOnTimeText.setOnClickListener {
                 TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                    this.selectedOnTimeText.text = "$hourOfDay:$minute"
+                    this.selectedOnTimeText.text = "${timeTextFormat(hourOfDay)}:${timeTextFormat(minute)}"
                 }, mHour, mMinute, true).show()
             }
 
             selectedOffTimeText.setOnClickListener {
                 TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                    this.selectedOffTimeText.text = "$hourOfDay:$minute"
+                    this.selectedOffTimeText.text = "${timeTextFormat(hourOfDay)}:${timeTextFormat(minute)}"
                 }, mHour, mMinute, true).show()
             }
         }
@@ -148,5 +147,9 @@ class RelaySettingFragment : Fragment(), Injectable {
 
     }
 
+    private fun timeTextFormat(timeNumber: Int): String {
+        return if (timeNumber > 9) "$timeNumber"
+        else "0$timeNumber"
+    }
 
 }
