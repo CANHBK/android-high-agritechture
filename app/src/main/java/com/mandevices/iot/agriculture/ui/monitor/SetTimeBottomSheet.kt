@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mandevices.iot.agriculture.databinding.BottomSheetSetTimeSensorBinding
 import com.mandevices.iot.agriculture.vo.Sensor
+import com.mandevices.iot.agriculture.vo.Status
 
 class SetTimeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
@@ -61,12 +62,12 @@ class SetTimeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        monitorViewModel.configTimerMonitor.value?.status = Status.INIT
         monitorViewModel.initSetTime()
         monitorViewModel.getSetTimeForm().fields.time = sensor.minute
         binding.setLifecycleOwner(viewLifecycleOwner)
-        binding.viewModel= monitorViewModel
-        binding.result= monitorViewModel.configTimerMonitor
+        binding.viewModel = monitorViewModel
+        binding.result = monitorViewModel.configTimerMonitor
 //        binding.apply {
 //            setLifecycleOwner(viewLifecycleOwner)
 //            viewModel = monitorViewModel

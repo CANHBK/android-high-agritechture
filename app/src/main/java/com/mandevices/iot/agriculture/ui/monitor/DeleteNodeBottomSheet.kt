@@ -16,6 +16,7 @@ import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Monitor
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.mandevices.iot.agriculture.vo.Status
 
 class DeleteNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
     private var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
@@ -64,6 +65,7 @@ class DeleteNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
 
         binding.setLifecycleOwner(viewLifecycleOwner)
+        monitorViewModel.deleteMonitor.value?.status = Status.INIT
         binding.viewModel = monitorViewModel
 
         binding.monitor = monitor

@@ -8,6 +8,7 @@ package com.mandevices.iot.agriculture.vo
  * `LiveData<Resource<T>>` to pass back the latest data to the UI with its fetch status.
  */
 enum class Status {
+    INIT,
     SUCCESS,
     ERROR,
     LOADING

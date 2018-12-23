@@ -14,6 +14,7 @@ import com.mandevices.iot.agriculture.di.Injectable
 import com.mandevices.iot.agriculture.util.autoCleared
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.mandevices.iot.agriculture.vo.Status
 
 class AddNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
@@ -63,6 +64,7 @@ class AddNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 //        }
 
         binding.setLifecycleOwner(viewLifecycleOwner)
+        monitorViewModel.addMonitor.value?.status=Status.INIT
 
         binding.viewModel = monitorViewModel
 

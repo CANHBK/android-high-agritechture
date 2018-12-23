@@ -16,6 +16,7 @@ import com.mandevices.iot.agriculture.util.autoCleared
 import com.mandevices.iot.agriculture.vo.Monitor
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.mandevices.iot.agriculture.vo.Status
 
 class EditNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
@@ -59,7 +60,7 @@ class EditNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+monitorViewModel.editMonitor.value?.status=Status.INIT
         monitorViewModel.initEditMonitor()
         monitorViewModel.getEditMonitorForm().fields.name = monitor.name
         binding.apply {
