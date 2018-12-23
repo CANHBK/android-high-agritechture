@@ -143,6 +143,9 @@ class RelaySettingFragment : Fragment(), Injectable {
                     offMinute = binding.selectedOffTimeText.text.toString().split(":")[1]
             )
         }
+        binding.cancelButton.setOnClickListener {
+            it.findNavController().popBackStack()
+        }
 
 
     }

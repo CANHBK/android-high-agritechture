@@ -59,6 +59,18 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun sensorDao(db: SmartFarmDB): SensorDao {
+        return db.sensorDao()
+    }
+
+    @Singleton
+    @Provides
+    fun monitorWithSensorsDao(db: SmartFarmDB): MonitorWithSensorsDao {
+        return db.monitorWithSensorDao()
+    }
+
+    @Singleton
+    @Provides
     fun networkState(context: Context): NetworkState {
         return NetworkState(context)
     }

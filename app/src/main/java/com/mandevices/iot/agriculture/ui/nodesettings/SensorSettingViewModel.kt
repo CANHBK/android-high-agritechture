@@ -11,6 +11,7 @@ import com.mandevices.iot.agriculture.ui.monitor.model.EditMonitorForm
 import com.mandevices.iot.agriculture.util.AbsentLiveData
 import com.mandevices.iot.agriculture.util.ObservableViewModel
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.MonitorWithSensors
 import com.mandevices.iot.agriculture.vo.Resource
 import javax.inject.Inject
 import kotlin.random.Random
@@ -36,7 +37,7 @@ class SensorSettingViewModel @Inject constructor(repository: MonitorRepository) 
         editMonitorForm = EditMonitorForm()
     }
 
-    val monitors: LiveData<Resource<List<Monitor>>> = Transformations
+    val monitors: LiveData<Resource<List<MonitorWithSensors>>> = Transformations
             .switchMap(triggerLoadMonitors) { it ->
                 if (it == null) {
                     AbsentLiveData.create()

@@ -11,6 +11,7 @@ import com.mandevices.iot.agriculture.ui.monitor.model.EditMonitorForm
 import com.mandevices.iot.agriculture.util.AbsentLiveData
 import com.mandevices.iot.agriculture.util.ObservableViewModel
 import com.mandevices.iot.agriculture.vo.Monitor
+import com.mandevices.iot.agriculture.vo.MonitorWithSensors
 import com.mandevices.iot.agriculture.vo.Resource
 import com.mandevices.iot.agriculture.vo.SensorData
 import java.util.*
@@ -61,7 +62,7 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
                 }
             }
 
-    val monitors: LiveData<Resource<List<Monitor>>> = Transformations
+    val monitors: LiveData<Resource<List<MonitorWithSensors>>> = Transformations
             .switchMap(triggerLoadMonitors) { it ->
                 if (it == null) {
                     AbsentLiveData.create()

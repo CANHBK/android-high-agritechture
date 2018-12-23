@@ -110,6 +110,7 @@ class SensorSettingFragment : Fragment(), Injectable {
 
         }
         binding.monitor = monitor
+        binding.sensor=sensor
 
         binding.saveButton.setOnClickListener {
             monitorViewModel.configTimerMonitor(
@@ -120,6 +121,9 @@ class SensorSettingFragment : Fragment(), Injectable {
                     hour = binding.selectedTimeText.text.toString().split(":")[0],
                     minute = binding.selectedTimeText.text.toString().split(":")[1]
             )
+        }
+        binding.cancelButton.setOnClickListener {
+            it.findNavController().popBackStack()
         }
         monitorViewModel.apply {
             monitorViewModel.configTimerMonitor.observe(viewLifecycleOwner, androidx.lifecycle.Observer {

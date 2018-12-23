@@ -68,7 +68,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("text")
     fun setText(textView: TextView, value: Int) {
-        textView.text = if (value != 0) value.toString() else "--"
+        textView.text = if (value != -1) value.toString() else "--"
 
     }
 

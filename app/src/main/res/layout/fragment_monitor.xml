@@ -15,10 +15,11 @@
         <import type="com.mandevices.iot.agriculture.vo.Monitor" />
 
         <import type="java.util.List" />
+        <import type="com.mandevices.iot.agriculture.vo.MonitorWithSensors"/>
 
         <variable
             name="result"
-            type="LiveData&lt;Resource&lt;List&lt;Monitor>>>" />
+            type="LiveData&lt;Resource&lt;List&lt;MonitorWithSensors>>>" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

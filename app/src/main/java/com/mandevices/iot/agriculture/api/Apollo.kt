@@ -206,14 +206,105 @@ class Apollo @Inject constructor(
         }
     }
 
-    override fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<Monitor>> {
+    override fun loadMonitors(serviceTag: String): LiveData<ApiResponse<List<MonitorWithSensorsModel>>> {
+        val query = AllMonitorsQuery
+                .builder()
+                .serviceTag(serviceTag)
+                .build()
+        val call = apolloClient.query(query)
+        return object : LiveData<ApiResponse<List<MonitorWithSensorsModel>>>() {
+            private var started = AtomicBoolean(false)
+            override fun onActive() {
+                super.onActive()
+
+                if (started.compareAndSet(false, true)) {
+                    call.enqueue(object : ApolloCall.Callback<AllMonitorsQuery.Data>() {
+                        override fun onFailure(e: ApolloException) {
+                            postValue(ApiResponse.create(e))
+                        }
+
+                        override fun onResponse(response: Response<AllMonitorsQuery.Data>) {
+                            val errors = response.errors()
+                            if (errors.isEmpty()) {
+                                val data = response.data()!!.allMonitors()!!
+                                val result = ArrayList<Monitor>()
+                                val tmp = ArrayList<MonitorWithSensorsModel>()
+                                val sensorsList = mutableListOf<Sensor>()
+                                data.forEach {
+                                    if (it.data()!!.size != 0) {
+
+                                        it.sensors()!!.forEach {
+                                            val sensor = Sensor(
+                                                    id = it.id()!!,
+                                                    index = it.index()!!,
+                                                    name = it.name()!!,
+                                                    tag = it.tag(),
+                                                    serviceTag = it.serviceTag()!!,
+                                                    minute = it.minute(),
+                                                    hour = it.hour(),
+                                                    isPeriodic = it.isPeriodic,
+                                                    sensorID = it.sensorID()
+                                            )
+                                            sensorsList.add(sensor)
+                                        }
+
+                                        val gson = GsonBuilder().setPrettyPrinting().create()
+
+                                        val sensors: String = gson.toJson(sensorsList)
+                                        val monitor = Monitor(
+                                                id = it.id()!!,
+                                                name = it.name()!!,
+                                                serviceTag = it.serviceTag()!!,
+                                                tag = it.tag()!!,
+                                                lastTemp = it.data()!![0].value()!![0],
+                                                lastLight = it.data()!![0].value()!![1],
+                                                lastAirHumi = it.data()!![0].value()!![2],
+                                                lastGndHumi = it.data()!![0].value()!![3],
+                                                sensors = sensors
+
+                                        )
+                                        result.add(monitor)
+                                        val t = MonitorWithSensorsModel(monitor=monitor,sensors=sensorsList)
+                                        tmp.add(t)
+                                    } else {
+                                        val monitor = Monitor(
+                                                id = it.id()!!,
+                                                name = it.name()!!,
+                                                serviceTag = it.serviceTag()!!,
+                                                tag = it.tag()!!
+
+                                        )
+                                        result.add(monitor)
+                                        val t = MonitorWithSensorsModel(monitor=monitor,sensors=sensorsList)
+                                        tmp.add(t)
+                                    }
+
+
+                                }
+
+                                postValue(ApiResponse.create(tmp))
+                            } else {
+                                postValue(ApiResponse.createError(errors[0].message()!!))
+                            }
+
+
+                        }
+
+                    })
+                }
+
+            }
+
+        }
+    }
+    override fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<List<Sensor>>> {
         val query = GetMonitorParamsQuery.builder()
                 .serviceTag(serviceTag)
                 .tag(tag)
                 .params(params)
                 .build()
         val call = apolloClient.query(query)
-        return object : LiveData<ApiResponse<Monitor>>() {
+        return object : LiveData<ApiResponse<List<Sensor>>>() {
             private var started = AtomicBoolean(false)
             override fun onActive() {
                 super.onActive()
@@ -265,7 +356,7 @@ class Apollo @Inject constructor(
 
 
 
-                                postValue(ApiResponse.create(monitor))
+                                postValue(ApiResponse.create(sensorList))
                             } else {
                                 postValue(ApiResponse.createError(errors[0].message()!!))
                             }
@@ -280,6 +371,81 @@ class Apollo @Inject constructor(
 
         }
     }
+
+//  override fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<Monitor>> {
+//        val query = GetMonitorParamsQuery.builder()
+//                .serviceTag(serviceTag)
+//                .tag(tag)
+//                .params(params)
+//                .build()
+//        val call = apolloClient.query(query)
+//        return object : LiveData<ApiResponse<Monitor>>() {
+//            private var started = AtomicBoolean(false)
+//            override fun onActive() {
+//                super.onActive()
+//
+//                if (started.compareAndSet(false, true)) {
+//                    call.enqueue(object : ApolloCall.Callback<GetMonitorParamsQuery.Data>() {
+//                        override fun onFailure(e: ApolloException) {
+//                            postValue(ApiResponse.create(e))
+//                        }
+//
+//                        override fun onResponse(response: Response<GetMonitorParamsQuery.Data>) {
+//                            val errors = response.errors()
+//                            if (errors.isEmpty()) {
+//                                val data = response.data()!!.monitorParams!!
+//                                val sensorsData = response.data()!!.allSensor()
+//
+//
+//                                val sensorList = mutableListOf<Sensor>()
+//                                sensorsData!!.forEach {
+//                                    val sensor = Sensor(
+//                                            id = it.id()!!,
+//                                            index = it.index()!!,
+//                                            name = it.name()!!,
+//                                            tag = it.tag(),
+//                                            serviceTag = it.serviceTag()!!,
+//                                            minute = it.minute(),
+//                                            hour = it.hour(),
+//                                            sensorID = it.sensorID(),
+//                                            isPeriodic = it.isPeriodic?:false
+//                                    )
+//                                    sensorList.add(sensor)
+//                                }
+//
+//                                val gson = GsonBuilder().setPrettyPrinting().create()
+//
+//                                val sensors: String = gson.toJson(sensorList)
+//
+//                                val monitor = Monitor(
+//                                        id = data.id()!!,
+//                                        name = data.name()!!,
+//                                        serviceTag = data.serviceTag()!!,
+//                                        tag = data.tag()!!,
+//                                        lastTemp = data.data()!![0].value()!![0],
+//                                        lastLight = data.data()!![0].value()!![1],
+//                                        lastAirHumi = data.data()!![0].value()!![2],
+//                                        lastGndHumi = data.data()!![0].value()!![3],
+//                                        sensors = sensors
+//                                )
+//
+//
+//
+//                                postValue(ApiResponse.create(monitor))
+//                            } else {
+//                                postValue(ApiResponse.createError(errors[0].message()!!))
+//                            }
+//
+//
+//                        }
+//
+//                    })
+//                }
+//
+//            }
+//
+//        }
+//    }
 
     override fun getMonitorDataByDate(tag: String, year: Int, month: Int, day: Int): LiveData<ApiResponse<SensorData>> {
         val query = GetMonitorDataByDateQuery
@@ -653,90 +819,7 @@ class Apollo @Inject constructor(
 
     }
 
-    override fun loadMonitors(serviceTag: String): LiveData<ApiResponse<List<Monitor>>> {
-        val query = AllMonitorsQuery
-                .builder()
-                .serviceTag(serviceTag)
-                .build()
-        val call = apolloClient.query(query)
-        return object : LiveData<ApiResponse<List<Monitor>>>() {
-            private var started = AtomicBoolean(false)
-            override fun onActive() {
-                super.onActive()
 
-                if (started.compareAndSet(false, true)) {
-                    call.enqueue(object : ApolloCall.Callback<AllMonitorsQuery.Data>() {
-                        override fun onFailure(e: ApolloException) {
-                            postValue(ApiResponse.create(e))
-                        }
-
-                        override fun onResponse(response: Response<AllMonitorsQuery.Data>) {
-                            val errors = response.errors()
-                            if (errors.isEmpty()) {
-                                val data = response.data()!!.allMonitors()!!
-                                val result = ArrayList<Monitor>()
-                                data.forEach {
-                                    if (it.data()!!.size != 0) {
-                                        val sensorsList = mutableListOf<Sensor>()
-                                        it.sensors()!!.forEach {
-                                            val sensor = Sensor(
-                                                    id = it.id()!!,
-                                                    index = it.index()!!,
-                                                    name = it.name()!!,
-                                                    tag = it.tag(),
-                                                    serviceTag = it.serviceTag()!!,
-                                                    minute = it.minute(),
-                                                    hour = it.hour(),
-                                                    isPeriodic = it.isPeriodic,
-                                                    sensorID = it.sensorID()
-                                            )
-                                            sensorsList.add(sensor)
-                                        }
-
-                                        val gson = GsonBuilder().setPrettyPrinting().create()
-
-                                        val sensors: String = gson.toJson(sensorsList)
-                                        val monitor = Monitor(
-                                                id = it.id()!!,
-                                                name = it.name()!!,
-                                                serviceTag = it.serviceTag()!!,
-                                                tag = it.tag()!!,
-                                                lastTemp = it.data()!![0].value()!![0],
-                                                lastLight = it.data()!![0].value()!![1],
-                                                lastAirHumi = it.data()!![0].value()!![2],
-                                                lastGndHumi = it.data()!![0].value()!![3],
-                                                sensors = sensors
-
-                                        )
-                                        result.add(monitor)
-                                    } else {
-                                        val monitor = Monitor(
-                                                id = it.id()!!,
-                                                name = it.name()!!,
-                                                serviceTag = it.serviceTag()!!,
-                                                tag = it.tag()!!
-
-                                        )
-                                        result.add(monitor)
-                                    }
-
-
-                                }
-                                postValue(ApiResponse.create(result))
-                            } else {
-                                postValue(ApiResponse.createError(errors[0].message()!!))
-                            }
-
-
-                        }
-
-                    })
-                }
-
-            }
-
-        }
-    }
 
     override fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Monitor>> {
         val mutation = apolloClient.mutate(

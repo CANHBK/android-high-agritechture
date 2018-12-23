@@ -3,13 +3,13 @@ package com.mandevices.iot.agriculture.repository
 import androidx.lifecycle.LiveData
 import com.mandevices.iot.agriculture.api.GraphQL
 import com.mandevices.iot.agriculture.db.MonitorDao
+import com.mandevices.iot.agriculture.db.MonitorWithSensorsDao
+import com.mandevices.iot.agriculture.db.SensorDao
 import com.mandevices.iot.agriculture.db.SensorDataDao
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.NetworkState
 import com.mandevices.iot.agriculture.util.RateLimiter
-import com.mandevices.iot.agriculture.vo.Monitor
-import com.mandevices.iot.agriculture.vo.Resource
-import com.mandevices.iot.agriculture.vo.SensorData
+import com.mandevices.iot.agriculture.vo.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -18,12 +18,14 @@ class MonitorRepository @Inject constructor(
         private val appExecutors: AppExecutors,
         private val monitorDao: MonitorDao,
         private val sensorDataDao: SensorDataDao,
+        private val monitorWithSensorsDao: MonitorWithSensorsDao,
         private val graphQL: GraphQL,
+        private val sensorDao: SensorDao,
         private val networkState: NetworkState
 
 ) : LiveData<Monitor>() {
 
-    private val repoListRateLimit = RateLimiter<String>(1, TimeUnit.MINUTES)
+    private val repoListRateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
 
 
     fun getMonitorDataByDate(tag: String, year: Int, month: Int, day: Int): LiveData<Resource<SensorData>> {
@@ -44,20 +46,25 @@ class MonitorRepository @Inject constructor(
 
     }
 
-    fun loadMonitors(serviceTag: String): LiveData<Resource<List<Monitor>>> {
-        return object : NetworkBoundResource<List<Monitor>, List<Monitor>>(appExecutors) {
-            override fun saveCallResult(item: List<Monitor>) {
+    fun loadMonitors(serviceTag: String): LiveData<Resource<List<MonitorWithSensors>>> {
+        return object : NetworkBoundResource<List<MonitorWithSensors>, List<MonitorWithSensorsModel>>(appExecutors) {
+            override fun saveCallResult(item: List<MonitorWithSensorsModel>) {
                 if(item.isEmpty()){
                     monitorDao.deleteAllRecord()
                 }
-                monitorDao.insertList(item)
+                for (o in item){
+                    monitorDao.insert(o.monitor)
+                    sensorDao.insertList(o.sensors!!)
+
+                }
+
             }
 
-            override fun shouldFetch(data: List<Monitor>?): Boolean {
+            override fun shouldFetch(data: List<MonitorWithSensors>?): Boolean {
                 return networkState.hasInternet() && (data == null || data.isEmpty() || repoListRateLimit.shouldFetch(serviceTag))
             }
 
-            override fun loadFromDb() = monitorDao.loadMonitors(serviceTag)
+            override fun loadFromDb() = monitorWithSensorsDao.monitorWithSensors()
 
             override fun createCall() = graphQL.loadMonitors(serviceTag = serviceTag)
 
@@ -66,9 +73,10 @@ class MonitorRepository @Inject constructor(
     }
 
     fun getMonitorParams(serviceTag: String, tag: String, params: List<String> = listOf<String>("1", "2", "3", "4")): LiveData<Resource<Monitor>> {
-        return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
-            override fun saveCallResult(item: Monitor) {
-                monitorDao.update(item)
+        return object : NetworkBoundResource<Monitor, List<Sensor>>(appExecutors) {
+            override fun saveCallResult(item: List<Sensor>) {
+//                monitorDao.updateMonitorData(sensors = item.sensors!!,tag = item.tag)
+                sensorDao.updateList(item)
 
             }
 
@@ -176,7 +184,7 @@ class MonitorRepository @Inject constructor(
     fun editMonitor(tag: String, name: String): LiveData<Resource<Monitor>> {
         return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
             override fun saveCallResult(item: Monitor) {
-                monitorDao.update(item)
+                monitorDao.updateNameByTag(name = item.name,tag = item.tag)
             }
 
             override fun shouldFetch(data: Monitor?): Boolean {

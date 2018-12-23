@@ -44,6 +44,7 @@ mutation EditMonitor($tag:String!,$name:String!){
   editMonitor(tag:$tag,name:$name){
   id serviceTag tag name
 
+
   }
 }
 
@@ -59,6 +60,15 @@ query GetNewestMonitorData($tag: String!) {
       value
       updatedAt
     }
+  }
+}
+
+query AllData($tag:String!){
+ allData(tag: $tag) {
+    id
+    serviceTag
+    value
+    updatedAt
   }
 }
 

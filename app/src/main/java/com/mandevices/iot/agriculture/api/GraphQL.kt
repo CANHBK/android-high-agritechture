@@ -10,7 +10,7 @@ interface GraphQL {
     fun deleteGate(userId: String, idGate: String): LiveData<ApiResponse<Gate>>
     fun editGate(userId: String, idGate: String, gateName: String): LiveData<ApiResponse<Gate>>
 
-    fun loadMonitors(serviceTag: String): LiveData<ApiResponse<List<Monitor>>>
+    fun loadMonitors(serviceTag: String): LiveData<ApiResponse<List<MonitorWithSensorsModel>>>
     fun configTimeMonitor(
             serviceTag: String,
             monitorTag: String,
@@ -21,7 +21,7 @@ interface GraphQL {
     ): LiveData<ApiResponse<Monitor>>
 
     fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Monitor>>
-    fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<Monitor>>
+    fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<List<Sensor>>>
     fun getNewestMonitorData(tag: String): LiveData<ApiResponse<Monitor>>
     fun deleteMonitor(tag: String): LiveData<ApiResponse<Monitor>>
     fun editMonitor(tag: String, name: String): LiveData<ApiResponse<Monitor>>

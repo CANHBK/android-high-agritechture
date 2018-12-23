@@ -13,6 +13,15 @@ abstract class MonitorDao : BaseDao<Monitor> {
     @Query("DELETE FROM monitor" )
     abstract fun deleteAllRecord()
 
+    @Query("UPDATE monitor SET name = :name WHERE tag = :tag")
+    abstract fun updateNameByTag(name:String,tag: String)
+
+    @Query("UPDATE monitor SET sensors = :sensors WHERE tag = :tag")
+    abstract fun updateMonitorData(sensors:String,tag: String)
+
+//    @Query("UPDATE monitor SET lastTemp = :temp,lastLight =: light, lastAirHumi=: WHERE tag = :tag")
+//    abstract fun updateLastMonitorData(temp:Int,light:Int,tag: String)
+
     @Query(
             """
         SELECT * FROM monitor
