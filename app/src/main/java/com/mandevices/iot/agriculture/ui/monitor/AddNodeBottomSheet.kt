@@ -56,17 +56,17 @@ class AddNodeBottomSheet : BottomSheetDialogFragment(), Injectable {
 
         monitorViewModel.initAddMonitor()
 
-        binding.apply {
-            setLifecycleOwner(viewLifecycleOwner)
-            viewModel = monitorViewModel
-            result = monitorViewModel.addMonitor
-        }
+//        binding.apply {
+//            setLifecycleOwner(viewLifecycleOwner)
+//            viewModel = monitorViewModel
+//            result = monitorViewModel.addMonitor
+//        }
 
-//        binding.setLifecycleOwner(viewLifecycleOwner)
-//
-//        binding.viewModel = monitorViewModel
-//
-//        binding.result = monitorViewModel.addMonitor
+        binding.setLifecycleOwner(viewLifecycleOwner)
+
+        binding.viewModel = monitorViewModel
+
+        binding.result = monitorViewModel.addMonitor
 
         addMonitor()
 

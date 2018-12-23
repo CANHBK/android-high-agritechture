@@ -18,9 +18,9 @@ interface GraphQL {
             isPeriodic: Boolean,
             minute: String,
             hour: String
-    ): LiveData<ApiResponse<Monitor>>
+    ): LiveData<ApiResponse<Sensor>>
 
-    fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Monitor>>
+    fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<MonitorWithSensorsModel>>
     fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<List<Sensor>>>
     fun getNewestMonitorData(tag: String): LiveData<ApiResponse<Monitor>>
     fun deleteMonitor(tag: String): LiveData<ApiResponse<Monitor>>

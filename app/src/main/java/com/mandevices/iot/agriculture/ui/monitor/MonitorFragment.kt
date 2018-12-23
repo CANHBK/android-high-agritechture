@@ -142,8 +142,6 @@ class MonitorFragment : Fragment(), Injectable {
         monitorViewModel.apply {
             loadMonitor(serviceTag)
 
-
-
             monitorParams.observe(viewLifecycleOwner, Observer {
 
             })

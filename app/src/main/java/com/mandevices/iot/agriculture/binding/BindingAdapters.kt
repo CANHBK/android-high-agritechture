@@ -69,6 +69,7 @@ object BindingAdapters {
     @BindingAdapter("text")
     fun setText(textView: TextView, value: Int) {
         textView.text = if (value != -1) value.toString() else "--"
+//        textView.text=value.toString()
 
     }
 
@@ -99,6 +100,14 @@ object BindingAdapters {
         view.visibility = if (relay.isRepeat) View.VISIBLE else View.GONE
 
     }
+
+    @JvmStatic
+    @BindingAdapter("visibleIfNotNull")
+    fun visibleIfNotNull(view: View, sensor: Sensor?) {
+        view.visibility = if (sensor!=null) View.VISIBLE else View.GONE
+
+    }
+
     @JvmStatic
     @BindingAdapter("visibleIfPeriodic")
     fun visibleIfPeriodic(view: View, sensor: Sensor) {

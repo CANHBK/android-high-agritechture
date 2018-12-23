@@ -14,9 +14,8 @@ data class Monitor(
         val name: String,
         val tag: String,
         val serviceTag: String,
-        val lastTemp: Int=0,
-        val lastLight:Int=0,
-        val lastAirHumi:Int=0,
-        val lastGndHumi:Int=0,
-        val sensors:String?=null
+        var lastTemp: Int=-1,
+        var lastLight:Int=-1,
+        var lastAirHumi:Int=-1,
+        var lastGndHumi:Int=-1
 ) : Serializable

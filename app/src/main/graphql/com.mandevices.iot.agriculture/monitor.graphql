@@ -31,6 +31,18 @@ query AllMonitors($serviceTag :String!){
 mutation AddMonitor($serviceTag : String!,$tag:String! $name:String!){
   addMonitor(serviceTag : $serviceTag,tag:$tag,name:$name){
   id serviceTag tag name
+   sensors {
+        tag
+        index
+        name
+        isPeriodic
+        hour
+        minute
+        sensorID
+        id
+        tag
+        serviceTag
+      }
 
   }
 }
@@ -130,20 +142,14 @@ minute:$minute
 hour:$hour
 ){
   id
-    serviceTag
-    tag
-    name
-    sensors {
-      id
-      serviceTag
-      tag
-      index
-      name
-      isPeriodic
-      hour
-      minute
-      sensorID
-    }
+     serviceTag
+     tag
+     name
+     index
+     isPeriodic
+     hour
+     minute
+     sensorID
   }
 }
 

@@ -77,7 +77,7 @@ class Apollo @Inject constructor(
             isPeriodic: Boolean,
             minute: String,
             hour: String
-    ): LiveData<ApiResponse<Monitor>> {
+    ): LiveData<ApiResponse<Sensor>> {
         val mutation = apolloClient.mutate(
                 ConfigTimeMonitorMutation.builder()
                         .serviceTag(serviceTag)
@@ -88,7 +88,7 @@ class Apollo @Inject constructor(
                         .hour(hour)
                         .build()
         )
-        return object : LiveData<ApiResponse<Monitor>>() {
+        return object : LiveData<ApiResponse<Sensor>>() {
             private var started = AtomicBoolean(false)
             override fun onActive() {
                 super.onActive()
@@ -103,27 +103,38 @@ class Apollo @Inject constructor(
                             val errors = response.errors()
                             if (errors.isEmpty()) {
                                 val data = response.data()!!.configTimeMonitor()!!
-                                val sensorList = mutableListOf<Sensor>()
-                                data.sensors()!!.forEach {
-                                    val sensor = Sensor(
-                                            id = it.id()!!,
-                                            index = it.index()!!,
-                                            name = it.name()!!,
-                                            tag = it.tag()!!,
-                                            serviceTag = it.serviceTag()!!,
-                                            minute = it.minute(),
-                                            hour = it.hour(),
-                                            sensorID = it.sensorID(),
-                                            isPeriodic = it.isPeriodic?:false
+//                                val sensorList = mutableListOf<Sensor>()
+//                                data.sensors()!!.forEach {
+//                                    val sensor = Sensor(
+//                                            id = it.id()!!,
+//                                            index = it.index()!!,
+//                                            name = it.name()!!,
+//                                            tag = it.tag(),
+//                                            serviceTag = it.serviceTag()!!,
+//                                            minute = it.minute(),
+//                                            hour = it.hour(),
+//                                            sensorID = it.sensorID(),
+//                                            isPeriodic = it.isPeriodic ?: false
+//                                    )
+//                                    sensorList.add(sensor)
+//                                }
+                                val sensor = Sensor(
+                                            id = data.id()!!,
+                                            index = data.index()!!,
+                                            name = data.name()!!,
+                                            tag = data.tag(),
+                                            serviceTag = data.serviceTag()!!,
+                                            minute = data.minute(),
+                                            hour = data.hour(),
+                                            sensorID = data.sensorID(),
+                                            isPeriodic = data.isPeriodic ?: false
                                     )
-                                    sensorList.add(sensor)
-                                }
 
-                                val gson = GsonBuilder().setPrettyPrinting().create()
-
-                                val test: String = gson.toJson(sensorList)
-                                val result = Monitor(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!, sensors = test)
-                                postValue(ApiResponse.create(result))
+//                                val gson = GsonBuilder().setPrettyPrinting().create()
+//
+//                                val test: String = gson.toJson(sensorList)
+//                                val result = Monitor(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
+                                postValue(ApiResponse.create(sensor))
                             } else {
                                 postValue(ApiResponse.createError(errors[0].message()!!))
                             }
@@ -248,9 +259,9 @@ class Apollo @Inject constructor(
                                             sensorsList.add(sensor)
                                         }
 
-                                        val gson = GsonBuilder().setPrettyPrinting().create()
-
-                                        val sensors: String = gson.toJson(sensorsList)
+//                                        val gson = GsonBuilder().setPrettyPrinting().create()
+//
+//                                        val sensors: String = gson.toJson(sensorsList)
                                         val monitor = Monitor(
                                                 id = it.id()!!,
                                                 name = it.name()!!,
@@ -259,12 +270,11 @@ class Apollo @Inject constructor(
                                                 lastTemp = it.data()!![0].value()!![0],
                                                 lastLight = it.data()!![0].value()!![1],
                                                 lastAirHumi = it.data()!![0].value()!![2],
-                                                lastGndHumi = it.data()!![0].value()!![3],
-                                                sensors = sensors
+                                                lastGndHumi = it.data()!![0].value()!![3]
 
                                         )
                                         result.add(monitor)
-                                        val t = MonitorWithSensorsModel(monitor=monitor,sensors=sensorsList)
+                                        val t = MonitorWithSensorsModel(monitor = monitor, sensors = sensorsList)
                                         tmp.add(t)
                                     } else {
                                         val monitor = Monitor(
@@ -275,7 +285,7 @@ class Apollo @Inject constructor(
 
                                         )
                                         result.add(monitor)
-                                        val t = MonitorWithSensorsModel(monitor=monitor,sensors=sensorsList)
+                                        val t = MonitorWithSensorsModel(monitor = monitor, sensors = sensorsList)
                                         tmp.add(t)
                                     }
 
@@ -297,6 +307,7 @@ class Apollo @Inject constructor(
 
         }
     }
+
     override fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<List<Sensor>>> {
         val query = GetMonitorParamsQuery.builder()
                 .serviceTag(serviceTag)
@@ -333,27 +344,10 @@ class Apollo @Inject constructor(
                                             minute = it.minute(),
                                             hour = it.hour(),
                                             sensorID = it.sensorID(),
-                                            isPeriodic = it.isPeriodic?:false
+                                            isPeriodic = it.isPeriodic
                                     )
                                     sensorList.add(sensor)
                                 }
-
-                                val gson = GsonBuilder().setPrettyPrinting().create()
-
-                                val sensors: String = gson.toJson(sensorList)
-
-                                val monitor = Monitor(
-                                        id = data.id()!!,
-                                        name = data.name()!!,
-                                        serviceTag = data.serviceTag()!!,
-                                        tag = data.tag()!!,
-                                        lastTemp = data.data()!![0].value()!![0],
-                                        lastLight = data.data()!![0].value()!![1],
-                                        lastAirHumi = data.data()!![0].value()!![2],
-                                        lastGndHumi = data.data()!![0].value()!![3],
-                                        sensors = sensors
-                                )
-
 
 
                                 postValue(ApiResponse.create(sensorList))
@@ -371,81 +365,6 @@ class Apollo @Inject constructor(
 
         }
     }
-
-//  override fun getMonitorParams(serviceTag: String, tag: String, params: List<String>): LiveData<ApiResponse<Monitor>> {
-//        val query = GetMonitorParamsQuery.builder()
-//                .serviceTag(serviceTag)
-//                .tag(tag)
-//                .params(params)
-//                .build()
-//        val call = apolloClient.query(query)
-//        return object : LiveData<ApiResponse<Monitor>>() {
-//            private var started = AtomicBoolean(false)
-//            override fun onActive() {
-//                super.onActive()
-//
-//                if (started.compareAndSet(false, true)) {
-//                    call.enqueue(object : ApolloCall.Callback<GetMonitorParamsQuery.Data>() {
-//                        override fun onFailure(e: ApolloException) {
-//                            postValue(ApiResponse.create(e))
-//                        }
-//
-//                        override fun onResponse(response: Response<GetMonitorParamsQuery.Data>) {
-//                            val errors = response.errors()
-//                            if (errors.isEmpty()) {
-//                                val data = response.data()!!.monitorParams!!
-//                                val sensorsData = response.data()!!.allSensor()
-//
-//
-//                                val sensorList = mutableListOf<Sensor>()
-//                                sensorsData!!.forEach {
-//                                    val sensor = Sensor(
-//                                            id = it.id()!!,
-//                                            index = it.index()!!,
-//                                            name = it.name()!!,
-//                                            tag = it.tag(),
-//                                            serviceTag = it.serviceTag()!!,
-//                                            minute = it.minute(),
-//                                            hour = it.hour(),
-//                                            sensorID = it.sensorID(),
-//                                            isPeriodic = it.isPeriodic?:false
-//                                    )
-//                                    sensorList.add(sensor)
-//                                }
-//
-//                                val gson = GsonBuilder().setPrettyPrinting().create()
-//
-//                                val sensors: String = gson.toJson(sensorList)
-//
-//                                val monitor = Monitor(
-//                                        id = data.id()!!,
-//                                        name = data.name()!!,
-//                                        serviceTag = data.serviceTag()!!,
-//                                        tag = data.tag()!!,
-//                                        lastTemp = data.data()!![0].value()!![0],
-//                                        lastLight = data.data()!![0].value()!![1],
-//                                        lastAirHumi = data.data()!![0].value()!![2],
-//                                        lastGndHumi = data.data()!![0].value()!![3],
-//                                        sensors = sensors
-//                                )
-//
-//
-//
-//                                postValue(ApiResponse.create(monitor))
-//                            } else {
-//                                postValue(ApiResponse.createError(errors[0].message()!!))
-//                            }
-//
-//
-//                        }
-//
-//                    })
-//                }
-//
-//            }
-//
-//        }
-//    }
 
     override fun getMonitorDataByDate(tag: String, year: Int, month: Int, day: Int): LiveData<ApiResponse<SensorData>> {
         val query = GetMonitorDataByDateQuery
@@ -820,8 +739,7 @@ class Apollo @Inject constructor(
     }
 
 
-
-    override fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<Monitor>> {
+    override fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<ApiResponse<MonitorWithSensorsModel>> {
         val mutation = apolloClient.mutate(
                 AddMonitorMutation.builder()
                         .serviceTag(serviceTag)
@@ -829,7 +747,7 @@ class Apollo @Inject constructor(
                         .name(name)
                         .build()
         )
-        return object : LiveData<ApiResponse<Monitor>>() {
+        return object : LiveData<ApiResponse<MonitorWithSensorsModel>>() {
             private var started = AtomicBoolean(false)
             override fun onActive() {
                 super.onActive()
@@ -844,8 +762,27 @@ class Apollo @Inject constructor(
                             val errors = response.errors()
                             if (errors.isEmpty()) {
                                 val data = response.data()!!.addMonitor()!!
-                                val result = Monitor(id = data.id()!!, name = data.name()!!, tag = data.tag()!!, serviceTag = data.serviceTag()!!)
-                                postValue(ApiResponse.create(result))
+                                val result = Monitor(
+                                        id = data.id()!!, name = data.name()!!,
+                                        tag = data.tag()!!, serviceTag = data.serviceTag()!!
+                                )
+
+                                val sensors=ArrayList<Sensor>()
+                                data.sensors()!!.forEach {
+                                    val sensor = Sensor(
+                                            id = it.id()!!,
+                                            name = it.name()!!,
+                                            index = it.index()!!,
+                                            tag = it.tag(),
+                                            serviceTag = it.serviceTag()!!,
+                                            isPeriodic = it.isPeriodic,
+                                            hour = it.hour(),
+                                            minute = it.minute(),
+                                            sensorID = it.sensorID()
+                                    )
+                                    sensors.add(sensor)
+                                }
+                                postValue(ApiResponse.create(MonitorWithSensorsModel(monitor = result,sensors = sensors)))
                             } else {
                                 postValue(ApiResponse.createError(errors[0].message()!!))
                             }

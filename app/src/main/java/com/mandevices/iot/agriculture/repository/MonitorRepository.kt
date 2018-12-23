@@ -49,10 +49,9 @@ class MonitorRepository @Inject constructor(
     fun loadMonitors(serviceTag: String): LiveData<Resource<List<MonitorWithSensors>>> {
         return object : NetworkBoundResource<List<MonitorWithSensors>, List<MonitorWithSensorsModel>>(appExecutors) {
             override fun saveCallResult(item: List<MonitorWithSensorsModel>) {
-                if(item.isEmpty()){
-                    monitorDao.deleteAllRecord()
-                }
-                for (o in item){
+                monitorDao.deleteAllRecord()
+                sensorDao.deleteAllRecord()
+                for (o in item) {
                     monitorDao.insert(o.monitor)
                     sensorDao.insertList(o.sensors!!)
 
@@ -119,9 +118,9 @@ class MonitorRepository @Inject constructor(
             minute: String,
             hour: String)
             : LiveData<Resource<Monitor>> {
-        return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
-            override fun saveCallResult(item: Monitor) {
-                monitorDao.update(item)
+        return object : NetworkBoundResource<Monitor, Sensor>(appExecutors) {
+            override fun saveCallResult(item: Sensor) {
+                sensorDao.update(item)
 
             }
 
@@ -144,9 +143,10 @@ class MonitorRepository @Inject constructor(
     }
 
     fun addMonitor(serviceTag: String, tag: String, name: String): LiveData<Resource<Monitor>> {
-        return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
-            override fun saveCallResult(item: Monitor) {
-                monitorDao.insert(item)
+        return object : NetworkBoundResource<Monitor, MonitorWithSensorsModel>(appExecutors) {
+            override fun saveCallResult(item: MonitorWithSensorsModel) {
+                monitorDao.insert(item.monitor)
+                sensorDao.insertList(item.sensors!!)
 
             }
 
@@ -184,7 +184,7 @@ class MonitorRepository @Inject constructor(
     fun editMonitor(tag: String, name: String): LiveData<Resource<Monitor>> {
         return object : NetworkBoundResource<Monitor, Monitor>(appExecutors) {
             override fun saveCallResult(item: Monitor) {
-                monitorDao.updateNameByTag(name = item.name,tag = item.tag)
+                monitorDao.updateNameByTag(name = item.name, tag = item.tag)
             }
 
             override fun shouldFetch(data: Monitor?): Boolean {

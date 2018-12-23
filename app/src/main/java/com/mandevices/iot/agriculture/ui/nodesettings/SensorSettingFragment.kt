@@ -64,10 +64,8 @@ class SensorSettingFragment : Fragment(), Injectable {
         val currentTime = Calendar.getInstance()
         val mHour = currentTime.get(Calendar.HOUR_OF_DAY)
         val mMinute = currentTime.get(Calendar.MINUTE)
+        binding.selectedTimeText.text = "${timeTextFormat(mHour)}:${timeTextFormat(mMinute)}"
         binding.selectedTimeText.setOnClickListener {
-
-
-            binding.selectedTimeText.text = "${timeTextFormat(mHour)}:${timeTextFormat(mMinute)}"
 
             TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                 binding.selectedTimeText.text = "${timeTextFormat(hourOfDay)}:${timeTextFormat(minute)}"
