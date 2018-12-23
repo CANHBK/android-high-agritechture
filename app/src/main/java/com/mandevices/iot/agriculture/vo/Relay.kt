@@ -11,14 +11,14 @@ import java.io.Serializable
 )
 data class Relay(
         val id: String,
-        val name: String,
-        val index:Int,
-        val controlTag: String,
         val serviceTag: String,
-        val isRepeat:Boolean,
+        val controlTag: String,
+        val index:Int,
+        val state:String,
+        val name: String,
+        val isRepeat:Boolean?,
         val onMinute:String?,
         val onHour:String?,
         val offMinute:String?,
-        val offHour:String?,
-        val state:String
+        val offHour:String?
 ):Serializable

@@ -8,10 +8,7 @@ import com.mandevices.iot.agriculture.ui.control.EditControlBottomSheet
 import com.mandevices.iot.agriculture.ui.dashboard.*
 import com.mandevices.iot.agriculture.ui.register.RegisterFragment
 import com.mandevices.iot.agriculture.ui.login.LoginFragment
-import com.mandevices.iot.agriculture.ui.monitor.AddNodeBottomSheet
-import com.mandevices.iot.agriculture.ui.monitor.DeleteNodeBottomSheet
-import com.mandevices.iot.agriculture.ui.monitor.EditNodeBottomSheet
-import com.mandevices.iot.agriculture.ui.monitor.MonitorFragment
+import com.mandevices.iot.agriculture.ui.monitor.*
 import com.mandevices.iot.agriculture.ui.nodesettings.SensorSettingFragment
 import com.mandevices.iot.agriculture.ui.relaysettings.RelaySettingFragment
 
@@ -26,6 +23,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeAddNodeBottomSheet(): AddNodeBottomSheet
+    @ContributesAndroidInjector
+    abstract fun contributeSetTimeBottomSheet(): SetTimeBottomSheet
 
     @ContributesAndroidInjector
     abstract fun contributeEditNodeBottomSheet(): EditNodeBottomSheet

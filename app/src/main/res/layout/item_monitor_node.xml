@@ -108,21 +108,21 @@
                     android:padding="5dp"
                     app:srcCompat="@drawable/ic_refresh_black_36dp" />
 
-                <ImageView
-                    android:id="@+id/img_battery"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_battery_80_black_24dp" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/img_battery"-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:padding="5dp"-->
+                    <!--android:src="@drawable/ic_battery_80_black_24dp" />-->
 
-                <TextView
-                    android:id="@+id/battery_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="30" />
+                <!--<TextView-->
+                    <!--android:id="@+id/battery_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="30" />-->
 
             </LinearLayout>
 
@@ -191,7 +191,7 @@
                 android:paddingBottom="8dp"
                 android:weightSum="10"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"
                 app:visibleIfNotNull="@{sensorsList[0]}">
 
                 <TextView
@@ -215,6 +215,7 @@
                     tools:text="30" />
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/temp_sensor_setup_button"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -222,14 +223,13 @@
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:padding="5dp"
-                    android:src="@drawable/ic_ios_settings" />
+                    android:src="@drawable/ic_timer_black_24dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/light"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
                 android:background="@drawable/bg_light_blue_rounded_filled"
                 android:clickable="true"
                 android:focusable="true"
@@ -240,7 +240,7 @@
                 android:paddingBottom="8dp"
                 android:weightSum="10"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView12"
+                app:layout_constraintTop_toBottomOf="@+id/temp"
                 app:visibleIfNotNull="@{sensorsList[1]}">
 
                 <TextView
@@ -264,6 +264,7 @@
                     tools:text="30" />
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/light_sensor_setting"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -271,14 +272,13 @@
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:padding="5dp"
-                    android:src="@drawable/ic_ios_settings" />
+                    android:src="@drawable/ic_timer_black_24dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/air_humi"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="4dp"
                 android:layout_weight="10"
                 android:background="@color/light_yellow"
                 android:clickable="true"
@@ -289,7 +289,7 @@
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView14"
+                app:layout_constraintTop_toBottomOf="@+id/light"
                 app:visibleIfNotNull="@{sensorsList[2]}">
 
                 <TextView
@@ -313,6 +313,7 @@
                     tools:text="30" />
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/air_humi_setup_button"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -320,14 +321,13 @@
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:padding="5dp"
-                    android:src="@drawable/ic_ios_settings" />
+                    android:src="@drawable/ic_timer_black_24dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/gnd_humi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
                 android:background="@color/light_brown"
                 android:clickable="true"
                 android:focusable="true"
@@ -338,7 +338,7 @@
                 android:paddingBottom="8dp"
                 android:weightSum="10"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView16"
+                app:layout_constraintTop_toBottomOf="@+id/air_humi"
                 app:visibleIfNotNull="@{sensorsList[3]}">
 
                 <TextView
@@ -362,6 +362,7 @@
                     tools:text="30" />
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/gnd_setup_button"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
@@ -369,164 +370,164 @@
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:padding="5dp"
-                    android:src="@drawable/ic_ios_settings" />
+                    android:src="@drawable/ic_timer_black_24dp" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="56dp"
-                android:src="@drawable/ic_timer_black_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_node_id" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView5"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="56dp"-->
+                <!--android:src="@drawable/ic_timer_black_24dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/txt_node_id" />-->
 
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toTopOf="@+id/imageView5"
-                app:time="@{sensorsList[0]}" />
+            <!--<TextView-->
+                <!--android:id="@+id/textView17"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:text="TextView"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/imageView5"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/imageView5"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/imageView5"-->
+                <!--app:time="@{sensorsList[0]}" />-->
 
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_loop_black_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView17"
-                app:layout_constraintStart_toEndOf="@+id/textView17"
-                app:layout_constraintTop_toTopOf="@+id/textView17"
-                app:visibleIfPeriodic="@{sensorsList[0]}" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView11"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:src="@drawable/ic_loop_black_24dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/textView17"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/textView17"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/textView17"-->
+                <!--app:visibleIfPeriodic="@{sensorsList[0]}" />-->
 
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_timer_black_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/temp" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView12"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:src="@drawable/ic_timer_black_24dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/temp" />-->
 
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_loop_black_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView18"
-                app:layout_constraintStart_toEndOf="@+id/textView18"
-                app:layout_constraintTop_toTopOf="@+id/textView18"
-                app:visibleIfPeriodic="@{sensorsList[1]}" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView13"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:src="@drawable/ic_loop_black_24dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/textView18"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/textView18"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/textView18"-->
+                <!--app:visibleIfPeriodic="@{sensorsList[1]}" />-->
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                app:layout_constraintStart_toEndOf="@+id/imageView12"
-                app:layout_constraintTop_toTopOf="@+id/imageView12"
-                app:time="@{sensorsList[1]}" />
+            <!--<TextView-->
+                <!--android:id="@+id/textView18"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:text="TextView"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/imageView12"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/imageView12"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/imageView12"-->
+                <!--app:time="@{sensorsList[1]}" />-->
 
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_timer_black_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/light" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView14"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:src="@drawable/ic_timer_black_24dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/light" />-->
 
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView14"
-                app:layout_constraintStart_toEndOf="@+id/imageView14"
-                app:layout_constraintTop_toTopOf="@+id/imageView14"
-                app:time="@{sensorsList[2]}" />
+            <!--<TextView-->
+                <!--android:id="@+id/textView19"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:text="TextView"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/imageView14"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/imageView14"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/imageView14"-->
+                <!--app:time="@{sensorsList[2]}" />-->
 
-            <ImageView
-                android:id="@+id/imageView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_loop_black_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView19"
-                app:layout_constraintStart_toEndOf="@+id/textView19"
-                app:layout_constraintTop_toTopOf="@+id/textView19"
-                app:visibleIfPeriodic="@{sensorsList[2]}" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView15"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:src="@drawable/ic_loop_black_24dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/textView19"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/textView19"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/textView19"-->
+                <!--app:visibleIfPeriodic="@{sensorsList[2]}" />-->
 
-            <ImageView
-                android:id="@+id/imageView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_timer_black_24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/air_humi" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView16"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:src="@drawable/ic_timer_black_24dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/air_humi" />-->
 
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-                app:layout_constraintStart_toEndOf="@+id/imageView16"
-                app:layout_constraintTop_toTopOf="@+id/imageView16"
-                app:time="@{sensorsList[3]}" />
+            <!--<TextView-->
+                <!--android:id="@+id/textView21"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--android:text="TextView"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/imageView16"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/imageView16"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/imageView16"-->
+                <!--app:time="@{sensorsList[3]}" />-->
 
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_loop_black_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView21"
-                app:layout_constraintStart_toEndOf="@+id/textView21"
-                app:layout_constraintTop_toTopOf="@+id/textView21"
-                app:visibleIfPeriodic="@{sensorsList[3]}" />
+            <!--<ImageView-->
+                <!--android:id="@+id/imageView17"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="8dp"-->
+                <!--android:src="@drawable/ic_loop_black_24dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="@+id/textView21"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/textView21"-->
+                <!--app:layout_constraintTop_toTopOf="@+id/textView21"-->
+                <!--app:visibleIfPeriodic="@{sensorsList[3]}" />-->
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="textView17,imageView5"
-                app:visibleIfSensorSetting="@{sensorsList[0]}" />
+            <!--<androidx.constraintlayout.widget.Group-->
+                <!--android:id="@+id/group3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:constraint_referenced_ids="textView17,imageView5"-->
+                <!--app:visibleIfSensorSetting="@{sensorsList[0]}" />-->
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="imageView12,textView18"
-                app:visibleIfSensorSetting="@{sensorsList[1]}" />
+            <!--<androidx.constraintlayout.widget.Group-->
+                <!--android:id="@+id/group4"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:constraint_referenced_ids="imageView12,textView18"-->
+                <!--app:visibleIfSensorSetting="@{sensorsList[1]}" />-->
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="textView19,imageView14"
-                app:visibleIfSensorSetting="@{sensorsList[2]}" />
+            <!--<androidx.constraintlayout.widget.Group-->
+                <!--android:id="@+id/group5"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:constraint_referenced_ids="textView19,imageView14"-->
+                <!--app:visibleIfSensorSetting="@{sensorsList[2]}" />-->
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="textView21,imageView16"
-                app:visibleIfSensorSetting="@{sensorsList[3]}" />
+            <!--<androidx.constraintlayout.widget.Group-->
+                <!--android:id="@+id/group6"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:constraint_referenced_ids="textView21,imageView16"-->
+                <!--app:visibleIfSensorSetting="@{sensorsList[3]}" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

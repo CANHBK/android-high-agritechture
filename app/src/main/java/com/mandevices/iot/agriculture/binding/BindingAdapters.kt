@@ -97,7 +97,7 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("visibleIfRepeat")
     fun visibleIfRepeat(view: View, relay: Relay) {
-        view.visibility = if (relay.isRepeat) View.VISIBLE else View.GONE
+        view.visibility = relay.isRepeat?.let {  if (it) View.VISIBLE else View.GONE}?:View.GONE
 
     }
 

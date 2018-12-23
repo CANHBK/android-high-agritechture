@@ -119,6 +119,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="set_time_sensor">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="setting_sensor">
                               <value>
                                 <LayoutPositions />
@@ -169,6 +174,18 @@
                           <Point>
                             <option name="x" value="1024" />
                             <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="setTimeBottomSheet">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="524" />
+                            <option name="y" value="-336" />
                           </Point>
                         </option>
                       </LayoutPositions>

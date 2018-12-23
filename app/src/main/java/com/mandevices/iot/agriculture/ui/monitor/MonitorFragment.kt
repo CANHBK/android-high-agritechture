@@ -38,6 +38,7 @@ class MonitorFragment : Fragment(), Injectable {
     private var addBottomSheet: AddNodeBottomSheet? = null
     private var deleteBottomSheet: DeleteNodeBottomSheet? = null
     private var editBottomSheet: EditNodeBottomSheet? = null
+    private var setTimeSensorBottomSheet: SetTimeBottomSheet? = null
 
     @Inject
     lateinit var client: MqttAndroidClient
@@ -117,9 +118,11 @@ class MonitorFragment : Fragment(), Injectable {
                     editBottomSheet = EditNodeBottomSheet.newInstance(monitor = it, monitorViewModel = monitorViewModel)
                     editBottomSheet?.show(activity!!.supportFragmentManager, editBottomSheet?.tag)
                 },
-                onSensorSetting = { monitor, sensor ->
-                    val sensorSetting = MonitorFragmentDirections.settingSensor(monitor, sensor)
-                    view.findNavController().navigate(sensorSetting)
+                onSetTimeSensor = { sensor ->
+                    setTimeSensorBottomSheet = SetTimeBottomSheet.newInstance(sensor = sensor, monitorViewModel = monitorViewModel)
+                    setTimeSensorBottomSheet?.show(activity!!.supportFragmentManager, setTimeSensorBottomSheet?.tag)
+//                    val setTimeSensor = MonitorFragmentDirections.setTimeSensor(sensor)
+//                    view.findNavController().navigate(setTimeSensor)
 
                 },
                 onDataChartClick = { monitorTag, dataIndex ->
@@ -128,7 +131,7 @@ class MonitorFragment : Fragment(), Injectable {
                 onRefresh = { binding, monitor ->
                     monitorViewModel.getMonitorParams(monitor.serviceTag, monitor.tag)
                     monitorViewModel.monitorParams.observe(viewLifecycleOwner, Observer {
-                        binding.resultRefresh=it
+                        binding.resultRefresh = it
                     })
                 }
         ).also {
@@ -156,6 +159,15 @@ class MonitorFragment : Fragment(), Injectable {
                 if (it.status == Status.SUCCESS) {
                     try {
                         addBottomSheet?.dismiss()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
+            configTimerMonitor.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS) {
+                    try {
+                        setTimeSensorBottomSheet?.dismiss()
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -200,7 +212,7 @@ class MonitorFragment : Fragment(), Injectable {
                     }
 
                     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else myMqttSubscribe("GET-ENVIRONMENT-PARAMS")

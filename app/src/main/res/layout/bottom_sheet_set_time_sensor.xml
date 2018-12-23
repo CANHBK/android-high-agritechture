@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mandevices.iot.agriculture.ui.monitor.EditNodeBottomSheet">
+
+    <data>
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Monitor" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Resource" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Status" />
+
+        <import type="com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel" />
+
+        <import type="com.mandevices.iot.agriculture.vo.Sensor" />
+
+        <variable
+            name="sensor"
+            type="Sensor" />
+
+        <variable
+            name="result"
+            type="LiveData&lt;Resource&lt;Monitor>>" />
+
+        <variable
+            name="viewModel"
+            type="com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/load_more_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{result.status==Status.LOADING}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{result.message}"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:visibleGone="@{result.status==Status.ERROR}" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_sensor" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="9"
+                android:text="Thay đổi thời gian gửi dữ liệu"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{sensor.name}"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:text="Nhiệt độ" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/edt_node_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:selectAllOnFocus="true"
+            android:hint="Thời gian"
+            android:inputType="number"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@={viewModel.setTimeForm.fields.time}"
+            android:textSize="18sp"
+            app:error="@{viewModel.setTimeForm.timeError}" />
+
+        <!--<EditText-->
+        <!--android:id="@+id/edt_node_name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="36dp"-->
+        <!--android:background="@drawable/bg_edit_text"-->
+        <!--android:ems="10"-->
+        <!--app:error="@{viewModel.editMonitorForm.nameError}"-->
+        <!--tools:hint="Tên node cảm biến"-->
+        <!--android:selectAllOnFocus="true"-->
+        <!--android:text="@={viewModel.editMonitorForm.fields.name}"-->
+        <!--android:inputType="textPersonName"-->
+        <!--android:paddingStart="16dp"-->
+        <!--android:paddingTop="8dp"-->
+        <!--android:paddingBottom="8dp"-->
+        <!--android:textSize="18sp" />-->
+
+        <Button
+            android:id="@+id/btn_edit"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="@{()->viewModel.onSetTimeClick()}"
+            android:text="Lưu"
+            android:textAllCaps="false"
+            android:textStyle="bold" />
+    </LinearLayout>
+</layout>

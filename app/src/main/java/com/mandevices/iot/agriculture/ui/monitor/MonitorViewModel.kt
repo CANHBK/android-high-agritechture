@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.mandevices.iot.agriculture.repository.MonitorRepository
-import com.mandevices.iot.agriculture.ui.monitor.model.AddMonitorFields
-import com.mandevices.iot.agriculture.ui.monitor.model.AddMonitorForm
-import com.mandevices.iot.agriculture.ui.monitor.model.EditMonitorFields
-import com.mandevices.iot.agriculture.ui.monitor.model.EditMonitorForm
+import com.mandevices.iot.agriculture.ui.monitor.model.*
 import com.mandevices.iot.agriculture.util.AbsentLiveData
 import com.mandevices.iot.agriculture.util.ObservableViewModel
 import com.mandevices.iot.agriculture.vo.Monitor
@@ -43,6 +40,7 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
 
     private lateinit var addMonitorForm: AddMonitorForm
     private lateinit var editMonitorForm: EditMonitorForm
+    private lateinit var setTimeForm: SetTimeForm
 
     fun initAddMonitor() {
         addMonitorForm = AddMonitorForm()
@@ -50,6 +48,10 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
 
     fun initEditMonitor() {
         editMonitorForm = EditMonitorForm()
+    }
+
+    fun initSetTime() {
+        setTimeForm = SetTimeForm()
     }
 
 
@@ -102,7 +104,7 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
                 }
             }
 
- val newestMonitorData: LiveData<Resource<Monitor>> = Transformations
+    val newestMonitorData: LiveData<Resource<Monitor>> = Transformations
             .switchMap(triggerGetNewestMonitorData) { it ->
                 if (it == null) {
                     AbsentLiveData.create()
@@ -135,6 +137,11 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
         return addMonitorForm
     }
 
+    fun getSetTimeForm(): SetTimeForm {
+
+        return setTimeForm
+    }
+
     fun getEditMonitorForm(): EditMonitorForm {
 
         return editMonitorForm
@@ -152,9 +159,18 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
         editMonitorForm.onClick()
     }
 
+    fun onSetTimeClick() {
+        setTimeForm.isTimeValid(true)
+        setTimeForm.onClick()
+    }
+
 
     fun getAddMonitorFields(): MutableLiveData<AddMonitorFields>? {
         return addMonitorForm.addMonitorFields
+    }
+
+    fun getSetTimeFields(): MutableLiveData<SetTimeFields>? {
+        return setTimeForm.setTimeFields
     }
 
     fun getEditMonitorFields(): MutableLiveData<EditMonitorFields>? {
@@ -192,7 +208,7 @@ class MonitorViewModel @Inject constructor(repository: MonitorRepository) : Obse
         triggerGetMonitorParams.value = Random.nextInt(1, 10)
     }
 
-    fun getNewestMonitorData(tag:String){
+    fun getNewestMonitorData(tag: String) {
         this.tag.value = tag
         triggerGetNewestMonitorData.value = Random.nextInt(1, 10)
     }

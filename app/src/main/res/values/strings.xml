@@ -10,6 +10,7 @@
     <string name="error_format_invalid">sai định dạng</string>
     <string name="password_not_match">Mật khẩu không khớp</string>
     <string name="not_empty">Không được trống</string>
+    <string name="not_valid_time">Thời gian phải nhỏ hơn 60 phút</string>
     <string name="id_gate">ID bộ điều khiển</string>
     <string name="over_view">Tổng quan</string>
     <string name="list_gates">Danh sách bộ điều khiển trung tâm</string>

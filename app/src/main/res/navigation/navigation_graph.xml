@@ -60,6 +60,9 @@
         <action
             android:id="@+id/monitor_chart"
             app:destination="@id/fragmentChart" />
+        <action
+            android:id="@+id/set_time_sensor"
+            app:destination="@id/setTimeBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/monitorSettingFragment"
@@ -107,5 +110,13 @@
         <argument
             android:name="dataIndex"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/setTimeBottomSheet"
+        android:name="com.mandevices.iot.agriculture.ui.monitor.SetTimeBottomSheet"
+        android:label="SetTimeBottomSheet" >
+        <argument
+            android:name="sensor"
+            app:argType="com.mandevices.iot.agriculture.vo.Sensor"  />
     </fragment>
 </navigation>

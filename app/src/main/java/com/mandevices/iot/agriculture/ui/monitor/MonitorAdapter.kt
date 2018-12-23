@@ -6,15 +6,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.mandevices.iot.agriculture.R
 import com.mandevices.iot.agriculture.databinding.ItemMonitorNodeBinding
 import com.mandevices.iot.agriculture.ui.common.DataBoundListAdapter
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.vo.Monitor
 import com.mandevices.iot.agriculture.vo.MonitorWithSensors
-import com.mandevices.iot.agriculture.vo.Relay
 import com.mandevices.iot.agriculture.vo.Sensor
 
 class MonitorAdapter(
@@ -23,7 +20,7 @@ class MonitorAdapter(
         private val monitorViewModel: MonitorViewModel,
         private val onDeleteClick: (Monitor) -> Unit,
         private val onEditClick: (Monitor) -> Unit,
-        private val onSensorSetting: (Monitor, Sensor) -> Unit,
+        private val onSetTimeSensor: (Sensor) -> Unit,
         private val onRefresh: (ItemMonitorNodeBinding,Monitor) -> Unit,
         private val onDataChartClick: (String, Int) -> Unit
 ) : DataBoundListAdapter<MonitorWithSensors, ItemMonitorNodeBinding>(
@@ -56,19 +53,19 @@ class MonitorAdapter(
             }
 
             tempSensorSetupButton.setOnClickListener {
-                onSensorSetting(item.monitor!!, item.sensorList!![0])
+                onSetTimeSensor(item.sensorList!![0])
             }
 
             lightSensorSetting.setOnClickListener {
-                onSensorSetting(item.monitor!!, item.sensorList!![1])
+                onSetTimeSensor(item.sensorList!![1])
             }
 
             airHumiSetupButton.setOnClickListener {
-                onSensorSetting(item.monitor!!, item.sensorList!![2])
+                onSetTimeSensor( item.sensorList!![2])
             }
 
             gndSetupButton.setOnClickListener {
-                onSensorSetting(item.monitor!!, item.sensorList!![3])
+                onSetTimeSensor( item.sensorList!![3])
             }
 
             temp.setOnClickListener {

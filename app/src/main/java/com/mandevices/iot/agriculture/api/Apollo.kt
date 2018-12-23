@@ -329,7 +329,6 @@ class Apollo @Inject constructor(
                         override fun onResponse(response: Response<GetMonitorParamsQuery.Data>) {
                             val errors = response.errors()
                             if (errors.isEmpty()) {
-                                val data = response.data()!!.monitorParams!!
                                 val sensorsData = response.data()!!.allSensor()
 
 
@@ -348,7 +347,6 @@ class Apollo @Inject constructor(
                                     )
                                     sensorList.add(sensor)
                                 }
-
 
                                 postValue(ApiResponse.create(sensorList))
                             } else {

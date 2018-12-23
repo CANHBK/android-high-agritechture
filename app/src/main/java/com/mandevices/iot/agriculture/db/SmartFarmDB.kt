@@ -6,7 +6,7 @@ import com.mandevices.iot.agriculture.vo.*
 
 @Database(
         entities = [Gate::class,User::class,Monitor::class,Control::class,Relay::class,SensorData::class,Sensor::class],
-        version = 23,
+        version = 24,
         exportSchema = true
 )
 abstract class SmartFarmDB : RoomDatabase() {
