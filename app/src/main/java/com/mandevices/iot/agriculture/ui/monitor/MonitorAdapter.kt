@@ -41,25 +41,6 @@ class MonitorAdapter(
     }
 
     override fun bind(binding: ItemMonitorNodeBinding, item: MonitorWithSensors) {
-//
-//        val gson = GsonBuilder().setPrettyPrinting().create()
-//
-//        //TODO: Khi lấy dữ liệu mới nhất thì item.sensors bị null, mặc dù trong repository không null
-//        var sensorsListInput: List<Sensor> = gson.fromJson(item.monitor?.sensors, object : TypeToken<List<Sensor>>() {}.type)
-//
-//        sensorsListInput = sensorsListInput.sortedWith(compareBy {
-//            it.index
-//        })
-
-        //        E-003-F:0
-        val sensorHexString = item.monitor?.tag!!.split(":")[0].split("-")[2]
-        val sensorHex = java.lang.Long.parseLong(sensorHexString, 16)
-//        val sensorBit =
-        val sensorBitInt = mutableListOf<Int>()
-        for (bit in sensorHex.toString(2).toByteArray()) {
-            sensorBitInt.add(bit - 48)
-        }
-
 
         binding.apply {
             monitor = item.monitor
@@ -106,7 +87,6 @@ class MonitorAdapter(
                 onDataChartClick(item.monitor!!.tag, 4)
             }
             sensorsList = item.sensorList!!
-            sensorBit = sensorBitInt.reversed()
         }
 
 
