@@ -121,7 +121,7 @@ class ControlFragment : Fragment(), Injectable {
 
 
             }
-            topToolbar.inflateMenu(R.menu.menu_dashboard)
+//            topToolbar.inflateMenu(R.menu.menu_dashboard)
         }
 
 

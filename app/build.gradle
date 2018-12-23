@@ -120,6 +120,7 @@ dependencies {
 
     // chart and graph
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    implementation 'im.dacer:AndroidCharts:1.0.4'
 
     // MQTT
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'

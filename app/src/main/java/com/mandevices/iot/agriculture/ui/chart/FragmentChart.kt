@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingComponent
@@ -23,13 +22,11 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.mandevices.iot.agriculture.R
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.mandevices.iot.agriculture.binding.FragmentDataBindingComponent
 import com.mandevices.iot.agriculture.databinding.FragmentChartBinding
-import com.mandevices.iot.agriculture.databinding.FragmentControlBinding
-import com.mandevices.iot.agriculture.db.RelayDao
 import com.mandevices.iot.agriculture.di.Injectable
-import com.mandevices.iot.agriculture.ui.control.*
+import com.mandevices.iot.agriculture.ui.control.ControlAdapter
 import com.mandevices.iot.agriculture.ui.monitor.MonitorViewModel
 import com.mandevices.iot.agriculture.util.AppExecutors
 import com.mandevices.iot.agriculture.util.autoCleared
@@ -38,11 +35,12 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 import org.json.JSONArray
-import org.json.JSONObject
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.floor
 import kotlin.math.roundToInt
+import com.mandevices.iot.agriculture.R
+import com.mandevices.iot.agriculture.util.MyCustomMarker
 
 class FragmentChart : Fragment(), Injectable {
 
@@ -74,7 +72,7 @@ class FragmentChart : Fragment(), Injectable {
 
     private var adapter by autoCleared<ControlAdapter>()
 
-    private val sensorNameList = listOf<String>("", "Nhiệt độ", "Ánh sáng", "Độ ẩm không khí", "Độ ẩm đất")
+    private val sensorNameList = listOf("", "Nhiệt độ", "Ánh sáng", "Độ ẩm không khí", "Độ ẩm đất")
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -150,18 +148,25 @@ class FragmentChart : Fragment(), Injectable {
                 xAxis.apply {
                     position = XAxis.XAxisPosition.BOTTOM
                     setDrawGridLines(false)
+                    labelCount = 6
+                    valueFormatter = IAxisValueFormatter { value, axis ->
+                        val hour = if (floor(value / 60).toInt() < 10) "0${floor(value / 60).toInt()}" else "${floor(value / 60).toInt()}"
+                        val minute = if (floor(value - 60 * floor(value / 60).toInt()).toInt() < 10) "0${floor(value - 60 * floor(value / 60).toInt()).toInt()}" else "${floor(value - 60 * floor(value / 60).toInt()).toInt()}"
+                        "$hour:$minute"
+                    }
                 }
                 axisRight.isEnabled = false
                 isDragEnabled = true
+
                 Description().also { description ->
-                    description.text = "Ten Sensor"
+                    description.text = sensorNameList[dataIndex!!]
                     this.description = description
                 }
                 isScaleXEnabled = true
                 isScaleYEnabled = true
-                setVisibleXRangeMaximum(12f)
+
                 animateX(1000, Easing.Linear)
-                moveViewToX(100f)
+//                markerView = MyCustomMarker(context, R.layout.custom_marker_view_layout)
                 legend.isEnabled = true
             }
         }
@@ -182,13 +187,17 @@ class FragmentChart : Fragment(), Injectable {
                             val dataObject = dataArray.getJSONObject(i)
                             val dataValue = dataObject.getJSONArray("value")
                             val dataInt = dataValue.optInt(dataIndex!! - 1)
-                            dataValueArray.add(dataInt)
-                            val dataTimeLong = dataObject.getLong("updatedAt")
-                            val date = Calendar.getInstance()
-                            date.timeInMillis = dataTimeLong
-                            entries.add(
-                                    Entry((date.get(Calendar.HOUR_OF_DAY) + date.get(Calendar.MINUTE) / 60).toFloat(),
-                                            dataInt.toFloat()))
+                            if (dataInt != -1) {
+                                dataValueArray.add(dataInt)
+                                val dataTimeLong = dataObject.getLong("updatedAt")
+                                val date = Calendar.getInstance()
+                                date.timeInMillis = dataTimeLong
+                                entries.add(
+//                                        Entry((date.get(Calendar.HOUR_OF_DAY).toFloat() + date.get(Calendar.MINUTE).toFloat() / 60.toFloat()),
+//                                                dataInt.toFloat()))
+                                        Entry((date.get(Calendar.HOUR_OF_DAY) * 60 + date.get(Calendar.MINUTE)).toFloat(),
+                                                dataInt.toFloat()))
+                            }
                         }
 
                         var aveValue = 0f
@@ -208,6 +217,7 @@ class FragmentChart : Fragment(), Injectable {
                                         setDrawFilled(true)
                                         fillColor = Color.parseColor("#ffc9c7")
                                         valueTextColor = Color.parseColor("#000000")
+                                        mode = LineDataSet.Mode.CUBIC_BEZIER;
                                     }
 
                                     binding.lineChart.data = LineData(lineDataSet)
@@ -231,14 +241,14 @@ class FragmentChart : Fragment(), Injectable {
                     }
 
                     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(context, "CONNECTION FAILED", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else myMqttSubscribe("RELAY")
 
             client.setCallback(object : MqttCallback {
                 override fun messageArrived(topic: String?, message: MqttMessage?) {
-                    Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "$topic - ${message.toString()}", Toast.LENGTH_SHORT).show()
 //                    controlViewModel.loadControls(serviceTag)
                 }
 
