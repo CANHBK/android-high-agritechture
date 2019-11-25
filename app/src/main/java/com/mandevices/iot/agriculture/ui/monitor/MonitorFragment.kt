@@ -67,7 +67,7 @@ class MonitorFragment : Fragment(), Injectable {
             savedInstanceState: Bundle?
     ): View? {
 
-        serviceTag = MonitorFragmentArgs.fromBundle(arguments).serviceTag
+        serviceTag = MonitorFragmentArgs.fromBundle(arguments!!).serviceTag
 
         val dataBinding = DataBindingUtil.inflate<FragmentMonitorBinding>(
                 inflater,

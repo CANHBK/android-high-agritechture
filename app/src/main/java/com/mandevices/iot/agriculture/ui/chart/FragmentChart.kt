@@ -79,8 +79,8 @@ class FragmentChart : Fragment(), Injectable {
             savedInstanceState: Bundle?
     ): View? {
 
-        monitorTag = FragmentChartArgs.fromBundle(arguments).monitorTag
-        dataIndex = FragmentChartArgs.fromBundle(arguments).dataIndex
+        monitorTag = FragmentChartArgs.fromBundle(arguments!!).monitorTag
+        dataIndex = FragmentChartArgs.fromBundle(arguments!!).dataIndex
 
         val dataBinding = DataBindingUtil.inflate<FragmentChartBinding>(
                 inflater,

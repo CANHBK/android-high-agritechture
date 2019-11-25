@@ -8,6 +8,7 @@ import dagger.android.HasActivityInjector
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -22,6 +23,7 @@ class FarmApp : Application(), HasActivityInjector {
         super.onCreate()
 
         AppInjector.init(this)
+        Timber.plant(Timber.DebugTree())
 //        clientId = MqttClient.generateClientId()
 //        client = MqttAndroidClient(applicationContext, MqttConfig.MQTT_SERVER_URI , clientId)
 //        mqttConnectOptions = MqttConnectOptions()

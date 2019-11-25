@@ -1,26 +1,25 @@
 package com.mandevices.iot.agriculture.di
 
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
 import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport
+import com.mandevices.iot.agriculture.api.Apollo
 import com.mandevices.iot.agriculture.api.GraphQL
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import javax.inject.Singleton
-import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
-import com.mandevices.iot.agriculture.api.Apollo
-import com.mandevices.iot.agriculture.db.RelayDao
 import java.io.File
+import javax.inject.Singleton
 
 
 @Module(includes = [OkHttpClientModule::class])
 class ApolloModule {
     companion object {
-                private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
+        private val BASE_URl_GRAPHQL = "https://high-tech-agriculture.herokuapp.com/graphql"
 //        private val BASE_URl_GRAPHQL = "http://192.168.100.3:5000/graphql"
 //        private val BASE_URl_GRAPHQL = "http://10.0.2.2:5000/graphql"
 
-                private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
+        private val BASE_URl_SUBSCIPTION = "ws://high-tech-agriculture.herokuapp.com/graphql"
 //        private val BASE_URl_SUBSCIPTION = "ws://192.168.100.3:5000/graphql"
 //        private val BASE_URl_SUBSCIPTION = "ws://10.0.2.2:5000/graphql"
     }

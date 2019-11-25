@@ -76,7 +76,7 @@ class ControlFragment : Fragment(), Injectable {
             savedInstanceState: Bundle?
     ): View? {
 
-        serviceTag = ControlFragmentArgs.fromBundle(arguments).serviceTag
+        serviceTag = ControlFragmentArgs.fromBundle(arguments!!).serviceTag
 
         val dataBinding = DataBindingUtil.inflate<FragmentControlBinding>(
                 inflater,

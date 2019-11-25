@@ -11,6 +11,7 @@ import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.IMqttActionListener
 import org.eclipse.paho.client.mqttv3.IMqttToken
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions
+import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -34,6 +35,7 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
     private fun initConnect() {
+        Timber.d("init mqtt")
 
         try {
             val token = client.connect(mqttConnectOptions)

@@ -49,8 +49,8 @@ class RelaySettingFragment : Fragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        control = RelaySettingFragmentArgs.fromBundle(arguments).control
-        relayIndex = RelaySettingFragmentArgs.fromBundle(arguments).relayIndex
+        control = RelaySettingFragmentArgs.fromBundle(arguments!!).control
+        relayIndex = RelaySettingFragmentArgs.fromBundle(arguments!!).relayIndex
 
         val dataBinding = DataBindingUtil.inflate<FragmentRelaySettingBinding>(
                 inflater,

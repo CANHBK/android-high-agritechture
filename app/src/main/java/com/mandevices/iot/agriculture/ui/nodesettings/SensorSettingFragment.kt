@@ -50,8 +50,8 @@ class SensorSettingFragment : Fragment(), Injectable {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        monitor = SensorSettingFragmentArgs.fromBundle(arguments).monitor
-        sensor = SensorSettingFragmentArgs.fromBundle(arguments).sensor
+        monitor = SensorSettingFragmentArgs.fromBundle(arguments!!).monitor
+        sensor = SensorSettingFragmentArgs.fromBundle(arguments!!).sensor
         val dataBinding = DataBindingUtil.inflate<FragmentSensorSettingBinding>(
                 inflater,
                 R.layout.fragment_sensor_setting,
